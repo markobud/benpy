@@ -727,7 +727,7 @@ class vlpProblem:
                 else:
                     raise RuntimeError("Bad ch switch for constrains bounds")
             elif aa[i] == bb[i] and np.isfinite(aa[i]):
-                file.write('i %d s %g\n',i,aa[i])
+                file.write('i {} s {}\n'.format(i+1,aa[i]))
             else:
                 raise RuntimeError('Invalid constrsaints: a[{}]={}, b[{}]={}'.format(i+1,aa[i],i,bb[i]))
 
@@ -756,7 +756,7 @@ class vlpProblem:
                 else:
                     raise RuntimeError("Bad ch switch for variable bounds")
             elif llb[j] == uub[j] and np.isfinite(llb[j]):
-                file.write('i %d s %g\n',j+1,llb[j])
+                file.write('j {} s {}\n'.format(j+1,llb[j]))
             else:
                 raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
         file.write('e ')
