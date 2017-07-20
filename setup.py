@@ -15,6 +15,7 @@ ext = Extension("benpy",sources=["benpy.pyx",
                                     )
 setup(
 	name="benpy",
+	version="0.1",
 	ext_modules = cythonize([ext]),
 	include_dirs=[numpy.get_include()]
 )
