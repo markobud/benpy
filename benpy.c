@@ -451,8 +451,8 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__benpy
-#define __PYX_HAVE_API__benpy
+#define __PYX_HAVE__benpy__benpy
+#define __PYX_HAVE_API__benpy__benpy
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -682,7 +682,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "benpy.pyx",
+  "benpy/benpy.pyx",
   "__init__.pxd",
   "type.pxd",
 };
@@ -901,8 +901,8 @@ static CYTHON_INLINE __pyx_t_double_complex __pyx_t_double_complex_from_parts(do
 
 
 /*--- Type declarations ---*/
-struct __pyx_obj_5benpy__cVlpProblem;
-struct __pyx_obj_5benpy__cVlpSolution;
+struct __pyx_obj_5benpy_5benpy__cVlpProblem;
+struct __pyx_obj_5benpy_5benpy__cVlpSolution;
 
 /* "../../../opt/local/Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages/Cython/Includes/numpy/__init__.pxd":764
  * ctypedef npy_longdouble longdouble_t
@@ -939,30 +939,30 @@ typedef npy_clongdouble __pyx_t_5numpy_clongdouble_t;
  * cdef inline object PyArray_MultiIterNew1(a):
  */
 typedef npy_cdouble __pyx_t_5numpy_complex_t;
-struct __pyx_opt_args_5benpy__poly_output;
+struct __pyx_opt_args_5benpy_5benpy__poly_output;
 
-/* "benpy.pyx":572
+/* "benpy/benpy.pyx":572
  *     return(np.asarray(preimg))
  * 
  * cdef _poly_output(_cVlpSolution s,swap = 0):             # <<<<<<<<<<<<<<
  *     """Internal function. Mimics poly_output original functionality, but instead calling poly__*2file functions, use their _poly_*2arr counterparts to get the data."""
  *     cdef polytope *primal
  */
-struct __pyx_opt_args_5benpy__poly_output {
+struct __pyx_opt_args_5benpy_5benpy__poly_output {
   int __pyx_n;
   PyObject *swap;
 };
 
-/* "benpy.pyx":213
+/* "benpy/benpy.pyx":213
  *     void set_input(csatype *csa, char *filename)
  * 
  * cdef class _cVlpProblem:             # <<<<<<<<<<<<<<
  *     """Internal Wrap Class for Problem structure"""
  *     cdef opttype* _opt
  */
-struct __pyx_obj_5benpy__cVlpProblem {
+struct __pyx_obj_5benpy_5benpy__cVlpProblem {
   PyObject_HEAD
-  struct __pyx_vtabstruct_5benpy__cVlpProblem *__pyx_vtab;
+  struct __pyx_vtabstruct_5benpy_5benpy__cVlpProblem *__pyx_vtab;
   opttype *_opt;
   vlptype *_vlp;
   lptype *_lps;
@@ -971,14 +971,14 @@ struct __pyx_obj_5benpy__cVlpProblem {
 };
 
 
-/* "benpy.pyx":344
+/* "benpy/benpy.pyx":344
  *         print(<int>self._vlp)
  * 
  * cdef class _cVlpSolution:             # <<<<<<<<<<<<<<
  *     """Internal Wrap Class for Solution structure."""
  *     cdef soltype* _sol
  */
-struct __pyx_obj_5benpy__cVlpSolution {
+struct __pyx_obj_5benpy_5benpy__cVlpSolution {
   PyObject_HEAD
   soltype *_sol;
   poly_args *_image;
@@ -988,7 +988,7 @@ struct __pyx_obj_5benpy__cVlpSolution {
 
 
 
-/* "benpy.pyx":213
+/* "benpy/benpy.pyx":213
  *     void set_input(csatype *csa, char *filename)
  * 
  * cdef class _cVlpProblem:             # <<<<<<<<<<<<<<
@@ -996,10 +996,10 @@ struct __pyx_obj_5benpy__cVlpSolution {
  *     cdef opttype* _opt
  */
 
-struct __pyx_vtabstruct_5benpy__cVlpProblem {
-  PyObject *(*print_vlp_address)(struct __pyx_obj_5benpy__cVlpProblem *);
+struct __pyx_vtabstruct_5benpy_5benpy__cVlpProblem {
+  PyObject *(*print_vlp_address)(struct __pyx_obj_5benpy_5benpy__cVlpProblem *);
 };
-static struct __pyx_vtabstruct_5benpy__cVlpProblem *__pyx_vtabptr_5benpy__cVlpProblem;
+static struct __pyx_vtabstruct_5benpy_5benpy__cVlpProblem *__pyx_vtabptr_5benpy_5benpy__cVlpProblem;
 
 /* --- Runtime support code (head) --- */
 /* Refnanny.proto */
@@ -1640,7 +1640,7 @@ static PyTypeObject *__Pyx_ImportType(const char *module_name, const char *class
 /* InitStrings.proto */
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
-static PyObject *__pyx_f_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self); /* proto*/
+static PyObject *__pyx_f_5benpy_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self); /* proto*/
 
 /* Module declarations from 'cpython.buffer' */
 
@@ -1673,19 +1673,19 @@ static CYTHON_INLINE char *__pyx_f_5numpy__util_dtypestring(PyArray_Descr *, cha
 
 /* Module declarations from 'libc.limits' */
 
-/* Module declarations from 'benpy' */
-static PyTypeObject *__pyx_ptype_5benpy__cVlpProblem = 0;
-static PyTypeObject *__pyx_ptype_5benpy__cVlpSolution = 0;
-static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __pyx_obj_5benpy__cVlpProblem *); /*proto*/
-static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *, permutation *); /*proto*/
-static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *, permutation *); /*proto*/
-static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *, permutation *, permutation *); /*proto*/
-static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *, permutation *); /*proto*/
-static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSolution *, struct __pyx_opt_args_5benpy__poly_output *__pyx_optional_args); /*proto*/
-#define __Pyx_MODULE_NAME "benpy"
-int __pyx_module_is_main_benpy = 0;
+/* Module declarations from 'benpy.benpy' */
+static PyTypeObject *__pyx_ptype_5benpy_5benpy__cVlpProblem = 0;
+static PyTypeObject *__pyx_ptype_5benpy_5benpy__cVlpSolution = 0;
+static struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_f_5benpy_5benpy__csolve(struct __pyx_obj_5benpy_5benpy__cVlpProblem *); /*proto*/
+static PyObject *__pyx_f_5benpy_5benpy__poly__vrtx2arr(polytope *, permutation *); /*proto*/
+static PyObject *__pyx_f_5benpy_5benpy__poly__adj2arr(polytope *, permutation *); /*proto*/
+static PyObject *__pyx_f_5benpy_5benpy__poly__inc2arr(polytope *, permutation *, permutation *); /*proto*/
+static PyObject *__pyx_f_5benpy_5benpy__poly__primg2arr(polytope *, permutation *); /*proto*/
+static PyObject *__pyx_f_5benpy_5benpy__poly_output(struct __pyx_obj_5benpy_5benpy__cVlpSolution *, struct __pyx_opt_args_5benpy_5benpy__poly_output *__pyx_optional_args); /*proto*/
+#define __Pyx_MODULE_NAME "benpy.benpy"
+int __pyx_module_is_main_benpy__benpy = 0;
 
-/* Implementation of 'benpy' */
+/* Implementation of 'benpy.benpy' */
 static PyObject *__pyx_builtin_property;
 static PyObject *__pyx_builtin_print;
 static PyObject *__pyx_builtin_range;
@@ -1733,11 +1733,13 @@ static const char __pyx_k_end[] = "end";
 static const char __pyx_k_i_d[] = "i {} d {} {}\n";
 static const char __pyx_k_i_f[] = "i {} f \n";
 static const char __pyx_k_i_l[] = "i {} l {}\n";
+static const char __pyx_k_i_s[] = "i {} s {}\n";
 static const char __pyx_k_i_u[] = "i {} u {}\n";
 static const char __pyx_k_inf[] = "inf";
 static const char __pyx_k_j_d[] = "j {} d {} {}\n";
 static const char __pyx_k_j_f[] = "j {} f \n";
 static const char __pyx_k_j_l[] = "j {} l {}\n";
+static const char __pyx_k_j_s[] = "j {} s {}\n";
 static const char __pyx_k_j_u[] = "j {} u {}\n";
 static const char __pyx_k_k_0[] = "k {} 0 {}\n";
 static const char __pyx_k_k_2[] = "k";
@@ -1772,7 +1774,6 @@ static const char __pyx_k_warn[] = "warn";
 static const char __pyx_k_adj_d[] = "adj_d";
 static const char __pyx_k_adj_p[] = "adj_p";
 static const char __pyx_k_array[] = "array";
-static const char __pyx_k_benpy[] = "benpy";
 static const char __pyx_k_cProb[] = "cProb";
 static const char __pyx_k_clock[] = "clock";
 static const char __pyx_k_close[] = "close";
@@ -1815,7 +1816,6 @@ static const char __pyx_k_Options[] = "Options";
 static const char __pyx_k_asarray[] = "asarray";
 static const char __pyx_k_bounded[] = "bounded";
 static const char __pyx_k_float64[] = "float64";
-static const char __pyx_k_i_d_s_g[] = "i %d s %g\n";
 static const char __pyx_k_logfile[] = "logfile";
 static const char __pyx_k_opt_dir[] = "opt_dir";
 static const char __pyx_k_options[] = "options";
@@ -1860,6 +1860,7 @@ static const char __pyx_k_solution_2[] = "  solution:           {}\n";
 static const char __pyx_k_vlpProblem[] = "vlpProblem";
 static const char __pyx_k_ImportError[] = "ImportError";
 static const char __pyx_k_THISVERSION[] = "THISVERSION";
+static const char __pyx_k_benpy_benpy[] = "benpy.benpy";
 static const char __pyx_k_collections[] = "collections";
 static const char __pyx_k_opt_dir_str[] = "opt_dir_str";
 static const char __pyx_k_phase2_dual[] = "phase2 dual";
@@ -2059,7 +2060,7 @@ static PyObject *__pyx_n_u_auto;
 static PyObject *__pyx_n_s_b;
 static PyObject *__pyx_kp_u_b_has_wrong_dimension;
 static PyObject *__pyx_n_s_bb;
-static PyObject *__pyx_n_s_benpy;
+static PyObject *__pyx_n_s_benpy_benpy;
 static PyObject *__pyx_n_s_bounded;
 static PyObject *__pyx_n_u_bounded;
 static PyObject *__pyx_kp_u_bounded_2;
@@ -2115,9 +2116,9 @@ static PyObject *__pyx_n_s_from_file;
 static PyObject *__pyx_n_s_getlen;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_kp_u_i_d;
-static PyObject *__pyx_kp_u_i_d_s_g;
 static PyObject *__pyx_kp_u_i_f;
 static PyObject *__pyx_kp_u_i_l;
+static PyObject *__pyx_kp_u_i_s;
 static PyObject *__pyx_kp_u_i_u;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_inc_d;
@@ -2135,6 +2136,7 @@ static PyObject *__pyx_n_s_j;
 static PyObject *__pyx_kp_u_j_d;
 static PyObject *__pyx_kp_u_j_f;
 static PyObject *__pyx_kp_u_j_l;
+static PyObject *__pyx_kp_u_j_s;
 static PyObject *__pyx_kp_u_j_u;
 static PyObject *__pyx_kp_u_k;
 static PyObject *__pyx_n_s_k1;
@@ -2274,30 +2276,30 @@ static PyObject *__pyx_n_s_write;
 static PyObject *__pyx_n_u_write_files;
 static PyObject *__pyx_kp_u_yes_run_phase_2_only;
 static PyObject *__pyx_n_s_zeros;
-static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self); /* proto */
-static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self); /* proto */
-static int __pyx_pf_5benpy_12_cVlpProblem_4__init__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_6default_options(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_opt_dict); /* proto */
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_7options___get__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self); /* proto */
-static int __pyx_pf_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_self); /* proto */
-static void __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_B, PyObject *__pyx_v_a, PyObject *__pyx_v_b, PyObject *__pyx_v_l, PyObject *__pyx_v_s, PyObject *__pyx_v_P, PyObject *__pyx_v_Y, PyObject *__pyx_v_Z, PyObject *__pyx_v_c, PyObject *__pyx_v_opt_dir, PyObject *__pyx_v_filename, PyObject *__pyx_v_options); /* proto */
-static PyObject *__pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_obj); /* proto */
-static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
-static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_problem); /* proto */
+static int __pyx_pf_5benpy_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self); /* proto */
+static void __pyx_pf_5benpy_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self); /* proto */
+static int __pyx_pf_5benpy_5benpy_12_cVlpProblem_4__init__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_6default_options(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_opt_dict); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_7options___get__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self); /* proto */
+static int __pyx_pf_5benpy_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_self); /* proto */
+static void __pyx_pf_5benpy_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_B, PyObject *__pyx_v_a, PyObject *__pyx_v_b, PyObject *__pyx_v_l, PyObject *__pyx_v_s, PyObject *__pyx_v_P, PyObject *__pyx_v_Y, PyObject *__pyx_v_Z, PyObject *__pyx_v_c, PyObject *__pyx_v_opt_dir, PyObject *__pyx_v_filename, PyObject *__pyx_v_options); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_obj); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_5benpy_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_problem); /* proto */
 static int __pyx_pf_5numpy_7ndarray___getbuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info, int __pyx_v_flags); /* proto */
 static void __pyx_pf_5numpy_7ndarray_2__releasebuffer__(PyArrayObject *__pyx_v_self, Py_buffer *__pyx_v_info); /* proto */
-static PyObject *__pyx_tp_new_5benpy__cVlpProblem(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
-static PyObject *__pyx_tp_new_5benpy__cVlpSolution(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_5benpy_5benpy__cVlpProblem(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_tp_new_5benpy_5benpy__cVlpSolution(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
@@ -2369,7 +2371,7 @@ static PyObject *__pyx_codeobj__61;
 static PyObject *__pyx_codeobj__63;
 static PyObject *__pyx_codeobj__65;
 
-/* "benpy.pyx":221
+/* "benpy/benpy.pyx":221
  *     cdef char* c_filename
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -2378,28 +2380,28 @@ static PyObject *__pyx_codeobj__65;
  */
 
 /* Python wrapper */
-static int __pyx_pw_5benpy_12_cVlpProblem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_5benpy_12_cVlpProblem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_5benpy_5benpy_12_cVlpProblem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_5benpy_5benpy_12_cVlpProblem_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_5benpy_12_cVlpProblem___cinit__(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_12_cVlpProblem___cinit__(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self) {
+static int __pyx_pf_5benpy_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "benpy.pyx":222
+  /* "benpy/benpy.pyx":222
  * 
  *     def __cinit__(self):
  *         print("problem alloc called")             # <<<<<<<<<<<<<<
@@ -2410,7 +2412,7 @@ static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVl
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":223
+  /* "benpy/benpy.pyx":223
  *     def __cinit__(self):
  *         print("problem alloc called")
  *         self._opt = <opttype *>malloc(sizeof(opttype))             # <<<<<<<<<<<<<<
@@ -2419,7 +2421,7 @@ static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVl
  */
   __pyx_v_self->_opt = ((opttype *)malloc((sizeof(opttype))));
 
-  /* "benpy.pyx":224
+  /* "benpy/benpy.pyx":224
  *         print("problem alloc called")
  *         self._opt = <opttype *>malloc(sizeof(opttype))
  *         self._vlp = <vlptype *>malloc(sizeof(vlptype))             # <<<<<<<<<<<<<<
@@ -2428,7 +2430,7 @@ static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVl
  */
   __pyx_v_self->_vlp = ((vlptype *)malloc((sizeof(vlptype))));
 
-  /* "benpy.pyx":225
+  /* "benpy/benpy.pyx":225
  *         self._opt = <opttype *>malloc(sizeof(opttype))
  *         self._vlp = <vlptype *>malloc(sizeof(vlptype))
  *         self._lps = <lptype *>malloc(sizeof (lptype))             # <<<<<<<<<<<<<<
@@ -2437,7 +2439,7 @@ static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVl
  */
   __pyx_v_self->_lps = ((lptype *)malloc((sizeof(lptype))));
 
-  /* "benpy.pyx":226
+  /* "benpy/benpy.pyx":226
  *         self._vlp = <vlptype *>malloc(sizeof(vlptype))
  *         self._lps = <lptype *>malloc(sizeof (lptype))
  *         self._csa = <csatype *>malloc(sizeof(csatype))             # <<<<<<<<<<<<<<
@@ -2446,7 +2448,7 @@ static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVl
  */
   __pyx_v_self->_csa = ((csatype *)malloc((sizeof(csatype))));
 
-  /* "benpy.pyx":221
+  /* "benpy/benpy.pyx":221
  *     cdef char* c_filename
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -2459,14 +2461,14 @@ static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVl
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("benpy._cVlpProblem.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpProblem.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "benpy.pyx":228
+/* "benpy/benpy.pyx":228
  *         self._csa = <csatype *>malloc(sizeof(csatype))
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2475,22 +2477,22 @@ static int __pyx_pf_5benpy_12_cVlpProblem___cinit__(struct __pyx_obj_5benpy__cVl
  */
 
 /* Python wrapper */
-static void __pyx_pw_5benpy_12_cVlpProblem_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_5benpy_12_cVlpProblem_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_5benpy_5benpy_12_cVlpProblem_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_5benpy_5benpy_12_cVlpProblem_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self));
+  __pyx_pf_5benpy_5benpy_12_cVlpProblem_2__dealloc__(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self) {
+static void __pyx_pf_5benpy_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "benpy.pyx":229
+  /* "benpy/benpy.pyx":229
  * 
  *     def __dealloc__(self):
  *         print("problem dealloc called")             # <<<<<<<<<<<<<<
@@ -2501,7 +2503,7 @@ static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":230
+  /* "benpy/benpy.pyx":230
  *     def __dealloc__(self):
  *         print("problem dealloc called")
  *         free(self._opt)             # <<<<<<<<<<<<<<
@@ -2510,7 +2512,7 @@ static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_
  */
   free(__pyx_v_self->_opt);
 
-  /* "benpy.pyx":231
+  /* "benpy/benpy.pyx":231
  *         print("problem dealloc called")
  *         free(self._opt)
  *         free(self._vlp)             # <<<<<<<<<<<<<<
@@ -2519,7 +2521,7 @@ static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_
  */
   free(__pyx_v_self->_vlp);
 
-  /* "benpy.pyx":232
+  /* "benpy/benpy.pyx":232
  *         free(self._opt)
  *         free(self._vlp)
  *         free(self._lps)             # <<<<<<<<<<<<<<
@@ -2528,7 +2530,7 @@ static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_
  */
   free(__pyx_v_self->_lps);
 
-  /* "benpy.pyx":233
+  /* "benpy/benpy.pyx":233
  *         free(self._vlp)
  *         free(self._lps)
  *         free(self._csa)             # <<<<<<<<<<<<<<
@@ -2537,7 +2539,7 @@ static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_
  */
   free(__pyx_v_self->_csa);
 
-  /* "benpy.pyx":228
+  /* "benpy/benpy.pyx":228
  *         self._csa = <csatype *>malloc(sizeof(csatype))
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -2549,12 +2551,12 @@ static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_WriteUnraisable("benpy._cVlpProblem.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __Pyx_WriteUnraisable("benpy.benpy._cVlpProblem.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "benpy.pyx":235
+/* "benpy/benpy.pyx":235
  *         free(self._csa)
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -2563,27 +2565,27 @@ static void __pyx_pf_5benpy_12_cVlpProblem_2__dealloc__(struct __pyx_obj_5benpy_
  */
 
 /* Python wrapper */
-static int __pyx_pw_5benpy_12_cVlpProblem_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_5benpy_12_cVlpProblem_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_5benpy_5benpy_12_cVlpProblem_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_5benpy_5benpy_12_cVlpProblem_5__init__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__init__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__init__", 0))) return -1;
-  __pyx_r = __pyx_pf_5benpy_12_cVlpProblem_4__init__(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_12_cVlpProblem_4__init__(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_5benpy_12_cVlpProblem_4__init__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self) {
+static int __pyx_pf_5benpy_5benpy_12_cVlpProblem_4__init__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "benpy.pyx":236
+  /* "benpy/benpy.pyx":236
  * 
  *     def __init__(self):
  *         set_default_opt(self._opt)             # <<<<<<<<<<<<<<
@@ -2592,7 +2594,7 @@ static int __pyx_pf_5benpy_12_cVlpProblem_4__init__(struct __pyx_obj_5benpy__cVl
  */
   set_default_opt(__pyx_v_self->_opt);
 
-  /* "benpy.pyx":235
+  /* "benpy/benpy.pyx":235
  *         free(self._csa)
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -2606,7 +2608,7 @@ static int __pyx_pf_5benpy_12_cVlpProblem_4__init__(struct __pyx_obj_5benpy__cVl
   return __pyx_r;
 }
 
-/* "benpy.pyx":238
+/* "benpy/benpy.pyx":238
  *         set_default_opt(self._opt)
  * 
  *     def default_options(self):             # <<<<<<<<<<<<<<
@@ -2615,24 +2617,24 @@ static int __pyx_pf_5benpy_12_cVlpProblem_4__init__(struct __pyx_obj_5benpy__cVl
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_7default_options(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_7default_options(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_7default_options(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_7default_options(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("default_options (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_12_cVlpProblem_6default_options(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_12_cVlpProblem_6default_options(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_6default_options(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_6default_options(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("default_options", 0);
 
-  /* "benpy.pyx":239
+  /* "benpy/benpy.pyx":239
  * 
  *     def default_options(self):
  *         set_default_opt(self._opt)             # <<<<<<<<<<<<<<
@@ -2641,7 +2643,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_6default_options(struct __pyx_ob
  */
   set_default_opt(__pyx_v_self->_opt);
 
-  /* "benpy.pyx":238
+  /* "benpy/benpy.pyx":238
  *         set_default_opt(self._opt)
  * 
  *     def default_options(self):             # <<<<<<<<<<<<<<
@@ -2656,7 +2658,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_6default_options(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "benpy.pyx":241
+/* "benpy/benpy.pyx":241
  *         set_default_opt(self._opt)
  * 
  *     def set_options(self,opt_dict):             # <<<<<<<<<<<<<<
@@ -2665,19 +2667,19 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_6default_options(struct __pyx_ob
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_9set_options(PyObject *__pyx_v_self, PyObject *__pyx_v_opt_dict); /*proto*/
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_9set_options(PyObject *__pyx_v_self, PyObject *__pyx_v_opt_dict) {
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_9set_options(PyObject *__pyx_v_self, PyObject *__pyx_v_opt_dict); /*proto*/
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_9set_options(PyObject *__pyx_v_self, PyObject *__pyx_v_opt_dict) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("set_options (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_12_cVlpProblem_8set_options(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self), ((PyObject *)__pyx_v_opt_dict));
+  __pyx_r = __pyx_pf_5benpy_5benpy_12_cVlpProblem_8set_options(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self), ((PyObject *)__pyx_v_opt_dict));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_opt_dict) {
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_opt_dict) {
   PyObject *__pyx_v_attr = NULL;
   PyObject *__pyx_v_val = NULL;
   PyObject *__pyx_r = NULL;
@@ -2701,7 +2703,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
   double __pyx_t_17;
   __Pyx_RefNannySetupContext("set_options", 0);
 
-  /* "benpy.pyx":242
+  /* "benpy/benpy.pyx":242
  * 
  *     def set_options(self,opt_dict):
  *         for attr,val in opt_dict.items():             # <<<<<<<<<<<<<<
@@ -2729,7 +2731,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "benpy.pyx":243
+    /* "benpy/benpy.pyx":243
  *     def set_options(self,opt_dict):
  *         for attr,val in opt_dict.items():
  *             if (attr == "bounded"):             # <<<<<<<<<<<<<<
@@ -2739,7 +2741,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_bounded, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 243, __pyx_L1_error)
     if (__pyx_t_8) {
 
-      /* "benpy.pyx":244
+      /* "benpy/benpy.pyx":244
  *         for attr,val in opt_dict.items():
  *             if (attr == "bounded"):
  *                 self._opt.bounded = val             # <<<<<<<<<<<<<<
@@ -2749,7 +2751,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 244, __pyx_L1_error)
       __pyx_v_self->_opt->bounded = __pyx_t_7;
 
-      /* "benpy.pyx":243
+      /* "benpy/benpy.pyx":243
  *     def set_options(self,opt_dict):
  *         for attr,val in opt_dict.items():
  *             if (attr == "bounded"):             # <<<<<<<<<<<<<<
@@ -2759,7 +2761,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":245
+    /* "benpy/benpy.pyx":245
  *             if (attr == "bounded"):
  *                 self._opt.bounded = val
  *             elif (attr == "plot"):             # <<<<<<<<<<<<<<
@@ -2769,7 +2771,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_plot, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 245, __pyx_L1_error)
     if (__pyx_t_8) {
 
-      /* "benpy.pyx":246
+      /* "benpy/benpy.pyx":246
  *                 self._opt.bounded = val
  *             elif (attr == "plot"):
  *                 self._opt.plot = val             # <<<<<<<<<<<<<<
@@ -2779,7 +2781,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 246, __pyx_L1_error)
       __pyx_v_self->_opt->plot = __pyx_t_7;
 
-      /* "benpy.pyx":245
+      /* "benpy/benpy.pyx":245
  *             if (attr == "bounded"):
  *                 self._opt.bounded = val
  *             elif (attr == "plot"):             # <<<<<<<<<<<<<<
@@ -2789,7 +2791,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":247
+    /* "benpy/benpy.pyx":247
  *             elif (attr == "plot"):
  *                 self._opt.plot = val
  *             elif (attr == "filename"):             # <<<<<<<<<<<<<<
@@ -2799,7 +2801,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_8 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_filename, Py_EQ)); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 247, __pyx_L1_error)
     if (__pyx_t_8) {
 
-      /* "benpy.pyx":248
+      /* "benpy/benpy.pyx":248
  *                 self._opt.plot = val
  *             elif (attr == "filename"):
  *                 if not isinstance(val,bytes):             # <<<<<<<<<<<<<<
@@ -2810,7 +2812,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = ((!(__pyx_t_8 != 0)) != 0);
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":249
+        /* "benpy/benpy.pyx":249
  *             elif (attr == "filename"):
  *                 if not isinstance(val,bytes):
  *                     val = val.encode()             # <<<<<<<<<<<<<<
@@ -2840,7 +2842,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         __Pyx_DECREF_SET(__pyx_v_val, __pyx_t_6);
         __pyx_t_6 = 0;
 
-        /* "benpy.pyx":248
+        /* "benpy/benpy.pyx":248
  *                 self._opt.plot = val
  *             elif (attr == "filename"):
  *                 if not isinstance(val,bytes):             # <<<<<<<<<<<<<<
@@ -2849,7 +2851,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
       }
 
-      /* "benpy.pyx":250
+      /* "benpy/benpy.pyx":250
  *                 if not isinstance(val,bytes):
  *                     val = val.encode()
  *                 self.c_filename = val             # <<<<<<<<<<<<<<
@@ -2859,7 +2861,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_11 = __Pyx_PyObject_AsString(__pyx_v_val); if (unlikely((!__pyx_t_11) && PyErr_Occurred())) __PYX_ERR(0, 250, __pyx_L1_error)
       __pyx_v_self->c_filename = __pyx_t_11;
 
-      /* "benpy.pyx":251
+      /* "benpy/benpy.pyx":251
  *                     val = val.encode()
  *                 self.c_filename = val
  *                 self._opt.filename = self.c_filename             # <<<<<<<<<<<<<<
@@ -2869,7 +2871,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_11 = __pyx_v_self->c_filename;
       memcpy(&(__pyx_v_self->_opt->filename[0]), __pyx_t_11, sizeof(__pyx_v_self->_opt->filename[0]) * ((0xFF + 1) - 0));
 
-      /* "benpy.pyx":247
+      /* "benpy/benpy.pyx":247
  *             elif (attr == "plot"):
  *                 self._opt.plot = val
  *             elif (attr == "filename"):             # <<<<<<<<<<<<<<
@@ -2879,7 +2881,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":252
+    /* "benpy/benpy.pyx":252
  *                 self.c_filename = val
  *                 self._opt.filename = self.c_filename
  *             elif (attr == "solution"):             # <<<<<<<<<<<<<<
@@ -2889,7 +2891,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_solution, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 252, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":253
+      /* "benpy/benpy.pyx":253
  *                 self._opt.filename = self.c_filename
  *             elif (attr == "solution"):
  *                 self._opt.solution = val             # <<<<<<<<<<<<<<
@@ -2899,7 +2901,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_12 = ((enum _pre_img_type)__Pyx_PyInt_As_enum___pre_img_type(__pyx_v_val)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 253, __pyx_L1_error)
       __pyx_v_self->_opt->solution = __pyx_t_12;
 
-      /* "benpy.pyx":252
+      /* "benpy/benpy.pyx":252
  *                 self.c_filename = val
  *                 self._opt.filename = self.c_filename
  *             elif (attr == "solution"):             # <<<<<<<<<<<<<<
@@ -2909,7 +2911,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":254
+    /* "benpy/benpy.pyx":254
  *             elif (attr == "solution"):
  *                 self._opt.solution = val
  *             elif (attr == "format"):             # <<<<<<<<<<<<<<
@@ -2919,7 +2921,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_format, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 254, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":255
+      /* "benpy/benpy.pyx":255
  *                 self._opt.solution = val
  *             elif (attr == "format"):
  *                 self._opt.format = val             # <<<<<<<<<<<<<<
@@ -2929,7 +2931,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_13 = ((enum _format_type)__Pyx_PyInt_As_enum___format_type(__pyx_v_val)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 255, __pyx_L1_error)
       __pyx_v_self->_opt->format = __pyx_t_13;
 
-      /* "benpy.pyx":254
+      /* "benpy/benpy.pyx":254
  *             elif (attr == "solution"):
  *                 self._opt.solution = val
  *             elif (attr == "format"):             # <<<<<<<<<<<<<<
@@ -2939,7 +2941,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":256
+    /* "benpy/benpy.pyx":256
  *             elif (attr == "format"):
  *                 self._opt.format = val
  *             elif (attr == "lp_method_phase0"):             # <<<<<<<<<<<<<<
@@ -2949,7 +2951,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_lp_method_phase0, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 256, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":257
+      /* "benpy/benpy.pyx":257
  *                 self._opt.format = val
  *             elif (attr == "lp_method_phase0"):
  *                 if (val == "primal_simplex"):             # <<<<<<<<<<<<<<
@@ -2959,7 +2961,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_primal_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 257, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":258
+        /* "benpy/benpy.pyx":258
  *             elif (attr == "lp_method_phase0"):
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -2968,7 +2970,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase0 = PRIMAL_SIMPLEX;
 
-        /* "benpy.pyx":257
+        /* "benpy/benpy.pyx":257
  *                 self._opt.format = val
  *             elif (attr == "lp_method_phase0"):
  *                 if (val == "primal_simplex"):             # <<<<<<<<<<<<<<
@@ -2978,7 +2980,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L7;
       }
 
-      /* "benpy.pyx":259
+      /* "benpy/benpy.pyx":259
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):             # <<<<<<<<<<<<<<
@@ -2988,7 +2990,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 259, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":260
+        /* "benpy/benpy.pyx":260
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase0 = DUAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -2997,7 +2999,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase0 = DUAL_SIMPLEX;
 
-        /* "benpy.pyx":259
+        /* "benpy/benpy.pyx":259
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):             # <<<<<<<<<<<<<<
@@ -3007,7 +3009,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L7;
       }
 
-      /* "benpy.pyx":261
+      /* "benpy/benpy.pyx":261
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase0 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3017,7 +3019,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual_primal_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 261, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":262
+        /* "benpy/benpy.pyx":262
  *                     self._opt.lp_method_phase0 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):
  *                     self._opt.lp_method_phase0 = DUAL_PRIMAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3026,7 +3028,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase0 = DUAL_PRIMAL_SIMPLEX;
 
-        /* "benpy.pyx":261
+        /* "benpy/benpy.pyx":261
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase0 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3036,7 +3038,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L7;
       }
 
-      /* "benpy.pyx":264
+      /* "benpy/benpy.pyx":264
  *                     self._opt.lp_method_phase0 = DUAL_PRIMAL_SIMPLEX
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to primal_simplex".format(attr,val,attr))             # <<<<<<<<<<<<<<
@@ -3144,7 +3146,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "benpy.pyx":265
+        /* "benpy/benpy.pyx":265
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to primal_simplex".format(attr,val,attr))
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3155,7 +3157,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       }
       __pyx_L7:;
 
-      /* "benpy.pyx":256
+      /* "benpy/benpy.pyx":256
  *             elif (attr == "format"):
  *                 self._opt.format = val
  *             elif (attr == "lp_method_phase0"):             # <<<<<<<<<<<<<<
@@ -3165,7 +3167,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":266
+    /* "benpy/benpy.pyx":266
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to primal_simplex".format(attr,val,attr))
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX
  *             elif (attr == "lp_method_phase1"):             # <<<<<<<<<<<<<<
@@ -3175,7 +3177,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_lp_method_phase1, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 266, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":267
+      /* "benpy/benpy.pyx":267
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX
  *             elif (attr == "lp_method_phase1"):
  *                 if (val == "primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3185,7 +3187,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_primal_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 267, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":268
+        /* "benpy/benpy.pyx":268
  *             elif (attr == "lp_method_phase1"):
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase1 = PRIMAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3194,7 +3196,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase1 = PRIMAL_SIMPLEX;
 
-        /* "benpy.pyx":267
+        /* "benpy/benpy.pyx":267
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX
  *             elif (attr == "lp_method_phase1"):
  *                 if (val == "primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3204,7 +3206,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L8;
       }
 
-      /* "benpy.pyx":269
+      /* "benpy/benpy.pyx":269
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase1 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):             # <<<<<<<<<<<<<<
@@ -3214,7 +3216,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 269, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":270
+        /* "benpy/benpy.pyx":270
  *                     self._opt.lp_method_phase1 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase1 = DUAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3223,7 +3225,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase1 = DUAL_SIMPLEX;
 
-        /* "benpy.pyx":269
+        /* "benpy/benpy.pyx":269
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase1 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):             # <<<<<<<<<<<<<<
@@ -3233,7 +3235,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L8;
       }
 
-      /* "benpy.pyx":271
+      /* "benpy/benpy.pyx":271
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase1 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3243,7 +3245,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual_primal_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 271, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":272
+        /* "benpy/benpy.pyx":272
  *                     self._opt.lp_method_phase1 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):
  *                     self._opt.lp_method_phase1 = DUAL_PRIMAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3252,7 +3254,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase1 = DUAL_PRIMAL_SIMPLEX;
 
-        /* "benpy.pyx":271
+        /* "benpy/benpy.pyx":271
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase1 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3262,7 +3264,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L8;
       }
 
-      /* "benpy.pyx":273
+      /* "benpy/benpy.pyx":273
  *                 elif (val == "dual_primal_simplex"):
  *                     self._opt.lp_method_phase1 = DUAL_PRIMAL_SIMPLEX
  *                 elif (val == "auto"):             # <<<<<<<<<<<<<<
@@ -3272,7 +3274,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_auto, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 273, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":274
+        /* "benpy/benpy.pyx":274
  *                     self._opt.lp_method_phase1 = DUAL_PRIMAL_SIMPLEX
  *                 elif (val == "auto"):
  *                     self._opt.lp_method_phase1 = LP_METHOD_AUTO             # <<<<<<<<<<<<<<
@@ -3281,7 +3283,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase1 = LP_METHOD_AUTO;
 
-        /* "benpy.pyx":273
+        /* "benpy/benpy.pyx":273
  *                 elif (val == "dual_primal_simplex"):
  *                     self._opt.lp_method_phase1 = DUAL_PRIMAL_SIMPLEX
  *                 elif (val == "auto"):             # <<<<<<<<<<<<<<
@@ -3291,7 +3293,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L8;
       }
 
-      /* "benpy.pyx":276
+      /* "benpy/benpy.pyx":276
  *                     self._opt.lp_method_phase1 = LP_METHOD_AUTO
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))             # <<<<<<<<<<<<<<
@@ -3399,7 +3401,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "benpy.pyx":277
+        /* "benpy/benpy.pyx":277
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))
  *                     self._opt.lp_method_phase1 = LP_METHOD_AUTO             # <<<<<<<<<<<<<<
@@ -3410,7 +3412,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       }
       __pyx_L8:;
 
-      /* "benpy.pyx":266
+      /* "benpy/benpy.pyx":266
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to primal_simplex".format(attr,val,attr))
  *                     self._opt.lp_method_phase0 = PRIMAL_SIMPLEX
  *             elif (attr == "lp_method_phase1"):             # <<<<<<<<<<<<<<
@@ -3420,7 +3422,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":278
+    /* "benpy/benpy.pyx":278
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))
  *                     self._opt.lp_method_phase1 = LP_METHOD_AUTO
  *             elif (attr == "lp_method_phase2"):             # <<<<<<<<<<<<<<
@@ -3430,7 +3432,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_lp_method_phase2, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 278, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":279
+      /* "benpy/benpy.pyx":279
  *                     self._opt.lp_method_phase1 = LP_METHOD_AUTO
  *             elif (attr == "lp_method_phase2"):
  *                 if (val == "primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3440,7 +3442,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_primal_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 279, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":280
+        /* "benpy/benpy.pyx":280
  *             elif (attr == "lp_method_phase2"):
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase2 = PRIMAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3449,7 +3451,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase2 = PRIMAL_SIMPLEX;
 
-        /* "benpy.pyx":279
+        /* "benpy/benpy.pyx":279
  *                     self._opt.lp_method_phase1 = LP_METHOD_AUTO
  *             elif (attr == "lp_method_phase2"):
  *                 if (val == "primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3459,7 +3461,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L9;
       }
 
-      /* "benpy.pyx":281
+      /* "benpy/benpy.pyx":281
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase2 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):             # <<<<<<<<<<<<<<
@@ -3469,7 +3471,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 281, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":282
+        /* "benpy/benpy.pyx":282
  *                     self._opt.lp_method_phase2 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase2 = DUAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3478,7 +3480,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase2 = DUAL_SIMPLEX;
 
-        /* "benpy.pyx":281
+        /* "benpy/benpy.pyx":281
  *                 if (val == "primal_simplex"):
  *                     self._opt.lp_method_phase2 = PRIMAL_SIMPLEX
  *                 elif (val == "dual_simplex"):             # <<<<<<<<<<<<<<
@@ -3488,7 +3490,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L9;
       }
 
-      /* "benpy.pyx":283
+      /* "benpy/benpy.pyx":283
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase2 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3498,7 +3500,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual_primal_simplex, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 283, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":284
+        /* "benpy/benpy.pyx":284
  *                     self._opt.lp_method_phase2 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):
  *                     self._opt.lp_method_phase2 = DUAL_PRIMAL_SIMPLEX             # <<<<<<<<<<<<<<
@@ -3507,7 +3509,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase2 = DUAL_PRIMAL_SIMPLEX;
 
-        /* "benpy.pyx":283
+        /* "benpy/benpy.pyx":283
  *                 elif (val == "dual_simplex"):
  *                     self._opt.lp_method_phase2 = DUAL_SIMPLEX
  *                 elif (val == "dual_primal_simplex"):             # <<<<<<<<<<<<<<
@@ -3517,7 +3519,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L9;
       }
 
-      /* "benpy.pyx":285
+      /* "benpy/benpy.pyx":285
  *                 elif (val == "dual_primal_simplex"):
  *                     self._opt.lp_method_phase2 = DUAL_PRIMAL_SIMPLEX
  *                 elif (val == "auto"):             # <<<<<<<<<<<<<<
@@ -3527,7 +3529,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_auto, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 285, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":286
+        /* "benpy/benpy.pyx":286
  *                     self._opt.lp_method_phase2 = DUAL_PRIMAL_SIMPLEX
  *                 elif (val == "auto"):
  *                     self._opt.lp_method_phase2 = LP_METHOD_AUTO             # <<<<<<<<<<<<<<
@@ -3536,7 +3538,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->lp_method_phase2 = LP_METHOD_AUTO;
 
-        /* "benpy.pyx":285
+        /* "benpy/benpy.pyx":285
  *                 elif (val == "dual_primal_simplex"):
  *                     self._opt.lp_method_phase2 = DUAL_PRIMAL_SIMPLEX
  *                 elif (val == "auto"):             # <<<<<<<<<<<<<<
@@ -3546,7 +3548,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L9;
       }
 
-      /* "benpy.pyx":288
+      /* "benpy/benpy.pyx":288
  *                     self._opt.lp_method_phase2 = LP_METHOD_AUTO
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))             # <<<<<<<<<<<<<<
@@ -3654,7 +3656,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "benpy.pyx":289
+        /* "benpy/benpy.pyx":289
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))
  *                     self._opt.lp_method_phase2 = LP_METHOD_AUTO             # <<<<<<<<<<<<<<
@@ -3665,7 +3667,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       }
       __pyx_L9:;
 
-      /* "benpy.pyx":278
+      /* "benpy/benpy.pyx":278
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))
  *                     self._opt.lp_method_phase1 = LP_METHOD_AUTO
  *             elif (attr == "lp_method_phase2"):             # <<<<<<<<<<<<<<
@@ -3675,7 +3677,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":290
+    /* "benpy/benpy.pyx":290
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))
  *                     self._opt.lp_method_phase2 = LP_METHOD_AUTO
  *             elif (attr == "message_level"):             # <<<<<<<<<<<<<<
@@ -3685,7 +3687,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_message_level, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 290, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":291
+      /* "benpy/benpy.pyx":291
  *                     self._opt.lp_method_phase2 = LP_METHOD_AUTO
  *             elif (attr == "message_level"):
  *                 self._opt.message_level = val             # <<<<<<<<<<<<<<
@@ -3695,7 +3697,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 291, __pyx_L1_error)
       __pyx_v_self->_opt->message_level = __pyx_t_7;
 
-      /* "benpy.pyx":290
+      /* "benpy/benpy.pyx":290
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'auto'".format(attr,val,attr))
  *                     self._opt.lp_method_phase2 = LP_METHOD_AUTO
  *             elif (attr == "message_level"):             # <<<<<<<<<<<<<<
@@ -3705,7 +3707,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":292
+    /* "benpy/benpy.pyx":292
  *             elif (attr == "message_level"):
  *                 self._opt.message_level = val
  *             elif (attr == "lp_message_level"):             # <<<<<<<<<<<<<<
@@ -3715,7 +3717,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_lp_message_level, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 292, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":293
+      /* "benpy/benpy.pyx":293
  *                 self._opt.message_level = val
  *             elif (attr == "lp_message_level"):
  *                 self._opt.lp_message_level = val             # <<<<<<<<<<<<<<
@@ -3725,7 +3727,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 293, __pyx_L1_error)
       __pyx_v_self->_opt->lp_message_level = __pyx_t_7;
 
-      /* "benpy.pyx":292
+      /* "benpy/benpy.pyx":292
  *             elif (attr == "message_level"):
  *                 self._opt.message_level = val
  *             elif (attr == "lp_message_level"):             # <<<<<<<<<<<<<<
@@ -3735,7 +3737,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":294
+    /* "benpy/benpy.pyx":294
  *             elif (attr == "lp_message_level"):
  *                 self._opt.lp_message_level = val
  *             elif (attr == "alg_phase1"):             # <<<<<<<<<<<<<<
@@ -3745,7 +3747,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_alg_phase1, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 294, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":295
+      /* "benpy/benpy.pyx":295
  *                 self._opt.lp_message_level = val
  *             elif (attr == "alg_phase1"):
  *                 if (val == "primal"):             # <<<<<<<<<<<<<<
@@ -3755,7 +3757,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_primal, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 295, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":296
+        /* "benpy/benpy.pyx":296
  *             elif (attr == "alg_phase1"):
  *                 if (val == "primal"):
  *                     self._opt.alg_phase1 = PRIMAL_BENSON             # <<<<<<<<<<<<<<
@@ -3764,7 +3766,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->alg_phase1 = PRIMAL_BENSON;
 
-        /* "benpy.pyx":295
+        /* "benpy/benpy.pyx":295
  *                 self._opt.lp_message_level = val
  *             elif (attr == "alg_phase1"):
  *                 if (val == "primal"):             # <<<<<<<<<<<<<<
@@ -3774,7 +3776,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L10;
       }
 
-      /* "benpy.pyx":297
+      /* "benpy/benpy.pyx":297
  *                 if (val == "primal"):
  *                     self._opt.alg_phase1 = PRIMAL_BENSON
  *                 elif (val == "dual"):             # <<<<<<<<<<<<<<
@@ -3784,7 +3786,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 297, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":298
+        /* "benpy/benpy.pyx":298
  *                     self._opt.alg_phase1 = PRIMAL_BENSON
  *                 elif (val == "dual"):
  *                     self._opt.alg_phase1 = DUAL_BENSON             # <<<<<<<<<<<<<<
@@ -3793,7 +3795,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->alg_phase1 = DUAL_BENSON;
 
-        /* "benpy.pyx":297
+        /* "benpy/benpy.pyx":297
  *                 if (val == "primal"):
  *                     self._opt.alg_phase1 = PRIMAL_BENSON
  *                 elif (val == "dual"):             # <<<<<<<<<<<<<<
@@ -3803,7 +3805,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L10;
       }
 
-      /* "benpy.pyx":300
+      /* "benpy/benpy.pyx":300
  *                     self._opt.alg_phase1 = DUAL_BENSON
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))             # <<<<<<<<<<<<<<
@@ -3911,7 +3913,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "benpy.pyx":301
+        /* "benpy/benpy.pyx":301
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))
  *                     self._opt.alg_phase1 = PRIMAL_BENSON             # <<<<<<<<<<<<<<
@@ -3922,7 +3924,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       }
       __pyx_L10:;
 
-      /* "benpy.pyx":294
+      /* "benpy/benpy.pyx":294
  *             elif (attr == "lp_message_level"):
  *                 self._opt.lp_message_level = val
  *             elif (attr == "alg_phase1"):             # <<<<<<<<<<<<<<
@@ -3932,7 +3934,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":302
+    /* "benpy/benpy.pyx":302
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))
  *                     self._opt.alg_phase1 = PRIMAL_BENSON
  *             elif (attr == "alg_phase2"):             # <<<<<<<<<<<<<<
@@ -3942,7 +3944,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_alg_phase2, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 302, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":303
+      /* "benpy/benpy.pyx":303
  *                     self._opt.alg_phase1 = PRIMAL_BENSON
  *             elif (attr == "alg_phase2"):
  *                 if (val == "primal"):             # <<<<<<<<<<<<<<
@@ -3952,7 +3954,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_primal, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 303, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":304
+        /* "benpy/benpy.pyx":304
  *             elif (attr == "alg_phase2"):
  *                 if (val == "primal"):
  *                     self._opt.alg_phase2 = PRIMAL_BENSON             # <<<<<<<<<<<<<<
@@ -3961,7 +3963,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->alg_phase2 = PRIMAL_BENSON;
 
-        /* "benpy.pyx":303
+        /* "benpy/benpy.pyx":303
  *                     self._opt.alg_phase1 = PRIMAL_BENSON
  *             elif (attr == "alg_phase2"):
  *                 if (val == "primal"):             # <<<<<<<<<<<<<<
@@ -3971,7 +3973,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L11;
       }
 
-      /* "benpy.pyx":305
+      /* "benpy/benpy.pyx":305
  *                 if (val == "primal"):
  *                     self._opt.alg_phase2 = PRIMAL_BENSON
  *                 elif (val == "dual"):             # <<<<<<<<<<<<<<
@@ -3981,7 +3983,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_val, __pyx_n_u_dual, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 305, __pyx_L1_error)
       if (__pyx_t_9) {
 
-        /* "benpy.pyx":306
+        /* "benpy/benpy.pyx":306
  *                     self._opt.alg_phase2 = PRIMAL_BENSON
  *                 elif (val == "dual"):
  *                     self._opt.alg_phase2 = DUAL_BENSON             # <<<<<<<<<<<<<<
@@ -3990,7 +3992,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
         __pyx_v_self->_opt->alg_phase2 = DUAL_BENSON;
 
-        /* "benpy.pyx":305
+        /* "benpy/benpy.pyx":305
  *                 if (val == "primal"):
  *                     self._opt.alg_phase2 = PRIMAL_BENSON
  *                 elif (val == "dual"):             # <<<<<<<<<<<<<<
@@ -4000,7 +4002,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         goto __pyx_L11;
       }
 
-      /* "benpy.pyx":308
+      /* "benpy/benpy.pyx":308
  *                     self._opt.alg_phase2 = DUAL_BENSON
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))             # <<<<<<<<<<<<<<
@@ -4108,7 +4110,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-        /* "benpy.pyx":309
+        /* "benpy/benpy.pyx":309
  *                 else:
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))
  *                     self._opt.alg_phase2 = PRIMAL_BENSON             # <<<<<<<<<<<<<<
@@ -4119,7 +4121,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       }
       __pyx_L11:;
 
-      /* "benpy.pyx":302
+      /* "benpy/benpy.pyx":302
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))
  *                     self._opt.alg_phase1 = PRIMAL_BENSON
  *             elif (attr == "alg_phase2"):             # <<<<<<<<<<<<<<
@@ -4129,7 +4131,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":310
+    /* "benpy/benpy.pyx":310
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))
  *                     self._opt.alg_phase2 = PRIMAL_BENSON
  *             elif (attr == "eps_phase0"):             # <<<<<<<<<<<<<<
@@ -4139,7 +4141,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_eps_phase0, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 310, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":311
+      /* "benpy/benpy.pyx":311
  *                     self._opt.alg_phase2 = PRIMAL_BENSON
  *             elif (attr == "eps_phase0"):
  *                 self._opt.eps_phase0 = val             # <<<<<<<<<<<<<<
@@ -4149,7 +4151,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 311, __pyx_L1_error)
       __pyx_v_self->_opt->eps_phase0 = __pyx_t_17;
 
-      /* "benpy.pyx":310
+      /* "benpy/benpy.pyx":310
  *                     warn("'{}':'{}' is a bad keyword value. Defaulting {} to 'primal'".format(attr,val,attr))
  *                     self._opt.alg_phase2 = PRIMAL_BENSON
  *             elif (attr == "eps_phase0"):             # <<<<<<<<<<<<<<
@@ -4159,7 +4161,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":312
+    /* "benpy/benpy.pyx":312
  *             elif (attr == "eps_phase0"):
  *                 self._opt.eps_phase0 = val
  *             elif (attr == "eps_phase1"):             # <<<<<<<<<<<<<<
@@ -4169,7 +4171,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_eps_phase1, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 312, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":313
+      /* "benpy/benpy.pyx":313
  *                 self._opt.eps_phase0 = val
  *             elif (attr == "eps_phase1"):
  *                 self._opt.eps_phase1 = val             # <<<<<<<<<<<<<<
@@ -4179,7 +4181,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 313, __pyx_L1_error)
       __pyx_v_self->_opt->eps_phase1 = __pyx_t_17;
 
-      /* "benpy.pyx":312
+      /* "benpy/benpy.pyx":312
  *             elif (attr == "eps_phase0"):
  *                 self._opt.eps_phase0 = val
  *             elif (attr == "eps_phase1"):             # <<<<<<<<<<<<<<
@@ -4189,7 +4191,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":314
+    /* "benpy/benpy.pyx":314
  *             elif (attr == "eps_phase1"):
  *                 self._opt.eps_phase1 = val
  *             elif (attr == "eps_benson_phase1"):             # <<<<<<<<<<<<<<
@@ -4199,7 +4201,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_eps_benson_phase1, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 314, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":315
+      /* "benpy/benpy.pyx":315
  *                 self._opt.eps_phase1 = val
  *             elif (attr == "eps_benson_phase1"):
  *                 self._opt.eps_benson_phase1 = val             # <<<<<<<<<<<<<<
@@ -4209,7 +4211,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 315, __pyx_L1_error)
       __pyx_v_self->_opt->eps_benson_phase1 = __pyx_t_17;
 
-      /* "benpy.pyx":314
+      /* "benpy/benpy.pyx":314
  *             elif (attr == "eps_phase1"):
  *                 self._opt.eps_phase1 = val
  *             elif (attr == "eps_benson_phase1"):             # <<<<<<<<<<<<<<
@@ -4219,7 +4221,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":316
+    /* "benpy/benpy.pyx":316
  *             elif (attr == "eps_benson_phase1"):
  *                 self._opt.eps_benson_phase1 = val
  *             elif (attr == "eps_benson_phase2"):             # <<<<<<<<<<<<<<
@@ -4229,7 +4231,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_eps_benson_phase2, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 316, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":317
+      /* "benpy/benpy.pyx":317
  *                 self._opt.eps_benson_phase1 = val
  *             elif (attr == "eps_benson_phase2"):
  *                 self._opt.eps_benson_phase2 = val             # <<<<<<<<<<<<<<
@@ -4239,7 +4241,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_17 = __pyx_PyFloat_AsDouble(__pyx_v_val); if (unlikely((__pyx_t_17 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 317, __pyx_L1_error)
       __pyx_v_self->_opt->eps_benson_phase2 = __pyx_t_17;
 
-      /* "benpy.pyx":316
+      /* "benpy/benpy.pyx":316
  *             elif (attr == "eps_benson_phase1"):
  *                 self._opt.eps_benson_phase1 = val
  *             elif (attr == "eps_benson_phase2"):             # <<<<<<<<<<<<<<
@@ -4249,7 +4251,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":318
+    /* "benpy/benpy.pyx":318
  *             elif (attr == "eps_benson_phase2"):
  *                 self._opt.eps_benson_phase2 = val
  *             elif (attr == "write_files"):             # <<<<<<<<<<<<<<
@@ -4259,7 +4261,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_write_files, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 318, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":319
+      /* "benpy/benpy.pyx":319
  *                 self._opt.eps_benson_phase2 = val
  *             elif (attr == "write_files"):
  *                 self._opt.printfiles = val             # <<<<<<<<<<<<<<
@@ -4269,7 +4271,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 319, __pyx_L1_error)
       __pyx_v_self->_opt->printfiles = __pyx_t_7;
 
-      /* "benpy.pyx":318
+      /* "benpy/benpy.pyx":318
  *             elif (attr == "eps_benson_phase2"):
  *                 self._opt.eps_benson_phase2 = val
  *             elif (attr == "write_files"):             # <<<<<<<<<<<<<<
@@ -4279,7 +4281,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       goto __pyx_L5;
     }
 
-    /* "benpy.pyx":320
+    /* "benpy/benpy.pyx":320
  *             elif (attr == "write_files"):
  *                 self._opt.printfiles = val
  *             elif (attr == "log_file"):             # <<<<<<<<<<<<<<
@@ -4289,7 +4291,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
     __pyx_t_9 = (__Pyx_PyUnicode_Equals(__pyx_v_attr, __pyx_n_u_log_file, Py_EQ)); if (unlikely(__pyx_t_9 < 0)) __PYX_ERR(0, 320, __pyx_L1_error)
     if (__pyx_t_9) {
 
-      /* "benpy.pyx":321
+      /* "benpy/benpy.pyx":321
  *                 self._opt.printfiles = val
  *             elif (attr == "log_file"):
  *                 self._opt.logfile = val             # <<<<<<<<<<<<<<
@@ -4299,7 +4301,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
       __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_v_val); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 321, __pyx_L1_error)
       __pyx_v_self->_opt->logfile = __pyx_t_7;
 
-      /* "benpy.pyx":320
+      /* "benpy/benpy.pyx":320
  *             elif (attr == "write_files"):
  *                 self._opt.printfiles = val
  *             elif (attr == "log_file"):             # <<<<<<<<<<<<<<
@@ -4311,7 +4313,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":241
+  /* "benpy/benpy.pyx":241
  *         set_default_opt(self._opt)
  * 
  *     def set_options(self,opt_dict):             # <<<<<<<<<<<<<<
@@ -4330,7 +4332,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
   __Pyx_XDECREF(__pyx_t_14);
   __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
-  __Pyx_AddTraceback("benpy._cVlpProblem.set_options", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpProblem.set_options", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_attr);
@@ -4340,7 +4342,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
   return __pyx_r;
 }
 
-/* "benpy.pyx":324
+/* "benpy/benpy.pyx":324
  * 
  *     @property
  *     def options(self):             # <<<<<<<<<<<<<<
@@ -4349,25 +4351,25 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_8set_options(struct __pyx_obj_5b
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_7options_1__get__(PyObject *__pyx_v_self); /*proto*/
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_7options_1__get__(PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_7options_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_7options_1__get__(PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_12_cVlpProblem_7options___get__(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_12_cVlpProblem_7options___get__(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_7options___get__(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_7options___get__(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
 
-  /* "benpy.pyx":325
+  /* "benpy/benpy.pyx":325
  *     @property
  *     def options(self):
  *         return(self._opt[0])             # <<<<<<<<<<<<<<
@@ -4381,7 +4383,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_7options___get__(struct __pyx_ob
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":324
+  /* "benpy/benpy.pyx":324
  * 
  *     @property
  *     def options(self):             # <<<<<<<<<<<<<<
@@ -4392,7 +4394,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_7options___get__(struct __pyx_ob
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("benpy._cVlpProblem.options.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpProblem.options.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4400,7 +4402,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_7options___get__(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "benpy.pyx":327
+/* "benpy/benpy.pyx":327
  *         return(self._opt[0])
  * 
  *     def from_file(self,filename):             # <<<<<<<<<<<<<<
@@ -4409,19 +4411,19 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_7options___get__(struct __pyx_ob
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_11from_file(PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /*proto*/
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_11from_file(PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_11from_file(PyObject *__pyx_v_self, PyObject *__pyx_v_filename); /*proto*/
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_11from_file(PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("from_file (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_12_cVlpProblem_10from_file(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self), ((PyObject *)__pyx_v_filename));
+  __pyx_r = __pyx_pf_5benpy_5benpy_12_cVlpProblem_10from_file(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self), ((PyObject *)__pyx_v_filename));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_filename) {
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self, PyObject *__pyx_v_filename) {
   PyObject *__pyx_v_basename = NULL;
   CYTHON_UNUSED PyObject *__pyx_v__ = NULL;
   PyObject *__pyx_r = NULL;
@@ -4438,7 +4440,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   __Pyx_RefNannySetupContext("from_file", 0);
   __Pyx_INCREF(__pyx_v_filename);
 
-  /* "benpy.pyx":329
+  /* "benpy/benpy.pyx":329
  *     def from_file(self,filename):
  * 
  *         if not isinstance(filename,bytes):             # <<<<<<<<<<<<<<
@@ -4449,7 +4451,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   __pyx_t_2 = ((!(__pyx_t_1 != 0)) != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":330
+    /* "benpy/benpy.pyx":330
  * 
  *         if not isinstance(filename,bytes):
  *             filename = filename.encode()             # <<<<<<<<<<<<<<
@@ -4479,7 +4481,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
     __Pyx_DECREF_SET(__pyx_v_filename, __pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "benpy.pyx":329
+    /* "benpy/benpy.pyx":329
  *     def from_file(self,filename):
  * 
  *         if not isinstance(filename,bytes):             # <<<<<<<<<<<<<<
@@ -4488,7 +4490,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
  */
   }
 
-  /* "benpy.pyx":332
+  /* "benpy/benpy.pyx":332
  *             filename = filename.encode()
  * 
  *         basename, _ = splitext(filename)             # <<<<<<<<<<<<<<
@@ -4595,7 +4597,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   __pyx_v__ = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "benpy.pyx":333
+  /* "benpy/benpy.pyx":333
  * 
  *         basename, _ = splitext(filename)
  *         self.set_options({'filename':basename})             # <<<<<<<<<<<<<<
@@ -4655,7 +4657,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "benpy.pyx":334
+  /* "benpy/benpy.pyx":334
  *         basename, _ = splitext(filename)
  *         self.set_options({'filename':basename})
  *         set_input(self._csa,filename)             # <<<<<<<<<<<<<<
@@ -4665,7 +4667,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   __pyx_t_9 = __Pyx_PyObject_AsString(__pyx_v_filename); if (unlikely((!__pyx_t_9) && PyErr_Occurred())) __PYX_ERR(0, 334, __pyx_L1_error)
   set_input(__pyx_v_self->_csa, __pyx_t_9);
 
-  /* "benpy.pyx":335
+  /* "benpy/benpy.pyx":335
  *         self.set_options({'filename':basename})
  *         set_input(self._csa,filename)
  *         if(vlp_init(self._csa,self._vlp,self._opt)):             # <<<<<<<<<<<<<<
@@ -4675,7 +4677,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   __pyx_t_2 = (vlp_init(__pyx_v_self->_csa, __pyx_v_self->_vlp, __pyx_v_self->_opt) != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":336
+    /* "benpy/benpy.pyx":336
  *         set_input(self._csa,filename)
  *         if(vlp_init(self._csa,self._vlp,self._opt)):
  *             print("Error in reading")             # <<<<<<<<<<<<<<
@@ -4686,7 +4688,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "benpy.pyx":335
+    /* "benpy/benpy.pyx":335
  *         self.set_options({'filename':basename})
  *         set_input(self._csa,filename)
  *         if(vlp_init(self._csa,self._vlp,self._opt)):             # <<<<<<<<<<<<<<
@@ -4695,7 +4697,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
  */
   }
 
-  /* "benpy.pyx":327
+  /* "benpy/benpy.pyx":327
  *         return(self._opt[0])
  * 
  *     def from_file(self,filename):             # <<<<<<<<<<<<<<
@@ -4712,7 +4714,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("benpy._cVlpProblem.from_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpProblem.from_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_basename);
@@ -4723,7 +4725,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
   return __pyx_r;
 }
 
-/* "benpy.pyx":338
+/* "benpy/benpy.pyx":338
  *             print("Error in reading")
  * 
  *     def toString(self):             # <<<<<<<<<<<<<<
@@ -4732,19 +4734,19 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_10from_file(struct __pyx_obj_5be
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_13toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5benpy_12_cVlpProblem_13toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_13toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5benpy_5benpy_12_cVlpProblem_13toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("toString (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_12_cVlpProblem_12toString(((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_12_cVlpProblem_12toString(((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -4758,7 +4760,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5ben
   PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannySetupContext("toString", 0);
 
-  /* "benpy.pyx":339
+  /* "benpy/benpy.pyx":339
  * 
  *     def toString(self):
  *         return("Rowns: {}, Columns: {},  Non-zero entries: {}, Non-zero objectives: {}".format(self._vlp.m, self._vlp.n, self._vlp.nz, self._vlp.nzobj))             # <<<<<<<<<<<<<<
@@ -4839,7 +4841,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5ben
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":338
+  /* "benpy/benpy.pyx":338
  *             print("Error in reading")
  * 
  *     def toString(self):             # <<<<<<<<<<<<<<
@@ -4857,7 +4859,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5ben
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("benpy._cVlpProblem.toString", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpProblem.toString", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4865,7 +4867,7 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5ben
   return __pyx_r;
 }
 
-/* "benpy.pyx":341
+/* "benpy/benpy.pyx":341
  *         return("Rowns: {}, Columns: {},  Non-zero entries: {}, Non-zero objectives: {}".format(self._vlp.m, self._vlp.n, self._vlp.nz, self._vlp.nzobj))
  * 
  *     cdef print_vlp_address(self):             # <<<<<<<<<<<<<<
@@ -4873,14 +4875,14 @@ static PyObject *__pyx_pf_5benpy_12_cVlpProblem_12toString(struct __pyx_obj_5ben
  * 
  */
 
-static PyObject *__pyx_f_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_self) {
+static PyObject *__pyx_f_5benpy_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannySetupContext("print_vlp_address", 0);
 
-  /* "benpy.pyx":342
+  /* "benpy/benpy.pyx":342
  * 
  *     cdef print_vlp_address(self):
  *         print(<int>self._vlp)             # <<<<<<<<<<<<<<
@@ -4899,7 +4901,7 @@ static PyObject *__pyx_f_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_ob
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":341
+  /* "benpy/benpy.pyx":341
  *         return("Rowns: {}, Columns: {},  Non-zero entries: {}, Non-zero objectives: {}".format(self._vlp.m, self._vlp.n, self._vlp.nz, self._vlp.nzobj))
  * 
  *     cdef print_vlp_address(self):             # <<<<<<<<<<<<<<
@@ -4913,7 +4915,7 @@ static PyObject *__pyx_f_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_ob
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_AddTraceback("benpy._cVlpProblem.print_vlp_address", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpProblem.print_vlp_address", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -4921,7 +4923,7 @@ static PyObject *__pyx_f_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "benpy.pyx":351
+/* "benpy/benpy.pyx":351
  *     cdef object argtype
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -4930,28 +4932,28 @@ static PyObject *__pyx_f_5benpy_12_cVlpProblem_print_vlp_address(struct __pyx_ob
  */
 
 /* Python wrapper */
-static int __pyx_pw_5benpy_13_cVlpSolution_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static int __pyx_pw_5benpy_13_cVlpSolution_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static int __pyx_pw_5benpy_5benpy_13_cVlpSolution_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static int __pyx_pw_5benpy_5benpy_13_cVlpSolution_1__cinit__(PyObject *__pyx_v_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__cinit__ (wrapper)", 0);
   if (unlikely(PyTuple_GET_SIZE(__pyx_args) > 0)) {
     __Pyx_RaiseArgtupleInvalid("__cinit__", 1, 0, 0, PyTuple_GET_SIZE(__pyx_args)); return -1;}
   if (unlikely(__pyx_kwds) && unlikely(PyDict_Size(__pyx_kwds) > 0) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__cinit__", 0))) return -1;
-  __pyx_r = __pyx_pf_5benpy_13_cVlpSolution___cinit__(((struct __pyx_obj_5benpy__cVlpSolution *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_13_cVlpSolution___cinit__(((struct __pyx_obj_5benpy_5benpy__cVlpSolution *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static int __pyx_pf_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_self) {
+static int __pyx_pf_5benpy_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_self) {
   int __pyx_r;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "benpy.pyx":352
+  /* "benpy/benpy.pyx":352
  * 
  *     def __cinit__(self):
  *         print("solution alloc called")             # <<<<<<<<<<<<<<
@@ -4962,7 +4964,7 @@ static int __pyx_pf_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy__cV
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":353
+  /* "benpy/benpy.pyx":353
  *     def __cinit__(self):
  *         print("solution alloc called")
  *         self._sol = <soltype *>malloc(sizeof(soltype))             # <<<<<<<<<<<<<<
@@ -4971,7 +4973,7 @@ static int __pyx_pf_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy__cV
  */
   __pyx_v_self->_sol = ((soltype *)malloc((sizeof(soltype))));
 
-  /* "benpy.pyx":354
+  /* "benpy/benpy.pyx":354
  *         print("solution alloc called")
  *         self._sol = <soltype *>malloc(sizeof(soltype))
  *         self._image = <poly_args *>malloc(sizeof(poly_args))             # <<<<<<<<<<<<<<
@@ -4980,7 +4982,7 @@ static int __pyx_pf_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy__cV
  */
   __pyx_v_self->_image = ((poly_args *)malloc((sizeof(poly_args))));
 
-  /* "benpy.pyx":351
+  /* "benpy/benpy.pyx":351
  *     cdef object argtype
  * 
  *     def __cinit__(self):             # <<<<<<<<<<<<<<
@@ -4993,14 +4995,14 @@ static int __pyx_pf_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy__cV
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("benpy._cVlpSolution.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpSolution.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "benpy.pyx":356
+/* "benpy/benpy.pyx":356
  *         self._image = <poly_args *>malloc(sizeof(poly_args))
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -5009,22 +5011,22 @@ static int __pyx_pf_5benpy_13_cVlpSolution___cinit__(struct __pyx_obj_5benpy__cV
  */
 
 /* Python wrapper */
-static void __pyx_pw_5benpy_13_cVlpSolution_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
-static void __pyx_pw_5benpy_13_cVlpSolution_3__dealloc__(PyObject *__pyx_v_self) {
+static void __pyx_pw_5benpy_5benpy_13_cVlpSolution_3__dealloc__(PyObject *__pyx_v_self); /*proto*/
+static void __pyx_pw_5benpy_5benpy_13_cVlpSolution_3__dealloc__(PyObject *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__dealloc__ (wrapper)", 0);
-  __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(((struct __pyx_obj_5benpy__cVlpSolution *)__pyx_v_self));
+  __pyx_pf_5benpy_5benpy_13_cVlpSolution_2__dealloc__(((struct __pyx_obj_5benpy_5benpy__cVlpSolution *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
 }
 
-static void __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_self) {
+static void __pyx_pf_5benpy_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_self) {
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__dealloc__", 0);
 
-  /* "benpy.pyx":357
+  /* "benpy/benpy.pyx":357
  * 
  *     def __dealloc__(self):
  *         print("solution dealloc called")             # <<<<<<<<<<<<<<
@@ -5035,7 +5037,7 @@ static void __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":358
+  /* "benpy/benpy.pyx":358
  *     def __dealloc__(self):
  *         print("solution dealloc called")
  *         free(self._sol)             # <<<<<<<<<<<<<<
@@ -5044,7 +5046,7 @@ static void __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy
  */
   free(__pyx_v_self->_sol);
 
-  /* "benpy.pyx":359
+  /* "benpy/benpy.pyx":359
  *         print("solution dealloc called")
  *         free(self._sol)
  *         free(self._image)             # <<<<<<<<<<<<<<
@@ -5053,7 +5055,7 @@ static void __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy
  */
   free(__pyx_v_self->_image);
 
-  /* "benpy.pyx":356
+  /* "benpy/benpy.pyx":356
  *         self._image = <poly_args *>malloc(sizeof(poly_args))
  * 
  *     def __dealloc__(self):             # <<<<<<<<<<<<<<
@@ -5065,12 +5067,12 @@ static void __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_WriteUnraisable("benpy._cVlpSolution.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
+  __Pyx_WriteUnraisable("benpy.benpy._cVlpSolution.__dealloc__", __pyx_clineno, __pyx_lineno, __pyx_filename, 0, 0);
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
 }
 
-/* "benpy.pyx":361
+/* "benpy/benpy.pyx":361
  *         free(self._image)
  * 
  *     def toString(self):             # <<<<<<<<<<<<<<
@@ -5079,19 +5081,19 @@ static void __pyx_pf_5benpy_13_cVlpSolution_2__dealloc__(struct __pyx_obj_5benpy
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_13_cVlpSolution_5toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
-static PyObject *__pyx_pw_5benpy_13_cVlpSolution_5toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
+static PyObject *__pyx_pw_5benpy_5benpy_13_cVlpSolution_5toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused); /*proto*/
+static PyObject *__pyx_pw_5benpy_5benpy_13_cVlpSolution_5toString(PyObject *__pyx_v_self, CYTHON_UNUSED PyObject *unused) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("toString (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_13_cVlpSolution_4toString(((struct __pyx_obj_5benpy__cVlpSolution *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_13_cVlpSolution_4toString(((struct __pyx_obj_5benpy_5benpy__cVlpSolution *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5105,7 +5107,7 @@ static PyObject *__pyx_pf_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5ben
   PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannySetupContext("toString", 0);
 
-  /* "benpy.pyx":362
+  /* "benpy/benpy.pyx":362
  * 
  *     def toString(self):
  *         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))             # <<<<<<<<<<<<<<
@@ -5186,7 +5188,7 @@ static PyObject *__pyx_pf_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5ben
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":361
+  /* "benpy/benpy.pyx":361
  *         free(self._image)
  * 
  *     def toString(self):             # <<<<<<<<<<<<<<
@@ -5204,7 +5206,7 @@ static PyObject *__pyx_pf_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5ben
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("benpy._cVlpSolution.toString", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._cVlpSolution.toString", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -5212,7 +5214,7 @@ static PyObject *__pyx_pf_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5ben
   return __pyx_r;
 }
 
-/* "benpy.pyx":364
+/* "benpy/benpy.pyx":364
  *         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))
  * 
  * cdef _cVlpSolution _csolve(_cVlpProblem problem):             # <<<<<<<<<<<<<<
@@ -5220,9 +5222,9 @@ static PyObject *__pyx_pf_5benpy_13_cVlpSolution_4toString(struct __pyx_obj_5ben
  *     elapsedTime = time.clock()
  */
 
-static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_problem) {
+static struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_f_5benpy_5benpy__csolve(struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_problem) {
   PyObject *__pyx_v_elapsedTime = NULL;
-  struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_solution = NULL;
+  struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_solution = NULL;
   PyObject *__pyx_v_eta = NULL;
   lp_idx __pyx_v_k;
   PyObject *__pyx_v_logfile = NULL;
@@ -5231,7 +5233,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   PyObject *__pyx_v_lp_method_ph1 = NULL;
   PyObject *__pyx_v_lp_method_ph2 = NULL;
   PyObject *__pyx_v_format_str = NULL;
-  struct __pyx_obj_5benpy__cVlpSolution *__pyx_r = NULL;
+  struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
@@ -5254,7 +5256,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   int __pyx_t_19;
   __Pyx_RefNannySetupContext("_csolve", 0);
 
-  /* "benpy.pyx":366
+  /* "benpy/benpy.pyx":366
  * cdef _cVlpSolution _csolve(_cVlpProblem problem):
  *     """"Internal function to drive solving procedure. Basically, mimics bensolve main function."""
  *     elapsedTime = time.clock()             # <<<<<<<<<<<<<<
@@ -5287,19 +5289,19 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_v_elapsedTime = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":367
+  /* "benpy/benpy.pyx":367
  *     """"Internal function to drive solving procedure. Basically, mimics bensolve main function."""
  *     elapsedTime = time.clock()
  *     solution = _cVlpSolution()             # <<<<<<<<<<<<<<
  *     solution._pre_img = problem._opt.solution
  *     sol_init(solution._sol,problem._vlp,problem._opt)
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5benpy__cVlpSolution), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 367, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5benpy_5benpy__cVlpSolution), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 367, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_solution = ((struct __pyx_obj_5benpy__cVlpSolution *)__pyx_t_1);
+  __pyx_v_solution = ((struct __pyx_obj_5benpy_5benpy__cVlpSolution *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":368
+  /* "benpy/benpy.pyx":368
  *     elapsedTime = time.clock()
  *     solution = _cVlpSolution()
  *     solution._pre_img = problem._opt.solution             # <<<<<<<<<<<<<<
@@ -5309,7 +5311,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_t_4 = __pyx_v_problem->_opt->solution;
   __pyx_v_solution->_pre_img = __pyx_t_4;
 
-  /* "benpy.pyx":369
+  /* "benpy/benpy.pyx":369
  *     solution = _cVlpSolution()
  *     solution._pre_img = problem._opt.solution
  *     sol_init(solution._sol,problem._vlp,problem._opt)             # <<<<<<<<<<<<<<
@@ -5318,7 +5320,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
   sol_init(__pyx_v_solution->_sol, __pyx_v_problem->_vlp, __pyx_v_problem->_opt);
 
-  /* "benpy.pyx":371
+  /* "benpy/benpy.pyx":371
  *     sol_init(solution._sol,problem._vlp,problem._opt)
  * 
  *     if(solution._sol.status == VLP_INPUTERROR):             # <<<<<<<<<<<<<<
@@ -5328,7 +5330,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_t_5 = ((__pyx_v_solution->_sol->status == VLP_INPUTERROR) != 0);
   if (__pyx_t_5) {
 
-    /* "benpy.pyx":372
+    /* "benpy/benpy.pyx":372
  * 
  *     if(solution._sol.status == VLP_INPUTERROR):
  *         print("Error in reading")             # <<<<<<<<<<<<<<
@@ -5339,7 +5341,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "benpy.pyx":371
+    /* "benpy/benpy.pyx":371
  *     sol_init(solution._sol,problem._vlp,problem._opt)
  * 
  *     if(solution._sol.status == VLP_INPUTERROR):             # <<<<<<<<<<<<<<
@@ -5348,7 +5350,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
   }
 
-  /* "benpy.pyx":373
+  /* "benpy/benpy.pyx":373
  *     if(solution._sol.status == VLP_INPUTERROR):
  *         print("Error in reading")
  *     lp_init(problem._vlp, problem._lps)             # <<<<<<<<<<<<<<
@@ -5357,7 +5359,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
   lp_init(__pyx_v_problem->_vlp, __pyx_v_problem->_lps);
 
-  /* "benpy.pyx":374
+  /* "benpy/benpy.pyx":374
  *         print("Error in reading")
  *     lp_init(problem._vlp, problem._lps)
  *     if(problem._opt.bounded):             # <<<<<<<<<<<<<<
@@ -5367,7 +5369,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_t_5 = (__pyx_v_problem->_opt->bounded != 0);
   if (__pyx_t_5) {
 
-    /* "benpy.pyx":375
+    /* "benpy/benpy.pyx":375
  *     lp_init(problem._vlp, problem._lps)
  *     if(problem._opt.bounded):
  *         phase2_init(solution._sol, problem._vlp)             # <<<<<<<<<<<<<<
@@ -5376,7 +5378,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     phase2_init(__pyx_v_solution->_sol, __pyx_v_problem->_vlp);
 
-    /* "benpy.pyx":374
+    /* "benpy/benpy.pyx":374
  *         print("Error in reading")
  *     lp_init(problem._vlp, problem._lps)
  *     if(problem._opt.bounded):             # <<<<<<<<<<<<<<
@@ -5386,7 +5388,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     goto __pyx_L4;
   }
 
-  /* "benpy.pyx":378
+  /* "benpy/benpy.pyx":378
  *     else:
  *         #Phase 0
  *         if(problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5397,7 +5399,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_problem->_opt->message_level >= 3) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":379
+      /* "benpy/benpy.pyx":379
  *         #Phase 0
  *         if(problem._opt.message_level >= 3):
  *             print("Starting Phase 0")             # <<<<<<<<<<<<<<
@@ -5408,7 +5410,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":378
+      /* "benpy/benpy.pyx":378
  *     else:
  *         #Phase 0
  *         if(problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5417,7 +5419,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     }
 
-    /* "benpy.pyx":380
+    /* "benpy/benpy.pyx":380
  *         if(problem._opt.message_level >= 3):
  *             print("Starting Phase 0")
  *         phase0(solution._sol, problem._vlp, problem._opt, problem._lps)             # <<<<<<<<<<<<<<
@@ -5426,7 +5428,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     phase0(__pyx_v_solution->_sol, __pyx_v_problem->_vlp, __pyx_v_problem->_opt, __pyx_v_problem->_lps);
 
-    /* "benpy.pyx":381
+    /* "benpy/benpy.pyx":381
  *             print("Starting Phase 0")
  *         phase0(solution._sol, problem._vlp, problem._opt, problem._lps)
  *         if (solution._sol.status == VLP_UNBOUNDED):             # <<<<<<<<<<<<<<
@@ -5436,7 +5438,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_solution->_sol->status == VLP_UNBOUNDED) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":382
+      /* "benpy/benpy.pyx":382
  *         phase0(solution._sol, problem._vlp, problem._opt, problem._lps)
  *         if (solution._sol.status == VLP_UNBOUNDED):
  *             print("VLP is totally unbounded, there is no solution")             # <<<<<<<<<<<<<<
@@ -5447,7 +5449,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":381
+      /* "benpy/benpy.pyx":381
  *             print("Starting Phase 0")
  *         phase0(solution._sol, problem._vlp, problem._opt, problem._lps)
  *         if (solution._sol.status == VLP_UNBOUNDED):             # <<<<<<<<<<<<<<
@@ -5456,7 +5458,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     }
 
-    /* "benpy.pyx":383
+    /* "benpy/benpy.pyx":383
  *         if (solution._sol.status == VLP_UNBOUNDED):
  *             print("VLP is totally unbounded, there is no solution")
  *         if (solution._sol.status == VLP_NOVERTEX):             # <<<<<<<<<<<<<<
@@ -5466,7 +5468,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_solution->_sol->status == VLP_NOVERTEX) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":384
+      /* "benpy/benpy.pyx":384
  *             print("VLP is totally unbounded, there is no solution")
  *         if (solution._sol.status == VLP_NOVERTEX):
  *             print("upper image of VLP has no vertex, not covered by this version")             # <<<<<<<<<<<<<<
@@ -5477,7 +5479,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":383
+      /* "benpy/benpy.pyx":383
  *         if (solution._sol.status == VLP_UNBOUNDED):
  *             print("VLP is totally unbounded, there is no solution")
  *         if (solution._sol.status == VLP_NOVERTEX):             # <<<<<<<<<<<<<<
@@ -5486,7 +5488,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     }
 
-    /* "benpy.pyx":385
+    /* "benpy/benpy.pyx":385
  *         if (solution._sol.status == VLP_NOVERTEX):
  *             print("upper image of VLP has no vertex, not covered by this version")
  *         if (problem._opt.message_level >= 2):             # <<<<<<<<<<<<<<
@@ -5496,7 +5498,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_problem->_opt->message_level >= 2) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":386
+      /* "benpy/benpy.pyx":386
  *             print("upper image of VLP has no vertex, not covered by this version")
  *         if (problem._opt.message_level >= 2):
  *             eta = []             # <<<<<<<<<<<<<<
@@ -5508,7 +5510,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __pyx_v_eta = ((PyObject*)__pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "benpy.pyx":387
+      /* "benpy/benpy.pyx":387
  *         if (problem._opt.message_level >= 2):
  *             eta = []
  *             for k in range(problem._vlp.q):             # <<<<<<<<<<<<<<
@@ -5519,7 +5521,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       for (__pyx_t_7 = 0; __pyx_t_7 < __pyx_t_6; __pyx_t_7+=1) {
         __pyx_v_k = __pyx_t_7;
 
-        /* "benpy.pyx":388
+        /* "benpy/benpy.pyx":388
  *             eta = []
  *             for k in range(problem._vlp.q):
  *                 eta.append(solution._sol.eta[<int>k])             # <<<<<<<<<<<<<<
@@ -5532,7 +5534,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       }
 
-      /* "benpy.pyx":389
+      /* "benpy/benpy.pyx":389
  *             for k in range(problem._vlp.q):
  *                 eta.append(solution._sol.eta[<int>k])
  *             print("Result of phase 0: eta " + str(eta))             # <<<<<<<<<<<<<<
@@ -5560,7 +5562,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":385
+      /* "benpy/benpy.pyx":385
  *         if (solution._sol.status == VLP_NOVERTEX):
  *             print("upper image of VLP has no vertex, not covered by this version")
  *         if (problem._opt.message_level >= 2):             # <<<<<<<<<<<<<<
@@ -5569,7 +5571,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     }
 
-    /* "benpy.pyx":391
+    /* "benpy/benpy.pyx":391
  *             print("Result of phase 0: eta " + str(eta))
  *         #Phase 1
  *         if (problem._opt.alg_phase1 == PRIMAL_BENSON):             # <<<<<<<<<<<<<<
@@ -5579,7 +5581,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_problem->_opt->alg_phase1 == PRIMAL_BENSON) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":392
+      /* "benpy/benpy.pyx":392
  *         #Phase 1
  *         if (problem._opt.alg_phase1 == PRIMAL_BENSON):
  *             if (problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5589,7 +5591,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __pyx_t_5 = ((__pyx_v_problem->_opt->message_level >= 3) != 0);
       if (__pyx_t_5) {
 
-        /* "benpy.pyx":393
+        /* "benpy/benpy.pyx":393
  *         if (problem._opt.alg_phase1 == PRIMAL_BENSON):
  *             if (problem._opt.message_level >= 3):
  *                 print("Starting Phase 1 -- Primal Algorithm")             # <<<<<<<<<<<<<<
@@ -5600,7 +5602,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "benpy.pyx":392
+        /* "benpy/benpy.pyx":392
  *         #Phase 1
  *         if (problem._opt.alg_phase1 == PRIMAL_BENSON):
  *             if (problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5609,7 +5611,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
       }
 
-      /* "benpy.pyx":394
+      /* "benpy/benpy.pyx":394
  *             if (problem._opt.message_level >= 3):
  *                 print("Starting Phase 1 -- Primal Algorithm")
  *             phase1_primal(solution._sol,problem._vlp,problem._opt, problem._lps)             # <<<<<<<<<<<<<<
@@ -5618,7 +5620,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
       phase1_primal(__pyx_v_solution->_sol, __pyx_v_problem->_vlp, __pyx_v_problem->_opt, __pyx_v_problem->_lps);
 
-      /* "benpy.pyx":391
+      /* "benpy/benpy.pyx":391
  *             print("Result of phase 0: eta " + str(eta))
  *         #Phase 1
  *         if (problem._opt.alg_phase1 == PRIMAL_BENSON):             # <<<<<<<<<<<<<<
@@ -5628,7 +5630,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       goto __pyx_L11;
     }
 
-    /* "benpy.pyx":396
+    /* "benpy/benpy.pyx":396
  *             phase1_primal(solution._sol,problem._vlp,problem._opt, problem._lps)
  *         else:
  *             assert(problem._opt.alg_phase1 == DUAL_BENSON)             # <<<<<<<<<<<<<<
@@ -5645,7 +5647,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       }
       #endif
 
-      /* "benpy.pyx":397
+      /* "benpy/benpy.pyx":397
  *         else:
  *             assert(problem._opt.alg_phase1 == DUAL_BENSON)
  *             if (problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5655,7 +5657,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __pyx_t_5 = ((__pyx_v_problem->_opt->message_level >= 3) != 0);
       if (__pyx_t_5) {
 
-        /* "benpy.pyx":398
+        /* "benpy/benpy.pyx":398
  *             assert(problem._opt.alg_phase1 == DUAL_BENSON)
  *             if (problem._opt.message_level >= 3):
  *                 print("Starting Phase 1 -- Dual Algorithm")             # <<<<<<<<<<<<<<
@@ -5666,7 +5668,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "benpy.pyx":397
+        /* "benpy/benpy.pyx":397
  *         else:
  *             assert(problem._opt.alg_phase1 == DUAL_BENSON)
  *             if (problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5675,7 +5677,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
       }
 
-      /* "benpy.pyx":399
+      /* "benpy/benpy.pyx":399
  *             if (problem._opt.message_level >= 3):
  *                 print("Starting Phase 1 -- Dual Algorithm")
  *             phase1_dual(solution._sol,problem._vlp, problem._opt, problem._lps)             # <<<<<<<<<<<<<<
@@ -5688,7 +5690,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   }
   __pyx_L4:;
 
-  /* "benpy.pyx":401
+  /* "benpy/benpy.pyx":401
  *             phase1_dual(solution._sol,problem._vlp, problem._opt, problem._lps)
  *     #Phase 2
  *     if(problem._opt.alg_phase2 == PRIMAL_BENSON):             # <<<<<<<<<<<<<<
@@ -5698,7 +5700,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_t_5 = ((__pyx_v_problem->_opt->alg_phase2 == PRIMAL_BENSON) != 0);
   if (__pyx_t_5) {
 
-    /* "benpy.pyx":402
+    /* "benpy/benpy.pyx":402
  *     #Phase 2
  *     if(problem._opt.alg_phase2 == PRIMAL_BENSON):
  *         if (problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5708,7 +5710,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_problem->_opt->message_level >= 3) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":403
+      /* "benpy/benpy.pyx":403
  *     if(problem._opt.alg_phase2 == PRIMAL_BENSON):
  *         if (problem._opt.message_level >= 3):
  *             print("Starting Phase 2 -- Primal Algorithm")             # <<<<<<<<<<<<<<
@@ -5719,7 +5721,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":402
+      /* "benpy/benpy.pyx":402
  *     #Phase 2
  *     if(problem._opt.alg_phase2 == PRIMAL_BENSON):
  *         if (problem._opt.message_level >= 3):             # <<<<<<<<<<<<<<
@@ -5728,7 +5730,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     }
 
-    /* "benpy.pyx":404
+    /* "benpy/benpy.pyx":404
  *         if (problem._opt.message_level >= 3):
  *             print("Starting Phase 2 -- Primal Algorithm")
  *         phase2_primal(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)             # <<<<<<<<<<<<<<
@@ -5737,7 +5739,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     phase2_primal(__pyx_v_solution->_sol, __pyx_v_problem->_vlp, __pyx_v_problem->_opt, __pyx_v_problem->_lps, __pyx_v_solution->_image);
 
-    /* "benpy.pyx":405
+    /* "benpy/benpy.pyx":405
  *             print("Starting Phase 2 -- Primal Algorithm")
  *         phase2_primal(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
  *         solution.argtype = "phase2 primal"             # <<<<<<<<<<<<<<
@@ -5750,7 +5752,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __Pyx_DECREF(__pyx_v_solution->argtype);
     __pyx_v_solution->argtype = __pyx_kp_u_phase2_primal;
 
-    /* "benpy.pyx":401
+    /* "benpy/benpy.pyx":401
  *             phase1_dual(solution._sol,problem._vlp, problem._opt, problem._lps)
  *     #Phase 2
  *     if(problem._opt.alg_phase2 == PRIMAL_BENSON):             # <<<<<<<<<<<<<<
@@ -5760,7 +5762,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     goto __pyx_L14;
   }
 
-  /* "benpy.pyx":407
+  /* "benpy/benpy.pyx":407
  *         solution.argtype = "phase2 primal"
  *     else:
  *         if (problem._opt.message_level >=3):             # <<<<<<<<<<<<<<
@@ -5771,7 +5773,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_problem->_opt->message_level >= 3) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":408
+      /* "benpy/benpy.pyx":408
  *     else:
  *         if (problem._opt.message_level >=3):
  *             print("Starting Phase 2 -- Dual Algorithm")             # <<<<<<<<<<<<<<
@@ -5782,7 +5784,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":407
+      /* "benpy/benpy.pyx":407
  *         solution.argtype = "phase2 primal"
  *     else:
  *         if (problem._opt.message_level >=3):             # <<<<<<<<<<<<<<
@@ -5791,7 +5793,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     }
 
-    /* "benpy.pyx":409
+    /* "benpy/benpy.pyx":409
  *         if (problem._opt.message_level >=3):
  *             print("Starting Phase 2 -- Dual Algorithm")
  *         phase2_dual(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)             # <<<<<<<<<<<<<<
@@ -5800,7 +5802,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
     phase2_dual(__pyx_v_solution->_sol, __pyx_v_problem->_vlp, __pyx_v_problem->_opt, __pyx_v_problem->_lps, __pyx_v_solution->_image);
 
-    /* "benpy.pyx":410
+    /* "benpy/benpy.pyx":410
  *             print("Starting Phase 2 -- Dual Algorithm")
  *         phase2_dual(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
  *         solution.argtype = "phase2 dual"             # <<<<<<<<<<<<<<
@@ -5815,7 +5817,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   }
   __pyx_L14:;
 
-  /* "benpy.pyx":412
+  /* "benpy/benpy.pyx":412
  *         solution.argtype = "phase2 dual"
  * 
  *     if (solution._sol.status == VLP_INFEASIBLE):             # <<<<<<<<<<<<<<
@@ -5825,7 +5827,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_t_5 = ((__pyx_v_solution->_sol->status == VLP_INFEASIBLE) != 0);
   if (__pyx_t_5) {
 
-    /* "benpy.pyx":413
+    /* "benpy/benpy.pyx":413
  * 
  *     if (solution._sol.status == VLP_INFEASIBLE):
  *         print("VLP Infeasible")             # <<<<<<<<<<<<<<
@@ -5836,7 +5838,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "benpy.pyx":412
+    /* "benpy/benpy.pyx":412
  *         solution.argtype = "phase2 dual"
  * 
  *     if (solution._sol.status == VLP_INFEASIBLE):             # <<<<<<<<<<<<<<
@@ -5845,7 +5847,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
   }
 
-  /* "benpy.pyx":415
+  /* "benpy/benpy.pyx":415
  *         print("VLP Infeasible")
  * 
  *     if (solution._sol.status == VLP_UNBOUNDED):             # <<<<<<<<<<<<<<
@@ -5855,7 +5857,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_t_5 = ((__pyx_v_solution->_sol->status == VLP_UNBOUNDED) != 0);
   if (__pyx_t_5) {
 
-    /* "benpy.pyx":416
+    /* "benpy/benpy.pyx":416
  * 
  *     if (solution._sol.status == VLP_UNBOUNDED):
  *         if (problem._opt.bounded == 1):             # <<<<<<<<<<<<<<
@@ -5865,7 +5867,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_t_5 = ((__pyx_v_problem->_opt->bounded == 1) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":417
+      /* "benpy/benpy.pyx":417
  *     if (solution._sol.status == VLP_UNBOUNDED):
  *         if (problem._opt.bounded == 1):
  *             print("VLP is not bounded, re-run without bounded opt")             # <<<<<<<<<<<<<<
@@ -5876,7 +5878,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __Pyx_GOTREF(__pyx_t_1);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":416
+      /* "benpy/benpy.pyx":416
  * 
  *     if (solution._sol.status == VLP_UNBOUNDED):
  *         if (problem._opt.bounded == 1):             # <<<<<<<<<<<<<<
@@ -5886,7 +5888,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       goto __pyx_L19;
     }
 
-    /* "benpy.pyx":419
+    /* "benpy/benpy.pyx":419
  *             print("VLP is not bounded, re-run without bounded opt")
  *         else:
  *             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")             # <<<<<<<<<<<<<<
@@ -5900,7 +5902,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     }
     __pyx_L19:;
 
-    /* "benpy.pyx":415
+    /* "benpy/benpy.pyx":415
  *         print("VLP Infeasible")
  * 
  *     if (solution._sol.status == VLP_UNBOUNDED):             # <<<<<<<<<<<<<<
@@ -5909,7 +5911,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
   }
 
-  /* "benpy.pyx":420
+  /* "benpy/benpy.pyx":420
  *         else:
  *             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
  *     elapsedTime = (time.clock() - elapsedTime)*1000 #Time in ms             # <<<<<<<<<<<<<<
@@ -5948,7 +5950,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __Pyx_DECREF_SET(__pyx_v_elapsedTime, __pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":421
+  /* "benpy/benpy.pyx":421
  *             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
  *     elapsedTime = (time.clock() - elapsedTime)*1000 #Time in ms
  *     if (problem._opt.logfile):             # <<<<<<<<<<<<<<
@@ -5958,7 +5960,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_t_5 = (__pyx_v_problem->_opt->logfile != 0);
   if (__pyx_t_5) {
 
-    /* "benpy.pyx":422
+    /* "benpy/benpy.pyx":422
  *     elapsedTime = (time.clock() - elapsedTime)*1000 #Time in ms
  *     if (problem._opt.logfile):
  *         logfile = problem._opt.filename.decode('UTF-8') + '.log'             # <<<<<<<<<<<<<<
@@ -5974,7 +5976,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
     __pyx_v_logfile = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "benpy.pyx":423
+    /* "benpy/benpy.pyx":423
  *     if (problem._opt.logfile):
  *         logfile = problem._opt.filename.decode('UTF-8') + '.log'
  *         with open(logfile,'w') as logf:             # <<<<<<<<<<<<<<
@@ -6030,7 +6032,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __pyx_v_logf = __pyx_t_3;
             __pyx_t_3 = 0;
 
-            /* "benpy.pyx":424
+            /* "benpy/benpy.pyx":424
  *         logfile = problem._opt.filename.decode('UTF-8') + '.log'
  *         with open(logfile,'w') as logf:
  *             logf.write("BENPY a WRAPPER of BENSOLVE: VLP solver, {}\n".format(THISVERSION))             # <<<<<<<<<<<<<<
@@ -6137,7 +6139,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":426
+            /* "benpy/benpy.pyx":426
  *             logf.write("BENPY a WRAPPER of BENSOLVE: VLP solver, {}\n".format(THISVERSION))
  * 
  *             lp_method_ph0 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"             # <<<<<<<<<<<<<<
@@ -6147,7 +6149,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_INCREF(__pyx_kp_u_dual_primal_simplex_dual_simplex);
             __pyx_v_lp_method_ph0 = __pyx_kp_u_dual_primal_simplex_dual_simplex;
 
-            /* "benpy.pyx":427
+            /* "benpy/benpy.pyx":427
  * 
  *             lp_method_ph0 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
  *             if (problem._opt.lp_method_phase0 == PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6157,7 +6159,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             switch (__pyx_v_problem->_opt->lp_method_phase0) {
               case PRIMAL_SIMPLEX:
 
-              /* "benpy.pyx":428
+              /* "benpy/benpy.pyx":428
  *             lp_method_ph0 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
  *             if (problem._opt.lp_method_phase0 == PRIMAL_SIMPLEX):
  *                 lp_method_ph0 = "primal_simplex"             # <<<<<<<<<<<<<<
@@ -6167,7 +6169,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_primal_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph0, __pyx_n_u_primal_simplex);
 
-              /* "benpy.pyx":427
+              /* "benpy/benpy.pyx":427
  * 
  *             lp_method_ph0 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
  *             if (problem._opt.lp_method_phase0 == PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6176,7 +6178,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               break;
 
-              /* "benpy.pyx":429
+              /* "benpy/benpy.pyx":429
  *             if (problem._opt.lp_method_phase0 == PRIMAL_SIMPLEX):
  *                 lp_method_ph0 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase0 == DUAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6185,7 +6187,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               case DUAL_SIMPLEX:
 
-              /* "benpy.pyx":430
+              /* "benpy/benpy.pyx":430
  *                 lp_method_ph0 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase0 == DUAL_SIMPLEX):
  *                 lp_method_ph0 = "dual_simplex"             # <<<<<<<<<<<<<<
@@ -6195,7 +6197,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_dual_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph0, __pyx_n_u_dual_simplex);
 
-              /* "benpy.pyx":429
+              /* "benpy/benpy.pyx":429
  *             if (problem._opt.lp_method_phase0 == PRIMAL_SIMPLEX):
  *                 lp_method_ph0 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase0 == DUAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6206,7 +6208,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               default: break;
             }
 
-            /* "benpy.pyx":432
+            /* "benpy/benpy.pyx":432
  *                 lp_method_ph0 = "dual_simplex"
  * 
  *             lp_method_ph1 = "auto"             # <<<<<<<<<<<<<<
@@ -6216,7 +6218,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_INCREF(__pyx_n_u_auto);
             __pyx_v_lp_method_ph1 = __pyx_n_u_auto;
 
-            /* "benpy.pyx":433
+            /* "benpy/benpy.pyx":433
  * 
  *             lp_method_ph1 = "auto"
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6226,7 +6228,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             switch (__pyx_v_problem->_opt->lp_method_phase1) {
               case PRIMAL_SIMPLEX:
 
-              /* "benpy.pyx":434
+              /* "benpy/benpy.pyx":434
  *             lp_method_ph1 = "auto"
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
  *                 lp_method_ph1 = "primal_simplex"             # <<<<<<<<<<<<<<
@@ -6236,7 +6238,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_primal_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph1, __pyx_n_u_primal_simplex);
 
-              /* "benpy.pyx":433
+              /* "benpy/benpy.pyx":433
  * 
  *             lp_method_ph1 = "auto"
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6245,7 +6247,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               break;
 
-              /* "benpy.pyx":435
+              /* "benpy/benpy.pyx":435
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
  *                 lp_method_ph1 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6254,7 +6256,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               case DUAL_SIMPLEX:
 
-              /* "benpy.pyx":436
+              /* "benpy/benpy.pyx":436
  *                 lp_method_ph1 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
  *                 lp_method_ph1 = "dual_simplex"             # <<<<<<<<<<<<<<
@@ -6264,7 +6266,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_dual_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph1, __pyx_n_u_dual_simplex);
 
-              /* "benpy.pyx":435
+              /* "benpy/benpy.pyx":435
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
  *                 lp_method_ph1 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6273,7 +6275,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               break;
 
-              /* "benpy.pyx":437
+              /* "benpy/benpy.pyx":437
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
  *                 lp_method_ph1 = "dual_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6282,7 +6284,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               case DUAL_PRIMAL_SIMPLEX:
 
-              /* "benpy.pyx":438
+              /* "benpy/benpy.pyx":438
  *                 lp_method_ph1 = "dual_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):
  *                 lp_method_ph1 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"             # <<<<<<<<<<<<<<
@@ -6292,7 +6294,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_kp_u_dual_primal_simplex_dual_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph1, __pyx_kp_u_dual_primal_simplex_dual_simplex);
 
-              /* "benpy.pyx":437
+              /* "benpy/benpy.pyx":437
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
  *                 lp_method_ph1 = "dual_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6303,7 +6305,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               default: break;
             }
 
-            /* "benpy.pyx":440
+            /* "benpy/benpy.pyx":440
  *                 lp_method_ph1 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
  * 
  *             lp_method_ph2 = "auto"             # <<<<<<<<<<<<<<
@@ -6313,7 +6315,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_INCREF(__pyx_n_u_auto);
             __pyx_v_lp_method_ph2 = __pyx_n_u_auto;
 
-            /* "benpy.pyx":441
+            /* "benpy/benpy.pyx":441
  * 
  *             lp_method_ph2 = "auto"
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6323,7 +6325,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             switch (__pyx_v_problem->_opt->lp_method_phase1) {
               case PRIMAL_SIMPLEX:
 
-              /* "benpy.pyx":442
+              /* "benpy/benpy.pyx":442
  *             lp_method_ph2 = "auto"
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
  *                 lp_method_ph2 = "primal_simplex"             # <<<<<<<<<<<<<<
@@ -6333,7 +6335,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_primal_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph2, __pyx_n_u_primal_simplex);
 
-              /* "benpy.pyx":441
+              /* "benpy/benpy.pyx":441
  * 
  *             lp_method_ph2 = "auto"
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6342,7 +6344,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               break;
 
-              /* "benpy.pyx":443
+              /* "benpy/benpy.pyx":443
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
  *                 lp_method_ph2 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6351,7 +6353,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               case DUAL_SIMPLEX:
 
-              /* "benpy.pyx":444
+              /* "benpy/benpy.pyx":444
  *                 lp_method_ph2 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
  *                 lp_method_ph2 = "dual_simplex"             # <<<<<<<<<<<<<<
@@ -6361,7 +6363,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_dual_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph2, __pyx_n_u_dual_simplex);
 
-              /* "benpy.pyx":443
+              /* "benpy/benpy.pyx":443
  *             if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
  *                 lp_method_ph2 = "primal_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6370,7 +6372,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               break;
 
-              /* "benpy.pyx":445
+              /* "benpy/benpy.pyx":445
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
  *                 lp_method_ph2 = "dual_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6379,7 +6381,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               case DUAL_PRIMAL_SIMPLEX:
 
-              /* "benpy.pyx":446
+              /* "benpy/benpy.pyx":446
  *                 lp_method_ph2 = "dual_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):
  *                 lp_method_ph2 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"             # <<<<<<<<<<<<<<
@@ -6389,7 +6391,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_kp_u_dual_primal_simplex_dual_simplex);
               __Pyx_DECREF_SET(__pyx_v_lp_method_ph2, __pyx_kp_u_dual_primal_simplex_dual_simplex);
 
-              /* "benpy.pyx":445
+              /* "benpy/benpy.pyx":445
  *             elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
  *                 lp_method_ph2 = "dual_simplex"
  *             elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):             # <<<<<<<<<<<<<<
@@ -6400,7 +6402,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               default: break;
             }
 
-            /* "benpy.pyx":448
+            /* "benpy/benpy.pyx":448
  *                 lp_method_ph2 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
  * 
  *             format_str = "short"             # <<<<<<<<<<<<<<
@@ -6410,7 +6412,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_INCREF(__pyx_n_u_short);
             __pyx_v_format_str = __pyx_n_u_short;
 
-            /* "benpy.pyx":449
+            /* "benpy/benpy.pyx":449
  * 
  *             format_str = "short"
  *             if (problem._opt.format == FORMAT_AUTO):             # <<<<<<<<<<<<<<
@@ -6420,7 +6422,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             switch (__pyx_v_problem->_opt->format) {
               case FORMAT_AUTO:
 
-              /* "benpy.pyx":450
+              /* "benpy/benpy.pyx":450
  *             format_str = "short"
  *             if (problem._opt.format == FORMAT_AUTO):
  *                 format_str = "auto"             # <<<<<<<<<<<<<<
@@ -6430,7 +6432,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_auto);
               __Pyx_DECREF_SET(__pyx_v_format_str, __pyx_n_u_auto);
 
-              /* "benpy.pyx":449
+              /* "benpy/benpy.pyx":449
  * 
  *             format_str = "short"
  *             if (problem._opt.format == FORMAT_AUTO):             # <<<<<<<<<<<<<<
@@ -6439,7 +6441,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               break;
 
-              /* "benpy.pyx":451
+              /* "benpy/benpy.pyx":451
  *             if (problem._opt.format == FORMAT_AUTO):
  *                 format_str = "auto"
  *             elif (problem._opt.format == FORMAT_LONG):             # <<<<<<<<<<<<<<
@@ -6448,7 +6450,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
               case FORMAT_LONG:
 
-              /* "benpy.pyx":452
+              /* "benpy/benpy.pyx":452
  *                 format_str = "auto"
  *             elif (problem._opt.format == FORMAT_LONG):
  *                 format_str = "long"             # <<<<<<<<<<<<<<
@@ -6458,7 +6460,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               __Pyx_INCREF(__pyx_n_u_long);
               __Pyx_DECREF_SET(__pyx_v_format_str, __pyx_n_u_long);
 
-              /* "benpy.pyx":451
+              /* "benpy/benpy.pyx":451
  *             if (problem._opt.format == FORMAT_AUTO):
  *                 format_str = "auto"
  *             elif (problem._opt.format == FORMAT_LONG):             # <<<<<<<<<<<<<<
@@ -6469,7 +6471,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
               default: break;
             }
 
-            /* "benpy.pyx":454
+            /* "benpy/benpy.pyx":454
  *                 format_str = "long"
  * 
  *             logf.write("Problem parameters\n");             # <<<<<<<<<<<<<<
@@ -6483,7 +6485,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":455
+            /* "benpy/benpy.pyx":455
  * 
  *             logf.write("Problem parameters\n");
  *             logf.write("  problem file:      {}\n".format(problem._opt.filename.decode()))             # <<<<<<<<<<<<<<
@@ -6592,7 +6594,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":456
+            /* "benpy/benpy.pyx":456
  *             logf.write("Problem parameters\n");
  *             logf.write("  problem file:      {}\n".format(problem._opt.filename.decode()))
  *             logf.write("  problem rows:      {}\n".format(problem._vlp.m))             # <<<<<<<<<<<<<<
@@ -6699,7 +6701,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":457
+            /* "benpy/benpy.pyx":457
  *             logf.write("  problem file:      {}\n".format(problem._opt.filename.decode()))
  *             logf.write("  problem rows:      {}\n".format(problem._vlp.m))
  *             logf.write("  problem columns:   {}\n".format(problem._vlp.n))             # <<<<<<<<<<<<<<
@@ -6806,7 +6808,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":458
+            /* "benpy/benpy.pyx":458
  *             logf.write("  problem rows:      {}\n".format(problem._vlp.m))
  *             logf.write("  problem columns:   {}\n".format(problem._vlp.n))
  *             logf.write("  matrix non-zeros:  {}\n".format(problem._vlp.nz))             # <<<<<<<<<<<<<<
@@ -6913,7 +6915,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":459
+            /* "benpy/benpy.pyx":459
  *             logf.write("  problem columns:   {}\n".format(problem._vlp.n))
  *             logf.write("  matrix non-zeros:  {}\n".format(problem._vlp.nz))
  *             logf.write("  primal generators: {}\n".format(solution._sol.o))             # <<<<<<<<<<<<<<
@@ -7020,7 +7022,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":460
+            /* "benpy/benpy.pyx":460
  *             logf.write("  matrix non-zeros:  {}\n".format(problem._vlp.nz))
  *             logf.write("  primal generators: {}\n".format(solution._sol.o))
  *             logf.write("  dual generators:   {}\n".format(solution._sol.p))             # <<<<<<<<<<<<<<
@@ -7127,7 +7129,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":461
+            /* "benpy/benpy.pyx":461
  *             logf.write("  primal generators: {}\n".format(solution._sol.o))
  *             logf.write("  dual generators:   {}\n".format(solution._sol.p))
  *             logf.write("Options")             # <<<<<<<<<<<<<<
@@ -7141,7 +7143,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":462
+            /* "benpy/benpy.pyx":462
  *             logf.write("  dual generators:   {}\n".format(solution._sol.p))
  *             logf.write("Options")
  *             logf.write("  bounded:            {}\n".format("yes (run phase 2 only)"  if problem._opt.bounded  else  "no (run phases 0 to 2)"))             # <<<<<<<<<<<<<<
@@ -7253,7 +7255,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":463
+            /* "benpy/benpy.pyx":463
  *             logf.write("Options")
  *             logf.write("  bounded:            {}\n".format("yes (run phase 2 only)"  if problem._opt.bounded  else  "no (run phases 0 to 2)"))
  *             logf.write("  solution:           {}\n".format("off (no solution output)" if problem._opt.solution == PRE_IMG_OFF  else "on (solutions (pre-image) written to files)"))             # <<<<<<<<<<<<<<
@@ -7365,7 +7367,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":464
+            /* "benpy/benpy.pyx":464
  *             logf.write("  bounded:            {}\n".format("yes (run phase 2 only)"  if problem._opt.bounded  else  "no (run phases 0 to 2)"))
  *             logf.write("  solution:           {}\n".format("off (no solution output)" if problem._opt.solution == PRE_IMG_OFF  else "on (solutions (pre-image) written to files)"))
  *             logf.write("  format:             {}\n".format(format_str))             # <<<<<<<<<<<<<<
@@ -7467,7 +7469,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":465
+            /* "benpy/benpy.pyx":465
  *             logf.write("  solution:           {}\n".format("off (no solution output)" if problem._opt.solution == PRE_IMG_OFF  else "on (solutions (pre-image) written to files)"))
  *             logf.write("  format:             {}\n".format(format_str))
  *             logf.write("  lp_method_phase0:   {}\n".format(lp_method_ph0))             # <<<<<<<<<<<<<<
@@ -7569,7 +7571,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":466
+            /* "benpy/benpy.pyx":466
  *             logf.write("  format:             {}\n".format(format_str))
  *             logf.write("  lp_method_phase0:   {}\n".format(lp_method_ph0))
  *             logf.write("  lp_method_phase1:   {}\n".format(lp_method_ph1))             # <<<<<<<<<<<<<<
@@ -7671,7 +7673,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":467
+            /* "benpy/benpy.pyx":467
  *             logf.write("  lp_method_phase0:   {}\n".format(lp_method_ph0))
  *             logf.write("  lp_method_phase1:   {}\n".format(lp_method_ph1))
  *             logf.write("  lp_method_phase2:   {}\n".format(lp_method_ph2))             # <<<<<<<<<<<<<<
@@ -7773,7 +7775,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":468
+            /* "benpy/benpy.pyx":468
  *             logf.write("  lp_method_phase1:   {}\n".format(lp_method_ph1))
  *             logf.write("  lp_method_phase2:   {}\n".format(lp_method_ph2))
  *             logf.write("  message_level:      {}\n".format(problem._opt.message_level))             # <<<<<<<<<<<<<<
@@ -7880,7 +7882,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":469
+            /* "benpy/benpy.pyx":469
  *             logf.write("  lp_method_phase2:   {}\n".format(lp_method_ph2))
  *             logf.write("  message_level:      {}\n".format(problem._opt.message_level))
  *             logf.write("  lp_message_level:   {}\n".format(problem._opt.lp_message_level))             # <<<<<<<<<<<<<<
@@ -7987,7 +7989,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":470
+            /* "benpy/benpy.pyx":470
  *             logf.write("  message_level:      {}\n".format(problem._opt.message_level))
  *             logf.write("  lp_message_level:   {}\n".format(problem._opt.lp_message_level))
  *             logf.write("  alg_phase1:         {}\n".format( "primal"  if problem._opt.alg_phase1 == PRIMAL_BENSON  else  "dual"))             # <<<<<<<<<<<<<<
@@ -8099,7 +8101,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":471
+            /* "benpy/benpy.pyx":471
  *             logf.write("  lp_message_level:   {}\n".format(problem._opt.lp_message_level))
  *             logf.write("  alg_phase1:         {}\n".format( "primal"  if problem._opt.alg_phase1 == PRIMAL_BENSON  else  "dual"))
  *             logf.write("  alg_phase2:         {}\n".format( "primal"  if problem._opt.alg_phase2 == PRIMAL_BENSON  else  "dual"))             # <<<<<<<<<<<<<<
@@ -8211,7 +8213,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":472
+            /* "benpy/benpy.pyx":472
  *             logf.write("  alg_phase1:         {}\n".format( "primal"  if problem._opt.alg_phase1 == PRIMAL_BENSON  else  "dual"))
  *             logf.write("  alg_phase2:         {}\n".format( "primal"  if problem._opt.alg_phase2 == PRIMAL_BENSON  else  "dual"))
  *             logf.write("  eps_benson_phase1:  {}\n".format(problem._opt.eps_benson_phase1))             # <<<<<<<<<<<<<<
@@ -8318,7 +8320,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":473
+            /* "benpy/benpy.pyx":473
  *             logf.write("  alg_phase2:         {}\n".format( "primal"  if problem._opt.alg_phase2 == PRIMAL_BENSON  else  "dual"))
  *             logf.write("  eps_benson_phase1:  {}\n".format(problem._opt.eps_benson_phase1))
  *             logf.write("  eps_benson_phase2:  {}\n".format(problem._opt.eps_benson_phase2))             # <<<<<<<<<<<<<<
@@ -8425,7 +8427,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":474
+            /* "benpy/benpy.pyx":474
  *             logf.write("  eps_benson_phase1:  {}\n".format(problem._opt.eps_benson_phase1))
  *             logf.write("  eps_benson_phase2:  {}\n".format(problem._opt.eps_benson_phase2))
  *             logf.write("  eps_phase0:         {}\n".format(problem._opt.eps_phase0))             # <<<<<<<<<<<<<<
@@ -8532,7 +8534,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":475
+            /* "benpy/benpy.pyx":475
  *             logf.write("  eps_benson_phase2:  {}\n".format(problem._opt.eps_benson_phase2))
  *             logf.write("  eps_phase0:         {}\n".format(problem._opt.eps_phase0))
  *             logf.write("  eps_phase1:         {}\n".format(problem._opt.eps_phase1))             # <<<<<<<<<<<<<<
@@ -8639,7 +8641,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":476
+            /* "benpy/benpy.pyx":476
  *             logf.write("  eps_phase0:         {}\n".format(problem._opt.eps_phase0))
  *             logf.write("  eps_phase1:         {}\n".format(problem._opt.eps_phase1))
  *             logf.write("Computational results")             # <<<<<<<<<<<<<<
@@ -8653,7 +8655,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":477
+            /* "benpy/benpy.pyx":477
  *             logf.write("  eps_phase1:         {}\n".format(problem._opt.eps_phase1))
  *             logf.write("Computational results")
  *             logf.write("  CPU time (ms):      {:.4}\n".format(elapsedTime))             # <<<<<<<<<<<<<<
@@ -8755,7 +8757,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":478
+            /* "benpy/benpy.pyx":478
  *             logf.write("Computational results")
  *             logf.write("  CPU time (ms):      {:.4}\n".format(elapsedTime))
  *             logf.write("  # LPs:              {}\n".format(lp_get_num(problem._lps)))             # <<<<<<<<<<<<<<
@@ -8862,7 +8864,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-            /* "benpy.pyx":479
+            /* "benpy/benpy.pyx":479
  *             logf.write("  CPU time (ms):      {:.4}\n".format(elapsedTime))
  *             logf.write("  # LPs:              {}\n".format(lp_get_num(problem._lps)))
  *             logf.write("Solution properties")             # <<<<<<<<<<<<<<
@@ -8876,7 +8878,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":480
+            /* "benpy/benpy.pyx":480
  *             logf.write("  # LPs:              {}\n".format(lp_get_num(problem._lps)))
  *             logf.write("Solution properties")
  *             logf.write("  # primal solution points:     {}\n".format(solution._sol.pp))             # <<<<<<<<<<<<<<
@@ -8983,7 +8985,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":481
+            /* "benpy/benpy.pyx":481
  *             logf.write("Solution properties")
  *             logf.write("  # primal solution points:     {}\n".format(solution._sol.pp))
  *             logf.write("  # primal solution directions: {}\n".format(solution._sol.pp_dir))             # <<<<<<<<<<<<<<
@@ -9090,7 +9092,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":482
+            /* "benpy/benpy.pyx":482
  *             logf.write("  # primal solution points:     {}\n".format(solution._sol.pp))
  *             logf.write("  # primal solution directions: {}\n".format(solution._sol.pp_dir))
  *             logf.write("  # dual solution points:       {}\n".format(solution._sol.dd))             # <<<<<<<<<<<<<<
@@ -9197,7 +9199,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":483
+            /* "benpy/benpy.pyx":483
  *             logf.write("  # primal solution directions: {}\n".format(solution._sol.pp_dir))
  *             logf.write("  # dual solution points:       {}\n".format(solution._sol.dd))
  *             logf.write("  # dual solution directions:   {}\n".format(solution._sol.dd_dir))             # <<<<<<<<<<<<<<
@@ -9304,7 +9306,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
             __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-            /* "benpy.pyx":423
+            /* "benpy/benpy.pyx":423
  *     if (problem._opt.logfile):
  *         logfile = problem._opt.filename.decode('UTF-8') + '.log'
  *         with open(logfile,'w') as logf:             # <<<<<<<<<<<<<<
@@ -9326,7 +9328,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
           __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
           __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
           /*except:*/ {
-            __Pyx_AddTraceback("benpy._csolve", __pyx_clineno, __pyx_lineno, __pyx_filename);
+            __Pyx_AddTraceback("benpy.benpy._csolve", __pyx_clineno, __pyx_lineno, __pyx_filename);
             if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_1, &__pyx_t_11) < 0) __PYX_ERR(0, 423, __pyx_L27_except_error)
             __Pyx_GOTREF(__pyx_t_3);
             __Pyx_GOTREF(__pyx_t_1);
@@ -9391,7 +9393,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
       __pyx_L36:;
     }
 
-    /* "benpy.pyx":421
+    /* "benpy/benpy.pyx":421
  *             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
  *     elapsedTime = (time.clock() - elapsedTime)*1000 #Time in ms
  *     if (problem._opt.logfile):             # <<<<<<<<<<<<<<
@@ -9400,7 +9402,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  */
   }
 
-  /* "benpy.pyx":484
+  /* "benpy/benpy.pyx":484
  *             logf.write("  # dual solution points:       {}\n".format(solution._sol.dd))
  *             logf.write("  # dual solution directions:   {}\n".format(solution._sol.dd_dir))
  *     return(solution)             # <<<<<<<<<<<<<<
@@ -9412,7 +9414,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __pyx_r = __pyx_v_solution;
   goto __pyx_L0;
 
-  /* "benpy.pyx":364
+  /* "benpy/benpy.pyx":364
  *         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))
  * 
  * cdef _cVlpSolution _csolve(_cVlpProblem problem):             # <<<<<<<<<<<<<<
@@ -9429,7 +9431,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   __Pyx_XDECREF(__pyx_t_15);
   __Pyx_XDECREF(__pyx_t_16);
   __Pyx_XDECREF(__pyx_t_17);
-  __Pyx_AddTraceback("benpy._csolve", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._csolve", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_elapsedTime);
@@ -9446,7 +9448,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
   return __pyx_r;
 }
 
-/* "benpy.pyx":486
+/* "benpy/benpy.pyx":486
  *     return(solution)
  * 
  * cdef _poly__vrtx2arr(polytope* poly,permutation* prm):             # <<<<<<<<<<<<<<
@@ -9454,7 +9456,7 @@ static struct __pyx_obj_5benpy__cVlpSolution *__pyx_f_5benpy__csolve(struct __py
  *     cdef size_t *idx
  */
 
-static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm) {
+static PyObject *__pyx_f_5benpy_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm) {
   size_t *__pyx_v_idx;
   double *__pyx_v_val;
   PyObject *__pyx_v_ls1 = NULL;
@@ -9473,7 +9475,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
   int __pyx_t_8;
   __Pyx_RefNannySetupContext("_poly__vrtx2arr", 0);
 
-  /* "benpy.pyx":490
+  /* "benpy/benpy.pyx":490
  *     cdef size_t *idx
  *     cdef double *val
  *     ls1 = []             # <<<<<<<<<<<<<<
@@ -9485,7 +9487,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
   __pyx_v_ls1 = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":491
+  /* "benpy/benpy.pyx":491
  *     cdef double *val
  *     ls1 = []
  *     ls2 = np.zeros([prm.cnt,poly.dim],dtype=np.float64)             # <<<<<<<<<<<<<<
@@ -9531,7 +9533,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
   __pyx_v_ls2 = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "benpy.pyx":494
+  /* "benpy/benpy.pyx":494
  *     cdef size_t k
  *     cdef size_t l
  *     k = 0             # <<<<<<<<<<<<<<
@@ -9540,7 +9542,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
  */
   __pyx_v_k = 0;
 
-  /* "benpy.pyx":495
+  /* "benpy/benpy.pyx":495
  *     cdef size_t l
  *     k = 0
  *     l = 0             # <<<<<<<<<<<<<<
@@ -9549,7 +9551,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
  */
   __pyx_v_l = 0;
 
-  /* "benpy.pyx":496
+  /* "benpy/benpy.pyx":496
  *     k = 0
  *     l = 0
  *     idx = prm.data             # <<<<<<<<<<<<<<
@@ -9559,7 +9561,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
   __pyx_t_6 = __pyx_v_prm->data;
   __pyx_v_idx = __pyx_t_6;
 
-  /* "benpy.pyx":497
+  /* "benpy/benpy.pyx":497
  *     l = 0
  *     idx = prm.data
  *     while (k < prm.cnt):             # <<<<<<<<<<<<<<
@@ -9570,7 +9572,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
     __pyx_t_7 = ((__pyx_v_k < __pyx_v_prm->cnt) != 0);
     if (!__pyx_t_7) break;
 
-    /* "benpy.pyx":498
+    /* "benpy/benpy.pyx":498
  *     idx = prm.data
  *     while (k < prm.cnt):
  *         ls1.append((1-<int>IS_ELEM(poly.ideal,idx[0])))             # <<<<<<<<<<<<<<
@@ -9582,7 +9584,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
     __pyx_t_8 = __Pyx_PyList_Append(__pyx_v_ls1, __pyx_t_5); if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 498, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "benpy.pyx":499
+    /* "benpy/benpy.pyx":499
  *     while (k < prm.cnt):
  *         ls1.append((1-<int>IS_ELEM(poly.ideal,idx[0])))
  *         val = poly.data+idx[0]*poly.dim             # <<<<<<<<<<<<<<
@@ -9591,7 +9593,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
  */
     __pyx_v_val = (__pyx_v_poly->data + ((__pyx_v_idx[0]) * __pyx_v_poly->dim));
 
-    /* "benpy.pyx":500
+    /* "benpy/benpy.pyx":500
  *         ls1.append((1-<int>IS_ELEM(poly.ideal,idx[0])))
  *         val = poly.data+idx[0]*poly.dim
  *         l=0             # <<<<<<<<<<<<<<
@@ -9600,7 +9602,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
  */
     __pyx_v_l = 0;
 
-    /* "benpy.pyx":501
+    /* "benpy/benpy.pyx":501
  *         val = poly.data+idx[0]*poly.dim
  *         l=0
  *         while (val < poly.data+(idx[0]+1)*poly.dim):             # <<<<<<<<<<<<<<
@@ -9611,7 +9613,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
       __pyx_t_7 = ((__pyx_v_val < (__pyx_v_poly->data + (((__pyx_v_idx[0]) + 1) * __pyx_v_poly->dim))) != 0);
       if (!__pyx_t_7) break;
 
-      /* "benpy.pyx":502
+      /* "benpy/benpy.pyx":502
  *         l=0
  *         while (val < poly.data+(idx[0]+1)*poly.dim):
  *             ls2[<int>k,<int>l]=val[0]             # <<<<<<<<<<<<<<
@@ -9636,7 +9638,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "benpy.pyx":503
+      /* "benpy/benpy.pyx":503
  *         while (val < poly.data+(idx[0]+1)*poly.dim):
  *             ls2[<int>k,<int>l]=val[0]
  *             val = val + 1             # <<<<<<<<<<<<<<
@@ -9645,7 +9647,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
  */
       __pyx_v_val = (__pyx_v_val + 1);
 
-      /* "benpy.pyx":504
+      /* "benpy/benpy.pyx":504
  *             ls2[<int>k,<int>l]=val[0]
  *             val = val + 1
  *             l = l + 1             # <<<<<<<<<<<<<<
@@ -9655,7 +9657,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
       __pyx_v_l = (__pyx_v_l + 1);
     }
 
-    /* "benpy.pyx":505
+    /* "benpy/benpy.pyx":505
  *             val = val + 1
  *             l = l + 1
  *         idx = idx + 1             # <<<<<<<<<<<<<<
@@ -9664,7 +9666,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
  */
     __pyx_v_idx = (__pyx_v_idx + 1);
 
-    /* "benpy.pyx":506
+    /* "benpy/benpy.pyx":506
  *             l = l + 1
  *         idx = idx + 1
  *         k = k + 1             # <<<<<<<<<<<<<<
@@ -9674,7 +9676,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
     __pyx_v_k = (__pyx_v_k + 1);
   }
 
-  /* "benpy.pyx":508
+  /* "benpy/benpy.pyx":508
  *         k = k + 1
  * 
  *     return((ls1,ls2))             # <<<<<<<<<<<<<<
@@ -9694,7 +9696,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
   __pyx_t_5 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":486
+  /* "benpy/benpy.pyx":486
  *     return(solution)
  * 
  * cdef _poly__vrtx2arr(polytope* poly,permutation* prm):             # <<<<<<<<<<<<<<
@@ -9709,7 +9711,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
   __Pyx_XDECREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("benpy._poly__vrtx2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._poly__vrtx2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_ls1);
@@ -9719,7 +9721,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
   return __pyx_r;
 }
 
-/* "benpy.pyx":510
+/* "benpy/benpy.pyx":510
  *     return((ls1,ls2))
  * 
  * cdef _poly__adj2arr(polytope *poly, permutation *prm):             # <<<<<<<<<<<<<<
@@ -9727,7 +9729,7 @@ static PyObject *__pyx_f_5benpy__poly__vrtx2arr(polytope *__pyx_v_poly, permutat
  *     cdef size_t *vrtx, *nghbr
  */
 
-static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm) {
+static PyObject *__pyx_f_5benpy_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm) {
   size_t *__pyx_v_vrtx;
   size_t *__pyx_v_nghbr;
   size_t __pyx_v_k;
@@ -9742,7 +9744,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
   int __pyx_t_4;
   __Pyx_RefNannySetupContext("_poly__adj2arr", 0);
 
-  /* "benpy.pyx":514
+  /* "benpy/benpy.pyx":514
  *     cdef size_t *vrtx, *nghbr
  *     cdef size_t k, l
  *     adj = []             # <<<<<<<<<<<<<<
@@ -9754,7 +9756,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
   __pyx_v_adj = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":515
+  /* "benpy/benpy.pyx":515
  *     cdef size_t k, l
  *     adj = []
  *     k = 0             # <<<<<<<<<<<<<<
@@ -9763,7 +9765,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
  */
   __pyx_v_k = 0;
 
-  /* "benpy.pyx":516
+  /* "benpy/benpy.pyx":516
  *     adj = []
  *     k = 0
  *     l = 0             # <<<<<<<<<<<<<<
@@ -9772,7 +9774,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
  */
   __pyx_v_l = 0;
 
-  /* "benpy.pyx":517
+  /* "benpy/benpy.pyx":517
  *     k = 0
  *     l = 0
  *     vrtx = prm.data             # <<<<<<<<<<<<<<
@@ -9782,7 +9784,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
   __pyx_t_2 = __pyx_v_prm->data;
   __pyx_v_vrtx = __pyx_t_2;
 
-  /* "benpy.pyx":518
+  /* "benpy/benpy.pyx":518
  *     l = 0
  *     vrtx = prm.data
  *     while (k < prm.cnt):             # <<<<<<<<<<<<<<
@@ -9793,7 +9795,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
     __pyx_t_3 = ((__pyx_v_k < __pyx_v_prm->cnt) != 0);
     if (!__pyx_t_3) break;
 
-    /* "benpy.pyx":519
+    /* "benpy/benpy.pyx":519
  *     vrtx = prm.data
  *     while (k < prm.cnt):
  *         ls = []             # <<<<<<<<<<<<<<
@@ -9805,7 +9807,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
     __Pyx_XDECREF_SET(__pyx_v_ls, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "benpy.pyx":520
+    /* "benpy/benpy.pyx":520
  *     while (k < prm.cnt):
  *         ls = []
  *         l = 0             # <<<<<<<<<<<<<<
@@ -9814,7 +9816,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
  */
     __pyx_v_l = 0;
 
-    /* "benpy.pyx":521
+    /* "benpy/benpy.pyx":521
  *         ls = []
  *         l = 0
  *         nghbr = (poly.adjacence+vrtx[0]).data             # <<<<<<<<<<<<<<
@@ -9824,7 +9826,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
     __pyx_t_2 = (__pyx_v_poly->adjacence + (__pyx_v_vrtx[0]))->data;
     __pyx_v_nghbr = __pyx_t_2;
 
-    /* "benpy.pyx":522
+    /* "benpy/benpy.pyx":522
  *         l = 0
  *         nghbr = (poly.adjacence+vrtx[0]).data
  *         while(l < (poly.adjacence+vrtx[0]).cnt):             # <<<<<<<<<<<<<<
@@ -9835,7 +9837,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
       __pyx_t_3 = ((__pyx_v_l < (__pyx_v_poly->adjacence + (__pyx_v_vrtx[0]))->cnt) != 0);
       if (!__pyx_t_3) break;
 
-      /* "benpy.pyx":523
+      /* "benpy/benpy.pyx":523
  *         nghbr = (poly.adjacence+vrtx[0]).data
  *         while(l < (poly.adjacence+vrtx[0]).cnt):
  *             ls.append((prm.inv+nghbr[0])[0])             # <<<<<<<<<<<<<<
@@ -9847,7 +9849,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
       __pyx_t_4 = __Pyx_PyList_Append(__pyx_v_ls, __pyx_t_1); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 523, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":524
+      /* "benpy/benpy.pyx":524
  *         while(l < (poly.adjacence+vrtx[0]).cnt):
  *             ls.append((prm.inv+nghbr[0])[0])
  *             nghbr = nghbr + 1             # <<<<<<<<<<<<<<
@@ -9856,7 +9858,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
  */
       __pyx_v_nghbr = (__pyx_v_nghbr + 1);
 
-      /* "benpy.pyx":525
+      /* "benpy/benpy.pyx":525
  *             ls.append((prm.inv+nghbr[0])[0])
  *             nghbr = nghbr + 1
  *             l = l + 1             # <<<<<<<<<<<<<<
@@ -9866,7 +9868,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
       __pyx_v_l = (__pyx_v_l + 1);
     }
 
-    /* "benpy.pyx":526
+    /* "benpy/benpy.pyx":526
  *             nghbr = nghbr + 1
  *             l = l + 1
  *         adj.append(ls)             # <<<<<<<<<<<<<<
@@ -9875,7 +9877,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
  */
     __pyx_t_4 = __Pyx_PyList_Append(__pyx_v_adj, __pyx_v_ls); if (unlikely(__pyx_t_4 == -1)) __PYX_ERR(0, 526, __pyx_L1_error)
 
-    /* "benpy.pyx":527
+    /* "benpy/benpy.pyx":527
  *             l = l + 1
  *         adj.append(ls)
  *         vrtx = vrtx + 1             # <<<<<<<<<<<<<<
@@ -9884,7 +9886,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
  */
     __pyx_v_vrtx = (__pyx_v_vrtx + 1);
 
-    /* "benpy.pyx":528
+    /* "benpy/benpy.pyx":528
  *         adj.append(ls)
  *         vrtx = vrtx + 1
  *         k = k + 1             # <<<<<<<<<<<<<<
@@ -9894,7 +9896,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
     __pyx_v_k = (__pyx_v_k + 1);
   }
 
-  /* "benpy.pyx":529
+  /* "benpy/benpy.pyx":529
  *         vrtx = vrtx + 1
  *         k = k + 1
  *     return(adj)             # <<<<<<<<<<<<<<
@@ -9906,7 +9908,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
   __pyx_r = __pyx_v_adj;
   goto __pyx_L0;
 
-  /* "benpy.pyx":510
+  /* "benpy/benpy.pyx":510
  *     return((ls1,ls2))
  * 
  * cdef _poly__adj2arr(polytope *poly, permutation *prm):             # <<<<<<<<<<<<<<
@@ -9917,7 +9919,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("benpy._poly__adj2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._poly__adj2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_adj);
@@ -9927,7 +9929,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
   return __pyx_r;
 }
 
-/* "benpy.pyx":532
+/* "benpy/benpy.pyx":532
  * 
  * 
  * cdef _poly__inc2arr(polytope *poly, permutation *prm, permutation *prm_dual):             # <<<<<<<<<<<<<<
@@ -9935,7 +9937,7 @@ static PyObject *__pyx_f_5benpy__poly__adj2arr(polytope *__pyx_v_poly, permutati
  *     cdef size_t *fct, *vrtx
  */
 
-static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm, permutation *__pyx_v_prm_dual) {
+static PyObject *__pyx_f_5benpy_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm, permutation *__pyx_v_prm_dual) {
   size_t *__pyx_v_fct;
   size_t *__pyx_v_vrtx;
   CYTHON_UNUSED size_t __pyx_v_k;
@@ -9953,7 +9955,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("_poly__inc2arr", 0);
 
-  /* "benpy.pyx":537
+  /* "benpy/benpy.pyx":537
  *     cdef size_t k, l
  * 
  *     k=0             # <<<<<<<<<<<<<<
@@ -9962,7 +9964,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
  */
   __pyx_v_k = 0;
 
-  /* "benpy.pyx":538
+  /* "benpy/benpy.pyx":538
  * 
  *     k=0
  *     l=0             # <<<<<<<<<<<<<<
@@ -9971,7 +9973,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
  */
   __pyx_v_l = 0;
 
-  /* "benpy.pyx":539
+  /* "benpy/benpy.pyx":539
  *     k=0
  *     l=0
  *     res = []             # <<<<<<<<<<<<<<
@@ -9983,7 +9985,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
   __pyx_v_res = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":540
+  /* "benpy/benpy.pyx":540
  *     l=0
  *     res = []
  *     fct = prm_dual.data             # <<<<<<<<<<<<<<
@@ -9993,7 +9995,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
   __pyx_t_2 = __pyx_v_prm_dual->data;
   __pyx_v_fct = __pyx_t_2;
 
-  /* "benpy.pyx":542
+  /* "benpy/benpy.pyx":542
  *     fct = prm_dual.data
  * 
  *     for k in range(prm_dual.cnt):             # <<<<<<<<<<<<<<
@@ -10004,7 +10006,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_k = __pyx_t_4;
 
-    /* "benpy.pyx":543
+    /* "benpy/benpy.pyx":543
  * 
  *     for k in range(prm_dual.cnt):
  *         ls = []             # <<<<<<<<<<<<<<
@@ -10016,7 +10018,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
     __Pyx_XDECREF_SET(__pyx_v_ls, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "benpy.pyx":544
+    /* "benpy/benpy.pyx":544
  *     for k in range(prm_dual.cnt):
  *         ls = []
  *         vrtx = ((poly.dual.incidence) + fct[0]).data             # <<<<<<<<<<<<<<
@@ -10026,7 +10028,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
     __pyx_t_2 = (__pyx_v_poly->dual->incidence + (__pyx_v_fct[0]))->data;
     __pyx_v_vrtx = __pyx_t_2;
 
-    /* "benpy.pyx":545
+    /* "benpy/benpy.pyx":545
  *         ls = []
  *         vrtx = ((poly.dual.incidence) + fct[0]).data
  *         for l in range(((poly.dual.incidence) + fct[0]).cnt):             # <<<<<<<<<<<<<<
@@ -10037,7 +10039,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
     for (__pyx_t_6 = 0; __pyx_t_6 < __pyx_t_5; __pyx_t_6+=1) {
       __pyx_v_l = __pyx_t_6;
 
-      /* "benpy.pyx":546
+      /* "benpy/benpy.pyx":546
  *         vrtx = ((poly.dual.incidence) + fct[0]).data
  *         for l in range(((poly.dual.incidence) + fct[0]).cnt):
  *             ls.append(<unsigned int>((prm.inv+vrtx[0])[0]))             # <<<<<<<<<<<<<<
@@ -10049,7 +10051,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
       __pyx_t_7 = __Pyx_PyList_Append(__pyx_v_ls, __pyx_t_1); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 546, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":547
+      /* "benpy/benpy.pyx":547
  *         for l in range(((poly.dual.incidence) + fct[0]).cnt):
  *             ls.append(<unsigned int>((prm.inv+vrtx[0])[0]))
  *             vrtx = vrtx + 1             # <<<<<<<<<<<<<<
@@ -10059,7 +10061,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
       __pyx_v_vrtx = (__pyx_v_vrtx + 1);
     }
 
-    /* "benpy.pyx":548
+    /* "benpy/benpy.pyx":548
  *             ls.append(<unsigned int>((prm.inv+vrtx[0])[0]))
  *             vrtx = vrtx + 1
  *         res.append(ls)             # <<<<<<<<<<<<<<
@@ -10068,7 +10070,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
  */
     __pyx_t_7 = __Pyx_PyList_Append(__pyx_v_res, __pyx_v_ls); if (unlikely(__pyx_t_7 == -1)) __PYX_ERR(0, 548, __pyx_L1_error)
 
-    /* "benpy.pyx":549
+    /* "benpy/benpy.pyx":549
  *             vrtx = vrtx + 1
  *         res.append(ls)
  *         fct = fct + 1             # <<<<<<<<<<<<<<
@@ -10078,7 +10080,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
     __pyx_v_fct = (__pyx_v_fct + 1);
   }
 
-  /* "benpy.pyx":551
+  /* "benpy/benpy.pyx":551
  *         fct = fct + 1
  * 
  *     return(res)             # <<<<<<<<<<<<<<
@@ -10090,7 +10092,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
   __pyx_r = __pyx_v_res;
   goto __pyx_L0;
 
-  /* "benpy.pyx":532
+  /* "benpy/benpy.pyx":532
  * 
  * 
  * cdef _poly__inc2arr(polytope *poly, permutation *prm, permutation *prm_dual):             # <<<<<<<<<<<<<<
@@ -10101,7 +10103,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("benpy._poly__inc2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._poly__inc2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_res);
@@ -10111,7 +10113,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
   return __pyx_r;
 }
 
-/* "benpy.pyx":553
+/* "benpy/benpy.pyx":553
  *     return(res)
  * 
  * cdef _poly__primg2arr(polytope *poly, permutation *prm):             # <<<<<<<<<<<<<<
@@ -10119,7 +10121,7 @@ static PyObject *__pyx_f_5benpy__poly__inc2arr(polytope *__pyx_v_poly, permutati
  *     cdef size_t *idx
  */
 
-static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm) {
+static PyObject *__pyx_f_5benpy_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permutation *__pyx_v_prm) {
   size_t *__pyx_v_idx;
   double *__pyx_v_val;
   CYTHON_UNUSED size_t __pyx_v_k;
@@ -10138,7 +10140,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
   PyObject *__pyx_t_9 = NULL;
   __Pyx_RefNannySetupContext("_poly__primg2arr", 0);
 
-  /* "benpy.pyx":558
+  /* "benpy/benpy.pyx":558
  *     cdef double *val
  *     cdef size_t k
  *     preimg = []             # <<<<<<<<<<<<<<
@@ -10150,7 +10152,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
   __pyx_v_preimg = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":559
+  /* "benpy/benpy.pyx":559
  *     cdef size_t k
  *     preimg = []
  *     idx = prm.data             # <<<<<<<<<<<<<<
@@ -10160,7 +10162,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
   __pyx_t_2 = __pyx_v_prm->data;
   __pyx_v_idx = __pyx_t_2;
 
-  /* "benpy.pyx":560
+  /* "benpy/benpy.pyx":560
  *     preimg = []
  *     idx = prm.data
  *     for k in range(prm.cnt):             # <<<<<<<<<<<<<<
@@ -10171,7 +10173,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_k = __pyx_t_4;
 
-    /* "benpy.pyx":561
+    /* "benpy/benpy.pyx":561
  *     idx = prm.data
  *     for k in range(prm.cnt):
  *         val_list=[]             # <<<<<<<<<<<<<<
@@ -10183,7 +10185,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
     __Pyx_XDECREF_SET(__pyx_v_val_list, ((PyObject*)__pyx_t_1));
     __pyx_t_1 = 0;
 
-    /* "benpy.pyx":562
+    /* "benpy/benpy.pyx":562
  *     for k in range(prm.cnt):
  *         val_list=[]
  *         if <int>IS_ELEM(poly.sltn,idx[0]):             # <<<<<<<<<<<<<<
@@ -10193,7 +10195,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
     __pyx_t_5 = (((int)IS_ELEM(__pyx_v_poly->sltn, (__pyx_v_idx[0]))) != 0);
     if (__pyx_t_5) {
 
-      /* "benpy.pyx":563
+      /* "benpy/benpy.pyx":563
  *         val_list=[]
  *         if <int>IS_ELEM(poly.sltn,idx[0]):
  *             val = poly.data_primg+idx[0]*poly.dim_primg             # <<<<<<<<<<<<<<
@@ -10202,7 +10204,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
  */
       __pyx_v_val = (__pyx_v_poly->data_primg + ((__pyx_v_idx[0]) * __pyx_v_poly->dim_primg));
 
-      /* "benpy.pyx":564
+      /* "benpy/benpy.pyx":564
  *         if <int>IS_ELEM(poly.sltn,idx[0]):
  *             val = poly.data_primg+idx[0]*poly.dim_primg
  *             while (val < poly.data_primg+(idx[0] + 1)*poly.dim_primg):             # <<<<<<<<<<<<<<
@@ -10213,7 +10215,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
         __pyx_t_5 = ((__pyx_v_val < (__pyx_v_poly->data_primg + (((__pyx_v_idx[0]) + 1) * __pyx_v_poly->dim_primg))) != 0);
         if (!__pyx_t_5) break;
 
-        /* "benpy.pyx":565
+        /* "benpy/benpy.pyx":565
  *             val = poly.data_primg+idx[0]*poly.dim_primg
  *             while (val < poly.data_primg+(idx[0] + 1)*poly.dim_primg):
  *                 val_list.append(val[0])             # <<<<<<<<<<<<<<
@@ -10225,7 +10227,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
         __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_val_list, __pyx_t_1); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 565, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "benpy.pyx":566
+        /* "benpy/benpy.pyx":566
  *             while (val < poly.data_primg+(idx[0] + 1)*poly.dim_primg):
  *                 val_list.append(val[0])
  *                 val = val + 1             # <<<<<<<<<<<<<<
@@ -10235,7 +10237,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
         __pyx_v_val = (__pyx_v_val + 1);
       }
 
-      /* "benpy.pyx":562
+      /* "benpy/benpy.pyx":562
  *     for k in range(prm.cnt):
  *         val_list=[]
  *         if <int>IS_ELEM(poly.sltn,idx[0]):             # <<<<<<<<<<<<<<
@@ -10244,7 +10246,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
  */
     }
 
-    /* "benpy.pyx":567
+    /* "benpy/benpy.pyx":567
  *                 val_list.append(val[0])
  *                 val = val + 1
  *         preimg.append(val_list)             # <<<<<<<<<<<<<<
@@ -10253,7 +10255,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
  */
     __pyx_t_6 = __Pyx_PyList_Append(__pyx_v_preimg, __pyx_v_val_list); if (unlikely(__pyx_t_6 == -1)) __PYX_ERR(0, 567, __pyx_L1_error)
 
-    /* "benpy.pyx":568
+    /* "benpy/benpy.pyx":568
  *                 val = val + 1
  *         preimg.append(val_list)
  *         idx = idx + 1             # <<<<<<<<<<<<<<
@@ -10263,7 +10265,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
     __pyx_v_idx = (__pyx_v_idx + 1);
   }
 
-  /* "benpy.pyx":570
+  /* "benpy/benpy.pyx":570
  *         idx = idx + 1
  * 
  *     return(np.asarray(preimg))             # <<<<<<<<<<<<<<
@@ -10323,7 +10325,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":553
+  /* "benpy/benpy.pyx":553
  *     return(res)
  * 
  * cdef _poly__primg2arr(polytope *poly, permutation *prm):             # <<<<<<<<<<<<<<
@@ -10337,7 +10339,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
   __Pyx_XDECREF(__pyx_t_9);
-  __Pyx_AddTraceback("benpy._poly__primg2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._poly__primg2arr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_preimg);
@@ -10347,7 +10349,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
   return __pyx_r;
 }
 
-/* "benpy.pyx":572
+/* "benpy/benpy.pyx":572
  *     return(np.asarray(preimg))
  * 
  * cdef _poly_output(_cVlpSolution s,swap = 0):             # <<<<<<<<<<<<<<
@@ -10355,7 +10357,7 @@ static PyObject *__pyx_f_5benpy__poly__primg2arr(polytope *__pyx_v_poly, permuta
  *     cdef polytope *primal
  */
 
-static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_s, struct __pyx_opt_args_5benpy__poly_output *__pyx_optional_args) {
+static PyObject *__pyx_f_5benpy_5benpy__poly_output(struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_s, struct __pyx_opt_args_5benpy_5benpy__poly_output *__pyx_optional_args) {
   PyObject *__pyx_v_swap = ((PyObject *)__pyx_int_0);
   polytope *__pyx_v_primal;
   polytope *__pyx_v_dual;
@@ -10390,7 +10392,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
     }
   }
 
-  /* "benpy.pyx":576
+  /* "benpy/benpy.pyx":576
  *     cdef polytope *primal
  *     cdef polytope *dual
  *     if (not swap):             # <<<<<<<<<<<<<<
@@ -10401,7 +10403,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __pyx_t_2 = ((!__pyx_t_1) != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":577
+    /* "benpy/benpy.pyx":577
  *     cdef polytope *dual
  *     if (not swap):
  *         primal = &(s._image).primal             # <<<<<<<<<<<<<<
@@ -10410,7 +10412,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
  */
     __pyx_v_primal = (&__pyx_v_s->_image->primal);
 
-    /* "benpy.pyx":578
+    /* "benpy/benpy.pyx":578
  *     if (not swap):
  *         primal = &(s._image).primal
  *         dual = &(s._image).dual             # <<<<<<<<<<<<<<
@@ -10419,7 +10421,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
  */
     __pyx_v_dual = (&__pyx_v_s->_image->dual);
 
-    /* "benpy.pyx":576
+    /* "benpy/benpy.pyx":576
  *     cdef polytope *primal
  *     cdef polytope *dual
  *     if (not swap):             # <<<<<<<<<<<<<<
@@ -10429,7 +10431,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
     goto __pyx_L3;
   }
 
-  /* "benpy.pyx":580
+  /* "benpy/benpy.pyx":580
  *         dual = &(s._image).dual
  *     else:
  *         dual = &(s._image).primal             # <<<<<<<<<<<<<<
@@ -10439,7 +10441,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   /*else*/ {
     __pyx_v_dual = (&__pyx_v_s->_image->primal);
 
-    /* "benpy.pyx":581
+    /* "benpy/benpy.pyx":581
  *     else:
  *         dual = &(s._image).primal
  *         primal = &(s._image).dual             # <<<<<<<<<<<<<<
@@ -10450,7 +10452,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   }
   __pyx_L3:;
 
-  /* "benpy.pyx":585
+  /* "benpy/benpy.pyx":585
  *     cdef size_t k
  * 
  *     for k in range(dual.cnt):             # <<<<<<<<<<<<<<
@@ -10461,7 +10463,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_k = __pyx_t_4;
 
-    /* "benpy.pyx":586
+    /* "benpy/benpy.pyx":586
  * 
  *     for k in range(dual.cnt):
  *         if (IS_ELEM(dual.used,k)):             # <<<<<<<<<<<<<<
@@ -10471,7 +10473,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
     __pyx_t_2 = (IS_ELEM(__pyx_v_dual->used, __pyx_v_k) != 0);
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":587
+      /* "benpy/benpy.pyx":587
  *     for k in range(dual.cnt):
  *         if (IS_ELEM(dual.used,k)):
  *             ST_BT(dual.sltn,k)             # <<<<<<<<<<<<<<
@@ -10480,7 +10482,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
  */
       ST_BT(__pyx_v_dual->sltn, __pyx_v_k);
 
-      /* "benpy.pyx":586
+      /* "benpy/benpy.pyx":586
  * 
  *     for k in range(dual.cnt):
  *         if (IS_ELEM(dual.used,k)):             # <<<<<<<<<<<<<<
@@ -10490,7 +10492,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
     }
   }
 
-  /* "benpy.pyx":589
+  /* "benpy/benpy.pyx":589
  *             ST_BT(dual.sltn,k)
  * 
  *     for k in range(primal.cnt):             # <<<<<<<<<<<<<<
@@ -10501,7 +10503,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_k = __pyx_t_4;
 
-    /* "benpy.pyx":590
+    /* "benpy/benpy.pyx":590
  * 
  *     for k in range(primal.cnt):
  *         if (IS_ELEM(primal.used,k)):             # <<<<<<<<<<<<<<
@@ -10511,7 +10513,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
     __pyx_t_2 = (IS_ELEM(__pyx_v_primal->used, __pyx_v_k) != 0);
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":591
+      /* "benpy/benpy.pyx":591
  *     for k in range(primal.cnt):
  *         if (IS_ELEM(primal.used,k)):
  *             ST_BT(primal.sltn, k)             # <<<<<<<<<<<<<<
@@ -10520,7 +10522,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
  */
       ST_BT(__pyx_v_primal->sltn, __pyx_v_k);
 
-      /* "benpy.pyx":590
+      /* "benpy/benpy.pyx":590
  * 
  *     for k in range(primal.cnt):
  *         if (IS_ELEM(primal.used,k)):             # <<<<<<<<<<<<<<
@@ -10530,7 +10532,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
     }
   }
 
-  /* "benpy.pyx":594
+  /* "benpy/benpy.pyx":594
  * 
  *     cdef permutation prm,prm_dual
  *     poly__initialise_permutation (primal,&prm)             # <<<<<<<<<<<<<<
@@ -10539,7 +10541,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
  */
   poly__initialise_permutation(__pyx_v_primal, (&__pyx_v_prm));
 
-  /* "benpy.pyx":595
+  /* "benpy/benpy.pyx":595
  *     cdef permutation prm,prm_dual
  *     poly__initialise_permutation (primal,&prm)
  *     poly__initialise_permutation (dual,&prm_dual)             # <<<<<<<<<<<<<<
@@ -10548,14 +10550,14 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
  */
   poly__initialise_permutation(__pyx_v_dual, (&__pyx_v_prm_dual));
 
-  /* "benpy.pyx":597
+  /* "benpy/benpy.pyx":597
  *     poly__initialise_permutation (dual,&prm_dual)
  * 
  *     ls1_p, ls2_p = _poly__vrtx2arr(primal,&prm)             # <<<<<<<<<<<<<<
  *     adj_p = _poly__adj2arr(primal,&prm)
  *     ls1_d, ls2_d = _poly__vrtx2arr(dual,&prm_dual)
  */
-  __pyx_t_5 = __pyx_f_5benpy__poly__vrtx2arr(__pyx_v_primal, (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 597, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__vrtx2arr(__pyx_v_primal, (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 597, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
     PyObject* sequence = __pyx_t_5;
@@ -10612,26 +10614,26 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __pyx_v_ls2_p = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "benpy.pyx":598
+  /* "benpy/benpy.pyx":598
  * 
  *     ls1_p, ls2_p = _poly__vrtx2arr(primal,&prm)
  *     adj_p = _poly__adj2arr(primal,&prm)             # <<<<<<<<<<<<<<
  *     ls1_d, ls2_d = _poly__vrtx2arr(dual,&prm_dual)
  *     adj_d = _poly__adj2arr(dual,&prm_dual)
  */
-  __pyx_t_5 = __pyx_f_5benpy__poly__adj2arr(__pyx_v_primal, (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 598, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__adj2arr(__pyx_v_primal, (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 598, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_v_adj_p = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "benpy.pyx":599
+  /* "benpy/benpy.pyx":599
  *     ls1_p, ls2_p = _poly__vrtx2arr(primal,&prm)
  *     adj_p = _poly__adj2arr(primal,&prm)
  *     ls1_d, ls2_d = _poly__vrtx2arr(dual,&prm_dual)             # <<<<<<<<<<<<<<
  *     adj_d = _poly__adj2arr(dual,&prm_dual)
  *     inc_p = _poly__inc2arr(primal,&prm,&prm_dual)
  */
-  __pyx_t_5 = __pyx_f_5benpy__poly__vrtx2arr(__pyx_v_dual, (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 599, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__vrtx2arr(__pyx_v_dual, (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 599, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   if ((likely(PyTuple_CheckExact(__pyx_t_5))) || (PyList_CheckExact(__pyx_t_5))) {
     PyObject* sequence = __pyx_t_5;
@@ -10688,43 +10690,43 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __pyx_v_ls2_d = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "benpy.pyx":600
+  /* "benpy/benpy.pyx":600
  *     adj_p = _poly__adj2arr(primal,&prm)
  *     ls1_d, ls2_d = _poly__vrtx2arr(dual,&prm_dual)
  *     adj_d = _poly__adj2arr(dual,&prm_dual)             # <<<<<<<<<<<<<<
  *     inc_p = _poly__inc2arr(primal,&prm,&prm_dual)
  *     inc_d = _poly__inc2arr(dual,&prm_dual,&prm)
  */
-  __pyx_t_5 = __pyx_f_5benpy__poly__adj2arr(__pyx_v_dual, (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 600, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__adj2arr(__pyx_v_dual, (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 600, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_v_adj_d = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "benpy.pyx":601
+  /* "benpy/benpy.pyx":601
  *     ls1_d, ls2_d = _poly__vrtx2arr(dual,&prm_dual)
  *     adj_d = _poly__adj2arr(dual,&prm_dual)
  *     inc_p = _poly__inc2arr(primal,&prm,&prm_dual)             # <<<<<<<<<<<<<<
  *     inc_d = _poly__inc2arr(dual,&prm_dual,&prm)
  *     pre_p = None
  */
-  __pyx_t_5 = __pyx_f_5benpy__poly__inc2arr(__pyx_v_primal, (&__pyx_v_prm), (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 601, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__inc2arr(__pyx_v_primal, (&__pyx_v_prm), (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 601, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_v_inc_p = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "benpy.pyx":602
+  /* "benpy/benpy.pyx":602
  *     adj_d = _poly__adj2arr(dual,&prm_dual)
  *     inc_p = _poly__inc2arr(primal,&prm,&prm_dual)
  *     inc_d = _poly__inc2arr(dual,&prm_dual,&prm)             # <<<<<<<<<<<<<<
  *     pre_p = None
  *     pre_d = None
  */
-  __pyx_t_5 = __pyx_f_5benpy__poly__inc2arr(__pyx_v_dual, (&__pyx_v_prm_dual), (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 602, __pyx_L1_error)
+  __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__inc2arr(__pyx_v_dual, (&__pyx_v_prm_dual), (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 602, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_v_inc_d = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "benpy.pyx":603
+  /* "benpy/benpy.pyx":603
  *     inc_p = _poly__inc2arr(primal,&prm,&prm_dual)
  *     inc_d = _poly__inc2arr(dual,&prm_dual,&prm)
  *     pre_p = None             # <<<<<<<<<<<<<<
@@ -10734,7 +10736,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __Pyx_INCREF(Py_None);
   __pyx_v_pre_p = Py_None;
 
-  /* "benpy.pyx":604
+  /* "benpy/benpy.pyx":604
  *     inc_d = _poly__inc2arr(dual,&prm_dual,&prm)
  *     pre_p = None
  *     pre_d = None             # <<<<<<<<<<<<<<
@@ -10744,7 +10746,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __Pyx_INCREF(Py_None);
   __pyx_v_pre_d = Py_None;
 
-  /* "benpy.pyx":605
+  /* "benpy/benpy.pyx":605
  *     pre_p = None
  *     pre_d = None
  *     if s._pre_img:             # <<<<<<<<<<<<<<
@@ -10754,31 +10756,31 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __pyx_t_2 = (__pyx_v_s->_pre_img != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":606
+    /* "benpy/benpy.pyx":606
  *     pre_d = None
  *     if s._pre_img:
  *         pre_p = _poly__primg2arr(primal,&prm)             # <<<<<<<<<<<<<<
  *         pre_d = _poly__primg2arr(dual,&prm_dual)
  *     else:
  */
-    __pyx_t_5 = __pyx_f_5benpy__poly__primg2arr(__pyx_v_primal, (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 606, __pyx_L1_error)
+    __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__primg2arr(__pyx_v_primal, (&__pyx_v_prm)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 606, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF_SET(__pyx_v_pre_p, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "benpy.pyx":607
+    /* "benpy/benpy.pyx":607
  *     if s._pre_img:
  *         pre_p = _poly__primg2arr(primal,&prm)
  *         pre_d = _poly__primg2arr(dual,&prm_dual)             # <<<<<<<<<<<<<<
  *     else:
  *         warn("Pre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")
  */
-    __pyx_t_5 = __pyx_f_5benpy__poly__primg2arr(__pyx_v_dual, (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 607, __pyx_L1_error)
+    __pyx_t_5 = __pyx_f_5benpy_5benpy__poly__primg2arr(__pyx_v_dual, (&__pyx_v_prm_dual)); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 607, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF_SET(__pyx_v_pre_d, __pyx_t_5);
     __pyx_t_5 = 0;
 
-    /* "benpy.pyx":605
+    /* "benpy/benpy.pyx":605
  *     pre_p = None
  *     pre_d = None
  *     if s._pre_img:             # <<<<<<<<<<<<<<
@@ -10788,7 +10790,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
     goto __pyx_L14;
   }
 
-  /* "benpy.pyx":609
+  /* "benpy/benpy.pyx":609
  *         pre_d = _poly__primg2arr(dual,&prm_dual)
  *     else:
  *         warn("Pre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")             # <<<<<<<<<<<<<<
@@ -10805,7 +10807,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   }
   __pyx_L14:;
 
-  /* "benpy.pyx":611
+  /* "benpy/benpy.pyx":611
  *         warn("Pre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")
  * 
  *     return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))             # <<<<<<<<<<<<<<
@@ -10859,7 +10861,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __pyx_t_7 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":572
+  /* "benpy/benpy.pyx":572
  *     return(np.asarray(preimg))
  * 
  * cdef _poly_output(_cVlpSolution s,swap = 0):             # <<<<<<<<<<<<<<
@@ -10873,7 +10875,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_AddTraceback("benpy._poly_output", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy._poly_output", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_ls1_p);
@@ -10891,7 +10893,7 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
   return __pyx_r;
 }
 
-/* "benpy.pyx":616
+/* "benpy/benpy.pyx":616
  *     "Wrapper Class for a vlpProblem"
  * 
  *     def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):             # <<<<<<<<<<<<<<
@@ -10900,9 +10902,9 @@ static PyObject *__pyx_f_5benpy__poly_output(struct __pyx_obj_5benpy__cVlpSoluti
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_10vlpProblem_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_10vlpProblem_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5benpy_10vlpProblem_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5benpy_10vlpProblem_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_10vlpProblem_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5benpy_5benpy_10vlpProblem_1__init__, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_1__init__(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_B = 0;
   PyObject *__pyx_v_a = 0;
@@ -11060,23 +11062,23 @@ static PyObject *__pyx_pw_5benpy_10vlpProblem_1__init__(PyObject *__pyx_self, Py
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 13, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 616, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("benpy.vlpProblem.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5benpy_10vlpProblem___init__(__pyx_self, __pyx_v_self, __pyx_v_B, __pyx_v_a, __pyx_v_b, __pyx_v_l, __pyx_v_s, __pyx_v_P, __pyx_v_Y, __pyx_v_Z, __pyx_v_c, __pyx_v_opt_dir, __pyx_v_filename, __pyx_v_options);
+  __pyx_r = __pyx_pf_5benpy_5benpy_10vlpProblem___init__(__pyx_self, __pyx_v_self, __pyx_v_B, __pyx_v_a, __pyx_v_b, __pyx_v_l, __pyx_v_s, __pyx_v_P, __pyx_v_Y, __pyx_v_Z, __pyx_v_c, __pyx_v_opt_dir, __pyx_v_filename, __pyx_v_options);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_B, PyObject *__pyx_v_a, PyObject *__pyx_v_b, PyObject *__pyx_v_l, PyObject *__pyx_v_s, PyObject *__pyx_v_P, PyObject *__pyx_v_Y, PyObject *__pyx_v_Z, PyObject *__pyx_v_c, PyObject *__pyx_v_opt_dir, PyObject *__pyx_v_filename, PyObject *__pyx_v_options) {
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_B, PyObject *__pyx_v_a, PyObject *__pyx_v_b, PyObject *__pyx_v_l, PyObject *__pyx_v_s, PyObject *__pyx_v_P, PyObject *__pyx_v_Y, PyObject *__pyx_v_Z, PyObject *__pyx_v_c, PyObject *__pyx_v_opt_dir, PyObject *__pyx_v_filename, PyObject *__pyx_v_options) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "benpy.pyx":617
+  /* "benpy/benpy.pyx":617
  * 
  *     def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):
  *         self.B = B             # <<<<<<<<<<<<<<
@@ -11085,7 +11087,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_B, __pyx_v_B) < 0) __PYX_ERR(0, 617, __pyx_L1_error)
 
-  /* "benpy.pyx":618
+  /* "benpy/benpy.pyx":618
  *     def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):
  *         self.B = B
  *         self.a = a             # <<<<<<<<<<<<<<
@@ -11094,7 +11096,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_a, __pyx_v_a) < 0) __PYX_ERR(0, 618, __pyx_L1_error)
 
-  /* "benpy.pyx":619
+  /* "benpy/benpy.pyx":619
  *         self.B = B
  *         self.a = a
  *         self.b = b             # <<<<<<<<<<<<<<
@@ -11103,7 +11105,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_b, __pyx_v_b) < 0) __PYX_ERR(0, 619, __pyx_L1_error)
 
-  /* "benpy.pyx":620
+  /* "benpy/benpy.pyx":620
  *         self.a = a
  *         self.b = b
  *         self.l = l             # <<<<<<<<<<<<<<
@@ -11112,7 +11114,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_l, __pyx_v_l) < 0) __PYX_ERR(0, 620, __pyx_L1_error)
 
-  /* "benpy.pyx":621
+  /* "benpy/benpy.pyx":621
  *         self.b = b
  *         self.l = l
  *         self.s = s             # <<<<<<<<<<<<<<
@@ -11121,7 +11123,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_s, __pyx_v_s) < 0) __PYX_ERR(0, 621, __pyx_L1_error)
 
-  /* "benpy.pyx":622
+  /* "benpy/benpy.pyx":622
  *         self.l = l
  *         self.s = s
  *         self.P = P             # <<<<<<<<<<<<<<
@@ -11130,7 +11132,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_P, __pyx_v_P) < 0) __PYX_ERR(0, 622, __pyx_L1_error)
 
-  /* "benpy.pyx":623
+  /* "benpy/benpy.pyx":623
  *         self.s = s
  *         self.P = P
  *         self.Y = Y             # <<<<<<<<<<<<<<
@@ -11139,7 +11141,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Y, __pyx_v_Y) < 0) __PYX_ERR(0, 623, __pyx_L1_error)
 
-  /* "benpy.pyx":624
+  /* "benpy/benpy.pyx":624
  *         self.P = P
  *         self.Y = Y
  *         self.Z = Z             # <<<<<<<<<<<<<<
@@ -11148,7 +11150,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Z, __pyx_v_Z) < 0) __PYX_ERR(0, 624, __pyx_L1_error)
 
-  /* "benpy.pyx":625
+  /* "benpy/benpy.pyx":625
  *         self.Y = Y
  *         self.Z = Z
  *         self.c = c             # <<<<<<<<<<<<<<
@@ -11157,7 +11159,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_c, __pyx_v_c) < 0) __PYX_ERR(0, 625, __pyx_L1_error)
 
-  /* "benpy.pyx":626
+  /* "benpy/benpy.pyx":626
  *         self.Z = Z
  *         self.c = c
  *         self.opt_dir = opt_dir             # <<<<<<<<<<<<<<
@@ -11166,7 +11168,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_opt_dir, __pyx_v_opt_dir) < 0) __PYX_ERR(0, 626, __pyx_L1_error)
 
-  /* "benpy.pyx":627
+  /* "benpy/benpy.pyx":627
  *         self.c = c
  *         self.opt_dir = opt_dir
  *         self.filename=filename             # <<<<<<<<<<<<<<
@@ -11175,7 +11177,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_filename, __pyx_v_filename) < 0) __PYX_ERR(0, 627, __pyx_L1_error)
 
-  /* "benpy.pyx":628
+  /* "benpy/benpy.pyx":628
  *         self.opt_dir = opt_dir
  *         self.filename=filename
  *         self.options=options             # <<<<<<<<<<<<<<
@@ -11184,7 +11186,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_options, __pyx_v_options) < 0) __PYX_ERR(0, 628, __pyx_L1_error)
 
-  /* "benpy.pyx":616
+  /* "benpy/benpy.pyx":616
  *     "Wrapper Class for a vlpProblem"
  * 
  *     def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):             # <<<<<<<<<<<<<<
@@ -11196,7 +11198,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("benpy.vlpProblem.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11204,7 +11206,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "benpy.pyx":631
+/* "benpy/benpy.pyx":631
  * 
  *     @property
  *     def vlpfile(self):             # <<<<<<<<<<<<<<
@@ -11213,20 +11215,20 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem___init__(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_10vlpProblem_3vlpfile(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_10vlpProblem_3vlpfile = {"vlpfile", (PyCFunction)__pyx_pw_5benpy_10vlpProblem_3vlpfile, METH_O, 0};
-static PyObject *__pyx_pw_5benpy_10vlpProblem_3vlpfile(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_3vlpfile(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_10vlpProblem_3vlpfile = {"vlpfile", (PyCFunction)__pyx_pw_5benpy_5benpy_10vlpProblem_3vlpfile, METH_O, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_3vlpfile(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("vlpfile (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_10vlpProblem_2vlpfile(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_10vlpProblem_2vlpfile(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-/* "benpy.pyx":633
+/* "benpy/benpy.pyx":633
  *     def vlpfile(self):
  *         #Return a file-like object containing the vlp description. Based on "prob2vlp.m" MATLAB script
  *         def getlen(obj):             # <<<<<<<<<<<<<<
@@ -11235,20 +11237,20 @@ static PyObject *__pyx_pw_5benpy_10vlpProblem_3vlpfile(PyObject *__pyx_self, PyO
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_10vlpProblem_7vlpfile_1getlen(PyObject *__pyx_self, PyObject *__pyx_v_obj); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_10vlpProblem_7vlpfile_1getlen = {"getlen", (PyCFunction)__pyx_pw_5benpy_10vlpProblem_7vlpfile_1getlen, METH_O, 0};
-static PyObject *__pyx_pw_5benpy_10vlpProblem_7vlpfile_1getlen(PyObject *__pyx_self, PyObject *__pyx_v_obj) {
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_7vlpfile_1getlen(PyObject *__pyx_self, PyObject *__pyx_v_obj); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_10vlpProblem_7vlpfile_1getlen = {"getlen", (PyCFunction)__pyx_pw_5benpy_5benpy_10vlpProblem_7vlpfile_1getlen, METH_O, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_7vlpfile_1getlen(PyObject *__pyx_self, PyObject *__pyx_v_obj) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("getlen (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(__pyx_self, ((PyObject *)__pyx_v_obj));
+  __pyx_r = __pyx_pf_5benpy_5benpy_10vlpProblem_7vlpfile_getlen(__pyx_self, ((PyObject *)__pyx_v_obj));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_obj) {
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_obj) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -11257,7 +11259,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyOb
   PyObject *__pyx_t_4 = NULL;
   __Pyx_RefNannySetupContext("getlen", 0);
 
-  /* "benpy.pyx":634
+  /* "benpy/benpy.pyx":634
  *         #Return a file-like object containing the vlp description. Based on "prob2vlp.m" MATLAB script
  *         def getlen(obj):
  *             return 0 if obj is None else len(obj)             # <<<<<<<<<<<<<<
@@ -11280,7 +11282,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyOb
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":633
+  /* "benpy/benpy.pyx":633
  *     def vlpfile(self):
  *         #Return a file-like object containing the vlp description. Based on "prob2vlp.m" MATLAB script
  *         def getlen(obj):             # <<<<<<<<<<<<<<
@@ -11292,7 +11294,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyOb
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_4);
-  __Pyx_AddTraceback("benpy.vlpProblem.vlpfile.getlen", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.vlpfile.getlen", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -11300,7 +11302,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyOb
   return __pyx_r;
 }
 
-/* "benpy.pyx":631
+/* "benpy/benpy.pyx":631
  * 
  *     @property
  *     def vlpfile(self):             # <<<<<<<<<<<<<<
@@ -11308,7 +11310,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(CYTHON_UNUSED PyOb
  *         def getlen(obj):
  */
 
-static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_getlen = 0;
   PyObject *__pyx_v_m = NULL;
   PyObject *__pyx_v_n = NULL;
@@ -11370,19 +11372,19 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   PyObject *(*__pyx_t_28)(PyObject *);
   __Pyx_RefNannySetupContext("vlpfile", 0);
 
-  /* "benpy.pyx":633
+  /* "benpy/benpy.pyx":633
  *     def vlpfile(self):
  *         #Return a file-like object containing the vlp description. Based on "prob2vlp.m" MATLAB script
  *         def getlen(obj):             # <<<<<<<<<<<<<<
  *             return 0 if obj is None else len(obj)
  * 
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_10vlpProblem_7vlpfile_1getlen, 0, __pyx_n_s_vlpProblem_vlpfile_locals_getlen, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 633, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_10vlpProblem_7vlpfile_1getlen, 0, __pyx_n_s_vlpProblem_vlpfile_locals_getlen, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__24)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 633, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_getlen = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":637
+  /* "benpy/benpy.pyx":637
  * 
  *  #VLP is 1 based, constraint numbering starts at 1!!
  *         if hasattr(self,'ub') and not hasattr(self,'s'):             # <<<<<<<<<<<<<<
@@ -11402,7 +11404,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":638
+    /* "benpy/benpy.pyx":638
  *  #VLP is 1 based, constraint numbering starts at 1!!
  *         if hasattr(self,'ub') and not hasattr(self,'s'):
  *             self.s = self.ub             # <<<<<<<<<<<<<<
@@ -11414,7 +11416,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_s, __pyx_t_1) < 0) __PYX_ERR(0, 638, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "benpy.pyx":637
+    /* "benpy/benpy.pyx":637
  * 
  *  #VLP is 1 based, constraint numbering starts at 1!!
  *         if hasattr(self,'ub') and not hasattr(self,'s'):             # <<<<<<<<<<<<<<
@@ -11423,7 +11425,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":639
+  /* "benpy/benpy.pyx":639
  *         if hasattr(self,'ub') and not hasattr(self,'s'):
  *             self.s = self.ub
  *         if hasattr(self,'lb') and not hasattr(self,'l'):             # <<<<<<<<<<<<<<
@@ -11443,7 +11445,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_L7_bool_binop_done:;
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":640
+    /* "benpy/benpy.pyx":640
  *             self.s = self.ub
  *         if hasattr(self,'lb') and not hasattr(self,'l'):
  *             self.l = self.lb             # <<<<<<<<<<<<<<
@@ -11455,7 +11457,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_l, __pyx_t_1) < 0) __PYX_ERR(0, 640, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "benpy.pyx":639
+    /* "benpy/benpy.pyx":639
  *         if hasattr(self,'ub') and not hasattr(self,'s'):
  *             self.s = self.ub
  *         if hasattr(self,'lb') and not hasattr(self,'l'):             # <<<<<<<<<<<<<<
@@ -11464,7 +11466,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":641
+  /* "benpy/benpy.pyx":641
  *         if hasattr(self,'lb') and not hasattr(self,'l'):
  *             self.l = self.lb
  *         if self.opt_dir is None:             # <<<<<<<<<<<<<<
@@ -11478,7 +11480,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":642
+    /* "benpy/benpy.pyx":642
  *             self.l = self.lb
  *         if self.opt_dir is None:
  *             self.opt_dir = 1             # <<<<<<<<<<<<<<
@@ -11487,7 +11489,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_opt_dir, __pyx_int_1) < 0) __PYX_ERR(0, 642, __pyx_L1_error)
 
-    /* "benpy.pyx":641
+    /* "benpy/benpy.pyx":641
  *         if hasattr(self,'lb') and not hasattr(self,'l'):
  *             self.l = self.lb
  *         if self.opt_dir is None:             # <<<<<<<<<<<<<<
@@ -11496,7 +11498,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":643
+  /* "benpy/benpy.pyx":643
  *         if self.opt_dir is None:
  *             self.opt_dir = 1
  *         if self.B is None:             # <<<<<<<<<<<<<<
@@ -11510,7 +11512,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = (__pyx_t_3 != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":644
+    /* "benpy/benpy.pyx":644
  *             self.opt_dir = 1
  *         if self.B is None:
  *             raise RuntimeError('Coefficient Matrix B must be given')             # <<<<<<<<<<<<<<
@@ -11523,7 +11525,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 644, __pyx_L1_error)
 
-    /* "benpy.pyx":643
+    /* "benpy/benpy.pyx":643
  *         if self.opt_dir is None:
  *             self.opt_dir = 1
  *         if self.B is None:             # <<<<<<<<<<<<<<
@@ -11532,7 +11534,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":645
+  /* "benpy/benpy.pyx":645
  *         if self.B is None:
  *             raise RuntimeError('Coefficient Matrix B must be given')
  *         if self.P is None:             # <<<<<<<<<<<<<<
@@ -11546,7 +11548,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":646
+    /* "benpy/benpy.pyx":646
  *             raise RuntimeError('Coefficient Matrix B must be given')
  *         if self.P is None:
  *             raise RuntimeError('Coefficient Matrix P must be given')             # <<<<<<<<<<<<<<
@@ -11559,7 +11561,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 646, __pyx_L1_error)
 
-    /* "benpy.pyx":645
+    /* "benpy/benpy.pyx":645
  *         if self.B is None:
  *             raise RuntimeError('Coefficient Matrix B must be given')
  *         if self.P is None:             # <<<<<<<<<<<<<<
@@ -11568,7 +11570,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":651
+  /* "benpy/benpy.pyx":651
  * #        if not hasattr(self.P,'shape'):
  * #            raise RuntimeError('Matrix P has no shape attribute')
  *         (m,n) = self.B.shape             # <<<<<<<<<<<<<<
@@ -11635,7 +11637,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_v_n = __pyx_t_6;
   __pyx_t_6 = 0;
 
-  /* "benpy.pyx":652
+  /* "benpy/benpy.pyx":652
  * #            raise RuntimeError('Matrix P has no shape attribute')
  *         (m,n) = self.B.shape
  *         (q,p) = self.P.shape             # <<<<<<<<<<<<<<
@@ -11702,7 +11704,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_v_p = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":653
+  /* "benpy/benpy.pyx":653
  *         (m,n) = self.B.shape
  *         (q,p) = self.P.shape
  *         if (n != p):             # <<<<<<<<<<<<<<
@@ -11714,7 +11716,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":654
+    /* "benpy/benpy.pyx":654
  *         (q,p) = self.P.shape
  *         if (n != p):
  *             raise RuntimeError('B and P must have same number of columns')             # <<<<<<<<<<<<<<
@@ -11727,7 +11729,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
     __PYX_ERR(0, 654, __pyx_L1_error)
 
-    /* "benpy.pyx":653
+    /* "benpy/benpy.pyx":653
  *         (m,n) = self.B.shape
  *         (q,p) = self.P.shape
  *         if (n != p):             # <<<<<<<<<<<<<<
@@ -11736,7 +11738,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":656
+  /* "benpy/benpy.pyx":656
  *             raise RuntimeError('B and P must have same number of columns')
  * 
  *         [A_rows,A_cols,A_vals]=find(lil_matrix(self.B))             # <<<<<<<<<<<<<<
@@ -11905,7 +11907,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_v_A_vals = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "benpy.pyx":657
+  /* "benpy/benpy.pyx":657
  * 
  *         [A_rows,A_cols,A_vals]=find(lil_matrix(self.B))
  *         k=len(A_rows)             # <<<<<<<<<<<<<<
@@ -11915,7 +11917,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_12 = PyObject_Length(__pyx_v_A_rows); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 657, __pyx_L1_error)
   __pyx_v_k = __pyx_t_12;
 
-  /* "benpy.pyx":658
+  /* "benpy/benpy.pyx":658
  *         [A_rows,A_cols,A_vals]=find(lil_matrix(self.B))
  *         k=len(A_rows)
  *         [P_rows,P_cols,P_vals]=find(lil_matrix(self.P))             # <<<<<<<<<<<<<<
@@ -12084,7 +12086,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_v_P_vals = __pyx_t_11;
   __pyx_t_11 = 0;
 
-  /* "benpy.pyx":659
+  /* "benpy/benpy.pyx":659
  *         k=len(A_rows)
  *         [P_rows,P_cols,P_vals]=find(lil_matrix(self.P))
  *         k1=len(P_rows)             # <<<<<<<<<<<<<<
@@ -12094,7 +12096,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_12 = PyObject_Length(__pyx_v_P_rows); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 659, __pyx_L1_error)
   __pyx_v_k1 = __pyx_t_12;
 
-  /* "benpy.pyx":660
+  /* "benpy/benpy.pyx":660
  *         [P_rows,P_cols,P_vals]=find(lil_matrix(self.P))
  *         k1=len(P_rows)
  *         kstr=''             # <<<<<<<<<<<<<<
@@ -12104,7 +12106,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_INCREF(__pyx_kp_u__28);
   __pyx_v_kstr = __pyx_kp_u__28;
 
-  /* "benpy.pyx":661
+  /* "benpy/benpy.pyx":661
  *         k1=len(P_rows)
  *         kstr=''
  *         if self.Y is not None and self.Y.shape[1] > 0:             # <<<<<<<<<<<<<<
@@ -12137,7 +12139,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_L22_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":662
+    /* "benpy/benpy.pyx":662
  *         kstr=''
  *         if self.Y is not None and self.Y.shape[1] > 0:
  *             [K_rows,K_cols,K_vals]=find(lil_matrix(self.Y))             # <<<<<<<<<<<<<<
@@ -12306,7 +12308,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_v_K_vals = __pyx_t_10;
     __pyx_t_10 = 0;
 
-    /* "benpy.pyx":663
+    /* "benpy/benpy.pyx":663
  *         if self.Y is not None and self.Y.shape[1] > 0:
  *             [K_rows,K_cols,K_vals]=find(lil_matrix(self.Y))
  *             k2=len(K_rows)             # <<<<<<<<<<<<<<
@@ -12316,7 +12318,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_t_12 = PyObject_Length(__pyx_v_K_rows); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 663, __pyx_L1_error)
     __pyx_v_k2 = __pyx_t_12;
 
-    /* "benpy.pyx":664
+    /* "benpy/benpy.pyx":664
  *             [K_rows,K_cols,K_vals]=find(lil_matrix(self.Y))
  *             k2=len(K_rows)
  *             kstr=' cone {} {}'.format(self.Y.shape[1],k2)             # <<<<<<<<<<<<<<
@@ -12387,7 +12389,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF_SET(__pyx_v_kstr, __pyx_t_11);
     __pyx_t_11 = 0;
 
-    /* "benpy.pyx":661
+    /* "benpy/benpy.pyx":661
  *         k1=len(P_rows)
  *         kstr=''
  *         if self.Y is not None and self.Y.shape[1] > 0:             # <<<<<<<<<<<<<<
@@ -12397,7 +12399,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L21;
   }
 
-  /* "benpy.pyx":665
+  /* "benpy/benpy.pyx":665
  *             k2=len(K_rows)
  *             kstr=' cone {} {}'.format(self.Y.shape[1],k2)
  *         elif self.Z is not None and self.Z.shape[1] > 0:             # <<<<<<<<<<<<<<
@@ -12430,7 +12432,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_L26_bool_binop_done:;
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":666
+    /* "benpy/benpy.pyx":666
  *             kstr=' cone {} {}'.format(self.Y.shape[1],k2)
  *         elif self.Z is not None and self.Z.shape[1] > 0:
  *             [K_rows,K_cols,K_vals] = find(lil_matrix(self.Z))             # <<<<<<<<<<<<<<
@@ -12599,7 +12601,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_v_K_vals = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "benpy.pyx":667
+    /* "benpy/benpy.pyx":667
  *         elif self.Z is not None and self.Z.shape[1] > 0:
  *             [K_rows,K_cols,K_vals] = find(lil_matrix(self.Z))
  *             k2 = len(K_rows)             # <<<<<<<<<<<<<<
@@ -12609,7 +12611,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_t_12 = PyObject_Length(__pyx_v_K_rows); if (unlikely(__pyx_t_12 == -1)) __PYX_ERR(0, 667, __pyx_L1_error)
     __pyx_v_k2 = __pyx_t_12;
 
-    /* "benpy.pyx":668
+    /* "benpy/benpy.pyx":668
  *             [K_rows,K_cols,K_vals] = find(lil_matrix(self.Z))
  *             k2 = len(K_rows)
  *             kstr=' dualcone {} {}'.format(self.Z.shape[1],k2)             # <<<<<<<<<<<<<<
@@ -12680,7 +12682,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF_SET(__pyx_v_kstr, __pyx_t_10);
     __pyx_t_10 = 0;
 
-    /* "benpy.pyx":665
+    /* "benpy/benpy.pyx":665
  *             k2=len(K_rows)
  *             kstr=' cone {} {}'.format(self.Y.shape[1],k2)
  *         elif self.Z is not None and self.Z.shape[1] > 0:             # <<<<<<<<<<<<<<
@@ -12690,7 +12692,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L21;
   }
 
-  /* "benpy.pyx":670
+  /* "benpy/benpy.pyx":670
  *             kstr=' dualcone {} {}'.format(self.Z.shape[1],k2)
  *         else:
  *             k2=0             # <<<<<<<<<<<<<<
@@ -12702,7 +12704,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __pyx_L21:;
 
-  /* "benpy.pyx":672
+  /* "benpy/benpy.pyx":672
  *             k2=0
  * 
  *         opt_dir_str=''             # <<<<<<<<<<<<<<
@@ -12712,7 +12714,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_INCREF(__pyx_kp_u__28);
   __pyx_v_opt_dir_str = __pyx_kp_u__28;
 
-  /* "benpy.pyx":673
+  /* "benpy/benpy.pyx":673
  * 
  *         opt_dir_str=''
  *         if self.opt_dir==1:             # <<<<<<<<<<<<<<
@@ -12728,7 +12730,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":674
+    /* "benpy/benpy.pyx":674
  *         opt_dir_str=''
  *         if self.opt_dir==1:
  *             opt_dir_str = 'min'             # <<<<<<<<<<<<<<
@@ -12738,7 +12740,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_INCREF(__pyx_n_u_min);
     __Pyx_DECREF_SET(__pyx_v_opt_dir_str, __pyx_n_u_min);
 
-    /* "benpy.pyx":673
+    /* "benpy/benpy.pyx":673
  * 
  *         opt_dir_str=''
  *         if self.opt_dir==1:             # <<<<<<<<<<<<<<
@@ -12748,7 +12750,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L30;
   }
 
-  /* "benpy.pyx":675
+  /* "benpy/benpy.pyx":675
  *         if self.opt_dir==1:
  *             opt_dir_str = 'min'
  *         elif self.opt_dir==-1:             # <<<<<<<<<<<<<<
@@ -12764,7 +12766,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":676
+    /* "benpy/benpy.pyx":676
  *             opt_dir_str = 'min'
  *         elif self.opt_dir==-1:
  *             opt_dir_str = 'max'             # <<<<<<<<<<<<<<
@@ -12774,7 +12776,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_INCREF(__pyx_n_u_max);
     __Pyx_DECREF_SET(__pyx_v_opt_dir_str, __pyx_n_u_max);
 
-    /* "benpy.pyx":675
+    /* "benpy/benpy.pyx":675
  *         if self.opt_dir==1:
  *             opt_dir_str = 'min'
  *         elif self.opt_dir==-1:             # <<<<<<<<<<<<<<
@@ -12784,7 +12786,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L30;
   }
 
-  /* "benpy.pyx":678
+  /* "benpy/benpy.pyx":678
  *             opt_dir_str = 'max'
  *         else:
  *             raise RuntimeError('Invalid value for opt_dir: use -1 or 1 for maximitation and minimization')             # <<<<<<<<<<<<<<
@@ -12800,7 +12802,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __pyx_L30:;
 
-  /* "benpy.pyx":680
+  /* "benpy/benpy.pyx":680
  *             raise RuntimeError('Invalid value for opt_dir: use -1 or 1 for maximitation and minimization')
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -12816,7 +12818,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_XGOTREF(__pyx_t_16);
     /*try:*/ {
 
-      /* "benpy.pyx":681
+      /* "benpy/benpy.pyx":681
  * 
  *         try:
  *             file = StringIO()             # <<<<<<<<<<<<<<
@@ -12846,7 +12848,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __pyx_v_file = __pyx_t_10;
       __pyx_t_10 = 0;
 
-      /* "benpy.pyx":680
+      /* "benpy/benpy.pyx":680
  *             raise RuntimeError('Invalid value for opt_dir: use -1 or 1 for maximitation and minimization')
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -12868,7 +12870,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_XDECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-    /* "benpy.pyx":682
+    /* "benpy/benpy.pyx":682
  *         try:
  *             file = StringIO()
  *         except OSError as e:             # <<<<<<<<<<<<<<
@@ -12877,7 +12879,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
     __pyx_t_13 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_OSError);
     if (__pyx_t_13) {
-      __Pyx_AddTraceback("benpy.vlpProblem.vlpfile", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("benpy.benpy.vlpProblem.vlpfile", __pyx_clineno, __pyx_lineno, __pyx_filename);
       if (__Pyx_GetException(&__pyx_t_10, &__pyx_t_1, &__pyx_t_9) < 0) __PYX_ERR(0, 682, __pyx_L33_except_error)
       __Pyx_GOTREF(__pyx_t_10);
       __Pyx_GOTREF(__pyx_t_1);
@@ -12886,7 +12888,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __pyx_v_e = __pyx_t_1;
       /*try:*/ {
 
-        /* "benpy.pyx":683
+        /* "benpy/benpy.pyx":683
  *             file = StringIO()
  *         except OSError as e:
  *             print("OS error: {0}".format(e))             # <<<<<<<<<<<<<<
@@ -12948,7 +12950,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
 
-        /* "benpy.pyx":684
+        /* "benpy/benpy.pyx":684
  *         except OSError as e:
  *             print("OS error: {0}".format(e))
  *             raise             # <<<<<<<<<<<<<<
@@ -12963,7 +12965,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __PYX_ERR(0, 684, __pyx_L44_error)
       }
 
-      /* "benpy.pyx":682
+      /* "benpy/benpy.pyx":682
  *         try:
  *             file = StringIO()
  *         except OSError as e:             # <<<<<<<<<<<<<<
@@ -13013,7 +13015,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L33_except_error;
     __pyx_L33_except_error:;
 
-    /* "benpy.pyx":680
+    /* "benpy/benpy.pyx":680
  *             raise RuntimeError('Invalid value for opt_dir: use -1 or 1 for maximitation and minimization')
  * 
  *         try:             # <<<<<<<<<<<<<<
@@ -13029,7 +13031,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_L38_try_end:;
   }
 
-  /* "benpy.pyx":686
+  /* "benpy/benpy.pyx":686
  *             raise
  *         #Write 'p', 'a', 'k' to file
  *         file.write("p vlp {} {} {} {} {} {}{}\n".format(opt_dir_str,m,n,k,q,k1,kstr))             # <<<<<<<<<<<<<<
@@ -13156,7 +13158,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "benpy.pyx":687
+  /* "benpy/benpy.pyx":687
  *         #Write 'p', 'a', 'k' to file
  *         file.write("p vlp {} {} {} {} {} {}{}\n".format(opt_dir_str,m,n,k,q,k1,kstr))
  *         for i in list(range(k)):             # <<<<<<<<<<<<<<
@@ -13189,7 +13191,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "benpy.pyx":688
+    /* "benpy/benpy.pyx":688
  *         file.write("p vlp {} {} {} {} {} {}{}\n".format(opt_dir_str,m,n,k,q,k1,kstr))
  *         for i in list(range(k)):
  *             file.write("a {} {} {}\n".format(A_rows[i]+1,A_cols[i]+1,A_vals[i]))             # <<<<<<<<<<<<<<
@@ -13314,7 +13316,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "benpy.pyx":687
+    /* "benpy/benpy.pyx":687
  *         #Write 'p', 'a', 'k' to file
  *         file.write("p vlp {} {} {} {} {} {}{}\n".format(opt_dir_str,m,n,k,q,k1,kstr))
  *         for i in list(range(k)):             # <<<<<<<<<<<<<<
@@ -13324,7 +13326,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "benpy.pyx":689
+  /* "benpy/benpy.pyx":689
  *         for i in list(range(k)):
  *             file.write("a {} {} {}\n".format(A_rows[i]+1,A_cols[i]+1,A_vals[i]))
  *         for i in list(range(k1)):             # <<<<<<<<<<<<<<
@@ -13357,7 +13359,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "benpy.pyx":690
+    /* "benpy/benpy.pyx":690
  *             file.write("a {} {} {}\n".format(A_rows[i]+1,A_cols[i]+1,A_vals[i]))
  *         for i in list(range(k1)):
  *             file.write("o {} {} {}\n".format(P_rows[i]+1,P_cols[i]+1,P_vals[i]))             # <<<<<<<<<<<<<<
@@ -13482,7 +13484,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "benpy.pyx":689
+    /* "benpy/benpy.pyx":689
  *         for i in list(range(k)):
  *             file.write("a {} {} {}\n".format(A_rows[i]+1,A_cols[i]+1,A_vals[i]))
  *         for i in list(range(k1)):             # <<<<<<<<<<<<<<
@@ -13492,7 +13494,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "benpy.pyx":691
+  /* "benpy/benpy.pyx":691
  *         for i in list(range(k1)):
  *             file.write("o {} {} {}\n".format(P_rows[i]+1,P_cols[i]+1,P_vals[i]))
  *         for i in list(range(k2)):             # <<<<<<<<<<<<<<
@@ -13525,7 +13527,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "benpy.pyx":692
+    /* "benpy/benpy.pyx":692
  *             file.write("o {} {} {}\n".format(P_rows[i]+1,P_cols[i]+1,P_vals[i]))
  *         for i in list(range(k2)):
  *             file.write("k {} {} {}\n".format(K_rows[i]+1,K_cols[i]+1,K_vals[i]))             # <<<<<<<<<<<<<<
@@ -13653,7 +13655,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "benpy.pyx":691
+    /* "benpy/benpy.pyx":691
  *         for i in list(range(k1)):
  *             file.write("o {} {} {}\n".format(P_rows[i]+1,P_cols[i]+1,P_vals[i]))
  *         for i in list(range(k2)):             # <<<<<<<<<<<<<<
@@ -13663,7 +13665,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "benpy.pyx":695
+  /* "benpy/benpy.pyx":695
  *         # duality parameter vector
  * 
  *         if self.c is not None:             # <<<<<<<<<<<<<<
@@ -13677,7 +13679,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = (__pyx_t_3 != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":696
+    /* "benpy/benpy.pyx":696
  * 
  *         if self.c is not None:
  *             if(len(np.array(self.c).shape) != 1  ) or (len(self.c)!=q) :             # <<<<<<<<<<<<<<
@@ -13762,7 +13764,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_L58_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":697
+      /* "benpy/benpy.pyx":697
  *         if self.c is not None:
  *             if(len(np.array(self.c).shape) != 1  ) or (len(self.c)!=q) :
  *                 raise RuntimeError('c has wrong dimension')             # <<<<<<<<<<<<<<
@@ -13775,7 +13777,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       __PYX_ERR(0, 697, __pyx_L1_error)
 
-      /* "benpy.pyx":696
+      /* "benpy/benpy.pyx":696
  * 
  *         if self.c is not None:
  *             if(len(np.array(self.c).shape) != 1  ) or (len(self.c)!=q) :             # <<<<<<<<<<<<<<
@@ -13784,7 +13786,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
     }
 
-    /* "benpy.pyx":698
+    /* "benpy/benpy.pyx":698
  *             if(len(np.array(self.c).shape) != 1  ) or (len(self.c)!=q) :
  *                 raise RuntimeError('c has wrong dimension')
  *             for i in range(q):             # <<<<<<<<<<<<<<
@@ -13842,7 +13844,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_25);
       __pyx_t_25 = 0;
 
-      /* "benpy.pyx":699
+      /* "benpy/benpy.pyx":699
  *                 raise RuntimeError('c has wrong dimension')
  *             for i in range(q):
  *                 file.write("k {} 0 {}\n".format(i+1,self.c[i]))             # <<<<<<<<<<<<<<
@@ -13957,7 +13959,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
       __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
 
-      /* "benpy.pyx":698
+      /* "benpy/benpy.pyx":698
  *             if(len(np.array(self.c).shape) != 1  ) or (len(self.c)!=q) :
  *                 raise RuntimeError('c has wrong dimension')
  *             for i in range(q):             # <<<<<<<<<<<<<<
@@ -13967,7 +13969,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     }
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-    /* "benpy.pyx":695
+    /* "benpy/benpy.pyx":695
  *         # duality parameter vector
  * 
  *         if self.c is not None:             # <<<<<<<<<<<<<<
@@ -13976,7 +13978,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":702
+  /* "benpy/benpy.pyx":702
  * 
  *         #Write row
  *         if (len(np.array(self.a).shape) > 1):             # <<<<<<<<<<<<<<
@@ -14044,7 +14046,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = ((__pyx_t_12 > 1) != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":703
+    /* "benpy/benpy.pyx":703
  *         #Write row
  *         if (len(np.array(self.a).shape) > 1):
  *             raise RuntimeError('a has wrong dimension')             # <<<<<<<<<<<<<<
@@ -14057,7 +14059,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
     __PYX_ERR(0, 703, __pyx_L1_error)
 
-    /* "benpy.pyx":702
+    /* "benpy/benpy.pyx":702
  * 
  *         #Write row
  *         if (len(np.array(self.a).shape) > 1):             # <<<<<<<<<<<<<<
@@ -14066,7 +14068,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":704
+  /* "benpy/benpy.pyx":704
  *         if (len(np.array(self.a).shape) > 1):
  *             raise RuntimeError('a has wrong dimension')
  *         if (len(np.array(self.b).shape) > 1):             # <<<<<<<<<<<<<<
@@ -14134,7 +14136,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = ((__pyx_t_12 > 1) != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":705
+    /* "benpy/benpy.pyx":705
  *             raise RuntimeError('a has wrong dimension')
  *         if (len(np.array(self.b).shape) > 1):
  *             raise RuntimeError('b has wrong dimension')             # <<<<<<<<<<<<<<
@@ -14147,7 +14149,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 705, __pyx_L1_error)
 
-    /* "benpy.pyx":704
+    /* "benpy/benpy.pyx":704
  *         if (len(np.array(self.a).shape) > 1):
  *             raise RuntimeError('a has wrong dimension')
  *         if (len(np.array(self.b).shape) > 1):             # <<<<<<<<<<<<<<
@@ -14156,7 +14158,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   }
 
-  /* "benpy.pyx":706
+  /* "benpy/benpy.pyx":706
  *         if (len(np.array(self.b).shape) > 1):
  *             raise RuntimeError('b has wrong dimension')
  *         m1 = max(getlen(self.a),getlen(self.b))             # <<<<<<<<<<<<<<
@@ -14165,12 +14167,12 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_b); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 706, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_26 = __pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(__pyx_v_getlen, __pyx_t_1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 706, __pyx_L1_error)
+  __pyx_t_26 = __pyx_pf_5benpy_5benpy_10vlpProblem_7vlpfile_getlen(__pyx_v_getlen, __pyx_t_1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 706, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_26);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_a); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 706, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_11 = __pyx_pf_5benpy_10vlpProblem_7vlpfile_getlen(__pyx_v_getlen, __pyx_t_1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 706, __pyx_L1_error)
+  __pyx_t_11 = __pyx_pf_5benpy_5benpy_10vlpProblem_7vlpfile_getlen(__pyx_v_getlen, __pyx_t_1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 706, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_11);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_9 = PyObject_RichCompare(__pyx_t_26, __pyx_t_11, Py_GT); __Pyx_XGOTREF(__pyx_t_9); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 706, __pyx_L1_error)
@@ -14191,7 +14193,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_v_m1 = __pyx_t_26;
   __pyx_t_26 = 0;
 
-  /* "benpy.pyx":707
+  /* "benpy/benpy.pyx":707
  *             raise RuntimeError('b has wrong dimension')
  *         m1 = max(getlen(self.a),getlen(self.b))
  *         if self.a is None:             # <<<<<<<<<<<<<<
@@ -14205,7 +14207,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":708
+    /* "benpy/benpy.pyx":708
  *         m1 = max(getlen(self.a),getlen(self.b))
  *         if self.a is None:
  *             aa = -np.inf*np.ones((m1,1))             # <<<<<<<<<<<<<<
@@ -14286,7 +14288,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_v_aa = __pyx_t_9;
     __pyx_t_9 = 0;
 
-    /* "benpy.pyx":707
+    /* "benpy/benpy.pyx":707
  *             raise RuntimeError('b has wrong dimension')
  *         m1 = max(getlen(self.a),getlen(self.b))
  *         if self.a is None:             # <<<<<<<<<<<<<<
@@ -14296,7 +14298,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L64;
   }
 
-  /* "benpy.pyx":710
+  /* "benpy/benpy.pyx":710
  *             aa = -np.inf*np.ones((m1,1))
  *         else:
  *             aa = self.a             # <<<<<<<<<<<<<<
@@ -14311,7 +14313,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __pyx_L64:;
 
-  /* "benpy.pyx":711
+  /* "benpy/benpy.pyx":711
  *         else:
  *             aa = self.a
  *         if self.b is None:             # <<<<<<<<<<<<<<
@@ -14325,7 +14327,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_2 = (__pyx_t_3 != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":712
+    /* "benpy/benpy.pyx":712
  *             aa = self.a
  *         if self.b is None:
  *             bb =  np.inf*np.ones((m1,1))             # <<<<<<<<<<<<<<
@@ -14403,7 +14405,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_v_bb = __pyx_t_7;
     __pyx_t_7 = 0;
 
-    /* "benpy.pyx":711
+    /* "benpy/benpy.pyx":711
  *         else:
  *             aa = self.a
  *         if self.b is None:             # <<<<<<<<<<<<<<
@@ -14413,7 +14415,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L65;
   }
 
-  /* "benpy.pyx":714
+  /* "benpy/benpy.pyx":714
  *             bb =  np.inf*np.ones((m1,1))
  *         else:
  *             bb = self.b             # <<<<<<<<<<<<<<
@@ -14428,7 +14430,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __pyx_L65:;
 
-  /* "benpy.pyx":716
+  /* "benpy/benpy.pyx":716
  *             bb = self.b
  * 
  *         for i in list(range(m1)):             # <<<<<<<<<<<<<<
@@ -14459,7 +14461,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_XDECREF_SET(__pyx_v_i, __pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "benpy.pyx":717
+    /* "benpy/benpy.pyx":717
  * 
  *         for i in list(range(m1)):
  *             if aa[i] < bb[i]:             # <<<<<<<<<<<<<<
@@ -14477,7 +14479,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":718
+      /* "benpy/benpy.pyx":718
  *         for i in list(range(m1)):
  *             if aa[i] < bb[i]:
  *                 ch = 2*np.isfinite(aa[i]) + np.isfinite(bb[i])             # <<<<<<<<<<<<<<
@@ -14600,7 +14602,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_XDECREF_SET(__pyx_v_ch, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "benpy.pyx":719
+      /* "benpy/benpy.pyx":719
  *             if aa[i] < bb[i]:
  *                 ch = 2*np.isfinite(aa[i]) + np.isfinite(bb[i])
  *                 if ch == 0:             # <<<<<<<<<<<<<<
@@ -14613,7 +14615,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_2) {
 
-        /* "benpy.pyx":720
+        /* "benpy/benpy.pyx":720
  *                 ch = 2*np.isfinite(aa[i]) + np.isfinite(bb[i])
  *                 if ch == 0:
  *                     file.write('i {} f \n'.format(i+1))             # <<<<<<<<<<<<<<
@@ -14720,7 +14722,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "benpy.pyx":719
+        /* "benpy/benpy.pyx":719
  *             if aa[i] < bb[i]:
  *                 ch = 2*np.isfinite(aa[i]) + np.isfinite(bb[i])
  *                 if ch == 0:             # <<<<<<<<<<<<<<
@@ -14730,7 +14732,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         goto __pyx_L69;
       }
 
-      /* "benpy.pyx":721
+      /* "benpy/benpy.pyx":721
  *                 if ch == 0:
  *                     file.write('i {} f \n'.format(i+1))
  *                 elif ch == 1:             # <<<<<<<<<<<<<<
@@ -14743,7 +14745,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_2) {
 
-        /* "benpy.pyx":722
+        /* "benpy/benpy.pyx":722
  *                     file.write('i {} f \n'.format(i+1))
  *                 elif ch == 1:
  *                     file.write('i {} u {}\n'.format(i+1,bb[i]))             # <<<<<<<<<<<<<<
@@ -14855,7 +14857,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "benpy.pyx":721
+        /* "benpy/benpy.pyx":721
  *                 if ch == 0:
  *                     file.write('i {} f \n'.format(i+1))
  *                 elif ch == 1:             # <<<<<<<<<<<<<<
@@ -14865,7 +14867,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         goto __pyx_L69;
       }
 
-      /* "benpy.pyx":723
+      /* "benpy/benpy.pyx":723
  *                 elif ch == 1:
  *                     file.write('i {} u {}\n'.format(i+1,bb[i]))
  *                 elif ch == 2:             # <<<<<<<<<<<<<<
@@ -14878,7 +14880,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_2) {
 
-        /* "benpy.pyx":724
+        /* "benpy/benpy.pyx":724
  *                     file.write('i {} u {}\n'.format(i+1,bb[i]))
  *                 elif ch == 2:
  *                     file.write('i {} l {}\n'.format(i+1,aa[i]))             # <<<<<<<<<<<<<<
@@ -14990,7 +14992,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "benpy.pyx":723
+        /* "benpy/benpy.pyx":723
  *                 elif ch == 1:
  *                     file.write('i {} u {}\n'.format(i+1,bb[i]))
  *                 elif ch == 2:             # <<<<<<<<<<<<<<
@@ -15000,7 +15002,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         goto __pyx_L69;
       }
 
-      /* "benpy.pyx":725
+      /* "benpy/benpy.pyx":725
  *                 elif ch == 2:
  *                     file.write('i {} l {}\n'.format(i+1,aa[i]))
  *                 elif ch == 3:             # <<<<<<<<<<<<<<
@@ -15013,7 +15015,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       if (__pyx_t_2) {
 
-        /* "benpy.pyx":726
+        /* "benpy/benpy.pyx":726
  *                     file.write('i {} l {}\n'.format(i+1,aa[i]))
  *                 elif ch == 3:
  *                     file.write('i {} d {} {}\n' .format(i+1,aa[i],bb[i]))             # <<<<<<<<<<<<<<
@@ -15132,7 +15134,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "benpy.pyx":725
+        /* "benpy/benpy.pyx":725
  *                 elif ch == 2:
  *                     file.write('i {} l {}\n'.format(i+1,aa[i]))
  *                 elif ch == 3:             # <<<<<<<<<<<<<<
@@ -15142,12 +15144,12 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         goto __pyx_L69;
       }
 
-      /* "benpy.pyx":728
+      /* "benpy/benpy.pyx":728
  *                     file.write('i {} d {} {}\n' .format(i+1,aa[i],bb[i]))
  *                 else:
  *                     raise RuntimeError("Bad ch switch for constrains bounds")             # <<<<<<<<<<<<<<
  *             elif aa[i] == bb[i] and np.isfinite(aa[i]):
- *                 file.write('i %d s %g\n',i,aa[i])
+ *                 file.write('i {} s {}\n'.format(i+1,aa[i]))
  */
       /*else*/ {
         __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__33, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 728, __pyx_L1_error)
@@ -15158,7 +15160,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       }
       __pyx_L69:;
 
-      /* "benpy.pyx":717
+      /* "benpy/benpy.pyx":717
  * 
  *         for i in list(range(m1)):
  *             if aa[i] < bb[i]:             # <<<<<<<<<<<<<<
@@ -15168,11 +15170,11 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       goto __pyx_L68;
     }
 
-    /* "benpy.pyx":729
+    /* "benpy/benpy.pyx":729
  *                 else:
  *                     raise RuntimeError("Bad ch switch for constrains bounds")
  *             elif aa[i] == bb[i] and np.isfinite(aa[i]):             # <<<<<<<<<<<<<<
- *                 file.write('i %d s %g\n',i,aa[i])
+ *                 file.write('i {} s {}\n'.format(i+1,aa[i]))
  *             else:
  */
     __pyx_t_1 = PyObject_GetItem(__pyx_v_aa, __pyx_v_i); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 729, __pyx_L1_error)
@@ -15248,19 +15250,71 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_L70_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":730
+      /* "benpy/benpy.pyx":730
  *                     raise RuntimeError("Bad ch switch for constrains bounds")
  *             elif aa[i] == bb[i] and np.isfinite(aa[i]):
- *                 file.write('i %d s %g\n',i,aa[i])             # <<<<<<<<<<<<<<
+ *                 file.write('i {} s {}\n'.format(i+1,aa[i]))             # <<<<<<<<<<<<<<
  *             else:
  *                 raise RuntimeError('Invalid constrsaints: a[{}]={}, b[{}]={}'.format(i+1,aa[i],i,bb[i]))
  */
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_file, __pyx_n_s_write); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 730, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_10 = PyObject_GetItem(__pyx_v_aa, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 730, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_10);
-      __pyx_t_25 = NULL;
+      __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_i_s, __pyx_n_s_format); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 730, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_25);
+      __pyx_t_26 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 730, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_26);
+      __pyx_t_7 = PyObject_GetItem(__pyx_v_aa, __pyx_v_i); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 730, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_11 = NULL;
       __pyx_t_17 = 0;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_25))) {
+        __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_25);
+        if (likely(__pyx_t_11)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_25);
+          __Pyx_INCREF(__pyx_t_11);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_25, function);
+          __pyx_t_17 = 1;
+        }
+      }
+      #if CYTHON_FAST_PYCALL
+      if (PyFunction_Check(__pyx_t_25)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_11, __pyx_t_26, __pyx_t_7};
+        __pyx_t_10 = __Pyx_PyFunction_FastCall(__pyx_t_25, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 730, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      } else
+      #endif
+      #if CYTHON_FAST_PYCCALL
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_25)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_11, __pyx_t_26, __pyx_t_7};
+        __pyx_t_10 = __Pyx_PyCFunction_FastCall(__pyx_t_25, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 730, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      } else
+      #endif
+      {
+        __pyx_t_27 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 730, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_27);
+        if (__pyx_t_11) {
+          __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_27, 0, __pyx_t_11); __pyx_t_11 = NULL;
+        }
+        __Pyx_GIVEREF(__pyx_t_26);
+        PyTuple_SET_ITEM(__pyx_t_27, 0+__pyx_t_17, __pyx_t_26);
+        __Pyx_GIVEREF(__pyx_t_7);
+        PyTuple_SET_ITEM(__pyx_t_27, 1+__pyx_t_17, __pyx_t_7);
+        __pyx_t_26 = 0;
+        __pyx_t_7 = 0;
+        __pyx_t_10 = __Pyx_PyObject_Call(__pyx_t_25, __pyx_t_27, NULL); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 730, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_10);
+        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
+      __pyx_t_25 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
         __pyx_t_25 = PyMethod_GET_SELF(__pyx_t_1);
         if (likely(__pyx_t_25)) {
@@ -15268,61 +15322,58 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
           __Pyx_INCREF(__pyx_t_25);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_1, function);
-          __pyx_t_17 = 1;
         }
       }
-      #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_25, __pyx_kp_u_i_d_s_g, __pyx_v_i, __pyx_t_10};
-        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 730, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
-        __Pyx_GOTREF(__pyx_t_5);
+      if (!__pyx_t_25) {
+        __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_10); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 730, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      } else
-      #endif
-      #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_25, __pyx_kp_u_i_d_s_g, __pyx_v_i, __pyx_t_10};
-        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 730, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-      } else
-      #endif
-      {
-        __pyx_t_26 = PyTuple_New(3+__pyx_t_17); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 730, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_26);
-        if (__pyx_t_25) {
-          __Pyx_GIVEREF(__pyx_t_25); PyTuple_SET_ITEM(__pyx_t_26, 0, __pyx_t_25); __pyx_t_25 = NULL;
+      } else {
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_1)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_25, __pyx_t_10};
+          __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 730, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
+          __Pyx_GOTREF(__pyx_t_5);
+          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_25, __pyx_t_10};
+          __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 730, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
+          __Pyx_GOTREF(__pyx_t_5);
+          __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_27 = PyTuple_New(1+1); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 730, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_27);
+          __Pyx_GIVEREF(__pyx_t_25); PyTuple_SET_ITEM(__pyx_t_27, 0, __pyx_t_25); __pyx_t_25 = NULL;
+          __Pyx_GIVEREF(__pyx_t_10);
+          PyTuple_SET_ITEM(__pyx_t_27, 0+1, __pyx_t_10);
+          __pyx_t_10 = 0;
+          __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_27, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 730, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_5);
+          __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
         }
-        __Pyx_INCREF(__pyx_kp_u_i_d_s_g);
-        __Pyx_GIVEREF(__pyx_kp_u_i_d_s_g);
-        PyTuple_SET_ITEM(__pyx_t_26, 0+__pyx_t_17, __pyx_kp_u_i_d_s_g);
-        __Pyx_INCREF(__pyx_v_i);
-        __Pyx_GIVEREF(__pyx_v_i);
-        PyTuple_SET_ITEM(__pyx_t_26, 1+__pyx_t_17, __pyx_v_i);
-        __Pyx_GIVEREF(__pyx_t_10);
-        PyTuple_SET_ITEM(__pyx_t_26, 2+__pyx_t_17, __pyx_t_10);
-        __pyx_t_10 = 0;
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_26, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 730, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-      /* "benpy.pyx":729
+      /* "benpy/benpy.pyx":729
  *                 else:
  *                     raise RuntimeError("Bad ch switch for constrains bounds")
  *             elif aa[i] == bb[i] and np.isfinite(aa[i]):             # <<<<<<<<<<<<<<
- *                 file.write('i %d s %g\n',i,aa[i])
+ *                 file.write('i {} s {}\n'.format(i+1,aa[i]))
  *             else:
  */
       goto __pyx_L68;
     }
 
-    /* "benpy.pyx":732
- *                 file.write('i %d s %g\n',i,aa[i])
+    /* "benpy/benpy.pyx":732
+ *                 file.write('i {} s {}\n'.format(i+1,aa[i]))
  *             else:
  *                 raise RuntimeError('Invalid constrsaints: a[{}]={}, b[{}]={}'.format(i+1,aa[i],i,bb[i]))             # <<<<<<<<<<<<<<
  * 
@@ -15331,8 +15382,8 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     /*else*/ {
       __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_Invalid_constrsaints_a_b, __pyx_n_s_format); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 732, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_26 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 732, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_26);
+      __pyx_t_27 = __Pyx_PyInt_AddObjC(__pyx_v_i, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 732, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_27);
       __pyx_t_10 = PyObject_GetItem(__pyx_v_aa, __pyx_v_i); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 732, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_10);
       __pyx_t_25 = PyObject_GetItem(__pyx_v_bb, __pyx_v_i); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 732, __pyx_L1_error)
@@ -15351,47 +15402,47 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       }
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_7, __pyx_t_26, __pyx_t_10, __pyx_v_i, __pyx_t_25};
+        PyObject *__pyx_temp[5] = {__pyx_t_7, __pyx_t_27, __pyx_t_10, __pyx_v_i, __pyx_t_25};
         __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 4+__pyx_t_17); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 732, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_7, __pyx_t_26, __pyx_t_10, __pyx_v_i, __pyx_t_25};
+        PyObject *__pyx_temp[5] = {__pyx_t_7, __pyx_t_27, __pyx_t_10, __pyx_v_i, __pyx_t_25};
         __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_17, 4+__pyx_t_17); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 732, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
       } else
       #endif
       {
-        __pyx_t_11 = PyTuple_New(4+__pyx_t_17); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 732, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
+        __pyx_t_26 = PyTuple_New(4+__pyx_t_17); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 732, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_26);
         if (__pyx_t_7) {
-          __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_7); __pyx_t_7 = NULL;
+          __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_26, 0, __pyx_t_7); __pyx_t_7 = NULL;
         }
-        __Pyx_GIVEREF(__pyx_t_26);
-        PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_17, __pyx_t_26);
+        __Pyx_GIVEREF(__pyx_t_27);
+        PyTuple_SET_ITEM(__pyx_t_26, 0+__pyx_t_17, __pyx_t_27);
         __Pyx_GIVEREF(__pyx_t_10);
-        PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_17, __pyx_t_10);
+        PyTuple_SET_ITEM(__pyx_t_26, 1+__pyx_t_17, __pyx_t_10);
         __Pyx_INCREF(__pyx_v_i);
         __Pyx_GIVEREF(__pyx_v_i);
-        PyTuple_SET_ITEM(__pyx_t_11, 2+__pyx_t_17, __pyx_v_i);
+        PyTuple_SET_ITEM(__pyx_t_26, 2+__pyx_t_17, __pyx_v_i);
         __Pyx_GIVEREF(__pyx_t_25);
-        PyTuple_SET_ITEM(__pyx_t_11, 3+__pyx_t_17, __pyx_t_25);
-        __pyx_t_26 = 0;
+        PyTuple_SET_ITEM(__pyx_t_26, 3+__pyx_t_17, __pyx_t_25);
+        __pyx_t_27 = 0;
         __pyx_t_10 = 0;
         __pyx_t_25 = 0;
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_11, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 732, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_26, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 732, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
-        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 732, __pyx_L1_error)
@@ -15408,7 +15459,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     }
     __pyx_L68:;
 
-    /* "benpy.pyx":716
+    /* "benpy/benpy.pyx":716
  *             bb = self.b
  * 
  *         for i in list(range(m1)):             # <<<<<<<<<<<<<<
@@ -15418,7 +15469,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-  /* "benpy.pyx":735
+  /* "benpy/benpy.pyx":735
  * 
  *         #Write cols
  *         if self.l is None:             # <<<<<<<<<<<<<<
@@ -15432,7 +15483,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_t_3 = (__pyx_t_2 != 0);
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":736
+    /* "benpy/benpy.pyx":736
  *         #Write cols
  *         if self.l is None:
  *             llb=-np.inf*np.ones((n,1))             # <<<<<<<<<<<<<<
@@ -15449,8 +15500,8 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 736, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ones); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 736, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
+    __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_ones); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 736, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_26);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_1 = PyTuple_New(2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 736, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
@@ -15461,33 +15512,33 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __Pyx_GIVEREF(__pyx_int_1);
     PyTuple_SET_ITEM(__pyx_t_1, 1, __pyx_int_1);
     __pyx_t_25 = NULL;
-    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_11))) {
-      __pyx_t_25 = PyMethod_GET_SELF(__pyx_t_11);
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_26))) {
+      __pyx_t_25 = PyMethod_GET_SELF(__pyx_t_26);
       if (likely(__pyx_t_25)) {
-        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_26);
         __Pyx_INCREF(__pyx_t_25);
         __Pyx_INCREF(function);
-        __Pyx_DECREF_SET(__pyx_t_11, function);
+        __Pyx_DECREF_SET(__pyx_t_26, function);
       }
     }
     if (!__pyx_t_25) {
-      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_26, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_GOTREF(__pyx_t_5);
     } else {
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_11)) {
+      if (PyFunction_Check(__pyx_t_26)) {
         PyObject *__pyx_temp[2] = {__pyx_t_25, __pyx_t_1};
-        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_26)) {
         PyObject *__pyx_temp[2] = {__pyx_t_25, __pyx_t_1};
-        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -15500,20 +15551,20 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_GIVEREF(__pyx_t_1);
         PyTuple_SET_ITEM(__pyx_t_10, 0+1, __pyx_t_1);
         __pyx_t_1 = 0;
-        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
+        __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_t_10, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 736, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_5);
         __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
       }
     }
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-    __pyx_t_11 = PyNumber_Multiply(__pyx_t_9, __pyx_t_5); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 736, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
+    __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+    __pyx_t_26 = PyNumber_Multiply(__pyx_t_9, __pyx_t_5); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 736, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_26);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __pyx_v_llb = __pyx_t_11;
-    __pyx_t_11 = 0;
+    __pyx_v_llb = __pyx_t_26;
+    __pyx_t_26 = 0;
 
-    /* "benpy.pyx":735
+    /* "benpy/benpy.pyx":735
  * 
  *         #Write cols
  *         if self.l is None:             # <<<<<<<<<<<<<<
@@ -15523,7 +15574,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L72;
   }
 
-  /* "benpy.pyx":738
+  /* "benpy/benpy.pyx":738
  *             llb=-np.inf*np.ones((n,1))
  *         else:
  *             llb=self.l             # <<<<<<<<<<<<<<
@@ -15531,39 +15582,39 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  *         if self.s is None:
  */
   /*else*/ {
-    __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_l); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 738, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
-    __pyx_v_llb = __pyx_t_11;
-    __pyx_t_11 = 0;
+    __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_l); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 738, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_26);
+    __pyx_v_llb = __pyx_t_26;
+    __pyx_t_26 = 0;
   }
   __pyx_L72:;
 
-  /* "benpy.pyx":740
+  /* "benpy/benpy.pyx":740
  *             llb=self.l
  * 
  *         if self.s is None:             # <<<<<<<<<<<<<<
  *             uub= np.inf*np.ones((n,1))
  *         else:
  */
-  __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 740, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_11);
-  __pyx_t_3 = (__pyx_t_11 == Py_None);
-  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_v_self, __pyx_n_s_s); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 740, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_26);
+  __pyx_t_3 = (__pyx_t_26 == Py_None);
+  __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
   __pyx_t_2 = (__pyx_t_3 != 0);
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":741
+    /* "benpy/benpy.pyx":741
  * 
  *         if self.s is None:
  *             uub= np.inf*np.ones((n,1))             # <<<<<<<<<<<<<<
  *         else:
  *             uub= self.s
  */
-    __pyx_t_11 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 741, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_11, __pyx_n_s_inf); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 741, __pyx_L1_error)
+    __pyx_t_26 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 741, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_26);
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_t_26, __pyx_n_s_inf); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 741, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
     __pyx_t_9 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 741, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_10 = __Pyx_PyObject_GetAttrStr(__pyx_t_9, __pyx_n_s_ones); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 741, __pyx_L1_error)
@@ -15588,25 +15639,25 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       }
     }
     if (!__pyx_t_1) {
-      __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 741, __pyx_L1_error)
+      __pyx_t_26 = __Pyx_PyObject_CallOneArg(__pyx_t_10, __pyx_t_9); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 741, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
-      __Pyx_GOTREF(__pyx_t_11);
+      __Pyx_GOTREF(__pyx_t_26);
     } else {
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_10)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_9};
-        __pyx_t_11 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 741, __pyx_L1_error)
+        __pyx_t_26 = __Pyx_PyFunction_FastCall(__pyx_t_10, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 741, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_GOTREF(__pyx_t_26);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_10)) {
         PyObject *__pyx_temp[2] = {__pyx_t_1, __pyx_t_9};
-        __pyx_t_11 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 741, __pyx_L1_error)
+        __pyx_t_26 = __Pyx_PyCFunction_FastCall(__pyx_t_10, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 741, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
-        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_GOTREF(__pyx_t_26);
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       } else
       #endif
@@ -15617,20 +15668,20 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_GIVEREF(__pyx_t_9);
         PyTuple_SET_ITEM(__pyx_t_25, 0+1, __pyx_t_9);
         __pyx_t_9 = 0;
-        __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_25, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 741, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
+        __pyx_t_26 = __Pyx_PyObject_Call(__pyx_t_10, __pyx_t_25, NULL); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 741, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_26);
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-    __pyx_t_10 = PyNumber_Multiply(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 741, __pyx_L1_error)
+    __pyx_t_10 = PyNumber_Multiply(__pyx_t_5, __pyx_t_26); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 741, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
     __pyx_v_uub = __pyx_t_10;
     __pyx_t_10 = 0;
 
-    /* "benpy.pyx":740
+    /* "benpy/benpy.pyx":740
  *             llb=self.l
  * 
  *         if self.s is None:             # <<<<<<<<<<<<<<
@@ -15640,7 +15691,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     goto __pyx_L73;
   }
 
-  /* "benpy.pyx":743
+  /* "benpy/benpy.pyx":743
  *             uub= np.inf*np.ones((n,1))
  *         else:
  *             uub= self.s             # <<<<<<<<<<<<<<
@@ -15655,7 +15706,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __pyx_L73:;
 
-  /* "benpy.pyx":745
+  /* "benpy/benpy.pyx":745
  *             uub= self.s
  * 
  *         for j in range(n):             # <<<<<<<<<<<<<<
@@ -15667,40 +15718,40 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_INCREF(__pyx_v_n);
   __Pyx_GIVEREF(__pyx_v_n);
   PyTuple_SET_ITEM(__pyx_t_10, 0, __pyx_v_n);
-  __pyx_t_11 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_10, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 745, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_11);
+  __pyx_t_26 = __Pyx_PyObject_Call(__pyx_builtin_range, __pyx_t_10, NULL); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 745, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_26);
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
-  if (likely(PyList_CheckExact(__pyx_t_11)) || PyTuple_CheckExact(__pyx_t_11)) {
-    __pyx_t_10 = __pyx_t_11; __Pyx_INCREF(__pyx_t_10); __pyx_t_12 = 0;
+  if (likely(PyList_CheckExact(__pyx_t_26)) || PyTuple_CheckExact(__pyx_t_26)) {
+    __pyx_t_10 = __pyx_t_26; __Pyx_INCREF(__pyx_t_10); __pyx_t_12 = 0;
     __pyx_t_28 = NULL;
   } else {
-    __pyx_t_12 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_11); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 745, __pyx_L1_error)
+    __pyx_t_12 = -1; __pyx_t_10 = PyObject_GetIter(__pyx_t_26); if (unlikely(!__pyx_t_10)) __PYX_ERR(0, 745, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_10);
     __pyx_t_28 = Py_TYPE(__pyx_t_10)->tp_iternext; if (unlikely(!__pyx_t_28)) __PYX_ERR(0, 745, __pyx_L1_error)
   }
-  __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+  __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
   for (;;) {
     if (likely(!__pyx_t_28)) {
       if (likely(PyList_CheckExact(__pyx_t_10))) {
         if (__pyx_t_12 >= PyList_GET_SIZE(__pyx_t_10)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_11 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_12); __Pyx_INCREF(__pyx_t_11); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 745, __pyx_L1_error)
+        __pyx_t_26 = PyList_GET_ITEM(__pyx_t_10, __pyx_t_12); __Pyx_INCREF(__pyx_t_26); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 745, __pyx_L1_error)
         #else
-        __pyx_t_11 = PySequence_ITEM(__pyx_t_10, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 745, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
+        __pyx_t_26 = PySequence_ITEM(__pyx_t_10, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 745, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_26);
         #endif
       } else {
         if (__pyx_t_12 >= PyTuple_GET_SIZE(__pyx_t_10)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_11 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_12); __Pyx_INCREF(__pyx_t_11); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 745, __pyx_L1_error)
+        __pyx_t_26 = PyTuple_GET_ITEM(__pyx_t_10, __pyx_t_12); __Pyx_INCREF(__pyx_t_26); __pyx_t_12++; if (unlikely(0 < 0)) __PYX_ERR(0, 745, __pyx_L1_error)
         #else
-        __pyx_t_11 = PySequence_ITEM(__pyx_t_10, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 745, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
+        __pyx_t_26 = PySequence_ITEM(__pyx_t_10, __pyx_t_12); __pyx_t_12++; if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 745, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_26);
         #endif
       }
     } else {
-      __pyx_t_11 = __pyx_t_28(__pyx_t_10);
-      if (unlikely(!__pyx_t_11)) {
+      __pyx_t_26 = __pyx_t_28(__pyx_t_10);
+      if (unlikely(!__pyx_t_26)) {
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(exc_type == PyExc_StopIteration || PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
@@ -15708,30 +15759,30 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         }
         break;
       }
-      __Pyx_GOTREF(__pyx_t_11);
+      __Pyx_GOTREF(__pyx_t_26);
     }
-    __Pyx_XDECREF_SET(__pyx_v_j, __pyx_t_11);
-    __pyx_t_11 = 0;
+    __Pyx_XDECREF_SET(__pyx_v_j, __pyx_t_26);
+    __pyx_t_26 = 0;
 
-    /* "benpy.pyx":746
+    /* "benpy/benpy.pyx":746
  * 
  *         for j in range(n):
  *             if llb[j] < uub[j]:             # <<<<<<<<<<<<<<
  *                 ch = 2*np.isfinite(llb[j]) + np.isfinite(uub[j])
  *                 if ch == 0:
  */
-    __pyx_t_11 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 746, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_11);
+    __pyx_t_26 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 746, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_26);
     __pyx_t_5 = PyObject_GetItem(__pyx_v_uub, __pyx_v_j); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 746, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_25 = PyObject_RichCompare(__pyx_t_11, __pyx_t_5, Py_LT); __Pyx_XGOTREF(__pyx_t_25); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 746, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+    __pyx_t_25 = PyObject_RichCompare(__pyx_t_26, __pyx_t_5, Py_LT); __Pyx_XGOTREF(__pyx_t_25); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 746, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_25); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 746, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":747
+      /* "benpy/benpy.pyx":747
  *         for j in range(n):
  *             if llb[j] < uub[j]:
  *                 ch = 2*np.isfinite(llb[j]) + np.isfinite(uub[j])             # <<<<<<<<<<<<<<
@@ -15740,39 +15791,39 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
       __pyx_t_5 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 747, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 747, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_11);
+      __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_isfinite); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 747, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_26);
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_5 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 747, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
       __pyx_t_9 = NULL;
-      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_11))) {
-        __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_11);
+      if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_26))) {
+        __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_26);
         if (likely(__pyx_t_9)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_26);
           __Pyx_INCREF(__pyx_t_9);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_11, function);
+          __Pyx_DECREF_SET(__pyx_t_26, function);
         }
       }
       if (!__pyx_t_9) {
-        __pyx_t_25 = __Pyx_PyObject_CallOneArg(__pyx_t_11, __pyx_t_5); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
+        __pyx_t_25 = __Pyx_PyObject_CallOneArg(__pyx_t_26, __pyx_t_5); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         __Pyx_GOTREF(__pyx_t_25);
       } else {
         #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_11)) {
+        if (PyFunction_Check(__pyx_t_26)) {
           PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_5};
-          __pyx_t_25 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
+          __pyx_t_25 = __Pyx_PyFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_GOTREF(__pyx_t_25);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_26)) {
           PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_5};
-          __pyx_t_25 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
+          __pyx_t_25 = __Pyx_PyCFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
           __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_GOTREF(__pyx_t_25);
           __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -15785,14 +15836,14 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
           __Pyx_GIVEREF(__pyx_t_5);
           PyTuple_SET_ITEM(__pyx_t_1, 0+1, __pyx_t_5);
           __pyx_t_5 = 0;
-          __pyx_t_25 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_1, NULL); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
+          __pyx_t_25 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_t_1, NULL); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_25);
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         }
       }
-      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-      __pyx_t_11 = PyNumber_Multiply(__pyx_int_2, __pyx_t_25); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 747, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_11);
+      __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+      __pyx_t_26 = PyNumber_Multiply(__pyx_int_2, __pyx_t_25); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 747, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_26);
       __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
       __pyx_t_1 = __Pyx_GetModuleGlobalName(__pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 747, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
@@ -15835,26 +15886,26 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         } else
         #endif
         {
-          __pyx_t_26 = PyTuple_New(1+1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 747, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_26);
-          __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_26, 0, __pyx_t_9); __pyx_t_9 = NULL;
+          __pyx_t_27 = PyTuple_New(1+1); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 747, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_27);
+          __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_27, 0, __pyx_t_9); __pyx_t_9 = NULL;
           __Pyx_GIVEREF(__pyx_t_1);
-          PyTuple_SET_ITEM(__pyx_t_26, 0+1, __pyx_t_1);
+          PyTuple_SET_ITEM(__pyx_t_27, 0+1, __pyx_t_1);
           __pyx_t_1 = 0;
-          __pyx_t_25 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_26, NULL); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
+          __pyx_t_25 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_27, NULL); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 747, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_25);
-          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+          __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
         }
       }
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_5 = PyNumber_Add(__pyx_t_11, __pyx_t_25); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 747, __pyx_L1_error)
+      __pyx_t_5 = PyNumber_Add(__pyx_t_26, __pyx_t_25); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 747, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+      __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
       __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
       __Pyx_XDECREF_SET(__pyx_v_ch, __pyx_t_5);
       __pyx_t_5 = 0;
 
-      /* "benpy.pyx":748
+      /* "benpy/benpy.pyx":748
  *             if llb[j] < uub[j]:
  *                 ch = 2*np.isfinite(llb[j]) + np.isfinite(uub[j])
  *                 if ch == 0:             # <<<<<<<<<<<<<<
@@ -15867,7 +15918,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_2) {
 
-        /* "benpy.pyx":749
+        /* "benpy/benpy.pyx":749
  *                 ch = 2*np.isfinite(llb[j]) + np.isfinite(uub[j])
  *                 if ch == 0:
  *                     file.write('j {} f \n'.format(j+1))             # <<<<<<<<<<<<<<
@@ -15876,40 +15927,40 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
         __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_v_file, __pyx_n_s_write); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 749, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_25);
-        __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_f, __pyx_n_s_format); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 749, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_26);
+        __pyx_t_27 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_f, __pyx_n_s_format); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 749, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_27);
         __pyx_t_1 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 749, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         __pyx_t_9 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_26))) {
-          __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_26);
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_27))) {
+          __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_27);
           if (likely(__pyx_t_9)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_26);
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_27);
             __Pyx_INCREF(__pyx_t_9);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_26, function);
+            __Pyx_DECREF_SET(__pyx_t_27, function);
           }
         }
         if (!__pyx_t_9) {
-          __pyx_t_11 = __Pyx_PyObject_CallOneArg(__pyx_t_26, __pyx_t_1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 749, __pyx_L1_error)
+          __pyx_t_26 = __Pyx_PyObject_CallOneArg(__pyx_t_27, __pyx_t_1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 749, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_GOTREF(__pyx_t_11);
+          __Pyx_GOTREF(__pyx_t_26);
         } else {
           #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_26)) {
+          if (PyFunction_Check(__pyx_t_27)) {
             PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_1};
-            __pyx_t_11 = __Pyx_PyFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 749, __pyx_L1_error)
+            __pyx_t_26 = __Pyx_PyFunction_FastCall(__pyx_t_27, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 749, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-            __Pyx_GOTREF(__pyx_t_11);
+            __Pyx_GOTREF(__pyx_t_26);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           } else
           #endif
           #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_26)) {
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_27)) {
             PyObject *__pyx_temp[2] = {__pyx_t_9, __pyx_t_1};
-            __pyx_t_11 = __Pyx_PyCFunction_FastCall(__pyx_t_26, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 749, __pyx_L1_error)
+            __pyx_t_26 = __Pyx_PyCFunction_FastCall(__pyx_t_27, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 749, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-            __Pyx_GOTREF(__pyx_t_11);
+            __Pyx_GOTREF(__pyx_t_26);
             __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           } else
           #endif
@@ -15920,10 +15971,145 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
             __Pyx_GIVEREF(__pyx_t_1);
             PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_1);
             __pyx_t_1 = 0;
-            __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_t_7, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 749, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_11);
+            __pyx_t_26 = __Pyx_PyObject_Call(__pyx_t_27, __pyx_t_7, NULL); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 749, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_26);
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           }
+        }
+        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+        __pyx_t_27 = NULL;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_25))) {
+          __pyx_t_27 = PyMethod_GET_SELF(__pyx_t_25);
+          if (likely(__pyx_t_27)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_25);
+            __Pyx_INCREF(__pyx_t_27);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_25, function);
+          }
+        }
+        if (!__pyx_t_27) {
+          __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_25, __pyx_t_26); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+          __Pyx_GOTREF(__pyx_t_5);
+        } else {
+          #if CYTHON_FAST_PYCALL
+          if (PyFunction_Check(__pyx_t_25)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_27, __pyx_t_26};
+            __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+          } else
+          #endif
+          #if CYTHON_FAST_PYCCALL
+          if (__Pyx_PyFastCFunction_Check(__pyx_t_25)) {
+            PyObject *__pyx_temp[2] = {__pyx_t_27, __pyx_t_26};
+            __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
+            __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
+          } else
+          #endif
+          {
+            __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 749, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_7);
+            __Pyx_GIVEREF(__pyx_t_27); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_27); __pyx_t_27 = NULL;
+            __Pyx_GIVEREF(__pyx_t_26);
+            PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_26);
+            __pyx_t_26 = 0;
+            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_25, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_5);
+            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+          }
+        }
+        __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
+        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+        /* "benpy/benpy.pyx":748
+ *             if llb[j] < uub[j]:
+ *                 ch = 2*np.isfinite(llb[j]) + np.isfinite(uub[j])
+ *                 if ch == 0:             # <<<<<<<<<<<<<<
+ *                     file.write('j {} f \n'.format(j+1))
+ *                 elif ch == 1:
+ */
+        goto __pyx_L77;
+      }
+
+      /* "benpy/benpy.pyx":750
+ *                 if ch == 0:
+ *                     file.write('j {} f \n'.format(j+1))
+ *                 elif ch == 1:             # <<<<<<<<<<<<<<
+ *                     file.write('j {} u {}\n'.format(j+1,uub[j]))
+ *                 elif ch == 2:
+ */
+      __pyx_t_5 = __Pyx_PyInt_EqObjC(__pyx_v_ch, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 750, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_5);
+      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 750, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+      if (__pyx_t_2) {
+
+        /* "benpy/benpy.pyx":751
+ *                     file.write('j {} f \n'.format(j+1))
+ *                 elif ch == 1:
+ *                     file.write('j {} u {}\n'.format(j+1,uub[j]))             # <<<<<<<<<<<<<<
+ *                 elif ch == 2:
+ *                     file.write('j {} l {}\n'.format(j+1,llb[j]))
+ */
+        __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_v_file, __pyx_n_s_write); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 751, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_25);
+        __pyx_t_26 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_u, __pyx_n_s_format); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 751, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_26);
+        __pyx_t_27 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 751, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_27);
+        __pyx_t_1 = PyObject_GetItem(__pyx_v_uub, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 751, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_1);
+        __pyx_t_9 = NULL;
+        __pyx_t_17 = 0;
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_26))) {
+          __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_26);
+          if (likely(__pyx_t_9)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_26);
+            __Pyx_INCREF(__pyx_t_9);
+            __Pyx_INCREF(function);
+            __Pyx_DECREF_SET(__pyx_t_26, function);
+            __pyx_t_17 = 1;
+          }
+        }
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_26)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_27, __pyx_t_1};
+          __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_26, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 751, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_26)) {
+          PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_27, __pyx_t_1};
+          __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_26, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 751, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_11 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 751, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_11);
+          if (__pyx_t_9) {
+            __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9); __pyx_t_9 = NULL;
+          }
+          __Pyx_GIVEREF(__pyx_t_27);
+          PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_17, __pyx_t_27);
+          __Pyx_GIVEREF(__pyx_t_1);
+          PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_17, __pyx_t_1);
+          __pyx_t_27 = 0;
+          __pyx_t_1 = 0;
+          __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_26, __pyx_t_11, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 751, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         }
         __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
         __pyx_t_26 = NULL;
@@ -15937,179 +16123,44 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
           }
         }
         if (!__pyx_t_26) {
-          __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_25, __pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          __Pyx_GOTREF(__pyx_t_5);
-        } else {
-          #if CYTHON_FAST_PYCALL
-          if (PyFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_26, __pyx_t_11};
-            __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
-            __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          } else
-          #endif
-          #if CYTHON_FAST_PYCCALL
-          if (__Pyx_PyFastCFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_26, __pyx_t_11};
-            __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
-            __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-          } else
-          #endif
-          {
-            __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 749, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_7);
-            __Pyx_GIVEREF(__pyx_t_26); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_26); __pyx_t_26 = NULL;
-            __Pyx_GIVEREF(__pyx_t_11);
-            PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_11);
-            __pyx_t_11 = 0;
-            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_25, __pyx_t_7, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 749, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
-          }
-        }
-        __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
-        __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-
-        /* "benpy.pyx":748
- *             if llb[j] < uub[j]:
- *                 ch = 2*np.isfinite(llb[j]) + np.isfinite(uub[j])
- *                 if ch == 0:             # <<<<<<<<<<<<<<
- *                     file.write('j {} f \n'.format(j+1))
- *                 elif ch == 1:
- */
-        goto __pyx_L77;
-      }
-
-      /* "benpy.pyx":750
- *                 if ch == 0:
- *                     file.write('j {} f \n'.format(j+1))
- *                 elif ch == 1:             # <<<<<<<<<<<<<<
- *                     file.write('j {} u {}\n'.format(j+1,uub[j]))
- *                 elif ch == 2:
- */
-      __pyx_t_5 = __Pyx_PyInt_EqObjC(__pyx_v_ch, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 750, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_2 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_2 < 0)) __PYX_ERR(0, 750, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      if (__pyx_t_2) {
-
-        /* "benpy.pyx":751
- *                     file.write('j {} f \n'.format(j+1))
- *                 elif ch == 1:
- *                     file.write('j {} u {}\n'.format(j+1,uub[j]))             # <<<<<<<<<<<<<<
- *                 elif ch == 2:
- *                     file.write('j {} l {}\n'.format(j+1,llb[j]))
- */
-        __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_v_file, __pyx_n_s_write); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 751, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_25);
-        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_u, __pyx_n_s_format); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 751, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_26 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 751, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_26);
-        __pyx_t_1 = PyObject_GetItem(__pyx_v_uub, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 751, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_9 = NULL;
-        __pyx_t_17 = 0;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_11))) {
-          __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_11);
-          if (likely(__pyx_t_9)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
-            __Pyx_INCREF(__pyx_t_9);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_11, function);
-            __pyx_t_17 = 1;
-          }
-        }
-        #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_11)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_26, __pyx_t_1};
-          __pyx_t_7 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 751, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-          __Pyx_GOTREF(__pyx_t_7);
-          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        } else
-        #endif
-        #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_9, __pyx_t_26, __pyx_t_1};
-          __pyx_t_7 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 751, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-          __Pyx_GOTREF(__pyx_t_7);
-          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
-          __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-        } else
-        #endif
-        {
-          __pyx_t_27 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 751, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_27);
-          if (__pyx_t_9) {
-            __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_27, 0, __pyx_t_9); __pyx_t_9 = NULL;
-          }
-          __Pyx_GIVEREF(__pyx_t_26);
-          PyTuple_SET_ITEM(__pyx_t_27, 0+__pyx_t_17, __pyx_t_26);
-          __Pyx_GIVEREF(__pyx_t_1);
-          PyTuple_SET_ITEM(__pyx_t_27, 1+__pyx_t_17, __pyx_t_1);
-          __pyx_t_26 = 0;
-          __pyx_t_1 = 0;
-          __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_27, NULL); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 751, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_7);
-          __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
-        }
-        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
-        __pyx_t_11 = NULL;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_25))) {
-          __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_25);
-          if (likely(__pyx_t_11)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_25);
-            __Pyx_INCREF(__pyx_t_11);
-            __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_25, function);
-          }
-        }
-        if (!__pyx_t_11) {
           __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_25, __pyx_t_7); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 751, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_GOTREF(__pyx_t_5);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_7};
+            PyObject *__pyx_temp[2] = {__pyx_t_26, __pyx_t_7};
             __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 751, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+            __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           } else
           #endif
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_7};
+            PyObject *__pyx_temp[2] = {__pyx_t_26, __pyx_t_7};
             __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 751, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
+            __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           } else
           #endif
           {
-            __pyx_t_27 = PyTuple_New(1+1); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 751, __pyx_L1_error)
-            __Pyx_GOTREF(__pyx_t_27);
-            __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_27, 0, __pyx_t_11); __pyx_t_11 = NULL;
+            __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 751, __pyx_L1_error)
+            __Pyx_GOTREF(__pyx_t_11);
+            __Pyx_GIVEREF(__pyx_t_26); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_26); __pyx_t_26 = NULL;
             __Pyx_GIVEREF(__pyx_t_7);
-            PyTuple_SET_ITEM(__pyx_t_27, 0+1, __pyx_t_7);
+            PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_t_7);
             __pyx_t_7 = 0;
-            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_25, __pyx_t_27, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 751, __pyx_L1_error)
+            __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_25, __pyx_t_11, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 751, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           }
         }
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "benpy.pyx":750
+        /* "benpy/benpy.pyx":750
  *                 if ch == 0:
  *                     file.write('j {} f \n'.format(j+1))
  *                 elif ch == 1:             # <<<<<<<<<<<<<<
@@ -16119,7 +16170,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         goto __pyx_L77;
       }
 
-      /* "benpy.pyx":752
+      /* "benpy/benpy.pyx":752
  *                 elif ch == 1:
  *                     file.write('j {} u {}\n'.format(j+1,uub[j]))
  *                 elif ch == 2:             # <<<<<<<<<<<<<<
@@ -16132,7 +16183,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_2) {
 
-        /* "benpy.pyx":753
+        /* "benpy/benpy.pyx":753
  *                     file.write('j {} u {}\n'.format(j+1,uub[j]))
  *                 elif ch == 2:
  *                     file.write('j {} l {}\n'.format(j+1,llb[j]))             # <<<<<<<<<<<<<<
@@ -16143,17 +16194,17 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_GOTREF(__pyx_t_25);
         __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_l, __pyx_n_s_format); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 753, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
-        __pyx_t_11 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 753, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
+        __pyx_t_26 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 753, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_26);
         __pyx_t_1 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 753, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_26 = NULL;
+        __pyx_t_27 = NULL;
         __pyx_t_17 = 0;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_7))) {
-          __pyx_t_26 = PyMethod_GET_SELF(__pyx_t_7);
-          if (likely(__pyx_t_26)) {
+          __pyx_t_27 = PyMethod_GET_SELF(__pyx_t_7);
+          if (likely(__pyx_t_27)) {
             PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_7);
-            __Pyx_INCREF(__pyx_t_26);
+            __Pyx_INCREF(__pyx_t_27);
             __Pyx_INCREF(function);
             __Pyx_DECREF_SET(__pyx_t_7, function);
             __pyx_t_17 = 1;
@@ -16161,38 +16212,38 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         }
         #if CYTHON_FAST_PYCALL
         if (PyFunction_Check(__pyx_t_7)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_26, __pyx_t_11, __pyx_t_1};
-          __pyx_t_27 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 753, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
-          __Pyx_GOTREF(__pyx_t_27);
-          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+          PyObject *__pyx_temp[3] = {__pyx_t_27, __pyx_t_26, __pyx_t_1};
+          __pyx_t_11 = __Pyx_PyFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 753, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
+          __Pyx_GOTREF(__pyx_t_11);
+          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
         if (__Pyx_PyFastCFunction_Check(__pyx_t_7)) {
-          PyObject *__pyx_temp[3] = {__pyx_t_26, __pyx_t_11, __pyx_t_1};
-          __pyx_t_27 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 753, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
-          __Pyx_GOTREF(__pyx_t_27);
-          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+          PyObject *__pyx_temp[3] = {__pyx_t_27, __pyx_t_26, __pyx_t_1};
+          __pyx_t_11 = __Pyx_PyCFunction_FastCall(__pyx_t_7, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 753, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
+          __Pyx_GOTREF(__pyx_t_11);
+          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         } else
         #endif
         {
           __pyx_t_9 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 753, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
-          if (__pyx_t_26) {
-            __Pyx_GIVEREF(__pyx_t_26); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_26); __pyx_t_26 = NULL;
+          if (__pyx_t_27) {
+            __Pyx_GIVEREF(__pyx_t_27); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_27); __pyx_t_27 = NULL;
           }
-          __Pyx_GIVEREF(__pyx_t_11);
-          PyTuple_SET_ITEM(__pyx_t_9, 0+__pyx_t_17, __pyx_t_11);
+          __Pyx_GIVEREF(__pyx_t_26);
+          PyTuple_SET_ITEM(__pyx_t_9, 0+__pyx_t_17, __pyx_t_26);
           __Pyx_GIVEREF(__pyx_t_1);
           PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_17, __pyx_t_1);
-          __pyx_t_11 = 0;
+          __pyx_t_26 = 0;
           __pyx_t_1 = 0;
-          __pyx_t_27 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, NULL); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 753, __pyx_L1_error)
-          __Pyx_GOTREF(__pyx_t_27);
+          __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_7, __pyx_t_9, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 753, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_11);
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         }
         __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
@@ -16207,35 +16258,35 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
           }
         }
         if (!__pyx_t_7) {
-          __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_25, __pyx_t_27); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 753, __pyx_L1_error)
-          __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+          __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_25, __pyx_t_11); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 753, __pyx_L1_error)
+          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           __Pyx_GOTREF(__pyx_t_5);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_27};
+            PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_11};
             __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 753, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
             __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           } else
           #endif
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_27};
+            PyObject *__pyx_temp[2] = {__pyx_t_7, __pyx_t_11};
             __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 753, __pyx_L1_error)
             __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
             __Pyx_GOTREF(__pyx_t_5);
-            __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+            __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
           } else
           #endif
           {
             __pyx_t_9 = PyTuple_New(1+1); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 753, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_9);
             __Pyx_GIVEREF(__pyx_t_7); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_7); __pyx_t_7 = NULL;
-            __Pyx_GIVEREF(__pyx_t_27);
-            PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_27);
-            __pyx_t_27 = 0;
+            __Pyx_GIVEREF(__pyx_t_11);
+            PyTuple_SET_ITEM(__pyx_t_9, 0+1, __pyx_t_11);
+            __pyx_t_11 = 0;
             __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_25, __pyx_t_9, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 753, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
@@ -16244,7 +16295,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "benpy.pyx":752
+        /* "benpy/benpy.pyx":752
  *                 elif ch == 1:
  *                     file.write('j {} u {}\n'.format(j+1,uub[j]))
  *                 elif ch == 2:             # <<<<<<<<<<<<<<
@@ -16254,7 +16305,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         goto __pyx_L77;
       }
 
-      /* "benpy.pyx":754
+      /* "benpy/benpy.pyx":754
  *                 elif ch == 2:
  *                     file.write('j {} l {}\n'.format(j+1,llb[j]))
  *                 elif ch == 3:             # <<<<<<<<<<<<<<
@@ -16267,7 +16318,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       if (__pyx_t_2) {
 
-        /* "benpy.pyx":755
+        /* "benpy/benpy.pyx":755
  *                     file.write('j {} l {}\n'.format(j+1,llb[j]))
  *                 elif ch == 3:
  *                     file.write('j {} d {} {}\n' .format(j+1,llb[j],uub[j]))             # <<<<<<<<<<<<<<
@@ -16276,97 +16327,97 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
         __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_v_file, __pyx_n_s_write); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 755, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_25);
-        __pyx_t_27 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_d, __pyx_n_s_format); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 755, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_27);
+        __pyx_t_11 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_d, __pyx_n_s_format); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 755, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
         __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 755, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_7);
         __pyx_t_1 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 755, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_11 = PyObject_GetItem(__pyx_v_uub, __pyx_v_j); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 755, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
-        __pyx_t_26 = NULL;
+        __pyx_t_26 = PyObject_GetItem(__pyx_v_uub, __pyx_v_j); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 755, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_26);
+        __pyx_t_27 = NULL;
         __pyx_t_17 = 0;
-        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_27))) {
-          __pyx_t_26 = PyMethod_GET_SELF(__pyx_t_27);
-          if (likely(__pyx_t_26)) {
-            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_27);
-            __Pyx_INCREF(__pyx_t_26);
+        if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_11))) {
+          __pyx_t_27 = PyMethod_GET_SELF(__pyx_t_11);
+          if (likely(__pyx_t_27)) {
+            PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_11);
+            __Pyx_INCREF(__pyx_t_27);
             __Pyx_INCREF(function);
-            __Pyx_DECREF_SET(__pyx_t_27, function);
+            __Pyx_DECREF_SET(__pyx_t_11, function);
             __pyx_t_17 = 1;
           }
         }
         #if CYTHON_FAST_PYCALL
-        if (PyFunction_Check(__pyx_t_27)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_26, __pyx_t_7, __pyx_t_1, __pyx_t_11};
-          __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_27, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 755, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
+        if (PyFunction_Check(__pyx_t_11)) {
+          PyObject *__pyx_temp[4] = {__pyx_t_27, __pyx_t_7, __pyx_t_1, __pyx_t_26};
+          __pyx_t_9 = __Pyx_PyFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 755, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
         } else
         #endif
         #if CYTHON_FAST_PYCCALL
-        if (__Pyx_PyFastCFunction_Check(__pyx_t_27)) {
-          PyObject *__pyx_temp[4] = {__pyx_t_26, __pyx_t_7, __pyx_t_1, __pyx_t_11};
-          __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_27, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 755, __pyx_L1_error)
-          __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_11)) {
+          PyObject *__pyx_temp[4] = {__pyx_t_27, __pyx_t_7, __pyx_t_1, __pyx_t_26};
+          __pyx_t_9 = __Pyx_PyCFunction_FastCall(__pyx_t_11, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 755, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+          __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
         } else
         #endif
         {
           __pyx_t_6 = PyTuple_New(3+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 755, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_6);
-          if (__pyx_t_26) {
-            __Pyx_GIVEREF(__pyx_t_26); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_26); __pyx_t_26 = NULL;
+          if (__pyx_t_27) {
+            __Pyx_GIVEREF(__pyx_t_27); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_27); __pyx_t_27 = NULL;
           }
           __Pyx_GIVEREF(__pyx_t_7);
           PyTuple_SET_ITEM(__pyx_t_6, 0+__pyx_t_17, __pyx_t_7);
           __Pyx_GIVEREF(__pyx_t_1);
           PyTuple_SET_ITEM(__pyx_t_6, 1+__pyx_t_17, __pyx_t_1);
-          __Pyx_GIVEREF(__pyx_t_11);
-          PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_17, __pyx_t_11);
+          __Pyx_GIVEREF(__pyx_t_26);
+          PyTuple_SET_ITEM(__pyx_t_6, 2+__pyx_t_17, __pyx_t_26);
           __pyx_t_7 = 0;
           __pyx_t_1 = 0;
-          __pyx_t_11 = 0;
-          __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_27, __pyx_t_6, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 755, __pyx_L1_error)
+          __pyx_t_26 = 0;
+          __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_11, __pyx_t_6, NULL); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 755, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_9);
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
         }
-        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
-        __pyx_t_27 = NULL;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __pyx_t_11 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_25))) {
-          __pyx_t_27 = PyMethod_GET_SELF(__pyx_t_25);
-          if (likely(__pyx_t_27)) {
+          __pyx_t_11 = PyMethod_GET_SELF(__pyx_t_25);
+          if (likely(__pyx_t_11)) {
             PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_25);
-            __Pyx_INCREF(__pyx_t_27);
+            __Pyx_INCREF(__pyx_t_11);
             __Pyx_INCREF(function);
             __Pyx_DECREF_SET(__pyx_t_25, function);
           }
         }
-        if (!__pyx_t_27) {
+        if (!__pyx_t_11) {
           __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_t_25, __pyx_t_9); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 755, __pyx_L1_error)
           __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           __Pyx_GOTREF(__pyx_t_5);
         } else {
           #if CYTHON_FAST_PYCALL
           if (PyFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_27, __pyx_t_9};
+            PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_9};
             __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 755, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
+            __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           } else
           #endif
           #if CYTHON_FAST_PYCCALL
           if (__Pyx_PyFastCFunction_Check(__pyx_t_25)) {
-            PyObject *__pyx_temp[2] = {__pyx_t_27, __pyx_t_9};
+            PyObject *__pyx_temp[2] = {__pyx_t_11, __pyx_t_9};
             __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_25, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 755, __pyx_L1_error)
-            __Pyx_XDECREF(__pyx_t_27); __pyx_t_27 = 0;
+            __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
             __Pyx_GOTREF(__pyx_t_5);
             __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
           } else
@@ -16374,7 +16425,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
           {
             __pyx_t_6 = PyTuple_New(1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 755, __pyx_L1_error)
             __Pyx_GOTREF(__pyx_t_6);
-            __Pyx_GIVEREF(__pyx_t_27); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_27); __pyx_t_27 = NULL;
+            __Pyx_GIVEREF(__pyx_t_11); PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_11); __pyx_t_11 = NULL;
             __Pyx_GIVEREF(__pyx_t_9);
             PyTuple_SET_ITEM(__pyx_t_6, 0+1, __pyx_t_9);
             __pyx_t_9 = 0;
@@ -16386,7 +16437,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
         __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-        /* "benpy.pyx":754
+        /* "benpy/benpy.pyx":754
  *                 elif ch == 2:
  *                     file.write('j {} l {}\n'.format(j+1,llb[j]))
  *                 elif ch == 3:             # <<<<<<<<<<<<<<
@@ -16396,12 +16447,12 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
         goto __pyx_L77;
       }
 
-      /* "benpy.pyx":757
+      /* "benpy/benpy.pyx":757
  *                     file.write('j {} d {} {}\n' .format(j+1,llb[j],uub[j]))
  *                 else:
  *                     raise RuntimeError("Bad ch switch for variable bounds")             # <<<<<<<<<<<<<<
  *             elif llb[j] == uub[j] and np.isfinite(llb[j]):
- *                 file.write('i %d s %g\n',j+1,llb[j])
+ *                 file.write('j {} s {}\n'.format(j+1,llb[j]))
  */
       /*else*/ {
         __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_RuntimeError, __pyx_tuple__34, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 757, __pyx_L1_error)
@@ -16412,7 +16463,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       }
       __pyx_L77:;
 
-      /* "benpy.pyx":746
+      /* "benpy/benpy.pyx":746
  * 
  *         for j in range(n):
  *             if llb[j] < uub[j]:             # <<<<<<<<<<<<<<
@@ -16422,11 +16473,11 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       goto __pyx_L76;
     }
 
-    /* "benpy.pyx":758
+    /* "benpy/benpy.pyx":758
  *                 else:
  *                     raise RuntimeError("Bad ch switch for variable bounds")
  *             elif llb[j] == uub[j] and np.isfinite(llb[j]):             # <<<<<<<<<<<<<<
- *                 file.write('i %d s %g\n',j+1,llb[j])
+ *                 file.write('j {} s {}\n'.format(j+1,llb[j]))
  *             else:
  */
     __pyx_t_5 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 758, __pyx_L1_error)
@@ -16484,15 +16535,15 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       } else
       #endif
       {
-        __pyx_t_27 = PyTuple_New(1+1); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 758, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_27);
-        __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_27, 0, __pyx_t_9); __pyx_t_9 = NULL;
+        __pyx_t_11 = PyTuple_New(1+1); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 758, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9); __pyx_t_9 = NULL;
         __Pyx_GIVEREF(__pyx_t_25);
-        PyTuple_SET_ITEM(__pyx_t_27, 0+1, __pyx_t_25);
+        PyTuple_SET_ITEM(__pyx_t_11, 0+1, __pyx_t_25);
         __pyx_t_25 = 0;
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_27, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 758, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 758, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
+        __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
       }
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
@@ -16502,85 +16553,130 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     __pyx_L78_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":759
+      /* "benpy/benpy.pyx":759
  *                     raise RuntimeError("Bad ch switch for variable bounds")
  *             elif llb[j] == uub[j] and np.isfinite(llb[j]):
- *                 file.write('i %d s %g\n',j+1,llb[j])             # <<<<<<<<<<<<<<
+ *                 file.write('j {} s {}\n'.format(j+1,llb[j]))             # <<<<<<<<<<<<<<
  *             else:
  *                 raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
  */
       __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_file, __pyx_n_s_write); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 759, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_27 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 759, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_27);
-      __pyx_t_25 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 759, __pyx_L1_error)
+      __pyx_t_25 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_j_s, __pyx_n_s_format); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 759, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_25);
-      __pyx_t_9 = NULL;
+      __pyx_t_9 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 759, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_9);
+      __pyx_t_26 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 759, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_26);
+      __pyx_t_1 = NULL;
       __pyx_t_17 = 0;
-      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-        __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_5);
-        if (likely(__pyx_t_9)) {
-          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-          __Pyx_INCREF(__pyx_t_9);
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_25))) {
+        __pyx_t_1 = PyMethod_GET_SELF(__pyx_t_25);
+        if (likely(__pyx_t_1)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_25);
+          __Pyx_INCREF(__pyx_t_1);
           __Pyx_INCREF(function);
-          __Pyx_DECREF_SET(__pyx_t_5, function);
+          __Pyx_DECREF_SET(__pyx_t_25, function);
           __pyx_t_17 = 1;
         }
       }
       #if CYTHON_FAST_PYCALL
-      if (PyFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_9, __pyx_kp_u_i_d_s_g, __pyx_t_27, __pyx_t_25};
-        __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 759, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
-        __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
+      if (PyFunction_Check(__pyx_t_25)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_9, __pyx_t_26};
+        __pyx_t_11 = __Pyx_PyFunction_FastCall(__pyx_t_25, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 759, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
-      if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[4] = {__pyx_t_9, __pyx_kp_u_i_d_s_g, __pyx_t_27, __pyx_t_25};
-        __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_17, 3+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 759, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
-        __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
-        __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
+      if (__Pyx_PyFastCFunction_Check(__pyx_t_25)) {
+        PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_9, __pyx_t_26};
+        __pyx_t_11 = __Pyx_PyCFunction_FastCall(__pyx_t_25, __pyx_temp+1-__pyx_t_17, 2+__pyx_t_17); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 759, __pyx_L1_error)
+        __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
       } else
       #endif
       {
-        __pyx_t_11 = PyTuple_New(3+__pyx_t_17); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 759, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_11);
-        if (__pyx_t_9) {
-          __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_11, 0, __pyx_t_9); __pyx_t_9 = NULL;
+        __pyx_t_7 = PyTuple_New(2+__pyx_t_17); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 759, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_7);
+        if (__pyx_t_1) {
+          __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_1); __pyx_t_1 = NULL;
         }
-        __Pyx_INCREF(__pyx_kp_u_i_d_s_g);
-        __Pyx_GIVEREF(__pyx_kp_u_i_d_s_g);
-        PyTuple_SET_ITEM(__pyx_t_11, 0+__pyx_t_17, __pyx_kp_u_i_d_s_g);
-        __Pyx_GIVEREF(__pyx_t_27);
-        PyTuple_SET_ITEM(__pyx_t_11, 1+__pyx_t_17, __pyx_t_27);
-        __Pyx_GIVEREF(__pyx_t_25);
-        PyTuple_SET_ITEM(__pyx_t_11, 2+__pyx_t_17, __pyx_t_25);
-        __pyx_t_27 = 0;
-        __pyx_t_25 = 0;
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_11, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 759, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_GIVEREF(__pyx_t_9);
+        PyTuple_SET_ITEM(__pyx_t_7, 0+__pyx_t_17, __pyx_t_9);
+        __Pyx_GIVEREF(__pyx_t_26);
+        PyTuple_SET_ITEM(__pyx_t_7, 1+__pyx_t_17, __pyx_t_26);
+        __pyx_t_9 = 0;
+        __pyx_t_26 = 0;
+        __pyx_t_11 = __Pyx_PyObject_Call(__pyx_t_25, __pyx_t_7, NULL); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 759, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_11);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+      }
+      __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
+      __pyx_t_25 = NULL;
+      if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+        __pyx_t_25 = PyMethod_GET_SELF(__pyx_t_5);
+        if (likely(__pyx_t_25)) {
+          PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+          __Pyx_INCREF(__pyx_t_25);
+          __Pyx_INCREF(function);
+          __Pyx_DECREF_SET(__pyx_t_5, function);
+        }
+      }
+      if (!__pyx_t_25) {
+        __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_11); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 759, __pyx_L1_error)
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        __Pyx_GOTREF(__pyx_t_6);
+      } else {
+        #if CYTHON_FAST_PYCALL
+        if (PyFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_25, __pyx_t_11};
+          __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 759, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        } else
+        #endif
+        #if CYTHON_FAST_PYCCALL
+        if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+          PyObject *__pyx_temp[2] = {__pyx_t_25, __pyx_t_11};
+          __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-1, 1+1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 759, __pyx_L1_error)
+          __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
+        } else
+        #endif
+        {
+          __pyx_t_7 = PyTuple_New(1+1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 759, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_7);
+          __Pyx_GIVEREF(__pyx_t_25); PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_25); __pyx_t_25 = NULL;
+          __Pyx_GIVEREF(__pyx_t_11);
+          PyTuple_SET_ITEM(__pyx_t_7, 0+1, __pyx_t_11);
+          __pyx_t_11 = 0;
+          __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_7, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 759, __pyx_L1_error)
+          __Pyx_GOTREF(__pyx_t_6);
+          __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+        }
       }
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "benpy.pyx":758
+      /* "benpy/benpy.pyx":758
  *                 else:
  *                     raise RuntimeError("Bad ch switch for variable bounds")
  *             elif llb[j] == uub[j] and np.isfinite(llb[j]):             # <<<<<<<<<<<<<<
- *                 file.write('i %d s %g\n',j+1,llb[j])
+ *                 file.write('j {} s {}\n'.format(j+1,llb[j]))
  *             else:
  */
       goto __pyx_L76;
     }
 
-    /* "benpy.pyx":761
- *                 file.write('i %d s %g\n',j+1,llb[j])
+    /* "benpy/benpy.pyx":761
+ *                 file.write('j {} s {}\n'.format(j+1,llb[j]))
  *             else:
  *                 raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))             # <<<<<<<<<<<<<<
  *         file.write('e ')
@@ -16589,20 +16685,20 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     /*else*/ {
       __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_Invalid_constrsaints_l_s, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 761, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_11 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 761, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_AddObjC(__pyx_v_j, __pyx_int_1, 1, 0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 761, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_7);
+      __pyx_t_11 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_11)) __PYX_ERR(0, 761, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_11);
-      __pyx_t_25 = PyObject_GetItem(__pyx_v_llb, __pyx_v_j); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 761, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_25);
       if (unlikely(!__pyx_v_i)) { __Pyx_RaiseUnboundLocalError("i"); __PYX_ERR(0, 761, __pyx_L1_error) }
-      __pyx_t_27 = PyObject_GetItem(__pyx_v_uub, __pyx_v_j); if (unlikely(!__pyx_t_27)) __PYX_ERR(0, 761, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_27);
-      __pyx_t_9 = NULL;
+      __pyx_t_25 = PyObject_GetItem(__pyx_v_uub, __pyx_v_j); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 761, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_25);
+      __pyx_t_26 = NULL;
       __pyx_t_17 = 0;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
-        __pyx_t_9 = PyMethod_GET_SELF(__pyx_t_5);
-        if (likely(__pyx_t_9)) {
+        __pyx_t_26 = PyMethod_GET_SELF(__pyx_t_5);
+        if (likely(__pyx_t_26)) {
           PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
-          __Pyx_INCREF(__pyx_t_9);
+          __Pyx_INCREF(__pyx_t_26);
           __Pyx_INCREF(function);
           __Pyx_DECREF_SET(__pyx_t_5, function);
           __pyx_t_17 = 1;
@@ -16610,47 +16706,47 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
       }
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_9, __pyx_t_11, __pyx_t_25, __pyx_v_i, __pyx_t_27};
+        PyObject *__pyx_temp[5] = {__pyx_t_26, __pyx_t_7, __pyx_t_11, __pyx_v_i, __pyx_t_25};
         __pyx_t_6 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_17, 4+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 761, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
         __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
-        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
       } else
       #endif
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-        PyObject *__pyx_temp[5] = {__pyx_t_9, __pyx_t_11, __pyx_t_25, __pyx_v_i, __pyx_t_27};
+        PyObject *__pyx_temp[5] = {__pyx_t_26, __pyx_t_7, __pyx_t_11, __pyx_v_i, __pyx_t_25};
         __pyx_t_6 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_17, 4+__pyx_t_17); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 761, __pyx_L1_error)
-        __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
+        __Pyx_XDECREF(__pyx_t_26); __pyx_t_26 = 0;
         __Pyx_GOTREF(__pyx_t_6);
+        __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
         __Pyx_DECREF(__pyx_t_11); __pyx_t_11 = 0;
         __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
-        __Pyx_DECREF(__pyx_t_27); __pyx_t_27 = 0;
       } else
       #endif
       {
-        __pyx_t_1 = PyTuple_New(4+__pyx_t_17); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 761, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_1);
-        if (__pyx_t_9) {
-          __Pyx_GIVEREF(__pyx_t_9); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_9); __pyx_t_9 = NULL;
+        __pyx_t_9 = PyTuple_New(4+__pyx_t_17); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 761, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_9);
+        if (__pyx_t_26) {
+          __Pyx_GIVEREF(__pyx_t_26); PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_26); __pyx_t_26 = NULL;
         }
+        __Pyx_GIVEREF(__pyx_t_7);
+        PyTuple_SET_ITEM(__pyx_t_9, 0+__pyx_t_17, __pyx_t_7);
         __Pyx_GIVEREF(__pyx_t_11);
-        PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_17, __pyx_t_11);
-        __Pyx_GIVEREF(__pyx_t_25);
-        PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_17, __pyx_t_25);
+        PyTuple_SET_ITEM(__pyx_t_9, 1+__pyx_t_17, __pyx_t_11);
         __Pyx_INCREF(__pyx_v_i);
         __Pyx_GIVEREF(__pyx_v_i);
-        PyTuple_SET_ITEM(__pyx_t_1, 2+__pyx_t_17, __pyx_v_i);
-        __Pyx_GIVEREF(__pyx_t_27);
-        PyTuple_SET_ITEM(__pyx_t_1, 3+__pyx_t_17, __pyx_t_27);
+        PyTuple_SET_ITEM(__pyx_t_9, 2+__pyx_t_17, __pyx_v_i);
+        __Pyx_GIVEREF(__pyx_t_25);
+        PyTuple_SET_ITEM(__pyx_t_9, 3+__pyx_t_17, __pyx_t_25);
+        __pyx_t_7 = 0;
         __pyx_t_11 = 0;
         __pyx_t_25 = 0;
-        __pyx_t_27 = 0;
-        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 761, __pyx_L1_error)
+        __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_9, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 761, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_6);
-        __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+        __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
       }
       __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
       __pyx_t_5 = PyTuple_New(1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 761, __pyx_L1_error)
@@ -16667,7 +16763,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
     }
     __pyx_L76:;
 
-    /* "benpy.pyx":745
+    /* "benpy/benpy.pyx":745
  *             uub= self.s
  * 
  *         for j in range(n):             # <<<<<<<<<<<<<<
@@ -16677,7 +16773,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   }
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "benpy.pyx":762
+  /* "benpy/benpy.pyx":762
  *             else:
  *                 raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
  *         file.write('e ')             # <<<<<<<<<<<<<<
@@ -16691,7 +16787,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "benpy.pyx":763
+  /* "benpy/benpy.pyx":763
  *                 raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
  *         file.write('e ')
  *         file.seek(0)             # <<<<<<<<<<<<<<
@@ -16705,7 +16801,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_10); __pyx_t_10 = 0;
 
-  /* "benpy.pyx":764
+  /* "benpy/benpy.pyx":764
  *         file.write('e ')
  *         file.seek(0)
  *         return(file)             # <<<<<<<<<<<<<<
@@ -16717,7 +16813,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __pyx_r = __pyx_v_file;
   goto __pyx_L0;
 
-  /* "benpy.pyx":631
+  /* "benpy/benpy.pyx":631
  * 
  *     @property
  *     def vlpfile(self):             # <<<<<<<<<<<<<<
@@ -16737,7 +16833,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   __Pyx_XDECREF(__pyx_t_25);
   __Pyx_XDECREF(__pyx_t_26);
   __Pyx_XDECREF(__pyx_t_27);
-  __Pyx_AddTraceback("benpy.vlpProblem.vlpfile", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.vlpfile", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_getlen);
@@ -16771,7 +16867,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "benpy.pyx":767
+/* "benpy/benpy.pyx":767
  * 
  * 
  *     def to_file(self,filename=None):             # <<<<<<<<<<<<<<
@@ -16780,9 +16876,9 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_2vlpfile(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_10vlpProblem_5to_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_10vlpProblem_5to_file = {"to_file", (PyCFunction)__pyx_pw_5benpy_10vlpProblem_5to_file, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_5benpy_10vlpProblem_5to_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_5to_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_10vlpProblem_5to_file = {"to_file", (PyCFunction)__pyx_pw_5benpy_5benpy_10vlpProblem_5to_file, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_5to_file(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   PyObject *__pyx_v_self = 0;
   PyObject *__pyx_v_filename = 0;
   PyObject *__pyx_r = 0;
@@ -16830,18 +16926,18 @@ static PyObject *__pyx_pw_5benpy_10vlpProblem_5to_file(PyObject *__pyx_self, PyO
   __pyx_L5_argtuple_error:;
   __Pyx_RaiseArgtupleInvalid("to_file", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 767, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("benpy.vlpProblem.to_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.to_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_5benpy_10vlpProblem_4to_file(__pyx_self, __pyx_v_self, __pyx_v_filename);
+  __pyx_r = __pyx_pf_5benpy_5benpy_10vlpProblem_4to_file(__pyx_self, __pyx_v_self, __pyx_v_filename);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self, PyObject *__pyx_v_filename) {
   PyObject *__pyx_v_file = NULL;
   PyObject *__pyx_v_e = NULL;
   PyObject *__pyx_v_vlpfile = NULL;
@@ -16873,7 +16969,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
   PyObject *(*__pyx_t_23)(PyObject *);
   __Pyx_RefNannySetupContext("to_file", 0);
 
-  /* "benpy.pyx":768
+  /* "benpy/benpy.pyx":768
  * 
  *     def to_file(self,filename=None):
  *         if (filename == None):             # <<<<<<<<<<<<<<
@@ -16885,7 +16981,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "benpy.pyx":769
+    /* "benpy/benpy.pyx":769
  *     def to_file(self,filename=None):
  *         if (filename == None):
  *             if (self.filename != None):             # <<<<<<<<<<<<<<
@@ -16900,7 +16996,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":770
+      /* "benpy/benpy.pyx":770
  *         if (filename == None):
  *             if (self.filename != None):
  *                 warn("Problem filename not given. Using " + self.filename + ". File override actual values")             # <<<<<<<<<<<<<<
@@ -16965,7 +17061,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "benpy.pyx":769
+      /* "benpy/benpy.pyx":769
  *     def to_file(self,filename=None):
  *         if (filename == None):
  *             if (self.filename != None):             # <<<<<<<<<<<<<<
@@ -16975,7 +17071,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       goto __pyx_L4;
     }
 
-    /* "benpy.pyx":772
+    /* "benpy/benpy.pyx":772
  *                 warn("Problem filename not given. Using " + self.filename + ". File override actual values")
  *             else:
  *                 raise RuntimeError("No filename given")             # <<<<<<<<<<<<<<
@@ -16991,7 +17087,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
     }
     __pyx_L4:;
 
-    /* "benpy.pyx":768
+    /* "benpy/benpy.pyx":768
  * 
  *     def to_file(self,filename=None):
  *         if (filename == None):             # <<<<<<<<<<<<<<
@@ -17001,7 +17097,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
     goto __pyx_L3;
   }
 
-  /* "benpy.pyx":774
+  /* "benpy/benpy.pyx":774
  *                 raise RuntimeError("No filename given")
  *         else:
  *             if (self.filename != None and self.filename != filename):             # <<<<<<<<<<<<<<
@@ -17030,7 +17126,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
     __pyx_L6_bool_binop_done:;
     if (__pyx_t_2) {
 
-      /* "benpy.pyx":775
+      /* "benpy/benpy.pyx":775
  *         else:
  *             if (self.filename != None and self.filename != filename):
  *                 print("Filename changed from {} to {}".format(self.filename,filename))             # <<<<<<<<<<<<<<
@@ -17098,7 +17194,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "benpy.pyx":774
+      /* "benpy/benpy.pyx":774
  *                 raise RuntimeError("No filename given")
  *         else:
  *             if (self.filename != None and self.filename != filename):             # <<<<<<<<<<<<<<
@@ -17107,7 +17203,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
  */
     }
 
-    /* "benpy.pyx":776
+    /* "benpy/benpy.pyx":776
  *             if (self.filename != None and self.filename != filename):
  *                 print("Filename changed from {} to {}".format(self.filename,filename))
  *             self.filename = filename             # <<<<<<<<<<<<<<
@@ -17116,7 +17212,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
  */
     if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_filename, __pyx_v_filename) < 0) __PYX_ERR(0, 776, __pyx_L1_error)
 
-    /* "benpy.pyx":777
+    /* "benpy/benpy.pyx":777
  *                 print("Filename changed from {} to {}".format(self.filename,filename))
  *             self.filename = filename
  *             try:             # <<<<<<<<<<<<<<
@@ -17132,7 +17228,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       __Pyx_XGOTREF(__pyx_t_11);
       /*try:*/ {
 
-        /* "benpy.pyx":778
+        /* "benpy/benpy.pyx":778
  *             self.filename = filename
  *             try:
  *                 file = open(self.filename,'w')             # <<<<<<<<<<<<<<
@@ -17155,7 +17251,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
         __pyx_v_file = __pyx_t_3;
         __pyx_t_3 = 0;
 
-        /* "benpy.pyx":777
+        /* "benpy/benpy.pyx":777
  *                 print("Filename changed from {} to {}".format(self.filename,filename))
  *             self.filename = filename
  *             try:             # <<<<<<<<<<<<<<
@@ -17175,7 +17271,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-      /* "benpy.pyx":779
+      /* "benpy/benpy.pyx":779
  *             try:
  *                 file = open(self.filename,'w')
  *             except OSError as e:             # <<<<<<<<<<<<<<
@@ -17184,7 +17280,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
  */
       __pyx_t_8 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_OSError);
       if (__pyx_t_8) {
-        __Pyx_AddTraceback("benpy.vlpProblem.to_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
+        __Pyx_AddTraceback("benpy.benpy.vlpProblem.to_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
         if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_1, &__pyx_t_5) < 0) __PYX_ERR(0, 779, __pyx_L10_except_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GOTREF(__pyx_t_1);
@@ -17193,7 +17289,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
         __pyx_v_e = __pyx_t_1;
         /*try:*/ {
 
-          /* "benpy.pyx":780
+          /* "benpy/benpy.pyx":780
  *                 file = open(self.filename,'w')
  *             except OSError as e:
  *                 print("OS Error {0}".format(e))             # <<<<<<<<<<<<<<
@@ -17255,7 +17351,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
           __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
           __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-          /* "benpy.pyx":781
+          /* "benpy/benpy.pyx":781
  *             except OSError as e:
  *                 print("OS Error {0}".format(e))
  *                 raise             # <<<<<<<<<<<<<<
@@ -17270,7 +17366,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
           __PYX_ERR(0, 781, __pyx_L21_error)
         }
 
-        /* "benpy.pyx":779
+        /* "benpy/benpy.pyx":779
  *             try:
  *                 file = open(self.filename,'w')
  *             except OSError as e:             # <<<<<<<<<<<<<<
@@ -17320,7 +17416,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       goto __pyx_L10_except_error;
       __pyx_L10_except_error:;
 
-      /* "benpy.pyx":777
+      /* "benpy/benpy.pyx":777
  *                 print("Filename changed from {} to {}".format(self.filename,filename))
  *             self.filename = filename
  *             try:             # <<<<<<<<<<<<<<
@@ -17336,7 +17432,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       __pyx_L15_try_end:;
     }
 
-    /* "benpy.pyx":782
+    /* "benpy/benpy.pyx":782
  *                 print("OS Error {0}".format(e))
  *                 raise
  *             vlpfile = self.vlpfile             # <<<<<<<<<<<<<<
@@ -17348,7 +17444,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
     __pyx_v_vlpfile = __pyx_t_5;
     __pyx_t_5 = 0;
 
-    /* "benpy.pyx":783
+    /* "benpy/benpy.pyx":783
  *                 raise
  *             vlpfile = self.vlpfile
  *             for line in vlpfile:             # <<<<<<<<<<<<<<
@@ -17397,7 +17493,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_1);
       __pyx_t_1 = 0;
 
-      /* "benpy.pyx":784
+      /* "benpy/benpy.pyx":784
  *             vlpfile = self.vlpfile
  *             for line in vlpfile:
  *                 file.write(line)             # <<<<<<<<<<<<<<
@@ -17451,7 +17547,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-      /* "benpy.pyx":783
+      /* "benpy/benpy.pyx":783
  *                 raise
  *             vlpfile = self.vlpfile
  *             for line in vlpfile:             # <<<<<<<<<<<<<<
@@ -17461,7 +17557,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
     }
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "benpy.pyx":785
+    /* "benpy/benpy.pyx":785
  *             for line in vlpfile:
  *                 file.write(line)
  *             vlpfile.close()             # <<<<<<<<<<<<<<
@@ -17490,7 +17586,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "benpy.pyx":786
+    /* "benpy/benpy.pyx":786
  *                 file.write(line)
  *             vlpfile.close()
  *             file.close()             # <<<<<<<<<<<<<<
@@ -17521,7 +17617,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
   }
   __pyx_L3:;
 
-  /* "benpy.pyx":767
+  /* "benpy/benpy.pyx":767
  * 
  * 
  *     def to_file(self,filename=None):             # <<<<<<<<<<<<<<
@@ -17540,7 +17636,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
-  __Pyx_AddTraceback("benpy.vlpProblem.to_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.to_file", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_file);
@@ -17552,7 +17648,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "benpy.pyx":788
+/* "benpy/benpy.pyx":788
  *             file.close()
  * 
  *     def to_string(self):             # <<<<<<<<<<<<<<
@@ -17561,20 +17657,20 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_4to_file(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_10vlpProblem_7to_string(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_10vlpProblem_7to_string = {"to_string", (PyCFunction)__pyx_pw_5benpy_10vlpProblem_7to_string, METH_O, 0};
-static PyObject *__pyx_pw_5benpy_10vlpProblem_7to_string(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_7to_string(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_10vlpProblem_7to_string = {"to_string", (PyCFunction)__pyx_pw_5benpy_5benpy_10vlpProblem_7to_string, METH_O, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_7to_string(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("to_string (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_10vlpProblem_6to_string(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_10vlpProblem_6to_string(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_v_vlpfile = NULL;
   PyObject *__pyx_v_line = NULL;
   PyObject *__pyx_r = NULL;
@@ -17587,7 +17683,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
   PyObject *__pyx_t_6 = NULL;
   __Pyx_RefNannySetupContext("to_string", 0);
 
-  /* "benpy.pyx":789
+  /* "benpy/benpy.pyx":789
  * 
  *     def to_string(self):
  *         vlpfile = self.vlpfile             # <<<<<<<<<<<<<<
@@ -17599,7 +17695,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
   __pyx_v_vlpfile = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":790
+  /* "benpy/benpy.pyx":790
  *     def to_string(self):
  *         vlpfile = self.vlpfile
  *         for line in vlpfile:             # <<<<<<<<<<<<<<
@@ -17648,7 +17744,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
     __Pyx_XDECREF_SET(__pyx_v_line, __pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "benpy.pyx":791
+    /* "benpy/benpy.pyx":791
  *         vlpfile = self.vlpfile
  *         for line in vlpfile:
  *             print(line,end="")             # <<<<<<<<<<<<<<
@@ -17669,7 +17765,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "benpy.pyx":790
+    /* "benpy/benpy.pyx":790
  *     def to_string(self):
  *         vlpfile = self.vlpfile
  *         for line in vlpfile:             # <<<<<<<<<<<<<<
@@ -17679,7 +17775,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":792
+  /* "benpy/benpy.pyx":792
  *         for line in vlpfile:
  *             print(line,end="")
  *         vlpfile.close()             # <<<<<<<<<<<<<<
@@ -17708,7 +17804,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":788
+  /* "benpy/benpy.pyx":788
  *             file.close()
  * 
  *     def to_string(self):             # <<<<<<<<<<<<<<
@@ -17724,7 +17820,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
-  __Pyx_AddTraceback("benpy.vlpProblem.to_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.to_string", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF(__pyx_v_vlpfile);
@@ -17734,7 +17830,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
   return __pyx_r;
 }
 
-/* "benpy.pyx":794
+/* "benpy/benpy.pyx":794
  *         vlpfile.close()
  * 
  *     def _cdefault_options(self):             # <<<<<<<<<<<<<<
@@ -17743,21 +17839,21 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_6to_string(CYTHON_UNUSED PyObject 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_10vlpProblem_9_cdefault_options(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_10vlpProblem_9_cdefault_options = {"_cdefault_options", (PyCFunction)__pyx_pw_5benpy_10vlpProblem_9_cdefault_options, METH_O, 0};
-static PyObject *__pyx_pw_5benpy_10vlpProblem_9_cdefault_options(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_9_cdefault_options(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_10vlpProblem_9_cdefault_options = {"_cdefault_options", (PyCFunction)__pyx_pw_5benpy_5benpy_10vlpProblem_9_cdefault_options, METH_O, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_9_cdefault_options(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("_cdefault_options (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_10vlpProblem_8_cdefault_options(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_10vlpProblem_8_cdefault_options(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
-  struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_cProb = NULL;
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED PyObject *__pyx_self, CYTHON_UNUSED PyObject *__pyx_v_self) {
+  struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_cProb = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -17765,19 +17861,19 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED P
   PyObject *__pyx_t_3 = NULL;
   __Pyx_RefNannySetupContext("_cdefault_options", 0);
 
-  /* "benpy.pyx":795
+  /* "benpy/benpy.pyx":795
  * 
  *     def _cdefault_options(self):
  *         cProb = _cVlpProblem()             # <<<<<<<<<<<<<<
  *         cProb.default_options()
  *         return(cProb.options)
  */
-  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5benpy__cVlpProblem), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 795, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5benpy_5benpy__cVlpProblem), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 795, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_v_cProb = ((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_t_1);
+  __pyx_v_cProb = ((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":796
+  /* "benpy/benpy.pyx":796
  *     def _cdefault_options(self):
  *         cProb = _cVlpProblem()
  *         cProb.default_options()             # <<<<<<<<<<<<<<
@@ -17806,7 +17902,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED P
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":797
+  /* "benpy/benpy.pyx":797
  *         cProb = _cVlpProblem()
  *         cProb.default_options()
  *         return(cProb.options)             # <<<<<<<<<<<<<<
@@ -17820,7 +17916,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED P
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":794
+  /* "benpy/benpy.pyx":794
  *         vlpfile.close()
  * 
  *     def _cdefault_options(self):             # <<<<<<<<<<<<<<
@@ -17833,7 +17929,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED P
   __Pyx_XDECREF(__pyx_t_1);
   __Pyx_XDECREF(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3);
-  __Pyx_AddTraceback("benpy.vlpProblem._cdefault_options", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem._cdefault_options", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_cProb);
@@ -17842,7 +17938,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED P
   return __pyx_r;
 }
 
-/* "benpy.pyx":799
+/* "benpy/benpy.pyx":799
  *         return(cProb.options)
  * 
  *     def default_options(self):             # <<<<<<<<<<<<<<
@@ -17851,26 +17947,26 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_8_cdefault_options(CYTHON_UNUSED P
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_10vlpProblem_11default_options(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_10vlpProblem_11default_options = {"default_options", (PyCFunction)__pyx_pw_5benpy_10vlpProblem_11default_options, METH_O, 0};
-static PyObject *__pyx_pw_5benpy_10vlpProblem_11default_options(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_11default_options(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_10vlpProblem_11default_options = {"default_options", (PyCFunction)__pyx_pw_5benpy_5benpy_10vlpProblem_11default_options, METH_O, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_10vlpProblem_11default_options(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("default_options (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_10vlpProblem_10default_options(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_10vlpProblem_10default_options(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("default_options", 0);
 
-  /* "benpy.pyx":801
+  /* "benpy/benpy.pyx":801
  *     def default_options(self):
  *         self.options = {
  *             'write_files':False,             # <<<<<<<<<<<<<<
@@ -17881,7 +17977,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_write_files, Py_False) < 0) __PYX_ERR(0, 801, __pyx_L1_error)
 
-  /* "benpy.pyx":802
+  /* "benpy/benpy.pyx":802
  *         self.options = {
  *             'write_files':False,
  *             'log_file':False,             # <<<<<<<<<<<<<<
@@ -17890,7 +17986,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_log_file, Py_False) < 0) __PYX_ERR(0, 801, __pyx_L1_error)
 
-  /* "benpy.pyx":803
+  /* "benpy/benpy.pyx":803
  *             'write_files':False,
  *             'log_file':False,
  *             'bounded': False,             # <<<<<<<<<<<<<<
@@ -17899,7 +17995,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
  */
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_bounded, Py_False) < 0) __PYX_ERR(0, 801, __pyx_L1_error)
 
-  /* "benpy.pyx":804
+  /* "benpy/benpy.pyx":804
  *             'log_file':False,
  *             'bounded': False,
  *             'solution':False,             # <<<<<<<<<<<<<<
@@ -17915,7 +18011,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_lp_method_phase1, __pyx_n_u_auto) < 0) __PYX_ERR(0, 801, __pyx_L1_error)
   if (PyDict_SetItem(__pyx_t_1, __pyx_n_u_lp_method_phase1, __pyx_n_u_auto) < 0) __PYX_ERR(0, 801, __pyx_L1_error)
 
-  /* "benpy.pyx":800
+  /* "benpy/benpy.pyx":800
  * 
  *     def default_options(self):
  *         self.options = {             # <<<<<<<<<<<<<<
@@ -17925,7 +18021,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_options, __pyx_t_1) < 0) __PYX_ERR(0, 800, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":812
+  /* "benpy/benpy.pyx":812
  *             'lp_method_phase1':'auto',
  *             'lp_method_phase1':'auto'}
  *         return self.options             # <<<<<<<<<<<<<<
@@ -17939,7 +18035,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "benpy.pyx":799
+  /* "benpy/benpy.pyx":799
  *         return(cProb.options)
  * 
  *     def default_options(self):             # <<<<<<<<<<<<<<
@@ -17950,7 +18046,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("benpy.vlpProblem.default_options", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpProblem.default_options", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -17958,7 +18054,7 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
   return __pyx_r;
 }
 
-/* "benpy.pyx":817
+/* "benpy/benpy.pyx":817
  *     "Wrapper Class for a vlpSolution"
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -17967,25 +18063,25 @@ static PyObject *__pyx_pf_5benpy_10vlpProblem_10default_options(CYTHON_UNUSED Py
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_11vlpSolution_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
-static PyMethodDef __pyx_mdef_5benpy_11vlpSolution_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5benpy_11vlpSolution_1__init__, METH_O, 0};
-static PyObject *__pyx_pw_5benpy_11vlpSolution_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pw_5benpy_5benpy_11vlpSolution_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self); /*proto*/
+static PyMethodDef __pyx_mdef_5benpy_5benpy_11vlpSolution_1__init__ = {"__init__", (PyCFunction)__pyx_pw_5benpy_5benpy_11vlpSolution_1__init__, METH_O, 0};
+static PyObject *__pyx_pw_5benpy_5benpy_11vlpSolution_1__init__(PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__ (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_11vlpSolution___init__(__pyx_self, ((PyObject *)__pyx_v_self));
+  __pyx_r = __pyx_pf_5benpy_5benpy_11vlpSolution___init__(__pyx_self, ((PyObject *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
+static PyObject *__pyx_pf_5benpy_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_self) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "benpy.pyx":818
+  /* "benpy/benpy.pyx":818
  * 
  *     def __init__(self):
  *         self.Primal = None             # <<<<<<<<<<<<<<
@@ -17994,7 +18090,7 @@ static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Primal, Py_None) < 0) __PYX_ERR(0, 818, __pyx_L1_error)
 
-  /* "benpy.pyx":819
+  /* "benpy/benpy.pyx":819
  *     def __init__(self):
  *         self.Primal = None
  *         self.Dual = None             # <<<<<<<<<<<<<<
@@ -18003,7 +18099,7 @@ static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_Dual, Py_None) < 0) __PYX_ERR(0, 819, __pyx_L1_error)
 
-  /* "benpy.pyx":820
+  /* "benpy/benpy.pyx":820
  *         self.Primal = None
  *         self.Dual = None
  *         self.c = None             # <<<<<<<<<<<<<<
@@ -18012,7 +18108,7 @@ static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_self, __pyx_n_s_c, Py_None) < 0) __PYX_ERR(0, 820, __pyx_L1_error)
 
-  /* "benpy.pyx":817
+  /* "benpy/benpy.pyx":817
  *     "Wrapper Class for a vlpSolution"
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -18024,7 +18120,7 @@ static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
   goto __pyx_L0;
   __pyx_L1_error:;
-  __Pyx_AddTraceback("benpy.vlpSolution.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.vlpSolution.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
@@ -18032,7 +18128,7 @@ static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *
   return __pyx_r;
 }
 
-/* "benpy.pyx":822
+/* "benpy/benpy.pyx":822
  *         self.c = None
  * 
  * def solve(problem):             # <<<<<<<<<<<<<<
@@ -18041,23 +18137,23 @@ static PyObject *__pyx_pf_5benpy_11vlpSolution___init__(CYTHON_UNUSED PyObject *
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_5benpy_1solve(PyObject *__pyx_self, PyObject *__pyx_v_problem); /*proto*/
-static char __pyx_doc_5benpy_solve[] = "Solves a vlpProblem instance. It returns a vlpSolution instance";
-static PyMethodDef __pyx_mdef_5benpy_1solve = {"solve", (PyCFunction)__pyx_pw_5benpy_1solve, METH_O, __pyx_doc_5benpy_solve};
-static PyObject *__pyx_pw_5benpy_1solve(PyObject *__pyx_self, PyObject *__pyx_v_problem) {
+static PyObject *__pyx_pw_5benpy_5benpy_1solve(PyObject *__pyx_self, PyObject *__pyx_v_problem); /*proto*/
+static char __pyx_doc_5benpy_5benpy_solve[] = "Solves a vlpProblem instance. It returns a vlpSolution instance";
+static PyMethodDef __pyx_mdef_5benpy_5benpy_1solve = {"solve", (PyCFunction)__pyx_pw_5benpy_5benpy_1solve, METH_O, __pyx_doc_5benpy_5benpy_solve};
+static PyObject *__pyx_pw_5benpy_5benpy_1solve(PyObject *__pyx_self, PyObject *__pyx_v_problem) {
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("solve (wrapper)", 0);
-  __pyx_r = __pyx_pf_5benpy_solve(__pyx_self, ((PyObject *)__pyx_v_problem));
+  __pyx_r = __pyx_pf_5benpy_5benpy_solve(__pyx_self, ((PyObject *)__pyx_v_problem));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_problem) {
-  struct __pyx_obj_5benpy__cVlpProblem *__pyx_v_cProblem = NULL;
-  struct __pyx_obj_5benpy__cVlpSolution *__pyx_v_cSolution = NULL;
+static PyObject *__pyx_pf_5benpy_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_problem) {
+  struct __pyx_obj_5benpy_5benpy__cVlpProblem *__pyx_v_cProblem = NULL;
+  struct __pyx_obj_5benpy_5benpy__cVlpSolution *__pyx_v_cSolution = NULL;
   PyObject *__pyx_v_ls1_p = NULL;
   PyObject *__pyx_v_ls2_p = NULL;
   PyObject *__pyx_v_adj_p = NULL;
@@ -18082,7 +18178,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
-  struct __pyx_opt_args_5benpy__poly_output __pyx_t_8;
+  struct __pyx_opt_args_5benpy_5benpy__poly_output __pyx_t_8;
   PyObject *(*__pyx_t_9)(PyObject *);
   PyObject *__pyx_t_10 = NULL;
   PyObject *__pyx_t_11 = NULL;
@@ -18094,7 +18190,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   int __pyx_t_17;
   __Pyx_RefNannySetupContext("solve", 0);
 
-  /* "benpy.pyx":824
+  /* "benpy/benpy.pyx":824
  * def solve(problem):
  *     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
  *     if (not problem.filename):             # <<<<<<<<<<<<<<
@@ -18108,7 +18204,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __pyx_t_3 = ((!__pyx_t_2) != 0);
   if (__pyx_t_3) {
 
-    /* "benpy.pyx":825
+    /* "benpy/benpy.pyx":825
  *     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
  *     if (not problem.filename):
  *         raise RuntimeError('No filename specified')             # <<<<<<<<<<<<<<
@@ -18121,7 +18217,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __PYX_ERR(0, 825, __pyx_L1_error)
 
-    /* "benpy.pyx":824
+    /* "benpy/benpy.pyx":824
  * def solve(problem):
  *     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
  *     if (not problem.filename):             # <<<<<<<<<<<<<<
@@ -18130,7 +18226,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
  */
   }
 
-  /* "benpy.pyx":827
+  /* "benpy/benpy.pyx":827
  *         raise RuntimeError('No filename specified')
  *     else:
  *         print("Reading from " + problem.filename)             # <<<<<<<<<<<<<<
@@ -18154,19 +18250,19 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
 
-  /* "benpy.pyx":828
+  /* "benpy/benpy.pyx":828
  *     else:
  *         print("Reading from " + problem.filename)
  *     cProblem = _cVlpProblem()             # <<<<<<<<<<<<<<
  *     cProblem.from_file(problem.filename)
  *     cProblem.set_options(problem.options)
  */
-  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5benpy__cVlpProblem), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 828, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)__pyx_ptype_5benpy_5benpy__cVlpProblem), __pyx_empty_tuple, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 828, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_v_cProblem = ((struct __pyx_obj_5benpy__cVlpProblem *)__pyx_t_4);
+  __pyx_v_cProblem = ((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "benpy.pyx":829
+  /* "benpy/benpy.pyx":829
  *         print("Reading from " + problem.filename)
  *     cProblem = _cVlpProblem()
  *     cProblem.from_file(problem.filename)             # <<<<<<<<<<<<<<
@@ -18225,7 +18321,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "benpy.pyx":830
+  /* "benpy/benpy.pyx":830
  *     cProblem = _cVlpProblem()
  *     cProblem.from_file(problem.filename)
  *     cProblem.set_options(problem.options)             # <<<<<<<<<<<<<<
@@ -18284,19 +18380,19 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "benpy.pyx":831
+  /* "benpy/benpy.pyx":831
  *     cProblem.from_file(problem.filename)
  *     cProblem.set_options(problem.options)
  *     cSolution = _csolve(cProblem)             # <<<<<<<<<<<<<<
  *     ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(problem.options['alg_phase2']=='dual'))
  *     sol = vlpSolution()
  */
-  __pyx_t_4 = ((PyObject *)__pyx_f_5benpy__csolve(__pyx_v_cProblem)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 831, __pyx_L1_error)
+  __pyx_t_4 = ((PyObject *)__pyx_f_5benpy_5benpy__csolve(__pyx_v_cProblem)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 831, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_v_cSolution = ((struct __pyx_obj_5benpy__cVlpSolution *)__pyx_t_4);
+  __pyx_v_cSolution = ((struct __pyx_obj_5benpy_5benpy__cVlpSolution *)__pyx_t_4);
   __pyx_t_4 = 0;
 
-  /* "benpy.pyx":832
+  /* "benpy/benpy.pyx":832
  *     cProblem.set_options(problem.options)
  *     cSolution = _csolve(cProblem)
  *     ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(problem.options['alg_phase2']=='dual'))             # <<<<<<<<<<<<<<
@@ -18312,7 +18408,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_8.__pyx_n = 1;
   __pyx_t_8.swap = __pyx_t_4;
-  __pyx_t_1 = __pyx_f_5benpy__poly_output(__pyx_v_cSolution, &__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 832, __pyx_L1_error)
+  __pyx_t_1 = __pyx_f_5benpy_5benpy__poly_output(__pyx_v_cSolution, &__pyx_t_8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 832, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -18518,7 +18614,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __pyx_v_preimg_d = __pyx_t_7;
   __pyx_t_7 = 0;
 
-  /* "benpy.pyx":833
+  /* "benpy/benpy.pyx":833
  *     cSolution = _csolve(cProblem)
  *     ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(problem.options['alg_phase2']=='dual'))
  *     sol = vlpSolution()             # <<<<<<<<<<<<<<
@@ -18548,7 +18644,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __pyx_v_sol = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":834
+  /* "benpy/benpy.pyx":834
  *     ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(problem.options['alg_phase2']=='dual'))
  *     sol = vlpSolution()
  *     Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])             # <<<<<<<<<<<<<<
@@ -18624,7 +18720,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __pyx_v_Primal = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":835
+  /* "benpy/benpy.pyx":835
  *     sol = vlpSolution()
  *     Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])
  *     Dual = ntp('Dual',['vertex_type','vertex_value','adj','incidence','preimage'])             # <<<<<<<<<<<<<<
@@ -18700,7 +18796,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __pyx_v_Dual = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":836
+  /* "benpy/benpy.pyx":836
  *     Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])
  *     Dual = ntp('Dual',['vertex_type','vertex_value','adj','incidence','preimage'])
  *     c = []             # <<<<<<<<<<<<<<
@@ -18712,7 +18808,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __pyx_v_c = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "benpy.pyx":838
+  /* "benpy/benpy.pyx":838
  *     c = []
  *     cdef size_t k
  *     for k in range(<size_t> cProblem._vlp.q):             # <<<<<<<<<<<<<<
@@ -18723,7 +18819,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   for (__pyx_t_16 = 0; __pyx_t_16 < __pyx_t_15; __pyx_t_16+=1) {
     __pyx_v_k = __pyx_t_16;
 
-    /* "benpy.pyx":839
+    /* "benpy/benpy.pyx":839
  *     cdef size_t k
  *     for k in range(<size_t> cProblem._vlp.q):
  *         c.append(cSolution._sol.c[k])             # <<<<<<<<<<<<<<
@@ -18736,7 +18832,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
 
-  /* "benpy.pyx":840
+  /* "benpy/benpy.pyx":840
  *     for k in range(<size_t> cProblem._vlp.q):
  *         c.append(cSolution._sol.c[k])
  *     sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)             # <<<<<<<<<<<<<<
@@ -18801,7 +18897,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_sol, __pyx_n_s_Primal, __pyx_t_1) < 0) __PYX_ERR(0, 840, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":841
+  /* "benpy/benpy.pyx":841
  *         c.append(cSolution._sol.c[k])
  *     sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)
  *     sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)             # <<<<<<<<<<<<<<
@@ -18866,7 +18962,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_sol, __pyx_n_s_Dual, __pyx_t_1) < 0) __PYX_ERR(0, 841, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":842
+  /* "benpy/benpy.pyx":842
  *     sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)
  *     sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)
  *     sol.c = c             # <<<<<<<<<<<<<<
@@ -18875,7 +18971,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
  */
   if (__Pyx_PyObject_SetAttrStr(__pyx_v_sol, __pyx_n_s_c, __pyx_v_c) < 0) __PYX_ERR(0, 842, __pyx_L1_error)
 
-  /* "benpy.pyx":843
+  /* "benpy/benpy.pyx":843
  *     sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)
  *     sol.c = c
  *     del cProblem             # <<<<<<<<<<<<<<
@@ -18885,7 +18981,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __Pyx_DECREF(((PyObject *)__pyx_v_cProblem));
   __pyx_v_cProblem = NULL;
 
-  /* "benpy.pyx":844
+  /* "benpy/benpy.pyx":844
  *     sol.c = c
  *     del cProblem
  *     del cSolution             # <<<<<<<<<<<<<<
@@ -18895,7 +18991,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __Pyx_DECREF(((PyObject *)__pyx_v_cSolution));
   __pyx_v_cSolution = NULL;
 
-  /* "benpy.pyx":845
+  /* "benpy/benpy.pyx":845
  *     del cProblem
  *     del cSolution
  *     return(sol)             # <<<<<<<<<<<<<<
@@ -18906,7 +19002,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __pyx_r = __pyx_v_sol;
   goto __pyx_L0;
 
-  /* "benpy.pyx":822
+  /* "benpy/benpy.pyx":822
  *         self.c = None
  * 
  * def solve(problem):             # <<<<<<<<<<<<<<
@@ -18925,7 +19021,7 @@ static PyObject *__pyx_pf_5benpy_solve(CYTHON_UNUSED PyObject *__pyx_self, PyObj
   __Pyx_XDECREF(__pyx_t_11);
   __Pyx_XDECREF(__pyx_t_12);
   __Pyx_XDECREF(__pyx_t_13);
-  __Pyx_AddTraceback("benpy.solve", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("benpy.benpy.solve", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
   __Pyx_XDECREF((PyObject *)__pyx_v_cProblem);
@@ -21462,10 +21558,10 @@ static CYTHON_INLINE int __pyx_f_5numpy_import_ufunc(void) {
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
-static struct __pyx_vtabstruct_5benpy__cVlpProblem __pyx_vtable_5benpy__cVlpProblem;
+static struct __pyx_vtabstruct_5benpy_5benpy__cVlpProblem __pyx_vtable_5benpy_5benpy__cVlpProblem;
 
-static PyObject *__pyx_tp_new_5benpy__cVlpProblem(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_5benpy__cVlpProblem *p;
+static PyObject *__pyx_tp_new_5benpy_5benpy__cVlpProblem(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_5benpy_5benpy__cVlpProblem *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -21473,16 +21569,16 @@ static PyObject *__pyx_tp_new_5benpy__cVlpProblem(PyTypeObject *t, CYTHON_UNUSED
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_5benpy__cVlpProblem *)o);
-  p->__pyx_vtab = __pyx_vtabptr_5benpy__cVlpProblem;
-  if (unlikely(__pyx_pw_5benpy_12_cVlpProblem_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) goto bad;
+  p = ((struct __pyx_obj_5benpy_5benpy__cVlpProblem *)o);
+  p->__pyx_vtab = __pyx_vtabptr_5benpy_5benpy__cVlpProblem;
+  if (unlikely(__pyx_pw_5benpy_5benpy_12_cVlpProblem_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) goto bad;
   return o;
   bad:
   Py_DECREF(o); o = 0;
   return NULL;
 }
 
-static void __pyx_tp_dealloc_5benpy__cVlpProblem(PyObject *o) {
+static void __pyx_tp_dealloc_5benpy_5benpy__cVlpProblem(PyObject *o) {
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && (!PyType_IS_GC(Py_TYPE(o)) || !_PyGC_FINALIZED(o))) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -21492,36 +21588,36 @@ static void __pyx_tp_dealloc_5benpy__cVlpProblem(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_5benpy_12_cVlpProblem_3__dealloc__(o);
+    __pyx_pw_5benpy_5benpy_12_cVlpProblem_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static PyObject *__pyx_getprop_5benpy_12_cVlpProblem_options(PyObject *o, CYTHON_UNUSED void *x) {
-  return __pyx_pw_5benpy_12_cVlpProblem_7options_1__get__(o);
+static PyObject *__pyx_getprop_5benpy_5benpy_12_cVlpProblem_options(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_5benpy_5benpy_12_cVlpProblem_7options_1__get__(o);
 }
 
-static PyMethodDef __pyx_methods_5benpy__cVlpProblem[] = {
-  {"default_options", (PyCFunction)__pyx_pw_5benpy_12_cVlpProblem_7default_options, METH_NOARGS, 0},
-  {"set_options", (PyCFunction)__pyx_pw_5benpy_12_cVlpProblem_9set_options, METH_O, 0},
-  {"from_file", (PyCFunction)__pyx_pw_5benpy_12_cVlpProblem_11from_file, METH_O, 0},
-  {"toString", (PyCFunction)__pyx_pw_5benpy_12_cVlpProblem_13toString, METH_NOARGS, 0},
+static PyMethodDef __pyx_methods_5benpy_5benpy__cVlpProblem[] = {
+  {"default_options", (PyCFunction)__pyx_pw_5benpy_5benpy_12_cVlpProblem_7default_options, METH_NOARGS, 0},
+  {"set_options", (PyCFunction)__pyx_pw_5benpy_5benpy_12_cVlpProblem_9set_options, METH_O, 0},
+  {"from_file", (PyCFunction)__pyx_pw_5benpy_5benpy_12_cVlpProblem_11from_file, METH_O, 0},
+  {"toString", (PyCFunction)__pyx_pw_5benpy_5benpy_12_cVlpProblem_13toString, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
-static struct PyGetSetDef __pyx_getsets_5benpy__cVlpProblem[] = {
-  {(char *)"options", __pyx_getprop_5benpy_12_cVlpProblem_options, 0, (char *)0, 0},
+static struct PyGetSetDef __pyx_getsets_5benpy_5benpy__cVlpProblem[] = {
+  {(char *)"options", __pyx_getprop_5benpy_5benpy_12_cVlpProblem_options, 0, (char *)0, 0},
   {0, 0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_5benpy__cVlpProblem = {
+static PyTypeObject __pyx_type_5benpy_5benpy__cVlpProblem = {
   PyVarObject_HEAD_INIT(0, 0)
-  "benpy._cVlpProblem", /*tp_name*/
-  sizeof(struct __pyx_obj_5benpy__cVlpProblem), /*tp_basicsize*/
+  "benpy.benpy._cVlpProblem", /*tp_name*/
+  sizeof(struct __pyx_obj_5benpy_5benpy__cVlpProblem), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_5benpy__cVlpProblem, /*tp_dealloc*/
+  __pyx_tp_dealloc_5benpy_5benpy__cVlpProblem, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -21549,17 +21645,17 @@ static PyTypeObject __pyx_type_5benpy__cVlpProblem = {
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_5benpy__cVlpProblem, /*tp_methods*/
+  __pyx_methods_5benpy_5benpy__cVlpProblem, /*tp_methods*/
   0, /*tp_members*/
-  __pyx_getsets_5benpy__cVlpProblem, /*tp_getset*/
+  __pyx_getsets_5benpy_5benpy__cVlpProblem, /*tp_getset*/
   0, /*tp_base*/
   0, /*tp_dict*/
   0, /*tp_descr_get*/
   0, /*tp_descr_set*/
   0, /*tp_dictoffset*/
-  __pyx_pw_5benpy_12_cVlpProblem_5__init__, /*tp_init*/
+  __pyx_pw_5benpy_5benpy_12_cVlpProblem_5__init__, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_5benpy__cVlpProblem, /*tp_new*/
+  __pyx_tp_new_5benpy_5benpy__cVlpProblem, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -21574,8 +21670,8 @@ static PyTypeObject __pyx_type_5benpy__cVlpProblem = {
   #endif
 };
 
-static PyObject *__pyx_tp_new_5benpy__cVlpSolution(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
-  struct __pyx_obj_5benpy__cVlpSolution *p;
+static PyObject *__pyx_tp_new_5benpy_5benpy__cVlpSolution(PyTypeObject *t, CYTHON_UNUSED PyObject *a, CYTHON_UNUSED PyObject *k) {
+  struct __pyx_obj_5benpy_5benpy__cVlpSolution *p;
   PyObject *o;
   if (likely((t->tp_flags & Py_TPFLAGS_IS_ABSTRACT) == 0)) {
     o = (*t->tp_alloc)(t, 0);
@@ -21583,17 +21679,17 @@ static PyObject *__pyx_tp_new_5benpy__cVlpSolution(PyTypeObject *t, CYTHON_UNUSE
     o = (PyObject *) PyBaseObject_Type.tp_new(t, __pyx_empty_tuple, 0);
   }
   if (unlikely(!o)) return 0;
-  p = ((struct __pyx_obj_5benpy__cVlpSolution *)o);
+  p = ((struct __pyx_obj_5benpy_5benpy__cVlpSolution *)o);
   p->argtype = Py_None; Py_INCREF(Py_None);
-  if (unlikely(__pyx_pw_5benpy_13_cVlpSolution_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) goto bad;
+  if (unlikely(__pyx_pw_5benpy_5benpy_13_cVlpSolution_1__cinit__(o, __pyx_empty_tuple, NULL) < 0)) goto bad;
   return o;
   bad:
   Py_DECREF(o); o = 0;
   return NULL;
 }
 
-static void __pyx_tp_dealloc_5benpy__cVlpSolution(PyObject *o) {
-  struct __pyx_obj_5benpy__cVlpSolution *p = (struct __pyx_obj_5benpy__cVlpSolution *)o;
+static void __pyx_tp_dealloc_5benpy_5benpy__cVlpSolution(PyObject *o) {
+  struct __pyx_obj_5benpy_5benpy__cVlpSolution *p = (struct __pyx_obj_5benpy_5benpy__cVlpSolution *)o;
   #if PY_VERSION_HEX >= 0x030400a1
   if (unlikely(Py_TYPE(o)->tp_finalize) && !_PyGC_FINALIZED(o)) {
     if (PyObject_CallFinalizerFromDealloc(o)) return;
@@ -21604,7 +21700,7 @@ static void __pyx_tp_dealloc_5benpy__cVlpSolution(PyObject *o) {
     PyObject *etype, *eval, *etb;
     PyErr_Fetch(&etype, &eval, &etb);
     ++Py_REFCNT(o);
-    __pyx_pw_5benpy_13_cVlpSolution_3__dealloc__(o);
+    __pyx_pw_5benpy_5benpy_13_cVlpSolution_3__dealloc__(o);
     --Py_REFCNT(o);
     PyErr_Restore(etype, eval, etb);
   }
@@ -21612,35 +21708,35 @@ static void __pyx_tp_dealloc_5benpy__cVlpSolution(PyObject *o) {
   (*Py_TYPE(o)->tp_free)(o);
 }
 
-static int __pyx_tp_traverse_5benpy__cVlpSolution(PyObject *o, visitproc v, void *a) {
+static int __pyx_tp_traverse_5benpy_5benpy__cVlpSolution(PyObject *o, visitproc v, void *a) {
   int e;
-  struct __pyx_obj_5benpy__cVlpSolution *p = (struct __pyx_obj_5benpy__cVlpSolution *)o;
+  struct __pyx_obj_5benpy_5benpy__cVlpSolution *p = (struct __pyx_obj_5benpy_5benpy__cVlpSolution *)o;
   if (p->argtype) {
     e = (*v)(p->argtype, a); if (e) return e;
   }
   return 0;
 }
 
-static int __pyx_tp_clear_5benpy__cVlpSolution(PyObject *o) {
+static int __pyx_tp_clear_5benpy_5benpy__cVlpSolution(PyObject *o) {
   PyObject* tmp;
-  struct __pyx_obj_5benpy__cVlpSolution *p = (struct __pyx_obj_5benpy__cVlpSolution *)o;
+  struct __pyx_obj_5benpy_5benpy__cVlpSolution *p = (struct __pyx_obj_5benpy_5benpy__cVlpSolution *)o;
   tmp = ((PyObject*)p->argtype);
   p->argtype = Py_None; Py_INCREF(Py_None);
   Py_XDECREF(tmp);
   return 0;
 }
 
-static PyMethodDef __pyx_methods_5benpy__cVlpSolution[] = {
-  {"toString", (PyCFunction)__pyx_pw_5benpy_13_cVlpSolution_5toString, METH_NOARGS, 0},
+static PyMethodDef __pyx_methods_5benpy_5benpy__cVlpSolution[] = {
+  {"toString", (PyCFunction)__pyx_pw_5benpy_5benpy_13_cVlpSolution_5toString, METH_NOARGS, 0},
   {0, 0, 0, 0}
 };
 
-static PyTypeObject __pyx_type_5benpy__cVlpSolution = {
+static PyTypeObject __pyx_type_5benpy_5benpy__cVlpSolution = {
   PyVarObject_HEAD_INIT(0, 0)
-  "benpy._cVlpSolution", /*tp_name*/
-  sizeof(struct __pyx_obj_5benpy__cVlpSolution), /*tp_basicsize*/
+  "benpy.benpy._cVlpSolution", /*tp_name*/
+  sizeof(struct __pyx_obj_5benpy_5benpy__cVlpSolution), /*tp_basicsize*/
   0, /*tp_itemsize*/
-  __pyx_tp_dealloc_5benpy__cVlpSolution, /*tp_dealloc*/
+  __pyx_tp_dealloc_5benpy_5benpy__cVlpSolution, /*tp_dealloc*/
   0, /*tp_print*/
   0, /*tp_getattr*/
   0, /*tp_setattr*/
@@ -21662,13 +21758,13 @@ static PyTypeObject __pyx_type_5benpy__cVlpSolution = {
   0, /*tp_as_buffer*/
   Py_TPFLAGS_DEFAULT|Py_TPFLAGS_HAVE_VERSION_TAG|Py_TPFLAGS_CHECKTYPES|Py_TPFLAGS_HAVE_NEWBUFFER|Py_TPFLAGS_BASETYPE|Py_TPFLAGS_HAVE_GC, /*tp_flags*/
   "Internal Wrap Class for Solution structure.", /*tp_doc*/
-  __pyx_tp_traverse_5benpy__cVlpSolution, /*tp_traverse*/
-  __pyx_tp_clear_5benpy__cVlpSolution, /*tp_clear*/
+  __pyx_tp_traverse_5benpy_5benpy__cVlpSolution, /*tp_traverse*/
+  __pyx_tp_clear_5benpy_5benpy__cVlpSolution, /*tp_clear*/
   0, /*tp_richcompare*/
   0, /*tp_weaklistoffset*/
   0, /*tp_iter*/
   0, /*tp_iternext*/
-  __pyx_methods_5benpy__cVlpSolution, /*tp_methods*/
+  __pyx_methods_5benpy_5benpy__cVlpSolution, /*tp_methods*/
   0, /*tp_members*/
   0, /*tp_getset*/
   0, /*tp_base*/
@@ -21678,7 +21774,7 @@ static PyTypeObject __pyx_type_5benpy__cVlpSolution = {
   0, /*tp_dictoffset*/
   0, /*tp_init*/
   0, /*tp_alloc*/
-  __pyx_tp_new_5benpy__cVlpSolution, /*tp_new*/
+  __pyx_tp_new_5benpy_5benpy__cVlpSolution, /*tp_new*/
   0, /*tp_free*/
   0, /*tp_is_gc*/
   0, /*tp_bases*/
@@ -21802,7 +21898,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_b, __pyx_k_b, sizeof(__pyx_k_b), 0, 0, 1, 1},
   {&__pyx_kp_u_b_has_wrong_dimension, __pyx_k_b_has_wrong_dimension, sizeof(__pyx_k_b_has_wrong_dimension), 0, 1, 0, 0},
   {&__pyx_n_s_bb, __pyx_k_bb, sizeof(__pyx_k_bb), 0, 0, 1, 1},
-  {&__pyx_n_s_benpy, __pyx_k_benpy, sizeof(__pyx_k_benpy), 0, 0, 1, 1},
+  {&__pyx_n_s_benpy_benpy, __pyx_k_benpy_benpy, sizeof(__pyx_k_benpy_benpy), 0, 0, 1, 1},
   {&__pyx_n_s_bounded, __pyx_k_bounded, sizeof(__pyx_k_bounded), 0, 0, 1, 1},
   {&__pyx_n_u_bounded, __pyx_k_bounded, sizeof(__pyx_k_bounded), 0, 1, 0, 1},
   {&__pyx_kp_u_bounded_2, __pyx_k_bounded_2, sizeof(__pyx_k_bounded_2), 0, 1, 0, 0},
@@ -21858,9 +21954,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_getlen, __pyx_k_getlen, sizeof(__pyx_k_getlen), 0, 0, 1, 1},
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_kp_u_i_d, __pyx_k_i_d, sizeof(__pyx_k_i_d), 0, 1, 0, 0},
-  {&__pyx_kp_u_i_d_s_g, __pyx_k_i_d_s_g, sizeof(__pyx_k_i_d_s_g), 0, 1, 0, 0},
   {&__pyx_kp_u_i_f, __pyx_k_i_f, sizeof(__pyx_k_i_f), 0, 1, 0, 0},
   {&__pyx_kp_u_i_l, __pyx_k_i_l, sizeof(__pyx_k_i_l), 0, 1, 0, 0},
+  {&__pyx_kp_u_i_s, __pyx_k_i_s, sizeof(__pyx_k_i_s), 0, 1, 0, 0},
   {&__pyx_kp_u_i_u, __pyx_k_i_u, sizeof(__pyx_k_i_u), 0, 1, 0, 0},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_inc_d, __pyx_k_inc_d, sizeof(__pyx_k_inc_d), 0, 0, 1, 1},
@@ -21878,6 +21974,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_j_d, __pyx_k_j_d, sizeof(__pyx_k_j_d), 0, 1, 0, 0},
   {&__pyx_kp_u_j_f, __pyx_k_j_f, sizeof(__pyx_k_j_f), 0, 1, 0, 0},
   {&__pyx_kp_u_j_l, __pyx_k_j_l, sizeof(__pyx_k_j_l), 0, 1, 0, 0},
+  {&__pyx_kp_u_j_s, __pyx_k_j_s, sizeof(__pyx_k_j_s), 0, 1, 0, 0},
   {&__pyx_kp_u_j_u, __pyx_k_j_u, sizeof(__pyx_k_j_u), 0, 1, 0, 0},
   {&__pyx_kp_u_k, __pyx_k_k, sizeof(__pyx_k_k), 0, 1, 0, 0},
   {&__pyx_n_s_k1, __pyx_k_k1, sizeof(__pyx_k_k1), 0, 0, 1, 1},
@@ -22037,7 +22134,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "benpy.pyx":222
+  /* "benpy/benpy.pyx":222
  * 
  *     def __cinit__(self):
  *         print("problem alloc called")             # <<<<<<<<<<<<<<
@@ -22048,7 +22145,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "benpy.pyx":229
+  /* "benpy/benpy.pyx":229
  * 
  *     def __dealloc__(self):
  *         print("problem dealloc called")             # <<<<<<<<<<<<<<
@@ -22059,7 +22156,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "benpy.pyx":336
+  /* "benpy/benpy.pyx":336
  *         set_input(self._csa,filename)
  *         if(vlp_init(self._csa,self._vlp,self._opt)):
  *             print("Error in reading")             # <<<<<<<<<<<<<<
@@ -22070,7 +22167,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "benpy.pyx":352
+  /* "benpy/benpy.pyx":352
  * 
  *     def __cinit__(self):
  *         print("solution alloc called")             # <<<<<<<<<<<<<<
@@ -22081,7 +22178,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "benpy.pyx":357
+  /* "benpy/benpy.pyx":357
  * 
  *     def __dealloc__(self):
  *         print("solution dealloc called")             # <<<<<<<<<<<<<<
@@ -22092,7 +22189,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "benpy.pyx":372
+  /* "benpy/benpy.pyx":372
  * 
  *     if(solution._sol.status == VLP_INPUTERROR):
  *         print("Error in reading")             # <<<<<<<<<<<<<<
@@ -22103,7 +22200,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
-  /* "benpy.pyx":379
+  /* "benpy/benpy.pyx":379
  *         #Phase 0
  *         if(problem._opt.message_level >= 3):
  *             print("Starting Phase 0")             # <<<<<<<<<<<<<<
@@ -22114,7 +22211,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__7);
   __Pyx_GIVEREF(__pyx_tuple__7);
 
-  /* "benpy.pyx":382
+  /* "benpy/benpy.pyx":382
  *         phase0(solution._sol, problem._vlp, problem._opt, problem._lps)
  *         if (solution._sol.status == VLP_UNBOUNDED):
  *             print("VLP is totally unbounded, there is no solution")             # <<<<<<<<<<<<<<
@@ -22125,7 +22222,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
 
-  /* "benpy.pyx":384
+  /* "benpy/benpy.pyx":384
  *             print("VLP is totally unbounded, there is no solution")
  *         if (solution._sol.status == VLP_NOVERTEX):
  *             print("upper image of VLP has no vertex, not covered by this version")             # <<<<<<<<<<<<<<
@@ -22136,7 +22233,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__9);
   __Pyx_GIVEREF(__pyx_tuple__9);
 
-  /* "benpy.pyx":393
+  /* "benpy/benpy.pyx":393
  *         if (problem._opt.alg_phase1 == PRIMAL_BENSON):
  *             if (problem._opt.message_level >= 3):
  *                 print("Starting Phase 1 -- Primal Algorithm")             # <<<<<<<<<<<<<<
@@ -22147,7 +22244,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__10);
   __Pyx_GIVEREF(__pyx_tuple__10);
 
-  /* "benpy.pyx":398
+  /* "benpy/benpy.pyx":398
  *             assert(problem._opt.alg_phase1 == DUAL_BENSON)
  *             if (problem._opt.message_level >= 3):
  *                 print("Starting Phase 1 -- Dual Algorithm")             # <<<<<<<<<<<<<<
@@ -22158,7 +22255,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__11);
   __Pyx_GIVEREF(__pyx_tuple__11);
 
-  /* "benpy.pyx":403
+  /* "benpy/benpy.pyx":403
  *     if(problem._opt.alg_phase2 == PRIMAL_BENSON):
  *         if (problem._opt.message_level >= 3):
  *             print("Starting Phase 2 -- Primal Algorithm")             # <<<<<<<<<<<<<<
@@ -22169,7 +22266,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__12);
   __Pyx_GIVEREF(__pyx_tuple__12);
 
-  /* "benpy.pyx":408
+  /* "benpy/benpy.pyx":408
  *     else:
  *         if (problem._opt.message_level >=3):
  *             print("Starting Phase 2 -- Dual Algorithm")             # <<<<<<<<<<<<<<
@@ -22180,7 +22277,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__13);
   __Pyx_GIVEREF(__pyx_tuple__13);
 
-  /* "benpy.pyx":413
+  /* "benpy/benpy.pyx":413
  * 
  *     if (solution._sol.status == VLP_INFEASIBLE):
  *         print("VLP Infeasible")             # <<<<<<<<<<<<<<
@@ -22191,7 +22288,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__14);
   __Pyx_GIVEREF(__pyx_tuple__14);
 
-  /* "benpy.pyx":417
+  /* "benpy/benpy.pyx":417
  *     if (solution._sol.status == VLP_UNBOUNDED):
  *         if (problem._opt.bounded == 1):
  *             print("VLP is not bounded, re-run without bounded opt")             # <<<<<<<<<<<<<<
@@ -22202,7 +22299,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__15);
   __Pyx_GIVEREF(__pyx_tuple__15);
 
-  /* "benpy.pyx":419
+  /* "benpy/benpy.pyx":419
  *             print("VLP is not bounded, re-run without bounded opt")
  *         else:
  *             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")             # <<<<<<<<<<<<<<
@@ -22213,7 +22310,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__16);
   __Pyx_GIVEREF(__pyx_tuple__16);
 
-  /* "benpy.pyx":454
+  /* "benpy/benpy.pyx":454
  *                 format_str = "long"
  * 
  *             logf.write("Problem parameters\n");             # <<<<<<<<<<<<<<
@@ -22224,7 +22321,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__17);
   __Pyx_GIVEREF(__pyx_tuple__17);
 
-  /* "benpy.pyx":461
+  /* "benpy/benpy.pyx":461
  *             logf.write("  primal generators: {}\n".format(solution._sol.o))
  *             logf.write("  dual generators:   {}\n".format(solution._sol.p))
  *             logf.write("Options")             # <<<<<<<<<<<<<<
@@ -22235,7 +22332,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__18);
   __Pyx_GIVEREF(__pyx_tuple__18);
 
-  /* "benpy.pyx":476
+  /* "benpy/benpy.pyx":476
  *             logf.write("  eps_phase0:         {}\n".format(problem._opt.eps_phase0))
  *             logf.write("  eps_phase1:         {}\n".format(problem._opt.eps_phase1))
  *             logf.write("Computational results")             # <<<<<<<<<<<<<<
@@ -22246,7 +22343,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__19);
   __Pyx_GIVEREF(__pyx_tuple__19);
 
-  /* "benpy.pyx":479
+  /* "benpy/benpy.pyx":479
  *             logf.write("  CPU time (ms):      {:.4}\n".format(elapsedTime))
  *             logf.write("  # LPs:              {}\n".format(lp_get_num(problem._lps)))
  *             logf.write("Solution properties")             # <<<<<<<<<<<<<<
@@ -22257,7 +22354,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__20);
   __Pyx_GIVEREF(__pyx_tuple__20);
 
-  /* "benpy.pyx":423
+  /* "benpy/benpy.pyx":423
  *     if (problem._opt.logfile):
  *         logfile = problem._opt.filename.decode('UTF-8') + '.log'
  *         with open(logfile,'w') as logf:             # <<<<<<<<<<<<<<
@@ -22268,7 +22365,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__21);
   __Pyx_GIVEREF(__pyx_tuple__21);
 
-  /* "benpy.pyx":609
+  /* "benpy/benpy.pyx":609
  *         pre_d = _poly__primg2arr(dual,&prm_dual)
  *     else:
  *         warn("Pre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")             # <<<<<<<<<<<<<<
@@ -22279,7 +22376,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__22);
   __Pyx_GIVEREF(__pyx_tuple__22);
 
-  /* "benpy.pyx":633
+  /* "benpy/benpy.pyx":633
  *     def vlpfile(self):
  *         #Return a file-like object containing the vlp description. Based on "prob2vlp.m" MATLAB script
  *         def getlen(obj):             # <<<<<<<<<<<<<<
@@ -22291,7 +22388,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__23);
   __pyx_codeobj__24 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__23, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_mbudinich_benpy_benpy_pyx, __pyx_n_s_getlen, 633, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__24)) __PYX_ERR(0, 633, __pyx_L1_error)
 
-  /* "benpy.pyx":644
+  /* "benpy/benpy.pyx":644
  *             self.opt_dir = 1
  *         if self.B is None:
  *             raise RuntimeError('Coefficient Matrix B must be given')             # <<<<<<<<<<<<<<
@@ -22302,7 +22399,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__25);
   __Pyx_GIVEREF(__pyx_tuple__25);
 
-  /* "benpy.pyx":646
+  /* "benpy/benpy.pyx":646
  *             raise RuntimeError('Coefficient Matrix B must be given')
  *         if self.P is None:
  *             raise RuntimeError('Coefficient Matrix P must be given')             # <<<<<<<<<<<<<<
@@ -22313,7 +22410,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__26);
   __Pyx_GIVEREF(__pyx_tuple__26);
 
-  /* "benpy.pyx":654
+  /* "benpy/benpy.pyx":654
  *         (q,p) = self.P.shape
  *         if (n != p):
  *             raise RuntimeError('B and P must have same number of columns')             # <<<<<<<<<<<<<<
@@ -22324,7 +22421,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__27);
   __Pyx_GIVEREF(__pyx_tuple__27);
 
-  /* "benpy.pyx":678
+  /* "benpy/benpy.pyx":678
  *             opt_dir_str = 'max'
  *         else:
  *             raise RuntimeError('Invalid value for opt_dir: use -1 or 1 for maximitation and minimization')             # <<<<<<<<<<<<<<
@@ -22335,7 +22432,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__29);
   __Pyx_GIVEREF(__pyx_tuple__29);
 
-  /* "benpy.pyx":697
+  /* "benpy/benpy.pyx":697
  *         if self.c is not None:
  *             if(len(np.array(self.c).shape) != 1  ) or (len(self.c)!=q) :
  *                 raise RuntimeError('c has wrong dimension')             # <<<<<<<<<<<<<<
@@ -22346,7 +22443,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__30);
   __Pyx_GIVEREF(__pyx_tuple__30);
 
-  /* "benpy.pyx":703
+  /* "benpy/benpy.pyx":703
  *         #Write row
  *         if (len(np.array(self.a).shape) > 1):
  *             raise RuntimeError('a has wrong dimension')             # <<<<<<<<<<<<<<
@@ -22357,7 +22454,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__31);
   __Pyx_GIVEREF(__pyx_tuple__31);
 
-  /* "benpy.pyx":705
+  /* "benpy/benpy.pyx":705
  *             raise RuntimeError('a has wrong dimension')
  *         if (len(np.array(self.b).shape) > 1):
  *             raise RuntimeError('b has wrong dimension')             # <<<<<<<<<<<<<<
@@ -22368,29 +22465,29 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__32);
   __Pyx_GIVEREF(__pyx_tuple__32);
 
-  /* "benpy.pyx":728
+  /* "benpy/benpy.pyx":728
  *                     file.write('i {} d {} {}\n' .format(i+1,aa[i],bb[i]))
  *                 else:
  *                     raise RuntimeError("Bad ch switch for constrains bounds")             # <<<<<<<<<<<<<<
  *             elif aa[i] == bb[i] and np.isfinite(aa[i]):
- *                 file.write('i %d s %g\n',i,aa[i])
+ *                 file.write('i {} s {}\n'.format(i+1,aa[i]))
  */
   __pyx_tuple__33 = PyTuple_Pack(1, __pyx_kp_u_Bad_ch_switch_for_constrains_bou); if (unlikely(!__pyx_tuple__33)) __PYX_ERR(0, 728, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__33);
   __Pyx_GIVEREF(__pyx_tuple__33);
 
-  /* "benpy.pyx":757
+  /* "benpy/benpy.pyx":757
  *                     file.write('j {} d {} {}\n' .format(j+1,llb[j],uub[j]))
  *                 else:
  *                     raise RuntimeError("Bad ch switch for variable bounds")             # <<<<<<<<<<<<<<
  *             elif llb[j] == uub[j] and np.isfinite(llb[j]):
- *                 file.write('i %d s %g\n',j+1,llb[j])
+ *                 file.write('j {} s {}\n'.format(j+1,llb[j]))
  */
   __pyx_tuple__34 = PyTuple_Pack(1, __pyx_kp_u_Bad_ch_switch_for_variable_bound); if (unlikely(!__pyx_tuple__34)) __PYX_ERR(0, 757, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__34);
   __Pyx_GIVEREF(__pyx_tuple__34);
 
-  /* "benpy.pyx":762
+  /* "benpy/benpy.pyx":762
  *             else:
  *                 raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
  *         file.write('e ')             # <<<<<<<<<<<<<<
@@ -22401,7 +22498,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__35);
   __Pyx_GIVEREF(__pyx_tuple__35);
 
-  /* "benpy.pyx":763
+  /* "benpy/benpy.pyx":763
  *                 raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
  *         file.write('e ')
  *         file.seek(0)             # <<<<<<<<<<<<<<
@@ -22412,7 +22509,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__36);
   __Pyx_GIVEREF(__pyx_tuple__36);
 
-  /* "benpy.pyx":772
+  /* "benpy/benpy.pyx":772
  *                 warn("Problem filename not given. Using " + self.filename + ". File override actual values")
  *             else:
  *                 raise RuntimeError("No filename given")             # <<<<<<<<<<<<<<
@@ -22423,7 +22520,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__37);
   __Pyx_GIVEREF(__pyx_tuple__37);
 
-  /* "benpy.pyx":825
+  /* "benpy/benpy.pyx":825
  *     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
  *     if (not problem.filename):
  *         raise RuntimeError('No filename specified')             # <<<<<<<<<<<<<<
@@ -22531,7 +22628,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__47);
   __Pyx_GIVEREF(__pyx_tuple__47);
 
-  /* "benpy.pyx":616
+  /* "benpy/benpy.pyx":616
  *     "Wrapper Class for a vlpProblem"
  * 
  *     def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):             # <<<<<<<<<<<<<<
@@ -22546,7 +22643,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__50);
   __Pyx_GIVEREF(__pyx_tuple__50);
 
-  /* "benpy.pyx":631
+  /* "benpy/benpy.pyx":631
  * 
  *     @property
  *     def vlpfile(self):             # <<<<<<<<<<<<<<
@@ -22558,7 +22655,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__51);
   __pyx_codeobj__52 = (PyObject*)__Pyx_PyCode_New(1, 0, 31, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__51, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_mbudinich_benpy_benpy_pyx, __pyx_n_s_vlpfile, 631, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__52)) __PYX_ERR(0, 631, __pyx_L1_error)
 
-  /* "benpy.pyx":767
+  /* "benpy/benpy.pyx":767
  * 
  * 
  *     def to_file(self,filename=None):             # <<<<<<<<<<<<<<
@@ -22573,7 +22670,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple__55);
   __Pyx_GIVEREF(__pyx_tuple__55);
 
-  /* "benpy.pyx":788
+  /* "benpy/benpy.pyx":788
  *             file.close()
  * 
  *     def to_string(self):             # <<<<<<<<<<<<<<
@@ -22585,7 +22682,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__56);
   __pyx_codeobj__57 = (PyObject*)__Pyx_PyCode_New(1, 0, 3, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__56, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_mbudinich_benpy_benpy_pyx, __pyx_n_s_to_string, 788, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__57)) __PYX_ERR(0, 788, __pyx_L1_error)
 
-  /* "benpy.pyx":794
+  /* "benpy/benpy.pyx":794
  *         vlpfile.close()
  * 
  *     def _cdefault_options(self):             # <<<<<<<<<<<<<<
@@ -22597,7 +22694,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__58);
   __pyx_codeobj__59 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__58, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_mbudinich_benpy_benpy_pyx, __pyx_n_s_cdefault_options, 794, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__59)) __PYX_ERR(0, 794, __pyx_L1_error)
 
-  /* "benpy.pyx":799
+  /* "benpy/benpy.pyx":799
  *         return(cProb.options)
  * 
  *     def default_options(self):             # <<<<<<<<<<<<<<
@@ -22609,7 +22706,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__60);
   __pyx_codeobj__61 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__60, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_mbudinich_benpy_benpy_pyx, __pyx_n_s_default_options, 799, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__61)) __PYX_ERR(0, 799, __pyx_L1_error)
 
-  /* "benpy.pyx":817
+  /* "benpy/benpy.pyx":817
  *     "Wrapper Class for a vlpSolution"
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
@@ -22621,7 +22718,7 @@ static int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__62);
   __pyx_codeobj__63 = (PyObject*)__Pyx_PyCode_New(1, 0, 1, 0, 0, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__62, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_Users_mbudinich_benpy_benpy_pyx, __pyx_n_s_init, 817, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__63)) __PYX_ERR(0, 817, __pyx_L1_error)
 
-  /* "benpy.pyx":822
+  /* "benpy/benpy.pyx":822
  *         self.c = None
  * 
  * def solve(problem):             # <<<<<<<<<<<<<<
@@ -22719,14 +22816,14 @@ PyMODINIT_FUNC PyInit_benpy(void)
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_benpy) {
+  if (__pyx_module_is_main_benpy__benpy) {
     if (PyObject_SetAttrString(__pyx_m, "__name__", __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "benpy")) {
-      if (unlikely(PyDict_SetItemString(modules, "benpy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "benpy.benpy")) {
+      if (unlikely(PyDict_SetItemString(modules, "benpy.benpy", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -22738,17 +22835,17 @@ PyMODINIT_FUNC PyInit_benpy(void)
   /*--- Variable export code ---*/
   /*--- Function export code ---*/
   /*--- Type init code ---*/
-  __pyx_vtabptr_5benpy__cVlpProblem = &__pyx_vtable_5benpy__cVlpProblem;
-  __pyx_vtable_5benpy__cVlpProblem.print_vlp_address = (PyObject *(*)(struct __pyx_obj_5benpy__cVlpProblem *))__pyx_f_5benpy_12_cVlpProblem_print_vlp_address;
-  if (PyType_Ready(&__pyx_type_5benpy__cVlpProblem) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
-  __pyx_type_5benpy__cVlpProblem.tp_print = 0;
-  if (__Pyx_SetVtable(__pyx_type_5benpy__cVlpProblem.tp_dict, __pyx_vtabptr_5benpy__cVlpProblem) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
-  if (PyObject_SetAttrString(__pyx_m, "_cVlpProblem", (PyObject *)&__pyx_type_5benpy__cVlpProblem) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
-  __pyx_ptype_5benpy__cVlpProblem = &__pyx_type_5benpy__cVlpProblem;
-  if (PyType_Ready(&__pyx_type_5benpy__cVlpSolution) < 0) __PYX_ERR(0, 344, __pyx_L1_error)
-  __pyx_type_5benpy__cVlpSolution.tp_print = 0;
-  if (PyObject_SetAttrString(__pyx_m, "_cVlpSolution", (PyObject *)&__pyx_type_5benpy__cVlpSolution) < 0) __PYX_ERR(0, 344, __pyx_L1_error)
-  __pyx_ptype_5benpy__cVlpSolution = &__pyx_type_5benpy__cVlpSolution;
+  __pyx_vtabptr_5benpy_5benpy__cVlpProblem = &__pyx_vtable_5benpy_5benpy__cVlpProblem;
+  __pyx_vtable_5benpy_5benpy__cVlpProblem.print_vlp_address = (PyObject *(*)(struct __pyx_obj_5benpy_5benpy__cVlpProblem *))__pyx_f_5benpy_5benpy_12_cVlpProblem_print_vlp_address;
+  if (PyType_Ready(&__pyx_type_5benpy_5benpy__cVlpProblem) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
+  __pyx_type_5benpy_5benpy__cVlpProblem.tp_print = 0;
+  if (__Pyx_SetVtable(__pyx_type_5benpy_5benpy__cVlpProblem.tp_dict, __pyx_vtabptr_5benpy_5benpy__cVlpProblem) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
+  if (PyObject_SetAttrString(__pyx_m, "_cVlpProblem", (PyObject *)&__pyx_type_5benpy_5benpy__cVlpProblem) < 0) __PYX_ERR(0, 213, __pyx_L1_error)
+  __pyx_ptype_5benpy_5benpy__cVlpProblem = &__pyx_type_5benpy_5benpy__cVlpProblem;
+  if (PyType_Ready(&__pyx_type_5benpy_5benpy__cVlpSolution) < 0) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_type_5benpy_5benpy__cVlpSolution.tp_print = 0;
+  if (PyObject_SetAttrString(__pyx_m, "_cVlpSolution", (PyObject *)&__pyx_type_5benpy_5benpy__cVlpSolution) < 0) __PYX_ERR(0, 344, __pyx_L1_error)
+  __pyx_ptype_5benpy_5benpy__cVlpSolution = &__pyx_type_5benpy_5benpy__cVlpSolution;
   /*--- Type import code ---*/
   __pyx_ptype_7cpython_4type_type = __Pyx_ImportType(__Pyx_BUILTIN_MODULE_NAME, "type", 
   #if CYTHON_COMPILING_IN_PYPY
@@ -22769,7 +22866,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "benpy.pyx":3
+  /* "benpy/benpy.pyx":3
  * #cython: language_level=3
  * 
  * import time             # <<<<<<<<<<<<<<
@@ -22781,7 +22878,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_time, __pyx_t_1) < 0) __PYX_ERR(0, 3, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":4
+  /* "benpy/benpy.pyx":4
  * 
  * import time
  * import numpy as np             # <<<<<<<<<<<<<<
@@ -22793,7 +22890,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_np, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":8
+  /* "benpy/benpy.pyx":8
  * from libc.stdlib cimport malloc, free
  * from libc.limits cimport CHAR_BIT
  * from os.path import splitext             # <<<<<<<<<<<<<<
@@ -22814,7 +22911,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "benpy.pyx":9
+  /* "benpy/benpy.pyx":9
  * from libc.limits cimport CHAR_BIT
  * from os.path import splitext
  * from collections import namedtuple as ntp             # <<<<<<<<<<<<<<
@@ -22835,7 +22932,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":10
+  /* "benpy/benpy.pyx":10
  * from os.path import splitext
  * from collections import namedtuple as ntp
  * from warnings import warn             # <<<<<<<<<<<<<<
@@ -22856,7 +22953,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "benpy.pyx":11
+  /* "benpy/benpy.pyx":11
  * from collections import namedtuple as ntp
  * from warnings import warn
  * from scipy.sparse import lil_matrix, find             # <<<<<<<<<<<<<<
@@ -22884,7 +22981,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":12
+  /* "benpy/benpy.pyx":12
  * from warnings import warn
  * from scipy.sparse import lil_matrix, find
  * from io import StringIO             # <<<<<<<<<<<<<<
@@ -22905,7 +23002,7 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "benpy.pyx":15
+  /* "benpy/benpy.pyx":15
  * 
  * 
  * THISVERSION = 'version MODIFIED 2.0.1'             # <<<<<<<<<<<<<<
@@ -22914,40 +23011,40 @@ PyMODINIT_FUNC PyInit_benpy(void)
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_THISVERSION, __pyx_kp_u_version_MODIFIED_2_0_1) < 0) __PYX_ERR(0, 15, __pyx_L1_error)
 
-  /* "benpy.pyx":613
+  /* "benpy/benpy.pyx":613
  *     return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))
  * 
  * class vlpProblem:             # <<<<<<<<<<<<<<
  *     "Wrapper Class for a vlpProblem"
  * 
  */
-  __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_vlpProblem, __pyx_n_s_vlpProblem, (PyObject *) NULL, __pyx_n_s_benpy, __pyx_kp_s_Wrapper_Class_for_a_vlpProblem); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 613, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_vlpProblem, __pyx_n_s_vlpProblem, (PyObject *) NULL, __pyx_n_s_benpy_benpy, __pyx_kp_s_Wrapper_Class_for_a_vlpProblem); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 613, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "benpy.pyx":616
+  /* "benpy/benpy.pyx":616
  *     "Wrapper Class for a vlpProblem"
  * 
  *     def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):             # <<<<<<<<<<<<<<
  *         self.B = B
  *         self.a = a
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_10vlpProblem_1__init__, 0, __pyx_n_s_vlpProblem___init, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 616, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_10vlpProblem_1__init__, 0, __pyx_n_s_vlpProblem___init, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__49)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 616, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__50);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 616, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":631
+  /* "benpy/benpy.pyx":631
  * 
  *     @property
  *     def vlpfile(self):             # <<<<<<<<<<<<<<
  *         #Return a file-like object containing the vlp description. Based on "prob2vlp.m" MATLAB script
  *         def getlen(obj):
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_10vlpProblem_3vlpfile, 0, __pyx_n_s_vlpProblem_vlpfile, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 631, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_10vlpProblem_3vlpfile, 0, __pyx_n_s_vlpProblem_vlpfile, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__52)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 631, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "benpy.pyx":630
+  /* "benpy/benpy.pyx":630
  *         self.options=options
  * 
  *     @property             # <<<<<<<<<<<<<<
@@ -22965,56 +23062,56 @@ PyMODINIT_FUNC PyInit_benpy(void)
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_vlpfile, __pyx_t_1) < 0) __PYX_ERR(0, 631, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":767
+  /* "benpy/benpy.pyx":767
  * 
  * 
  *     def to_file(self,filename=None):             # <<<<<<<<<<<<<<
  *         if (filename == None):
  *             if (self.filename != None):
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_10vlpProblem_5to_file, 0, __pyx_n_s_vlpProblem_to_file, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 767, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_10vlpProblem_5to_file, 0, __pyx_n_s_vlpProblem_to_file, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__54)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 767, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_CyFunction_SetDefaultsTuple(__pyx_t_1, __pyx_tuple__55);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_to_file, __pyx_t_1) < 0) __PYX_ERR(0, 767, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":788
+  /* "benpy/benpy.pyx":788
  *             file.close()
  * 
  *     def to_string(self):             # <<<<<<<<<<<<<<
  *         vlpfile = self.vlpfile
  *         for line in vlpfile:
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_10vlpProblem_7to_string, 0, __pyx_n_s_vlpProblem_to_string, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__57)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 788, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_10vlpProblem_7to_string, 0, __pyx_n_s_vlpProblem_to_string, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__57)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 788, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_to_string, __pyx_t_1) < 0) __PYX_ERR(0, 788, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":794
+  /* "benpy/benpy.pyx":794
  *         vlpfile.close()
  * 
  *     def _cdefault_options(self):             # <<<<<<<<<<<<<<
  *         cProb = _cVlpProblem()
  *         cProb.default_options()
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_10vlpProblem_9_cdefault_options, 0, __pyx_n_s_vlpProblem__cdefault_options, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__59)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 794, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_10vlpProblem_9_cdefault_options, 0, __pyx_n_s_vlpProblem__cdefault_options, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__59)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 794, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_cdefault_options, __pyx_t_1) < 0) __PYX_ERR(0, 794, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":799
+  /* "benpy/benpy.pyx":799
  *         return(cProb.options)
  * 
  *     def default_options(self):             # <<<<<<<<<<<<<<
  *         self.options = {
  *             'write_files':False,
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_10vlpProblem_11default_options, 0, __pyx_n_s_vlpProblem_default_options, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__61)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 799, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_10vlpProblem_11default_options, 0, __pyx_n_s_vlpProblem_default_options, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__61)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 799, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_default_options, __pyx_t_1) < 0) __PYX_ERR(0, 799, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":613
+  /* "benpy/benpy.pyx":613
  *     return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))
  * 
  * class vlpProblem:             # <<<<<<<<<<<<<<
@@ -23027,29 +23124,29 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "benpy.pyx":814
+  /* "benpy/benpy.pyx":814
  *         return self.options
  * 
  * class vlpSolution:             # <<<<<<<<<<<<<<
  *     "Wrapper Class for a vlpSolution"
  * 
  */
-  __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_vlpSolution, __pyx_n_s_vlpSolution, (PyObject *) NULL, __pyx_n_s_benpy, __pyx_kp_s_Wrapper_Class_for_a_vlpSolution); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 814, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_Py3MetaclassPrepare((PyObject *) NULL, __pyx_empty_tuple, __pyx_n_s_vlpSolution, __pyx_n_s_vlpSolution, (PyObject *) NULL, __pyx_n_s_benpy_benpy, __pyx_kp_s_Wrapper_Class_for_a_vlpSolution); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 814, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "benpy.pyx":817
+  /* "benpy/benpy.pyx":817
  *     "Wrapper Class for a vlpSolution"
  * 
  *     def __init__(self):             # <<<<<<<<<<<<<<
  *         self.Primal = None
  *         self.Dual = None
  */
-  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_11vlpSolution_1__init__, 0, __pyx_n_s_vlpSolution___init, NULL, __pyx_n_s_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__63)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 817, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_CyFunction_NewEx(&__pyx_mdef_5benpy_5benpy_11vlpSolution_1__init__, 0, __pyx_n_s_vlpSolution___init, NULL, __pyx_n_s_benpy_benpy, __pyx_d, ((PyObject *)__pyx_codeobj__63)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 817, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyObject_SetItem(__pyx_t_2, __pyx_n_s_init, __pyx_t_1) < 0) __PYX_ERR(0, 817, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "benpy.pyx":814
+  /* "benpy/benpy.pyx":814
  *         return self.options
  * 
  * class vlpSolution:             # <<<<<<<<<<<<<<
@@ -23062,19 +23159,19 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "benpy.pyx":822
+  /* "benpy/benpy.pyx":822
  *         self.c = None
  * 
  * def solve(problem):             # <<<<<<<<<<<<<<
  *     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
  *     if (not problem.filename):
  */
-  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5benpy_1solve, NULL, __pyx_n_s_benpy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 822, __pyx_L1_error)
+  __pyx_t_2 = PyCFunction_NewEx(&__pyx_mdef_5benpy_5benpy_1solve, NULL, __pyx_n_s_benpy_benpy); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 822, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_solve, __pyx_t_2) < 0) __PYX_ERR(0, 822, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "benpy.pyx":1
+  /* "benpy/benpy.pyx":1
  * #cython: language_level=3             # <<<<<<<<<<<<<<
  * 
  * import time
@@ -23101,11 +23198,11 @@ PyMODINIT_FUNC PyInit_benpy(void)
   __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init benpy", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init benpy.benpy", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_DECREF(__pyx_m); __pyx_m = 0;
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init benpy");
+    PyErr_SetString(PyExc_ImportError, "init benpy.benpy");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
