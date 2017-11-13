@@ -5,29 +5,29 @@ Created on Wed May 31 15:45:22 2017
 Test VLP interfase with bensolve
 @author: mbudinich
 """
-#%%
+# %%
 from numpy import transpose, ones, zeros, eye, matrix, loadtxt, append, hstack, vstack, inf
 from HelperClass import VlpProblem
-#%%
+# %%
 # Example: MOLP with 2 objectives, simplest example
 
 # min [x1 - x2; x1 + x2]
-# 
+#
 # 6 <= 2*x1 +   x2
 # 6 <=   x1 + 2*x2
 #
 # x1 >= 0
 # x2 >= 0
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=matrix([[2,1],[1,2]])    # coefficient matrix
-vlp.a=[6,6]        # lower bounds
-vlp.P=matrix([[1,-1],[1,1]])  # objective matrix
-vlp.l=[0,0]        # lower variable bounds
+vlp.B = matrix([[2, 1], [1, 2]])    # coefficient matrix
+vlp.a = [6, 6]        # lower bounds
+vlp.P = matrix([[1, -1], [1, 1]])  # objective matrix
+vlp.l = [0, 0]        # lower variable bounds
 
-vlp.to_file('ex01.vlp');
-#%%
+vlp.to_file('ex01.vlp')
+# %%
 # Example: MOLP with 2 objectives which is infeasible
 
 # v-min [x1;x2]
@@ -36,15 +36,15 @@ vlp.to_file('ex01.vlp');
 # 0 <=   x1 + 2*x2 <= 1
 # 1 <=   x1 +   x2 <= 2
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=matrix([[3,1],[1,2],[1,1]])
-vlp.b=[1, 1, 2]
-vlp.a=[0, 0, 1]
-vlp.P=matrix([[1,0],[0,1]])
+vlp.B = matrix([[3, 1], [1, 2], [1, 1]])
+vlp.b = [1, 1, 2]
+vlp.a = [0, 0, 1]
+vlp.P = matrix([[1, 0], [0, 1]])
 
-vlp.to_file('ex02.vlp');
-#%%
+vlp.to_file('ex02.vlp')
+# %%
 # Example: MOLP with 2 objectives the upper image of which has no vertex
 
 # v-min [x1;x2]
@@ -52,14 +52,14 @@ vlp.to_file('ex02.vlp');
 # 1 <= x1 + x2 + x3
 # 1 <= x1 + x2 - x3
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=matrix([[1,1,1],[1,1,-1]])
-vlp.a=[1,1]
-vlp.P=matrix([[1,0,0], [0,1,0]])
+vlp.B = matrix([[1, 1, 1], [1, 1, -1]])
+vlp.a = [1, 1]
+vlp.P = matrix([[1, 0, 0], [0, 1, 0]])
 
-vlp.to_file('ex03.vlp');
-#%%
+vlp.to_file('ex03.vlp')
+# %%
 # Example: MOLP with 2 objectives, which is totally unbounded
 
 # v-min [x1;x2]
@@ -67,27 +67,28 @@ vlp.to_file('ex03.vlp');
 # 1 <= x1 + x2 +   x3
 # 1 <= x1 + x2 + 2*x3
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=matrix([[1,1,1],[1,1,2]]);
-vlp.a=[1,1]
-vlp.P=matrix([[1,0,0], [0,1,0]]);
+vlp.B = matrix([[1, 1, 1], [1, 1, 2]])
+vlp.a = [1, 1]
+vlp.P = matrix([[1, 0, 0], [0, 1, 0]])
 
-vlp.to_file('ex04.vlp');
-#%%
+vlp.to_file('ex04.vlp')
+# %%
 # Example: VLP with q = 3 and 4 generating vectors of C
 
 # see http://bensolve.org/demo.html
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=matrix([ones((1,3)).tolist()[0],[1,2,2],[2,2,1],[2,1,2]])	# coefficient matrix
-vlp.a=[1,3/2,3/2,3/2];					# lhs of constraints
-vlp.P=matrix([[1,0,1],[1,1,0],[0,1,1]])			# objective matrix
-vlp.l=[0,0,0]							# lower variable bounds
+vlp.B = matrix([ones((1, 3)).tolist()[0], [1, 2, 2], [
+               2, 2, 1], [2, 1, 2]])  # coefficient matrix
+vlp.a = [1, 3 / 2, 3 / 2, 3 / 2]					# lhs of constraints
+vlp.P = matrix([[1, 0, 1], [1, 1, 0], [0, 1, 1]])			# objective matrix
+vlp.l = [0, 0, 0]							# lower variable bounds
 
 # generating vectors of ordering cone C
-vlp.Y=transpose(matrix([[1,0,0], [0,1,0], [-1,0,2], [0,-1,2]]))
+vlp.Y = transpose(matrix([[1, 0, 0], [0, 1, 0], [-1, 0, 2], [0, -1, 2]]))
 
 # alternative variant: generating vectors of the dual of the ordering cone C
 # vlp.Z=[2 2 1 ; 2 0 1 ; 0 0 1 ; 0 2 1]';
@@ -95,59 +96,61 @@ vlp.Y=transpose(matrix([[1,0,0], [0,1,0], [-1,0,2], [0,-1,2]]))
 # duality parameter vector (must belong to interior of C)
 # if not given, it is computed automatically
 # dual problem depends on c
-vlp.c=[1,1,1]
+vlp.c = [1, 1, 1]
 
 vlp.to_file('ex05.vlp')
-#%%
+# %%
 # Example: VLP with 2 objectives
 
 # max [x1 - x2; x1 + x2]
 #
 # w.r.t. cone C ={(y1,y2) | 2 y1 -y2 >= 0, -y1 + 2 y2 >= 0}
-# 
-# 1 <= x1 + x2 <= 2 
+#
+# 1 <= x1 + x2 <= 2
 #
 # 0 <= x1 <= 1
 # 0 <= x2
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.opt_dir=-1 	# maximization
-vlp.Z=matrix([[2,-1], [-1,2]])	# generators of dual of ordering cone
-vlp.c=[1,1]		# geometric duality parameter vector (belongs to interior of C)
+vlp.opt_dir = -1 	# maximization
+vlp.Z = matrix([[2, -1], [-1, 2]])  # generators of dual of ordering cone
+vlp.c = [1, 1]		# geometric duality parameter vector (belongs to interior of C)
 
-vlp.B=matrix([1,1])		# coefficient matrix
-vlp.a=[1]			# lhs
-vlp.b=[2]			# rhs
-vlp.l=[0,0]		# lower bounds
-vlp.s=[1,inf]		# upper bounds
-vlp.P=matrix([[1,-1],[1,1]])	# objective matrix
+vlp.B = matrix([1, 1])		# coefficient matrix
+vlp.a = [1]			# lhs
+vlp.b = [2]			# rhs
+vlp.l = [0, 0]		# lower bounds
+vlp.s = [1, inf]		# upper bounds
+vlp.P = matrix([[1, -1], [1, 1]])  # objective matrix
 
-vlp.to_file('ex06.vlp');
-#%%
+vlp.to_file('ex06.vlp')
+# %%
 # Example: MOLP with 3 objectives, 1211 constraints and 1143 variables
 #
 # Example (PL) in
-# 
+#
 # Shao, L., Ehrgott, M.: Approximately solving multiobjective linear programmes in objective space and
 # an application in radiotherapy treatment planning. Math. Methods Oper. Res. 68(2), 257Ð276 (2008)
 #
 # enlarge epsilon in phase 2 and use primal simplex algorithm, for instance, run
 # ./bensolve ex/ex07.vlp -m 2 -e 0.05 -l primal_simplex
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=loadtxt('example07.txt');
-vlp.P = -1*matrix([append(zeros((1,1140)),[-1,0,0]),append(zeros((1,1140)),[0,-1,0]),append(zeros((1,1140)),[0,0,-1])])
-vlp.l = append(zeros((1140,1)),[0,-45,0])
-vlp.s = append(inf*ones((1140,1)),[17.07,12,90.64]) 
-vlp.b = vstack((90.64*ones((67,1)),-85.3601*ones((67,1)),60*ones((37,1)),45*ones((8,1)),60*ones((46,1)),ones((986,1))))
+vlp.B = loadtxt('example07.txt')
+vlp.P = -1 * matrix([append(zeros((1, 1140)), [-1, 0, 0]), append(
+    zeros((1, 1140)), [0, -1, 0]), append(zeros((1, 1140)), [0, 0, -1])])
+vlp.l = append(zeros((1140, 1)), [0, -45, 0])
+vlp.s = append(inf * ones((1140, 1)), [17.07, 12, 90.64])
+vlp.b = vstack((90.64 * ones((67, 1)), -85.3601 * ones((67, 1)), 60 *
+                ones((37, 1)), 45 * ones((8, 1)), 60 * ones((46, 1)), ones((986, 1))))
 vlp.b = vlp.b.T.tolist()[0]
-vlp.to_file('ex07.vlp');
-#%%
+vlp.to_file('ex07.vlp')
+# %%
 # Example: VLP with 2 objectives, which is unbounded (but not totally unbounded)
 #
-#	its the solution consists of feasible points and feasible directions
+# its the solution consists of feasible points and feasible directions
 
 # min_C [x1;x2]
 #
@@ -155,22 +158,22 @@ vlp.to_file('ex07.vlp');
 #
 # duality parameter c is set to [0;1], which is an interior point of C
 #
-# 0 <= 3*x1 +   x2 
-# 0 <=   x1 + 2*x2 
-# 1 <=   x1 +   x2 
+# 0 <= 3*x1 +   x2
+# 0 <=   x1 + 2*x2
+# 1 <=   x1 +   x2
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=matrix([3,1],[1,2],[1,1])
-vlp.a=[0, 0, 1]
-vlp.P=[[1,0] , [0,1]];
+vlp.B = matrix([3, 1], [1, 2], [1, 1])
+vlp.a = [0, 0, 1]
+vlp.P = [[1, 0], [0, 1]]
 
 # generating vectors of ordering cone C
-vlp.Y=matrix([[-1,3], [3/2,-1]])
-vlp.c=[0,1]
+vlp.Y = matrix([[-1, 3], [3 / 2, -1]])
+vlp.c = [0, 1]
 
-vlp.to_file('ex08.vlp');
-#%%
+vlp.to_file('ex08.vlp')
+# %%
 # VLP with 3 objectives, 4608 constrains and 36939 variables
 #
 # Example 6.6 in
@@ -180,7 +183,7 @@ vlp.to_file('ex08.vlp');
 # special options are necessary to run example:
 #
 # For instance, run
-    # ./bensolve ex/ex09.vlp -e 1e-2 -m 3 -L primal_simplex -l primal_simplex -p
+# ./bensolve ex/ex09.vlp -e 1e-2 -m 3 -L primal_simplex -l primal_simplex -p
 #
 # (-e: set epsilon in Phase 2)
 # (-m set message level to have more output on screen)
@@ -196,11 +199,11 @@ vlp.to_file('ex08.vlp');
 # (-a use dual Benson algorithm in Phase 2)
 # (-p generate graphics files)
 
-#vlp = VlpProblem();
-#load('example09');
-#vlp.c=[1,1,1]
-#vlp.to_file('ex09.vlp');
-#%%
+# vlp = VlpProblem();
+# load('example09');
+# vlp.c=[1,1,1]
+# vlp.to_file('ex09.vlp');
+# %%
 # The 'bensolvehedron', see the titlepage of the reference manual
 #
 # MOLP with q objectives, n=(q+2*m)^q variables and constraints
@@ -213,36 +216,37 @@ vlp.to_file('ex08.vlp');
 # add green color (!)
 
 # adapt q and m to generate other (larger) problems
-#q=3;
-#m=2;
+# q=3;
+# m=2;
 
-#n=(q+2*m)^q;
+# n=(q+2*m)^q;
 
-#vlp = VlpProblem();
+# vlp = VlpProblem();
 
 # feasible set is n dimensional hyper cube
-#vlp.B=eye(n)
-#vlp.a=zeros((n,1))
-#vlp.b=ones((n,1))
+# vlp.B=eye(n)
+# vlp.a=zeros((n,1))
+# vlp.b=ones((n,1))
 
 # objective map
-#P=zeros(n,q);
-#for i in range(n):
-#	line = dec2base(i-1,q+2*m,q)-'0';
-#	line = line - (q+2*m-1)/2;
-#	P[i,:] = line
+# P=zeros(n,q);
+# for i in range(n):
+#    line = dec2base(i-1,q+2*m,q)-'0';
+#    line = line - (q+2*m-1)/2;
+#    P[i,:] = line
 
-#vlp.P = transpose(P)
+# vlp.P = transpose(P)
 
-#vlp.to_file('ex10.vlp');
-#%%
+# vlp.to_file('ex10.vlp');
+# %%
 # Example: MOLP with q=5, unbounded,
 # recession cone of upper image has 22 extreme directions (main effort in phase 1)
 
-vlp = VlpProblem();
+vlp = VlpProblem()
 
-vlp.B=matrix([[1,1,1,1,1],[2,1,1,1,1],[1,2,1,1,1],[1,1,2,1,1],[1,1,1,2,1],[1,1,1,1,2],[2,2,1,1,1],[2,1,2,1,1],[2,1,1,2,1],[2,1,1,1,2],[1,2,2,1,1],[1,2,1,2,1],[1,2,1,1,2],[1,1,2,2,1],[1,1,2,1,2],[1,1,1,2,2],[2,2,2,1,1],[2,2,1,2,1],[2,2,1,1,2],[2,1,2,1,2],[2,1,1,2,2],[1,2,2,2,1],[1,2,1,2,2],[1,2,2,1,2],[1,2,2,2,1],[1,1,2,2,2],[1,2,2,2,2],[2,1,2,2,2],[2,2,1,2,2],[2,2,2,1,2],[2,2,2,2,1]])
-vlp.a=append(1,zeros((30, 1)))
-vlp.P=eye((5,5));
+vlp.B = matrix([[1, 1, 1, 1, 1], [2, 1, 1, 1, 1], [1, 2, 1, 1, 1], [1, 1, 2, 1, 1], [1, 1, 1, 2, 1], [1, 1, 1, 1, 2], [2, 2, 1, 1, 1], [2, 1, 2, 1, 1], [2, 1, 1, 2, 1], [2, 1, 1, 1, 2], [1, 2, 2, 1, 1], [1, 2, 1, 2, 1], [1, 2, 1, 1, 2], [1, 1, 2, 2, 1], [1, 1, 2, 1, 2], [
+               1, 1, 1, 2, 2], [2, 2, 2, 1, 1], [2, 2, 1, 2, 1], [2, 2, 1, 1, 2], [2, 1, 2, 1, 2], [2, 1, 1, 2, 2], [1, 2, 2, 2, 1], [1, 2, 1, 2, 2], [1, 2, 2, 1, 2], [1, 2, 2, 2, 1], [1, 1, 2, 2, 2], [1, 2, 2, 2, 2], [2, 1, 2, 2, 2], [2, 2, 1, 2, 2], [2, 2, 2, 1, 2], [2, 2, 2, 2, 1]])
+vlp.a = append(1, zeros((30, 1)))
+vlp.P = eye((5, 5))
 
-vlp.to_file('ex11.vlp');
+vlp.to_file('ex11.vlp')
