@@ -6,7 +6,7 @@ Test VLP interfase with bensolve
 @author: mbudinich
 """
 # %%
-from numpy import transpose, ones, zeros, eye, matrix, loadtxt, append, hstack, vstack, inf
+from numpy import transpose, ones, zeros, eye, matrix, loadtxt, append, vstack, inf
 from HelperClass import VlpProblem
 # %%
 # Example: MOLP with 2 objectives, simplest example
