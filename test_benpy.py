@@ -2,7 +2,7 @@ import benpy
 
 problem = benpy.vlpProblem()
 problem.filename = "ex01.vlp"
-problem.options={'message_level':3}
+problem.options = {'message_level': 3}
 sol = benpy.solve(problem)
 
 problem2 = benpy.vlpProblem()
