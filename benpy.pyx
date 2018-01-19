@@ -5,6 +5,7 @@ import numpy as np
 cimport numpy as np
 from libc.stdlib cimport malloc, free
 from libc.limits cimport CHAR_BIT
+from prettytable import PrettyTable
 from os.path import splitext
 from collections import namedtuple as ntp
 from warnings import warn
@@ -729,7 +730,7 @@ class vlpProblem:
             elif aa[i] == bb[i] and np.isfinite(aa[i]):
                 file.write('i {} s {}\n'.format(i+1,aa[i]))
             else:
-                raise RuntimeError('Invalid constrsaints: a[{}]={}, b[{}]={}'.format(i+1,aa[i],i,bb[i]))
+                raise RuntimeError('Invalid constraints: a[{}]={}, b[{}]={}'.format(i+1,aa[i],i,bb[i]))
 
         #Write cols
         if self.l is None:
@@ -812,12 +813,45 @@ class vlpProblem:
         return self.options
 
 class vlpSolution:
-    "Wrapper Class for a vlpSolution"
+    """Wrapper Class for a vlpSolution"""
 
     def __init__(self):
         self.Primal = None
         self.Dual = None
         self.c = None
+
+    def __str__(self):
+        def string_poly(ntp_poly,**kargs):
+            """
+Returns a string representation of the solution
+        :param kargs:
+        :return:
+            """
+            field_names = ["Vertex","Type","Value","Adjacency"]
+            x = PrettyTable(field_names,**kargs)
+            for i in range(len(ntp_poly.vertex_type)):
+                x.add_row([i,
+                    ntp_poly.vertex_type[i],
+                    ntp_poly.vertex_value[i],
+                    ntp_poly.adj[i]])
+
+            return x.get_string()
+
+        def string_inc(poly1,poly2,name1,name2,**kargs):
+            field_names = ["Vertex of {}".format(name2),"Incidence in {}".format(name1)]
+            x = PrettyTable(field_names,**kargs)
+            for j in range(len(poly2.vertex_type)):
+                x.add_row([j,poly1.incidence[j]])
+
+            return x.get_string()
+
+        return "c:{}\nPrimal\n{}\n{}\nDual\n{}\n{}".format(
+                                                        str(self.c),
+                                                        string_poly(self.Primal),
+                                                        string_inc(self.Primal,self.Dual,"Primal","Dual"),
+                                                        string_poly(self.Dual),
+                                                        string_inc(self.Dual,self.Primal,"Dual","Primal"))
+
 
 def solve(problem):
     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
