@@ -34,3 +34,4 @@ vlp.to_string()
 vlp.to_file('test01.vlp')
 
 sol = bensolve(vlp)
+print(sol)
