@@ -7,7 +7,7 @@ Test VLP interfase with bensolve
 """
 # %%
 from numpy import transpose, ones, zeros, eye, matrix, loadtxt, append, vstack, inf
-from HelperClass import VlpProblem
+from helperClass import VlpProblem
 # %%
 # Example: MOLP with 2 objectives, simplest example
 
@@ -19,7 +19,7 @@ from HelperClass import VlpProblem
 # x1 >= 0
 # x2 >= 0
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
 vlp.B = matrix([[2, 1], [1, 2]])    # coefficient matrix
 vlp.a = [6, 6]        # lower bounds
@@ -36,7 +36,7 @@ vlp.to_file('ex01.vlp')
 # 0 <=   x1 + 2*x2 <= 1
 # 1 <=   x1 +   x2 <= 2
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
 vlp.B = matrix([[3, 1], [1, 2], [1, 1]])
 vlp.b = [1, 1, 2]
@@ -52,7 +52,7 @@ vlp.to_file('ex02.vlp')
 # 1 <= x1 + x2 + x3
 # 1 <= x1 + x2 - x3
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
 vlp.B = matrix([[1, 1, 1], [1, 1, -1]])
 vlp.a = [1, 1]
@@ -67,7 +67,7 @@ vlp.to_file('ex03.vlp')
 # 1 <= x1 + x2 +   x3
 # 1 <= x1 + x2 + 2*x3
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
 vlp.B = matrix([[1, 1, 1], [1, 1, 2]])
 vlp.a = [1, 1]
@@ -79,7 +79,7 @@ vlp.to_file('ex04.vlp')
 
 # see http://bensolve.org/demo.html
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
 vlp.B = matrix([ones((1, 3)).tolist()[0], [1, 2, 2], [
                2, 2, 1], [2, 1, 2]])  # coefficient matrix
@@ -111,7 +111,7 @@ vlp.to_file('ex05.vlp')
 # 0 <= x1 <= 1
 # 0 <= x2
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
 vlp.opt_dir = -1 	# maximization
 vlp.Z = matrix([[2, -1], [-1, 2]])  # generators of dual of ordering cone
@@ -136,9 +136,9 @@ vlp.to_file('ex06.vlp')
 # enlarge epsilon in phase 2 and use primal simplex algorithm, for instance, run
 # ./bensolve ex/ex07.vlp -m 2 -e 0.05 -l primal_simplex
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
-vlp.B = loadtxt('example07.txt')
+vlp.B = loadtxt('src/bensolve-mod/ex/example07.txt')
 vlp.P = -1 * matrix([append(zeros((1, 1140)), [-1, 0, 0]), append(
     zeros((1, 1140)), [0, -1, 0]), append(zeros((1, 1140)), [0, 0, -1])])
 vlp.l = append(zeros((1140, 1)), [0, -45, 0])
@@ -162,11 +162,11 @@ vlp.to_file('ex07.vlp')
 # 0 <=   x1 + 2*x2
 # 1 <=   x1 +   x2
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
-vlp.B = matrix([3, 1], [1, 2], [1, 1])
+vlp.B = matrix([[3, 1], [1, 2], [1, 1]])
 vlp.a = [0, 0, 1]
-vlp.P = [[1, 0], [0, 1]]
+vlp.P = matrix([[1, 0], [0, 1]])
 
 # generating vectors of ordering cone C
 vlp.Y = matrix([[-1, 3], [3 / 2, -1]])
@@ -242,11 +242,11 @@ vlp.to_file('ex08.vlp')
 # Example: MOLP with q=5, unbounded,
 # recession cone of upper image has 22 extreme directions (main effort in phase 1)
 
-vlp = VlpProblem()
+vlp = VlpProblem.VlpProblem()
 
 vlp.B = matrix([[1, 1, 1, 1, 1], [2, 1, 1, 1, 1], [1, 2, 1, 1, 1], [1, 1, 2, 1, 1], [1, 1, 1, 2, 1], [1, 1, 1, 1, 2], [2, 2, 1, 1, 1], [2, 1, 2, 1, 1], [2, 1, 1, 2, 1], [2, 1, 1, 1, 2], [1, 2, 2, 1, 1], [1, 2, 1, 2, 1], [1, 2, 1, 1, 2], [1, 1, 2, 2, 1], [1, 1, 2, 1, 2], [
                1, 1, 1, 2, 2], [2, 2, 2, 1, 1], [2, 2, 1, 2, 1], [2, 2, 1, 1, 2], [2, 1, 2, 1, 2], [2, 1, 1, 2, 2], [1, 2, 2, 2, 1], [1, 2, 1, 2, 2], [1, 2, 2, 1, 2], [1, 2, 2, 2, 1], [1, 1, 2, 2, 2], [1, 2, 2, 2, 2], [2, 1, 2, 2, 2], [2, 2, 1, 2, 2], [2, 2, 2, 1, 2], [2, 2, 2, 2, 1]])
 vlp.a = append(1, zeros((30, 1)))
-vlp.P = eye((5, 5))
+vlp.P = eye(5, 5)
 
 vlp.to_file('ex11.vlp')
