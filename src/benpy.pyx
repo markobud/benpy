@@ -211,6 +211,11 @@ cdef extern from "bensolve-mod/bslv_vlp.h":
     void sol_free(soltype *sol)
     void set_input(csatype *csa, char *filename)
 
+def par_indent(func):
+    def func_wrappper(text):
+        return("\n\t{}\n".format(func(text)))
+    return func_wrappper
+
 cdef class _cVlpProblem:
     """Internal Wrap Class for Problem structure"""
     cdef opttype* _opt 
@@ -219,15 +224,18 @@ cdef class _cVlpProblem:
     cdef csatype* _csa
     cdef char* c_filename
 
+
+    @par_indent
+    def warn(text):
+        return warn(text)
+
     def __cinit__(self):
-        print("problem alloc called")
         self._opt = <opttype *>malloc(sizeof(opttype))
         self._vlp = <vlptype *>malloc(sizeof(vlptype))
         self._lps = <lptype *>malloc(sizeof (lptype))
         self._csa = <csatype *>malloc(sizeof(csatype))
 
     def __dealloc__(self):
-        print("problem dealloc called")
         free(self._opt)
         free(self._vlp)
         free(self._lps)
@@ -350,12 +358,10 @@ cdef class _cVlpSolution:
     cdef object argtype
 
     def __cinit__(self):
-        print("solution alloc called")
         self._sol = <soltype *>malloc(sizeof(soltype))
         self._image = <poly_args *>malloc(sizeof(poly_args))
 
     def __dealloc__(self):
-        print("solution dealloc called")
         free(self._sol)
         free(self._image)
 
@@ -607,7 +613,7 @@ cdef _poly_output(_cVlpSolution s,swap = 0):
         pre_p = _poly__primg2arr(primal,&prm)
         pre_d = _poly__primg2arr(dual,&prm_dual)
     else:
-        warn("Pre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")
+        warn("\nPre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")
 
     return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))
 
