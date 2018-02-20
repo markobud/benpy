@@ -29,9 +29,9 @@ vlp.l = [0, 0]        # lower variable bounds
 
 vlp.default_options()
 
-vlp.to_string()
+vlp.to_vlp_string()
 
-vlp.to_file('test01.vlp')
+vlp.to_vlp_file('test01.vlp')
 
 sol = bensolve(vlp)
 print(sol)

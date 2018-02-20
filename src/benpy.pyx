@@ -11,7 +11,7 @@ from collections import namedtuple as ntp
 from warnings import warn
 from scipy.sparse import lil_matrix, find
 from io import StringIO
-
+from tempfile import NamedTemporaryFile
 
 THISVERSION = 'version MODIFIED 2.0.1'
 
@@ -165,7 +165,7 @@ cdef extern from "bensolve-mod/bslv_vlp.h":
 
     ctypedef struct soltype:
         lp_idx m            # number of rows (constraints)
-        lp_idx n            # number of cols (varibles)
+        lp_idx n            # number of cols (variables)
         lp_idx q            # number of objectives
         lp_idx o            # number of generators of ordering cone (after vertex enumeration and scaling)
         lp_idx p            # number of generators of dual of ordering cone (after vertex enumeration and scaling)
@@ -631,8 +631,7 @@ class vlpProblem:
         self.Z = Z
         self.c = c
         self.opt_dir = opt_dir
-        self.filename=filename
-        self.options=options
+        self.options = options
 
     @property
     def vlpfile(self):
@@ -771,28 +770,22 @@ class vlpProblem:
         return(file)
 
 
-    def to_file(self,filename=None):
+    def to_vlp_file(self,filename=None):
         if (filename == None):
-            if (self.filename != None):
-                warn("Problem filename not given. Using " + self.filename + ". File override actual values")
-            else:
-                raise RuntimeError("No filename given")
-        else:
-            if (self.filename != None and self.filename != filename):
-                print("Filename changed from {} to {}".format(self.filename,filename))
-            self.filename = filename
-            try:
-                file = open(self.filename,'w')
-            except OSError as e:
-                print("OS Error {0}".format(e))
-                raise
-            vlpfile = self.vlpfile
-            for line in vlpfile:
-                file.write(line)
-            vlpfile.close()
-            file.close()
+            raise RuntimeError("No filename given")
+        try:
+            print(filename)
+            file_out = open(name=filename,mode='w+t')
+        except OSError as e:
+            print("OS Error {0}".format(e))
+            raise
+        vlpfile = self.vlpfile
+        for line in self.vlpfile:
+            file_out.write(line)
+        vlpfile.close()
+        file_out.close()
 
-    def to_string(self):
+    def to_vlp_string(self):
         vlpfile = self.vlpfile
         for line in vlpfile:
             print(line,end="")
@@ -815,7 +808,7 @@ class vlpProblem:
             'alg_phase2':'primal',
             'lp_method_phase0':'primal_simplex',
             'lp_method_phase1':'auto',
-            'lp_method_phase1':'auto'}
+            'lp_method_phase2':'auto'}
         return self.options
 
 class vlpSolution:
@@ -828,11 +821,7 @@ class vlpSolution:
 
     def __str__(self):
         def string_poly(ntp_poly,**kargs):
-            """
-Returns a string representation of the solution
-        :param kargs:
-        :return:
-            """
+            """Returns a string representation of the polytopes"""
             field_names = ["Vertex","Type","Value","Adjacency"]
             x = PrettyTable(field_names,**kargs)
             for i in range(len(ntp_poly.vertex_type)):
@@ -844,6 +833,7 @@ Returns a string representation of the solution
             return x.get_string()
 
         def string_inc(poly1,poly2,name1,name2,**kargs):
+            """Returns a string representation of the incidence matrix"""
             field_names = ["Vertex of {}".format(name2),"Incidence in {}".format(name1)]
             x = PrettyTable(field_names,**kargs)
             for j in range(len(poly2.vertex_type)):
@@ -861,12 +851,12 @@ Returns a string representation of the solution
 
 def solve(problem):
     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
-    if (not problem.filename):
-        raise RuntimeError('No filename specified')
-    else:
-        print("Reading from " + problem.filename)
+    tempfile = NamedTemporaryFile(mode='w+t')
+    problem.to_vlp_file(filename=tempfile.name)
+    tempfile.flush()
+    tempfile.seek(0)
     cProblem = _cVlpProblem()
-    cProblem.from_file(problem.filename)
+    cProblem.from_file(tempfile.name)
     cProblem.set_options(problem.options)
     cSolution = _csolve(cProblem)
     ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(problem.options['alg_phase2']=='dual'))
@@ -882,5 +872,6 @@ def solve(problem):
     sol.c = c
     del cProblem
     del cSolution
+    tempfile.close()
     return(sol)
 
