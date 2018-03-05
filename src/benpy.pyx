@@ -620,6 +620,21 @@ cdef _poly_output(_cVlpSolution s,swap = 0):
 class vlpProblem:
     "Wrapper Class for a vlpProblem"
 
+    @property
+    def default_options(self):
+            return {
+            'write_files':False,
+            'log_file':False,
+            'bounded': False,
+            'solution':False,
+            'message_level':3,
+            'lp_message_level':0,
+            'alg_phase1':'primal',
+            'alg_phase2':'primal',
+            'lp_method_phase0':'primal_simplex',
+            'lp_method_phase1':'auto',
+            'lp_method_phase2':'auto'}
+
     def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):
         self.B = B
         self.a = a
@@ -631,7 +646,7 @@ class vlpProblem:
         self.Z = Z
         self.c = c
         self.opt_dir = opt_dir
-        self.options = options
+        self.options = options if options is not None else self.default_options
 
     @property
     def vlpfile(self):
@@ -764,7 +779,7 @@ class vlpProblem:
             elif llb[j] == uub[j] and np.isfinite(llb[j]):
                 file.write('j {} s {}\n'.format(j+1,llb[j]))
             else:
-                raise RuntimeError('Invalid constrsaints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
+                raise RuntimeError('Invalid constraints: l[{}]={}, s[{}]={}'.format(j+1,llb[j],i,uub[j]))
         file.write('e ')
         file.seek(0)
         return(file)
@@ -796,20 +811,6 @@ class vlpProblem:
         cProb.default_options()
         return(cProb.options)
 
-    def default_options(self):
-        self.options = {
-            'write_files':False,
-            'log_file':False,
-            'bounded': False,
-            'solution':False,
-            'message_level':3,
-            'lp_message_level':0,
-            'alg_phase1':'primal',
-            'alg_phase2':'primal',
-            'lp_method_phase0':'primal_simplex',
-            'lp_method_phase1':'auto',
-            'lp_method_phase2':'auto'}
-        return self.options
 
 class vlpSolution:
     """Wrapper Class for a vlpSolution"""
