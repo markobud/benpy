@@ -635,7 +635,9 @@ class vlpProblem:
             'lp_method_phase1':'auto',
             'lp_method_phase2':'auto'}
 
-    def __init__(self, B=None, a=None, b=None, l=None, s=None, P=None, Y=None, Z=None, c=None, opt_dir=None, filename = None, options = None):
+    def __init__(self, B=None, a=None, b=None, l=None, s=None,
+                 P=None, Y=None, Z=None, c=None,
+                 opt_dir=None, filename = None, options = None):
         self.B = B
         self.a = a
         self.b = b
