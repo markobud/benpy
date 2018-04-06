@@ -10,8 +10,9 @@ from os.path import splitext
 from collections import namedtuple as ntp
 from warnings import warn
 from scipy.sparse import lil_matrix, find
-from io import StringIO
+from io import StringIO, open as io_open
 from tempfile import NamedTemporaryFile
+import sys
 
 THISVERSION = 'version MODIFIED 2.0.1'
 
@@ -792,7 +793,10 @@ class vlpProblem:
             raise RuntimeError("No filename given")
         try:
             print(filename)
-            file_out = open(name=filename,mode='w+t')
+            mode = 'w'
+            if sys.version_info.major < 3:
+                mode += 'b'
+            file_out = io_open(filename,mode=mode)
         except OSError as e:
             print("OS Error {0}".format(e))
             raise
