@@ -22,12 +22,12 @@ from benpy import solve as bensolve, vlpProblem
 # %%
 vlp = vlpProblem()
 
-vlp.B = np.matrix([[2, 1], [1, 2]])    # coefficient matrix
-vlp.a = [6, 6]        # lower bounds
+vlp.B = np.matrix([[2, 1], [1, 2]])  # coefficient matrix
+vlp.a = [6, 6]  # lower bounds
 vlp.P = np.matrix([[1, -1], [1, 1]])  # objective matrix
-vlp.l = [0, 0]        # lower variable bounds
+vlp.l = [0, 0]  # lower variable bounds
 
-vlp.default_options # These are the options set by default
+vlp.default_options  # These are the options set by default
 
 vlp.to_vlp_string()
 
