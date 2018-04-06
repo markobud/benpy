@@ -1,7 +1,17 @@
 from setuptools import setup, Extension
-from Cython.Build import cythonize
-import numpy
 import os
+from warnings import warn
+
+# TODO: Build without numpy or cython!
+try:
+    from Cython.Build import cythonize
+except ImportError:
+    warn("Prior cython install is required")
+
+try:
+    import numpy
+except ImportError:
+    warn("Prior numpy install is required")
 
 ext = Extension("benpy", sources=["src/benpy.pyx",
                                   "src/bensolve-mod/bslv_main.c",
