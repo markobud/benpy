@@ -10,7 +10,10 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"ms-azuretools.vscode-docker"
+				"ms-azuretools.vscode-docker",
+				"ktnrg45.vscode-cython",
+				"franneck94.vscode-cpython-extension-pack",
+				"ms-vscode.cpptools-extension-pack"
 			]
 		}
 	}

@@ -8,5 +8,5 @@ RUN apt-get update; \
     glpk-utils \
     glpk-doc
 
-COPY requirements.txt /tmp/requirements.txt
-    RUN pip install -r /tmp/requirements.txt
+#COPY requirements.txt /tmp/requirements.txt
+#    RUN pip install -r /tmp/requirements.txt
