@@ -1,9 +1,10 @@
-from setuptools import setup, Extension
-import os
+from setuptools import setup, find_packages, Extension
+import os, numpy
 from warnings import warn
+from Cython.Build import cythonize, build_ext
 
 # TODO: Build without numpy or cython!
-try:
+""" try:
     from Cython.Build import cythonize
 except ImportError:
     warn("Prior cython install is required")
@@ -11,7 +12,7 @@ except ImportError:
 try:
     import numpy
 except ImportError:
-    warn("Prior numpy install is required")
+    warn("Prior numpy install is required") """
 
 ext = Extension("benpy", sources=["src/benpy.pyx",
                                   "src/bensolve-mod/bslv_main.c",
@@ -32,10 +33,15 @@ setup(
     version='1.0',
     description='Python Benpy Utility',
     author='Marko Budinich',
-    author_email='marko.budinich@ls2n.fr',
-    url='https://gitlab.univ-nantes.fr/mbudinich/benpy',
+    author_email='marko.budinich@gmail.com',
+    url='https://github.com/markobud/benpy',
     license='GPLv3',
     long_description='Benpy',
     ext_modules=cythonize([ext]),
-    platforms='linux, OSX', install_requires=['numpy', 'prettytable', 'scipy']
+    platforms='linux, OSX', 
+    install_requires=['numpy', 'prettytable', 'scipy'],
+    packages=find_packages(),
+    cmdclass = {
+        "build_ext": build_ext
+      }
 )
