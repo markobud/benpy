@@ -5,3 +5,4 @@ benpy.egg-info/
 src/benpy.c
 __pycache__/
 .venv
+*.so
