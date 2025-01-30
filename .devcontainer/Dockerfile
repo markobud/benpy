@@ -7,6 +7,3 @@ RUN apt-get update; \
     libglpk40 \
     glpk-utils \
     glpk-doc
-
-#COPY requirements.txt /tmp/requirements.txt
-#    RUN pip install -r /tmp/requirements.txt
