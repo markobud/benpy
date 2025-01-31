@@ -47,6 +47,9 @@ vlp.a = [0, 0, 1]
 vlp.P = matrix([[1, 0], [0, 1]])
 
 vlp.to_vlp_file('ex02.vlp')
+
+sol = bensolve(vlp)
+print(sol)
 # %%
 # Example: MOLP with 2 objectives the upper image of which has no vertex
 
@@ -54,7 +57,7 @@ vlp.to_vlp_file('ex02.vlp')
 #
 # 1 <= x1 + x2 + x3
 # 1 <= x1 + x2 - x3
-
+"""
 vlp = vlpProblem()
 
 vlp.B = matrix([[1, 1, 1], [1, 1, -1]])
@@ -62,6 +65,11 @@ vlp.a = [1, 1]
 vlp.P = matrix([[1, 0, 0], [0, 1, 0]])
 
 vlp.to_vlp_file('ex03.vlp')
+
+sol = bensolve(vlp)
+print(sol)
+"""
+
 # %%
 # Example: MOLP with 2 objectives, which is totally unbounded
 
@@ -77,6 +85,9 @@ vlp.a = [1, 1]
 vlp.P = matrix([[1, 0, 0], [0, 1, 0]])
 
 vlp.to_vlp_file('ex04.vlp')
+
+sol = bensolve(vlp)
+print(sol)
 # %%
 # Example: VLP with q = 3 and 4 generating vectors of C
 
@@ -102,6 +113,9 @@ vlp.Y = transpose(matrix([[1, 0, 0], [0, 1, 0], [-1, 0, 2], [0, -1, 2]]))
 vlp.c = [1, 1, 1]
 
 vlp.to_vlp_file('ex05.vlp')
+
+sol = bensolve(vlp)
+print(sol)
 # %%
 # Example: VLP with 2 objectives
 
@@ -128,6 +142,9 @@ vlp.s = [1, inf]		# upper bounds
 vlp.P = matrix([[1, -1], [1, 1]])  # objective matrix
 
 vlp.to_vlp_file('ex06.vlp')
+
+#sol = bensolve(vlp)
+#print(sol)
 # %%
 # Example: MOLP with 3 objectives, 1211 constraints and 1143 variables
 #
@@ -150,6 +167,9 @@ vlp.b = vstack((90.64 * ones((67, 1)), -85.3601 * ones((67, 1)), 60 *
                 ones((37, 1)), 45 * ones((8, 1)), 60 * ones((46, 1)), ones((986, 1))))
 vlp.b = vlp.b.T.tolist()[0]
 vlp.to_vlp_file('ex07.vlp')
+
+#sol = bensolve(vlp)
+#print(sol)
 # %%
 # Example: VLP with 2 objectives, which is unbounded (but not totally unbounded)
 #
@@ -176,6 +196,9 @@ vlp.Y = matrix([[-1, 3], [3 / 2, -1]])
 vlp.c = [0, 1]
 
 vlp.to_vlp_file('ex08.vlp')
+
+sol = bensolve(vlp)
+print(sol)
 # %%
 # VLP with 3 objectives, 4608 constrains and 36939 variables
 #
@@ -253,3 +276,6 @@ vlp.a = append(1, zeros((30, 1)))
 vlp.P = eye(5, 5)
 
 vlp.to_vlp_file('ex11.vlp')
+
+#sol = bensolve(vlp)
+#print(sol)
