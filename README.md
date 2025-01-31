@@ -16,7 +16,7 @@ BENPY uses distutils to install. Simply run
 
 
 ```
-python setup.py install
+pip install .
 ```
 
 
@@ -29,7 +29,6 @@ From benpy folder
 ```
 python src/tests/TestVLP.py
 ```
-
 
 
 ## Built With
@@ -57,6 +56,5 @@ This project is licensed under the GNU GPLv3 License - see the [LICENSE.md](http
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* bensolve code
+* Damian for first version

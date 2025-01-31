@@ -2,6 +2,7 @@
 build/
 dist/
 benpy.egg-info/
-src/benpy.c
+#src/benpy.c
 __pycache__/
 .venv
+*.so
