@@ -13,7 +13,8 @@
 				"ms-azuretools.vscode-docker",
 				"ktnrg45.vscode-cython",
 				"franneck94.vscode-cpython-extension-pack",
-				"ms-vscode.cpptools-extension-pack"
+				"ms-vscode.cpptools-extension-pack",
+				"tamasfe.even-better-toml"
 			]
 		}
 	}
