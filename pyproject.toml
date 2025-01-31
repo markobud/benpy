@@ -1,2 +1,26 @@
 [build-system]
 requires = ["setuptools", "Cython","numpy"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "benpy"
+version = "1.0.0"
+dependencies = ["prettytable","numpy","scipy"]
+authors = [
+    {name = 'Marko Budinich', email = "marko.budinich@gmail.com"},
+    {name = "Damien Vintache"}
+]
+maintainers = [
+    {name = 'Marko Budinich', email = "marko.budinich@gmail.com"}
+]
+
+readme = "README.md"
+
+description ='A Python wrapper around bensolve, for Vector Linear Programs (VLP) and  multiple objective linear programs (MOLP)'
+license = {text = 'GPL-3.0'}
+#license-files = ["LICENSE.md"]
+
+[project.urls]
+Repository = 'https://github.com/markobud/benpy'
+
+#long_description = 'A Python wrapper around bensolve'
