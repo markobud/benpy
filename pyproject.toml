@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools", "Cython","numpy"]
+requires = ["setuptools", "Cython","numpy", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "benpy"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = ["prettytable","numpy","scipy"]
 authors = [
     {name = 'Marko Budinich', email = "marko.budinich@gmail.com"},
