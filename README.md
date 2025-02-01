@@ -45,6 +45,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Marko Budinich** - *Initial work* - [Benpy](https://gitlab.univ-nantes.fr/mbudinich/benpy)
+* **Damien Vintache** - *Initial work* - [Benpy](https://gitlab.univ-nantes.fr/mbudinich/benpy)
 
 See also the list of [contributors](https://gitlab.univ-nantes.fr/mbudinich/benpy/contributors) who participated in this project.
 
