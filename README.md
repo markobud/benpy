@@ -1,18 +1,18 @@
 # BENPY
 
-A python wrapper of (Bensolve)[http://www.bensolve.org/]
-Internally, we use a modified version, which is available [here](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod), and under the folder `bensolve-mod`
+A python wrapper of [Bensolve](http://www.bensolve.org/)
+Internally, we use a modified version, which is available (here)[https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod], and under the folder `bensolve-mod`
 
 ## Getting Started
 
 ### Prerequisites
 
-bensolve-mod uses (glpk)[https://www.gnu.org/software/glpk/] , which have to be installed prior to benpy. Please follow site instrucctions to install
+bensolve-mod uses (glpk)[https://www.gnu.org/software/glpk/], which has to be installed prior to benpy. Please follow the site instructions to install
 
 
 ### Installing
 
-BENPY uses distutils to install. Simply run
+BENPY uses distutils to install. Run
 
 
 ```
