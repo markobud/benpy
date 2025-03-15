@@ -1,35 +1,32 @@
 # BENPY
 
-A python wrapper of Bensolve ([http://www.bensolve.org/]()). 
-Internally, we use a modified version available [here](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod). 
+A python wrapper of [Bensolve](http://www.bensolve.org/)
+Internally, we use a modified version, which is available [here](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod), and under the folder `bensolve-mod`
 
 ## Getting Started
 
 ### Prerequisites
 
-bensolve-mod uses glpk ([https://www.gnu.org/software/glpk/]()) , which have to be installed prior to benpy. Please follow site instrucctions to install
+bensolve-mod uses [glpk](https://www.gnu.org/software/glpk/), which has to be installed before benpy. Please follow the site instructions to install
 
 
 ### Installing
 
-BENPY uses distutils to install. Simply run
+BENPY uses distutils to install. Run
 
 
 ```
-python setup.py install
+pip install .
 ```
 
 
 ## Running the tests
 
-Some test are provided in src/test folder
-
-From benpy folder
+Some test cases are provided in `src/test` folder. From benpy folder
 
 ```
 python src/tests/TestVLP.py
 ```
-
 
 
 ## Built With
@@ -48,6 +45,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## Authors
 
 * **Marko Budinich** - *Initial work* - [Benpy](https://gitlab.univ-nantes.fr/mbudinich/benpy)
+* **Damien Vintache** - *Initial work* - [Benpy](https://gitlab.univ-nantes.fr/mbudinich/benpy)
 
 See also the list of [contributors](https://gitlab.univ-nantes.fr/mbudinich/benpy/contributors) who participated in this project.
 
@@ -57,6 +55,5 @@ This project is licensed under the GNU GPLv3 License - see the [LICENSE.md](http
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* bensolve code
+* Damian for first version

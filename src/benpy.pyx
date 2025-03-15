@@ -371,7 +371,7 @@ cdef class _cVlpSolution:
 
 cdef _cVlpSolution _csolve(_cVlpProblem problem):
     """"Internal function to drive solving procedure. Basically, mimics bensolve main function."""
-    elapsedTime = time.clock()
+    elapsedTime = time.process_time()
     solution = _cVlpSolution()
     solution._pre_img = problem._opt.solution
     sol_init(solution._sol,problem._vlp,problem._opt)
@@ -425,7 +425,7 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
             print("VLP is not bounded, re-run without bounded opt")
         else:
             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
-    elapsedTime = (time.clock() - elapsedTime)*1000 #Time in ms
+    elapsedTime = (time.process_time() - elapsedTime)*1000 #Time in ms
     if (problem._opt.logfile):
         logfile = problem._opt.filename.decode('UTF-8') + '.log'
         with open(logfile,'w') as logf:
