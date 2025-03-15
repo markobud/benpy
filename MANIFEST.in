@@ -1,0 +1,3 @@
+include src/benpy.pyx
+include src/bensolve-mod/*.c
+include src/bensolve-mod/*.h
