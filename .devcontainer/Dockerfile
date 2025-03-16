@@ -6,4 +6,6 @@ RUN apt-get update; \
     libglpk-dev \
     libglpk40 \
     glpk-utils \
-    glpk-doc
+    glpk-doc \
+    python3-dev \
+    python3-numpy
