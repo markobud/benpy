@@ -161,4 +161,3 @@ source ~/.bashrc
 ## 🎯 Final Notes
 - If you encounter any issues, refer to the **GLPK official documentation**: [https://www.gnu.org/software/glpk/](https://www.gnu.org/software/glpk/)
 - Ensure that `glpsol --version` outputs a valid version after installation.
-```
