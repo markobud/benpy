@@ -1,7 +1,7 @@
 # BENPY
 
-A Python wrapper for [Bensolve](http://www.bensolve.org/).  
-Internally, we use a modified version, available [here](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod), which is included in the `bensolve-mod` folder.
+A Python wrapper for [Bensolve](http://www.bensolve.org/) v2.0.1.  
+Internally, we use a slightly modified version, available [here](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod), which is included in the `bensolve-mod` folder.
 
 ---
 
