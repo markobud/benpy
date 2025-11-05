@@ -1,0 +1,316 @@
+"""
+Bensolve example problems converted from MATLAB to Python.
+
+This module contains Python definitions of the example problems from
+src/bensolve-2.1.0/ex/ for use in tests and examples.
+
+Each problem is defined as a dictionary with the necessary parameters
+to create a VLP problem and solve it.
+"""
+
+import numpy as np
+
+
+def get_example01():
+    """
+    Example 1: MOLP with 2 objectives, simplest example.
+    
+    Problem:
+        min [x1 - x2; x1 + x2]
+        
+        6 <= 2*x1 +   x2
+        6 <=   x1 + 2*x2
+        
+        x1 >= 0
+        x2 >= 0
+    
+    Returns:
+        dict: Problem parameters
+    """
+    return {
+        'name': 'example01',
+        'description': 'MOLP with 2 objectives, simplest example',
+        'B': np.array([[2.0, 1.0], [1.0, 2.0]]),
+        'P': np.array([[1.0, -1.0], [1.0, 1.0]]),
+        'a': np.array([6.0, 6.0]),
+        'l': np.array([0.0, 0.0]),
+        'opt_dir': 1
+    }
+
+
+def get_example02():
+    """
+    Example 2: MOLP with 2 objectives which is infeasible.
+    
+    Problem:
+        v-min [x1;x2]
+        
+        0 <= 3*x1 +   x2 <= 1
+        0 <=   x1 + 2*x2 <= 1
+        1 <=   x1 +   x2 <= 2
+    
+    Returns:
+        dict: Problem parameters
+    """
+    return {
+        'name': 'example02',
+        'description': 'MOLP with 2 objectives which is infeasible',
+        'B': np.array([[3.0, 1.0], [1.0, 2.0], [1.0, 1.0]]),
+        'P': np.array([[1.0, 0.0], [0.0, 1.0]]),
+        'a': np.array([0.0, 0.0, 1.0]),
+        'b': np.array([1.0, 1.0, 2.0]),
+        'opt_dir': 1
+    }
+
+
+def get_example03():
+    """
+    Example 3: MOLP with 2 objectives, upper image has no vertex.
+    
+    Problem:
+        v-min [x1;x2]
+        
+        1 <= x1 + x2 + x3
+        1 <= x1 + x2 - x3
+    
+    Returns:
+        dict: Problem parameters
+    """
+    return {
+        'name': 'example03',
+        'description': 'MOLP with 2 objectives, upper image has no vertex',
+        'B': np.array([[1.0, 1.0, 1.0], [1.0, 1.0, -1.0]]),
+        'P': np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]),
+        'a': np.array([1.0, 1.0]),
+        'opt_dir': 1
+    }
+
+
+def get_example04():
+    """
+    Example 4: MOLP with 2 objectives, which is totally unbounded.
+    
+    Problem:
+        v-min [x1;x2]
+        
+        1 <= x1 + x2 +   x3
+        1 <= x1 + x2 + 2*x3
+    
+    Returns:
+        dict: Problem parameters
+    """
+    return {
+        'name': 'example04',
+        'description': 'MOLP with 2 objectives, totally unbounded',
+        'B': np.array([[1.0, 1.0, 1.0], [1.0, 1.0, 2.0]]),
+        'P': np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]]),
+        'a': np.array([1.0, 1.0]),
+        'opt_dir': 1
+    }
+
+
+def get_example05():
+    """
+    Example 5: VLP with q = 3 and 4 generating vectors of C.
+    
+    This is a more complex problem with a custom ordering cone
+    defined by generators Y and a duality parameter c.
+    
+    See: http://bensolve.org/demo.html
+    
+    Returns:
+        dict: Problem parameters including Y and c
+    """
+    return {
+        'name': 'example05',
+        'description': 'VLP with q=3 and 4 generating vectors of C',
+        'B': np.array([[1.0, 1.0, 1.0],
+                       [1.0, 2.0, 2.0],
+                       [2.0, 2.0, 1.0],
+                       [2.0, 1.0, 2.0]]),
+        'P': np.array([[1.0, 0.0, 1.0],
+                       [1.0, 1.0, 0.0],
+                       [0.0, 1.0, 1.0]]),
+        'a': np.array([1.0, 1.5, 1.5, 1.5]),
+        'l': np.array([0.0, 0.0, 0.0]),
+        # Generating vectors of ordering cone C (transposed from MATLAB)
+        'Y': np.array([[1.0, 0.0, -1.0, 0.0],
+                       [0.0, 1.0, 0.0, -1.0],
+                       [0.0, 0.0, 2.0, 2.0]]),
+        # Duality parameter vector (must belong to interior of C)
+        'c': np.array([1.0, 1.0, 1.0]),
+        'opt_dir': 1
+    }
+
+
+def get_example06():
+    """
+    Example 6: VLP with 2 objectives, maximization problem.
+    
+    Problem:
+        max [x1 - x2; x1 + x2]
+        
+        w.r.t. cone C = {(y1,y2) | 2*y1 - y2 >= 0, -y1 + 2*y2 >= 0}
+        
+        1 <= x1 + x2 <= 2
+        
+        0 <= x1 <= 1
+        0 <= x2
+    
+    Returns:
+        dict: Problem parameters for maximization
+    """
+    return {
+        'name': 'example06',
+        'description': 'VLP with 2 objectives, maximization',
+        'B': np.array([[1.0, 1.0]]),
+        'P': np.array([[1.0, -1.0], [1.0, 1.0]]),
+        'a': np.array([1.0]),
+        'b': np.array([2.0]),
+        'l': np.array([0.0, 0.0]),
+        's': np.array([1.0, np.inf]),
+        # Generators of dual of ordering cone
+        'Z': np.array([[2.0, -1.0], [-1.0, 2.0]]),
+        # Geometric duality parameter vector
+        'c': np.array([1.0, 1.0]),
+        'opt_dir': -1  # maximization
+    }
+
+
+def get_example08():
+    """
+    Example 8: VLP with 2 objectives, unbounded but not totally unbounded.
+    
+    The solution consists of feasible points and feasible directions.
+    
+    Problem:
+        min_C [x1;x2]
+        
+        ordering cone C is generated by [-1;3/2] and [3;-1]
+        duality parameter c is set to [0;1], an interior point of C
+        
+        0 <= 3*x1 +   x2
+        0 <=   x1 + 2*x2
+        1 <=   x1 +   x2
+    
+    Returns:
+        dict: Problem parameters
+    """
+    return {
+        'name': 'example08',
+        'description': 'VLP unbounded but not totally unbounded',
+        'B': np.array([[3.0, 1.0], [1.0, 2.0], [1.0, 1.0]]),
+        'P': np.array([[1.0, 0.0], [0.0, 1.0]]),
+        'a': np.array([0.0, 0.0, 1.0]),
+        # Generating vectors of ordering cone C
+        'Y': np.array([[-1.0, 3.0], [1.5, -1.0]]),
+        'c': np.array([0.0, 1.0]),
+        'opt_dir': 1
+    }
+
+
+def get_example11():
+    """
+    Example 11: MOLP with q=5, unbounded.
+    
+    Recession cone of upper image has 22 extreme directions
+    (main effort in phase 1).
+    
+    Returns:
+        dict: Problem parameters
+    """
+    return {
+        'name': 'example11',
+        'description': 'MOLP with q=5, unbounded, 22 extreme directions',
+        'B': np.array([
+            [1.0, 1.0, 1.0, 1.0, 1.0],
+            [2.0, 1.0, 1.0, 1.0, 1.0],
+            [1.0, 2.0, 1.0, 1.0, 1.0],
+            [1.0, 1.0, 2.0, 1.0, 1.0],
+            [1.0, 1.0, 1.0, 2.0, 1.0],
+            [1.0, 1.0, 1.0, 1.0, 2.0],
+            [2.0, 2.0, 1.0, 1.0, 1.0],
+            [2.0, 1.0, 2.0, 1.0, 1.0],
+            [2.0, 1.0, 1.0, 2.0, 1.0],
+            [2.0, 1.0, 1.0, 1.0, 2.0],
+            [1.0, 2.0, 2.0, 1.0, 1.0],
+            [1.0, 2.0, 1.0, 2.0, 1.0],
+            [1.0, 2.0, 1.0, 1.0, 2.0],
+            [1.0, 1.0, 2.0, 2.0, 1.0],
+            [1.0, 1.0, 2.0, 1.0, 2.0],
+            [1.0, 1.0, 1.0, 2.0, 2.0],
+            [2.0, 2.0, 2.0, 1.0, 1.0],
+            [2.0, 2.0, 1.0, 2.0, 1.0],
+            [2.0, 2.0, 1.0, 1.0, 2.0],
+            [2.0, 1.0, 2.0, 1.0, 2.0],
+            [2.0, 1.0, 1.0, 2.0, 2.0],
+            [1.0, 2.0, 2.0, 2.0, 1.0],
+            [1.0, 2.0, 1.0, 2.0, 2.0],
+            [1.0, 2.0, 2.0, 1.0, 2.0],
+            [1.0, 2.0, 2.0, 2.0, 1.0],
+            [1.0, 1.0, 2.0, 2.0, 2.0],
+            [1.0, 2.0, 2.0, 2.0, 2.0],
+            [2.0, 1.0, 2.0, 2.0, 2.0],
+            [2.0, 2.0, 1.0, 2.0, 2.0],
+            [2.0, 2.0, 2.0, 1.0, 2.0],
+            [2.0, 2.0, 2.0, 2.0, 1.0]
+        ]),
+        'P': np.eye(5),
+        'a': np.concatenate([[1.0], np.zeros(30)]),
+        'opt_dir': 1
+    }
+
+
+# Dictionary mapping example names to their getter functions
+EXAMPLES = {
+    'example01': get_example01,
+    'example02': get_example02,
+    'example03': get_example03,
+    'example04': get_example04,
+    'example05': get_example05,
+    'example06': get_example06,
+    'example08': get_example08,
+    'example11': get_example11,
+}
+
+
+def get_all_examples():
+    """
+    Get all example problems.
+    
+    Returns:
+        dict: Dictionary mapping example names to problem dictionaries
+    """
+    return {name: getter() for name, getter in EXAMPLES.items()}
+
+
+def get_solvable_examples():
+    """
+    Get examples that should solve successfully (not infeasible or unbounded).
+    
+    Returns:
+        list: List of example names that should solve successfully
+    """
+    # Example02 is infeasible, example04 is totally unbounded, example11 is unbounded
+    # These might not produce normal solutions
+    return ['example01', 'example03', 'example05', 'example06', 'example08']
+
+
+def get_infeasible_examples():
+    """
+    Get examples that are infeasible.
+    
+    Returns:
+        list: List of example names that are infeasible
+    """
+    return ['example02']
+
+
+def get_unbounded_examples():
+    """
+    Get examples that are unbounded.
+    
+    Returns:
+        list: List of example names that are unbounded
+    """
+    return ['example04', 'example08', 'example11']

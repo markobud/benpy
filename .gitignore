@@ -12,3 +12,17 @@ __pycache__/
 
 *.so
 .pypirc
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+*.pytest_cache
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Test outputs
+*.log
+.tox/
