@@ -795,7 +795,8 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
     import os
     
     # Get the base filename from problem options
-    cdef bytes filename_bytes = problem.c_filename
+    # The filename is stored as a char array in _opt.filename
+    cdef bytes filename_bytes = problem._opt.filename
     filename = filename_bytes.decode('utf-8') if filename_bytes else ""
     
     # Define file suffixes based on bensolve conventions
