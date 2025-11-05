@@ -14,203 +14,51 @@ from io import StringIO, open as io_open
 from tempfile import NamedTemporaryFile
 import sys
 
-THISVERSION = 'version MODIFIED 2.0.1'
+# Import types and enums from bslv_main.pxd
+from pxd.bslv_main cimport (
+    lp_idx, alg_type, lp_method_type, lp_hom_type, cone_out_type,
+    phase_type, format_type, lp_status_type, sol_status_type,
+    cone_gen_type, c_dir_type, swap_type, pre_img_type,
+    PRIMAL_BENSON, DUAL_BENSON,
+    PRIMAL_SIMPLEX, DUAL_SIMPLEX, DUAL_PRIMAL_SIMPLEX, LP_METHOD_AUTO,
+    HOMOGENEOUS, INHOMOGENEOUS,
+    CONE_OUT_OFF, CONE_OUT_ON,
+    PHASE0, PHASE1_PRIMAL, PHASE1_DUAL, PHASE2_PRIMAL, PHASE2_DUAL,
+    FORMAT_SHORT, FORMAT_LONG, FORMAT_AUTO,
+    LP_INFEASIBLE, LP_UNBOUNDED, LP_UNEXPECTED_STATUS, LP_UNDEFINED_STATUS, LP_OPTIMAL,
+    VLP_NOSTATUS, VLP_INFEASIBLE, VLP_UNBOUNDED, VLP_NOVERTEX, VLP_OPTIMAL, VLP_INPUTERROR, VLP_UNEXPECTED_STATUS,
+    CONE, DUALCONE, DEFAULT,
+    C_DIR_POS, C_DIR_NEG,
+    SWAP, NO_SWAP,
+    PRE_IMG_OFF, PRE_IMG_ON
+)
 
-cdef extern from "bensolve-mod/bslv_main.h":
-    cdef enum _lp_method_type:
-        PRIMAL_SIMPLEX, DUAL_SIMPLEX, DUAL_PRIMAL_SIMPLEX, LP_METHOD_AUTO
+# Import structures and functions from bslv_vlp.pxd
+from pxd.bslv_vlp cimport (
+    csatype, vlptype, soltype, opttype,
+    vlp_init, vlp_free, sol_init, sol_free, set_default_opt
+)
 
-    cdef enum _alg_type:
-        PRIMAL_BENSON, DUAL_BENSON
+# Import LP functions from bslv_lp.pxd
+from pxd.bslv_lp cimport lp_init, lp_get_num, lp_free
 
-    cdef enum _lp_method_type:
-        PRIMAL_SIMPLEX, DUAL_SIMPLEX, DUAL_PRIMAL_SIMPLEX, LP_METHOD_AUTO
+# Import algorithm phase functions from bslv_algs.pxd
+from pxd.bslv_algs cimport (
+    phase0, phase1_primal, phase2_primal,
+    phase1_dual, phase2_dual, phase2_init
+)
 
-    cdef enum _lp_hom_type:
-        HOMOGENEOUS, INHOMOGENEOUS
+# Import polytope types and functions from bslv_poly.pxd
+from pxd.bslv_poly cimport (
+    btstrg, vrtx_strg, BTCNT, ST_BT, UNST_BT, IS_ELEM,
+    poly_list, polytope, poly_args, permutation,
+    poly__initialise_permutation, poly__kill
+)
 
-    cdef enum _cone_out_type:
-        CONE_OUT_OFF, CONE_OUT_ON
+# Import list types from bslv_lists.pxd
+from pxd.bslv_lists cimport list1d, list2d, boundlist
 
-    cdef enum _phase_type:
-        PHASE0, PHASE1_PRIMAL, PHASE1_DUAL, PHASE2_PRIMAL, PHASE2_DUAL
-
-    cdef enum _format_type:
-        FORMAT_SHORT, FORMAT_LONG, FORMAT_AUTO
-
-    cdef enum _lp_status_type:
-        LP_INFEASIBLE, LP_UNBOUNDED, LP_UNEXPECTED_STATUS, LP_UNDEFINED_STATUS, LP_OPTIMAL
-
-    cdef enum _sol_status_type:
-        VLP_NOSTATUS, VLP_INFEASIBLE, VLP_UNBOUNDED, VLP_NOVERTEX, VLP_OPTIMAL, VLP_INPUTERROR
-
-    cdef enum _cone_gen_type:
-        CONE, DUALCONE, DEFAULT
-
-    cdef enum _c_dir_type:
-        C_DIR_POS, C_DIR_NEG
-
-    cdef enum _swap_type:
-        SWAP, NO_SWAP
-
-    cdef enum _pre_img_type:
-        PRE_IMG_OFF, PRE_IMG_ON
-
-
-    ctypedef int lp_idx
-    ctypedef _alg_type alg_type
-    ctypedef _lp_method_type lp_method_type
-    ctypedef _lp_hom_type lp_hom_type
-    ctypedef _cone_out_type cone_out_type
-    ctypedef _phase_type phase_type
-    ctypedef _format_type format_type
-    ctypedef _lp_status_type lp_status_type
-    ctypedef _sol_status_type sol_status_type
-    ctypedef _cone_gen_type cone_gen_type
-    ctypedef _c_dir_type c_dir_type
-    ctypedef _swap_type swap_type
-    ctypedef _pre_img_type pre_img_type
-    ctypedef _lp_hom_type lp_hom_type
-
-cdef extern from "bensolve-mod/bslv_lp.h":
-
-    ctypedef struct lptype:
-        pass
-
-    void lp_init(vlptype *vlp, lptype *lpstr)
-    int lp_get_num (lptype *lpstr)
-    void lp_free(lptype *lpstr)
-
-
-cdef extern from "bensolve-mod/bslv_algs.h":
-
-    void phase0(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr)
-    void phase1_primal(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr)
-    void phase2_primal(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr, poly_args *image)
-    void phase1_dual(soltype * sol, vlptype *vlp, opttype *opt, lptype *lpstr)
-    void phase2_dual(soltype * sol, vlptype *vlp, opttype *opt, lptype *lpstr, poly_args *image)
-    void phase2_init(soltype *sol, vlptype *vlp)
-
-
-cdef extern from "bensolve-mod/bslv_poly.h":
-
-    ctypedef size_t btstrg
-    ctypedef btstrg vrtx_strg
-    size_t BTCNT
-    size_t ST_BT(vrtx_strg *lst, size_t idx)
-    size_t UNST_BT(vrtx_strg *lst, size_t idx)
-    size_t IS_ELEM(vrtx_strg *lst, size_t idx)
-
-    ctypedef struct poly_list:
-        size_t cnt
-        size_t blcks
-        size_t *data
-
-    ctypedef struct polytope:
-        size_t dim,dim_primg
-        size_t cnt
-        size_t blcks
-        double *ip
-        double *data
-        double *data_primg
-        poly_list *adjacence
-        poly_list *incidence
-        vrtx_strg *ideal
-        vrtx_strg *used
-        vrtx_strg *sltn
-        polytope *dual
-        void (*v2h)(double *, int, double *)
-
-    ctypedef struct poly_args:
-        double eps
-        polytope primal
-        polytope dual
-
-    ctypedef struct permutation:
-        size_t cnt
-        size_t *data
-        size_t *inv
-
-    void poly__initialise_permutation (polytope *, permutation *)
-    void poly__kill(poly_args *)
-    
-
-cdef extern from "bensolve-mod/bslv_lists.h":
-    ctypedef struct list1d:
-        pass
-
-    ctypedef struct list2d:
-        pass
-
-    ctypedef struct boundlist:
-        pass
-
-cdef extern from "bensolve-mod/bslv_vlp.h":
-    ctypedef struct csatype:
-        pass
-
-    ctypedef struct vlptype:
-        list2d *A_ext     # non-zero constraint and objective coefficients: A_ext = (A,0P -I)
-        boundlist *rows            # non-standard row bounds (standard is 'f')
-        boundlist *cols            # non-standard column bounds (standard is 's')
-        int optdir     # 1 for minimization, -1 for maximization
-        cone_gen_type cone_gen           # type of ordering cone generators CONE: CONE | DUALCONE | DEFAULT
-        double *gen     # generators of ordering cone (primal or dual)
-        double *c     # duality parameter vector (given data, unscaled)
-        long int nz     # number of non-zero entries of A
-        long int nzobj     # number of non-zero entries of P
-        lp_idx n     # number of variables (cols)
-        lp_idx m     # number of constraints (rows)
-        lp_idx q     # number of objectives
-        lp_idx n_gen     # number of generators of ordering cone (primal or dual)
-
-    ctypedef struct soltype:
-        lp_idx m            # number of rows (constraints)
-        lp_idx n            # number of cols (variables)
-        lp_idx q            # number of objectives
-        lp_idx o            # number of generators of ordering cone (after vertex enumeration and scaling)
-        lp_idx p            # number of generators of dual of ordering cone (after vertex enumeration and scaling)
-        lp_idx r            # number of generators of dual cone of recession cone of upper image
-        lp_idx h            # number of generators of recession cone of upper image
-        double *eta            # result of phase0
-        double *Y            # generators of ordering cone as columns of Y (non-redundant and scaled columns)
-        double *Z            # generators of dual cone of C as columns in matrix Z (non-redundant and scaled columns that that Z' * c == (1,...,1)')
-        double *c            # geometric duality parameter vector (scaled such that c_q=1)
-        double *R            # result of phase1: columns are generators of dual cone of recession cone of upper image
-        double *H            # result of phase1: columns are generators of recession cone of upper image
-        sol_status_type status           # solution status of VLP
-        c_dir_type c_dir           # type of duality parameter vector
-        size_t pp            # number of vertices of upper image
-        size_t dd            # number of vertices of lower image
-        size_t pp_dir            # number of extreme directions of upper image
-        size_t dd_dir            # number of extreme directions of lower image
-
-    ctypedef struct opttype:
-        int bounded
-        int plot
-        int printfiles                                  # boolean to print output files
-        int logfile                                     # boolean to print log file
-        char filename[255+1]
-        pre_img_type solution                           # PRE_IMG_OFF - PRE_IMG_ON
-        format_type format                              # SHORT - LONG - AUTO
-        lp_method_type lp_method_phase0                 # PRIMAL_SIMPLEX - DUAL_SIMPLEX - DUAL
-        lp_method_type lp_method_phase1                 # PRIMAL_SIMPLEX - DUAL_SIMPLEX - DUAL
-        lp_method_type lp_method_phase2                 # PRIMAL_SIMPLEX - DUAL_SIMPLEX - DUAL
-        int message_level                               # 0 - 1 - 2 - 3
-        int lp_message_level                            # 0 - 1 - 2 - 3
-        alg_type alg_phase1                             # PRIMAL - DUAL
-        alg_type alg_phase2                             # PRIMAL - DUAL
-        double eps_phase0                               # Epsilon used in Phas
-        double eps_phase1                               # Epsilon used in Phas
-        double eps_benson_phase1                        # Epsilon of Benson algorithm 
-        double eps_benson_phase2                        # Epsilon of Benson algorithm 
-
-    void set_default_opt(opttype *opt)
-    int vlp_init(csatype *csa, vlptype *vlp, opttype *opt)
-    void vlp_free(vlptype *vlp)
-    void sol_init(soltype *sol, vlptype *vlp, opttype *opt)
-    void sol_free(soltype *sol)
-    void set_input(csatype *csa, char *filename)
+THISVERSION = 'version 2.1.0'
 
 def par_indent(func):
     def func_wrappper(text):
@@ -221,26 +69,16 @@ cdef class _cVlpProblem:
     """Internal Wrap Class for Problem structure"""
     cdef opttype* _opt 
     cdef vlptype* _vlp
-    cdef lptype* _lps
-    cdef csatype* _csa
     cdef char* c_filename
 
-
-    @par_indent
-    def warn(text):
-        return warn(text)
 
     def __cinit__(self):
         self._opt = <opttype *>malloc(sizeof(opttype))
         self._vlp = <vlptype *>malloc(sizeof(vlptype))
-        self._lps = <lptype *>malloc(sizeof (lptype))
-        self._csa = <csatype *>malloc(sizeof(csatype))
 
     def __dealloc__(self):
         free(self._opt)
         free(self._vlp)
-        free(self._lps)
-        free(self._csa)
 
     def __init__(self):
         set_default_opt(self._opt)
@@ -326,9 +164,14 @@ cdef class _cVlpProblem:
             elif (attr == "eps_benson_phase2"):
                 self._opt.eps_benson_phase2 = val
             elif (attr == "write_files"):
-                self._opt.printfiles = val
+                # Note: bensolve-2.1.0 removed printfiles field
+                # File writing is now controlled through other means
+                warn("'write_files' option not supported in bensolve-2.1.0, ignoring")
             elif (attr == "log_file"):
-                self._opt.logfile = val
+                # Note: bensolve-2.1.0 removed logfile field
+                # Logging is now controlled through other means
+                warn("'log_file' option not supported in bensolve-2.1.0, ignoring")
+
 
     @property
     def options(self):
@@ -341,8 +184,7 @@ cdef class _cVlpProblem:
 
         basename, _ = splitext(filename)
         self.set_options({'filename':basename})
-        set_input(self._csa,filename)
-        if(vlp_init(self._csa,self._vlp,self._opt)):
+        if(vlp_init(filename,self._vlp,self._opt)):
             print("Error in reading")
 
     def toString(self):
@@ -354,17 +196,16 @@ cdef class _cVlpProblem:
 cdef class _cVlpSolution:
     """Internal Wrap Class for Solution structure."""
     cdef soltype* _sol
-    cdef poly_args* _image
+    # Note: _image field removed - bensolve-2.1.0 API no longer provides direct access to polytope data
+    # Polytope output handling needs to be reimplemented in future phases
     cdef int _pre_img
     cdef object argtype
 
     def __cinit__(self):
         self._sol = <soltype *>malloc(sizeof(soltype))
-        self._image = <poly_args *>malloc(sizeof(poly_args))
 
     def __dealloc__(self):
         free(self._sol)
-        free(self._image)
 
     def toString(self):
         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))
@@ -378,14 +219,14 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
 
     if(solution._sol.status == VLP_INPUTERROR):
         print("Error in reading")
-    lp_init(problem._vlp, problem._lps)
+    lp_init(problem._vlp)
     if(problem._opt.bounded):
         phase2_init(solution._sol, problem._vlp)
     else:
         #Phase 0
         if(problem._opt.message_level >= 3):
             print("Starting Phase 0")
-        phase0(solution._sol, problem._vlp, problem._opt, problem._lps)
+        phase0(solution._sol, problem._vlp, problem._opt)
         if (solution._sol.status == VLP_UNBOUNDED):
             print("VLP is totally unbounded, there is no solution")
         if (solution._sol.status == VLP_NOVERTEX):
@@ -399,22 +240,22 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
         if (problem._opt.alg_phase1 == PRIMAL_BENSON):
             if (problem._opt.message_level >= 3):
                 print("Starting Phase 1 -- Primal Algorithm")
-            phase1_primal(solution._sol,problem._vlp,problem._opt, problem._lps)
+            phase1_primal(solution._sol,problem._vlp,problem._opt)
         else:
             assert(problem._opt.alg_phase1 == DUAL_BENSON)
             if (problem._opt.message_level >= 3):
                 print("Starting Phase 1 -- Dual Algorithm")
-            phase1_dual(solution._sol,problem._vlp, problem._opt, problem._lps)
+            phase1_dual(solution._sol,problem._vlp, problem._opt)
     #Phase 2
     if(problem._opt.alg_phase2 == PRIMAL_BENSON):
         if (problem._opt.message_level >= 3):
             print("Starting Phase 2 -- Primal Algorithm")
-        phase2_primal(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
+        phase2_primal(solution._sol, problem._vlp, problem._opt)
         solution.argtype = "phase2 primal"
     else:
         if (problem._opt.message_level >=3):
             print("Starting Phase 2 -- Dual Algorithm")
-        phase2_dual(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
+        phase2_dual(solution._sol, problem._vlp, problem._opt)
         solution.argtype = "phase2 dual"
 
     if (solution._sol.status == VLP_INFEASIBLE):
@@ -426,69 +267,10 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
         else:
             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
     elapsedTime = (time.process_time() - elapsedTime)*1000 #Time in ms
-    if (problem._opt.logfile):
-        logfile = problem._opt.filename.decode('UTF-8') + '.log'
-        with open(logfile,'w') as logf:
-            logf.write("BENPY a WRAPPER of BENSOLVE: VLP solver, {}\n".format(THISVERSION))
-
-            lp_method_ph0 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
-            if (problem._opt.lp_method_phase0 == PRIMAL_SIMPLEX):
-                lp_method_ph0 = "primal_simplex"
-            elif (problem._opt.lp_method_phase0 == DUAL_SIMPLEX):
-                lp_method_ph0 = "dual_simplex"
-
-            lp_method_ph1 = "auto"
-            if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
-                lp_method_ph1 = "primal_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
-                lp_method_ph1 = "dual_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):
-                lp_method_ph1 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
-
-            lp_method_ph2 = "auto"
-            if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
-                lp_method_ph2 = "primal_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
-                lp_method_ph2 = "dual_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):
-                lp_method_ph2 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
-                
-            format_str = "short"
-            if (problem._opt.format == FORMAT_AUTO):
-                format_str = "auto"
-            elif (problem._opt.format == FORMAT_LONG):
-                format_str = "long"
-
-            logf.write("Problem parameters\n");
-            logf.write("  problem file:      {}\n".format(problem._opt.filename.decode()))
-            logf.write("  problem rows:      {}\n".format(problem._vlp.m))
-            logf.write("  problem columns:   {}\n".format(problem._vlp.n))
-            logf.write("  matrix non-zeros:  {}\n".format(problem._vlp.nz))
-            logf.write("  primal generators: {}\n".format(solution._sol.o))
-            logf.write("  dual generators:   {}\n".format(solution._sol.p))
-            logf.write("Options")
-            logf.write("  bounded:            {}\n".format("yes (run phase 2 only)"  if problem._opt.bounded  else  "no (run phases 0 to 2)"))
-            logf.write("  solution:           {}\n".format("off (no solution output)" if problem._opt.solution == PRE_IMG_OFF  else "on (solutions (pre-image) written to files)")) 
-            logf.write("  format:             {}\n".format(format_str))
-            logf.write("  lp_method_phase0:   {}\n".format(lp_method_ph0))
-            logf.write("  lp_method_phase1:   {}\n".format(lp_method_ph1))
-            logf.write("  lp_method_phase2:   {}\n".format(lp_method_ph2))
-            logf.write("  message_level:      {}\n".format(problem._opt.message_level))
-            logf.write("  lp_message_level:   {}\n".format(problem._opt.lp_message_level))
-            logf.write("  alg_phase1:         {}\n".format( "primal"  if problem._opt.alg_phase1 == PRIMAL_BENSON  else  "dual"))
-            logf.write("  alg_phase2:         {}\n".format( "primal"  if problem._opt.alg_phase2 == PRIMAL_BENSON  else  "dual"))
-            logf.write("  eps_benson_phase1:  {}\n".format(problem._opt.eps_benson_phase1))
-            logf.write("  eps_benson_phase2:  {}\n".format(problem._opt.eps_benson_phase2))
-            logf.write("  eps_phase0:         {}\n".format(problem._opt.eps_phase0))
-            logf.write("  eps_phase1:         {}\n".format(problem._opt.eps_phase1))
-            logf.write("Computational results")
-            logf.write("  CPU time (ms):      {:.4}\n".format(elapsedTime))
-            logf.write("  # LPs:              {}\n".format(lp_get_num(problem._lps)))
-            logf.write("Solution properties")
-            logf.write("  # primal solution points:     {}\n".format(solution._sol.pp))
-            logf.write("  # primal solution directions: {}\n".format(solution._sol.pp_dir))
-            logf.write("  # dual solution points:       {}\n".format(solution._sol.dd))
-            logf.write("  # dual solution directions:   {}\n".format(solution._sol.dd_dir))
+    # Note: bensolve-2.1.0 removed logfile option
+    # Log file generation would need to be reimplemented if needed
+    # if (problem._opt.logfile):
+    #     ...
     return(solution)
 
 cdef _poly__vrtx2arr(polytope* poly,permutation* prm):
@@ -517,7 +299,8 @@ cdef _poly__vrtx2arr(polytope* poly,permutation* prm):
 
 cdef _poly__adj2arr(polytope *poly, permutation *prm):
     """Internal function. Mimics poly__adj2file function, but returns adjacency as a list of lists instead of writing to a file."""
-    cdef size_t *vrtx, *nghbr 
+    cdef size_t *vrtx
+    cdef size_t *nghbr 
     cdef size_t k, l
     adj = []
     k = 0
@@ -539,7 +322,8 @@ cdef _poly__adj2arr(polytope *poly, permutation *prm):
 
 cdef _poly__inc2arr(polytope *poly, permutation *prm, permutation *prm_dual):
     """Internal function. Mimics poly__inc2file function, but returns incidence as a list of lists instead of writing to a file."""
-    cdef size_t *fct, *vrtx
+    cdef size_t *fct
+    cdef size_t *vrtx
     cdef size_t k, l
 
     k=0
@@ -578,44 +362,35 @@ cdef _poly__primg2arr(polytope *poly, permutation *prm):
     return(np.asarray(preimg))
 
 cdef _poly_output(_cVlpSolution s,swap = 0):
-    """Internal function. Mimics poly_output original functionality, but instead calling poly__*2file functions, use their _poly_*2arr counterparts to get the data."""
-    cdef polytope *primal
-    cdef polytope *dual
-    if (not swap):
-        primal = &(s._image).primal
-        dual = &(s._image).dual
-    else:
-        dual = &(s._image).primal
-        primal = &(s._image).dual
-
-    cdef size_t k
-
-    for k in range(dual.cnt):
-        if (IS_ELEM(dual.used,k)):
-            ST_BT(dual.sltn,k)
-
-    for k in range(primal.cnt):
-        if (IS_ELEM(primal.used,k)):
-            ST_BT(primal.sltn, k)
-
-    cdef permutation prm,prm_dual
-    poly__initialise_permutation (primal,&prm)
-    poly__initialise_permutation (dual,&prm_dual)
-
-    ls1_p, ls2_p = _poly__vrtx2arr(primal,&prm)
-    adj_p = _poly__adj2arr(primal,&prm)
-    ls1_d, ls2_d = _poly__vrtx2arr(dual,&prm_dual)
-    adj_d = _poly__adj2arr(dual,&prm_dual)
-    inc_p = _poly__inc2arr(primal,&prm,&prm_dual)
-    inc_d = _poly__inc2arr(dual,&prm_dual,&prm)
+    """
+    Internal function. Mimics poly_output original functionality.
+    
+    TODO: bensolve-2.1.0 API change - polytope data is no longer directly accessible.
+    Phase2 functions create poly_args internally and don't expose them.
+    Options to fix:
+    1. Read polytope data from files written by bensolve
+    2. Modify bensolve-2.1.0 to expose polytope data
+    3. Use alternative API if available
+    
+    For now, returning empty/placeholder data to allow compilation.
+    """
+    warn("WARNING: Polytope data extraction not yet implemented for bensolve-2.1.0 API. "
+         "Returning placeholder data. Full functionality requires additional implementation.")
+    
+    # Return placeholder empty data structures
+    import numpy as np
+    ls1_p = []
+    ls2_p = np.array([])
+    adj_p = []
+    inc_p = []
     pre_p = None
+    
+    ls1_d = []
+    ls2_d = np.array([])
+    adj_d = []
+    inc_d = []
     pre_d = None
-    if s._pre_img:
-        pre_p = _poly__primg2arr(primal,&prm)
-        pre_d = _poly__primg2arr(dual,&prm_dual)
-    else:
-        warn("\nPre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")
-
+    
     return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))
 
 class vlpProblem:

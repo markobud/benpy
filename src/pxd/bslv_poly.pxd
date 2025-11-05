@@ -41,6 +41,7 @@ cdef extern from "bensolve-2.1.0/bslv_poly.h":
         size_t dim
         size_t dim_primg_prml
         size_t dim_primg_dl
+        unsigned int ideal
         size_t idx
         double *val
         double *val_primg_prml
@@ -48,6 +49,8 @@ cdef extern from "bensolve-2.1.0/bslv_poly.h":
         double eps
         polytope primal
         polytope dual
+        void (*primalV2dualH)()
+        void (*dualV2primalH)()
     
     ctypedef struct permutation:
         size_t cnt

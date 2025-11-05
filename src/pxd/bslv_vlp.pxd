@@ -4,11 +4,11 @@ Cython declarations for bensolve-2.1.0 bslv_vlp.h
 Contains VLP problem and solution structures
 """
 
-from .bslv_main cimport (
+from pxd.bslv_main cimport (
     lp_idx, cone_gen_type, sol_status_type, c_dir_type,
     pre_img_type, format_type, lp_method_type, alg_type
 )
-from .bslv_lists cimport list2d, boundlist
+from pxd.bslv_lists cimport list2d, boundlist
 
 cdef extern from "bensolve-2.1.0/bslv_vlp.h":
     # Structures
@@ -72,8 +72,8 @@ cdef extern from "bensolve-2.1.0/bslv_vlp.h":
     # Functions
     int vlp_init(const char *filename, vlptype *vlp, const opttype *opt)
     int set_opt(opttype *opt, const int argc, char **argv)
-    int write_log_file(vlptype *vlp, soltype *sol, opttype *opt, double elapsedTime, int lp_num)
-    void display_info(opttype *opt, double elapsedTime, int lp_num)
+    int write_log_file(const vlptype *vlp, const soltype *sol, const opttype *opt, double elapsedTime, int lp_num)
+    void display_info(const opttype *opt, double elapsedTime, int lp_num)
     void vlp_free(vlptype *vlp)
     int sol_init(soltype *sol, const vlptype *vlp, const opttype *opt)
     void sol_free(soltype *sol)
