@@ -355,6 +355,8 @@ cdef class _cVlpProblem:
             
             # Allocate and store generators
             self._vlp.gen = <double*>malloc(Y_sparse.shape[0] * Y_sparse.shape[1] * sizeof(double))
+            if self._vlp.gen == NULL:
+                raise MemoryError("Failed to allocate memory for ordering cone generators")
             for i in range(len(K_vals)):
                 idx = K_rows[i] * Y_sparse.shape[1] + K_cols[i]
                 self._vlp.gen[idx] = K_vals[i]
@@ -367,6 +369,8 @@ cdef class _cVlpProblem:
             
             # Allocate and store generators
             self._vlp.gen = <double*>malloc(Z_sparse.shape[0] * Z_sparse.shape[1] * sizeof(double))
+            if self._vlp.gen == NULL:
+                raise MemoryError("Failed to allocate memory for dual cone generators")
             for i in range(len(K_vals)):
                 idx = K_rows[i] * Z_sparse.shape[1] + K_cols[i]
                 self._vlp.gen[idx] = K_vals[i]
@@ -380,6 +384,8 @@ cdef class _cVlpProblem:
             if len(c) != q:
                 raise ValueError(f"c must have length {q}, got {len(c)}")
             self._vlp.c = <double*>malloc(q * sizeof(double))
+            if self._vlp.c == NULL:
+                raise MemoryError("Failed to allocate memory for duality parameter vector")
             for i in range(q):
                 self._vlp.c[i] = c[i]
         else:
