@@ -80,10 +80,23 @@ cdef class _cVlpProblem:
     def __cinit__(self):
         self._opt = <opttype *>malloc(sizeof(opttype))
         self._vlp = <vlptype *>malloc(sizeof(vlptype))
+        if self._opt == NULL or self._vlp == NULL:
+            raise MemoryError("Failed to allocate problem structures")
+        
+        # Initialize vlp members to NULL for safe cleanup
+        self._vlp.A_ext = NULL
+        self._vlp.rows = NULL
+        self._vlp.cols = NULL
+        self._vlp.gen = NULL
+        self._vlp.c = NULL
 
     def __dealloc__(self):
-        free(self._opt)
-        free(self._vlp)
+        # Free bensolve-owned members before freeing structures
+        if self._vlp != NULL:
+            vlp_free(self._vlp)
+            free(self._vlp)
+        if self._opt != NULL:
+            free(self._opt)
 
     def __init__(self):
         set_default_opt(self._opt)
@@ -183,6 +196,14 @@ cdef class _cVlpProblem:
         return(self._opt[0])
 
     def from_file(self,filename):
+        # Free any existing allocations before loading new problem
+        vlp_free(self._vlp)
+        # Re-initialize to NULL
+        self._vlp.A_ext = NULL
+        self._vlp.rows = NULL
+        self._vlp.cols = NULL
+        self._vlp.gen = NULL
+        self._vlp.c = NULL
 
         if not isinstance(filename,bytes):
             filename = filename.encode()
@@ -221,6 +242,15 @@ cdef class _cVlpProblem:
         """
         from scipy.sparse import lil_matrix, find as sparse_find
         import numpy as np
+        
+        # Free any existing allocations before creating new problem
+        vlp_free(self._vlp)
+        # Re-initialize to NULL
+        self._vlp.A_ext = NULL
+        self._vlp.rows = NULL
+        self._vlp.cols = NULL
+        self._vlp.gen = NULL
+        self._vlp.c = NULL
         
         # Convert to sparse matrices
         B_sparse = lil_matrix(B)
@@ -476,9 +506,22 @@ cdef class _cVlpSolution:
 
     def __cinit__(self):
         self._sol = <soltype *>malloc(sizeof(soltype))
+        if self._sol == NULL:
+            raise MemoryError("Failed to allocate solution structure")
+        
+        # Initialize sol members to NULL for safe cleanup
+        self._sol.eta = NULL
+        self._sol.Y = NULL
+        self._sol.Z = NULL
+        self._sol.c = NULL
+        self._sol.R = NULL
+        self._sol.H = NULL
 
     def __dealloc__(self):
-        free(self._sol)
+        # Free bensolve-owned members before freeing structure
+        if self._sol != NULL:
+            sol_free(self._sol)
+            free(self._sol)
 
     def toString(self):
         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))
@@ -591,57 +634,70 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
     elapsedTime = time.process_time()
     solution = _cVlpSolution()
     solution._pre_img = problem._opt.solution
-    sol_init(solution._sol,problem._vlp,problem._opt)
+    
+    # Check return value of sol_init (returns int in bensolve 2.1.0)
+    cdef int sol_init_status = sol_init(solution._sol, problem._vlp, problem._opt)
+    if sol_init_status != 0:
+        print("Warning: sol_init returned non-zero status: {}".format(sol_init_status))
 
     if(solution._sol.status == VLP_INPUTERROR):
         print("Error in reading")
+    
+    # Initialize LP (uses index 0 by default in bensolve 2.1.0)
     lp_init(problem._vlp)
-    if(problem._opt.bounded):
-        phase2_init(solution._sol, problem._vlp)
-    else:
-        #Phase 0
-        if(problem._opt.message_level >= 3):
-            print("Starting Phase 0")
-        phase0(solution._sol, problem._vlp, problem._opt)
+    
+    try:
+        if(problem._opt.bounded):
+            phase2_init(solution._sol, problem._vlp)
+        else:
+            #Phase 0
+            if(problem._opt.message_level >= 3):
+                print("Starting Phase 0")
+            phase0(solution._sol, problem._vlp, problem._opt)
+            if (solution._sol.status == VLP_UNBOUNDED):
+                print("VLP is totally unbounded, there is no solution")
+            if (solution._sol.status == VLP_NOVERTEX):
+                print("upper image of VLP has no vertex, not covered by this version")
+            if (problem._opt.message_level >= 2):
+                eta = []
+                for k in range(problem._vlp.q):
+                    eta.append(solution._sol.eta[<int>k])
+                print("Result of phase 0: eta " + str(eta))
+            #Phase 1
+            if (problem._opt.alg_phase1 == PRIMAL_BENSON):
+                if (problem._opt.message_level >= 3):
+                    print("Starting Phase 1 -- Primal Algorithm")
+                phase1_primal(solution._sol,problem._vlp,problem._opt)
+            else:
+                assert(problem._opt.alg_phase1 == DUAL_BENSON)
+                if (problem._opt.message_level >= 3):
+                    print("Starting Phase 1 -- Dual Algorithm")
+                phase1_dual(solution._sol,problem._vlp, problem._opt)
+        #Phase 2
+        if(problem._opt.alg_phase2 == PRIMAL_BENSON):
+            if (problem._opt.message_level >= 3):
+                print("Starting Phase 2 -- Primal Algorithm")
+            phase2_primal(solution._sol, problem._vlp, problem._opt)
+            solution.argtype = "phase2 primal"
+        else:
+            if (problem._opt.message_level >=3):
+                print("Starting Phase 2 -- Dual Algorithm")
+            phase2_dual(solution._sol, problem._vlp, problem._opt)
+            solution.argtype = "phase2 dual"
+
+        if (solution._sol.status == VLP_INFEASIBLE):
+            print("VLP Infeasible")
+
         if (solution._sol.status == VLP_UNBOUNDED):
-            print("VLP is totally unbounded, there is no solution")
-        if (solution._sol.status == VLP_NOVERTEX):
-            print("upper image of VLP has no vertex, not covered by this version")
-        if (problem._opt.message_level >= 2):
-            eta = []
-            for k in range(problem._vlp.q):
-                eta.append(solution._sol.eta[<int>k])
-            print("Result of phase 0: eta " + str(eta))
-        #Phase 1
-        if (problem._opt.alg_phase1 == PRIMAL_BENSON):
-            if (problem._opt.message_level >= 3):
-                print("Starting Phase 1 -- Primal Algorithm")
-            phase1_primal(solution._sol,problem._vlp,problem._opt)
-        else:
-            assert(problem._opt.alg_phase1 == DUAL_BENSON)
-            if (problem._opt.message_level >= 3):
-                print("Starting Phase 1 -- Dual Algorithm")
-            phase1_dual(solution._sol,problem._vlp, problem._opt)
-    #Phase 2
-    if(problem._opt.alg_phase2 == PRIMAL_BENSON):
-        if (problem._opt.message_level >= 3):
-            print("Starting Phase 2 -- Primal Algorithm")
-        phase2_primal(solution._sol, problem._vlp, problem._opt)
-        solution.argtype = "phase2 primal"
-    else:
-        if (problem._opt.message_level >=3):
-            print("Starting Phase 2 -- Dual Algorithm")
-        phase2_dual(solution._sol, problem._vlp, problem._opt)
-        solution.argtype = "phase2 dual"
-
-    if (solution._sol.status == VLP_INFEASIBLE):
-        print("VLP Infeasible")
-
-    if (solution._sol.status == VLP_UNBOUNDED):
-        if (problem._opt.bounded == 1):
-            print("VLP is not bounded, re-run without bounded opt")
-        else:
-            print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
+            if (problem._opt.bounded == 1):
+                print("VLP is not bounded, re-run without bounded opt")
+            else:
+                print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
+    finally:
+        # Always free LP structure, even if solving fails
+        # bensolve 2.1.0 uses index 0 for the main LP
+        lp_free(0)
+    
     elapsedTime = (time.process_time() - elapsedTime)*1000 #Time in ms
     # Note: bensolve-2.1.0 removed logfile option
     # Log file generation would need to be reimplemented if needed
