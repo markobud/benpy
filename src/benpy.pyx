@@ -304,7 +304,8 @@ cdef _poly__vrtx2arr(polytope* poly,permutation* prm):
 
 cdef _poly__adj2arr(polytope *poly, permutation *prm):
     """Internal function. Mimics poly__adj2file function, but returns adjacency as a list of lists instead of writing to a file."""
-    cdef size_t *vrtx, *nghbr 
+    cdef size_t *vrtx
+    cdef size_t *nghbr 
     cdef size_t k, l
     adj = []
     k = 0
@@ -326,7 +327,8 @@ cdef _poly__adj2arr(polytope *poly, permutation *prm):
 
 cdef _poly__inc2arr(polytope *poly, permutation *prm, permutation *prm_dual):
     """Internal function. Mimics poly__inc2file function, but returns incidence as a list of lists instead of writing to a file."""
-    cdef size_t *fct, *vrtx
+    cdef size_t *fct
+    cdef size_t *vrtx
     cdef size_t k, l
 
     k=0
