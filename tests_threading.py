@@ -8,16 +8,25 @@ This test suite verifies:
 3. Sequential solves work correctly
 4. Concurrent solves are documented as unsafe
 5. Multiprocessing works as a safe alternative
+
+Note: Run from repository root with: python -m pytest tests_threading.py
+or: python tests_threading.py
 """
 
 import unittest
 import threading
 import time
-import sys
+import tempfile
+import os
 import numpy as np
-sys.path.insert(0, 'src')
 
-import benpy
+# Import benpy - works when installed or when running from repo root
+try:
+    import benpy
+except ImportError:
+    import sys
+    sys.path.insert(0, 'src')
+    import benpy
 
 
 class TestGILRelease(unittest.TestCase):
@@ -198,15 +207,28 @@ class TestPerformance(unittest.TestCase):
         
         def do_io():
             """Simulate I/O operations"""
-            while not done.is_set():
-                # Simulate file I/O
+            # Use temp file for cross-platform compatibility
+            temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.txt')
+            temp_path = temp_file.name
+            temp_file.close()
+            
+            try:
+                while not done.is_set():
+                    # Simulate file I/O
+                    try:
+                        with open(temp_path, 'w') as f:
+                            f.write('test')
+                        io_operations[0] += 1
+                    except IOError as e:
+                        # Ignore I/O errors in test
+                        pass
+                    time.sleep(0.01)
+            finally:
+                # Clean up temp file
                 try:
-                    with open('/tmp/benpy_test_io.txt', 'w') as f:
-                        f.write('test')
-                    io_operations[0] += 1
-                except:
+                    os.unlink(temp_path)
+                except OSError:
                     pass
-                time.sleep(0.01)
         
         io_thread = threading.Thread(target=do_io, daemon=True)
         io_thread.start()

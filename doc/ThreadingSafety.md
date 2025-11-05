@@ -235,7 +235,7 @@ python tests_threading.py -v
 
 ## Changelog
 
-- **2024-11**: Initial GIL release implementation (Phase 2)
+- **November 2025**: Initial GIL release implementation (Phase 2)
   - Added `nogil` blocks around phase0, phase1, phase2
   - Documented thread safety limitations
   - Added threading tests
