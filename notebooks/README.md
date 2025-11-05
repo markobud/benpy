@@ -11,6 +11,16 @@ This directory contains Jupyter notebooks demonstrating the use of benpy for sol
   - Both direct and traditional interfaces
   - Basic constraint and objective setup
 
+- **example02.ipynb** - Infeasible Problem Detection
+  - Demonstrates infeasibility handling
+  - Error detection and reporting
+  - Understanding contradictory constraints
+
+- **example03.ipynb** - Upper Image with No Vertex
+  - Special problem structure
+  - More variables than objectives
+  - Problems where upper image has no vertex
+
 ### Advanced Examples
 
 - **example05.ipynb** - VLP with Custom Ordering Cone
@@ -22,6 +32,11 @@ This directory contains Jupyter notebooks demonstrating the use of benpy for sol
   - Maximization (opt_dir=-1)
   - Ordering cone via dual generators Z
   - Variable and constraint bounds
+
+- **example08.ipynb** - Unbounded Problem (Partially)
+  - Unbounded but not totally unbounded
+  - Solutions with vertices and extreme directions
+  - Custom ordering cone usage
 
 ## Running the Notebooks
 
@@ -51,9 +66,12 @@ Then navigate to the `notebooks/` directory and open any example.
 ## Example Problem Sources
 
 These examples are based on the MATLAB examples from the bensolve distribution:
-- `src/bensolve-2.1.0/ex/example01.m`
-- `src/bensolve-2.1.0/ex/example05.m`
-- `src/bensolve-2.1.0/ex/example06.m`
+- `src/bensolve-2.1.0/ex/example01.m` - Simple MOLP
+- `src/bensolve-2.1.0/ex/example02.m` - Infeasible problem
+- `src/bensolve-2.1.0/ex/example03.m` - No vertex in upper image
+- `src/bensolve-2.1.0/ex/example05.m` - Custom ordering cone
+- `src/bensolve-2.1.0/ex/example06.m` - Maximization
+- `src/bensolve-2.1.0/ex/example08.m` - Partially unbounded
 
 They have been converted to Python and adapted to demonstrate benpy's features.
 
@@ -69,6 +87,8 @@ They have been converted to Python and adapted to demonstrate benpy's features.
 - **VLP** (Vector Linear Programming): Problems with custom ordering cones
 - **Minimization and Maximization**: Both optimization directions
 - **Bounded and Unbounded**: Various constraint types
+- **Infeasible Problems**: Detection and handling
+- **Special Cases**: Problems with no vertices, unbounded directions
 
 ## Notes
 
