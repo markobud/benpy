@@ -220,6 +220,11 @@ cdef class _cVlpProblem:
         This implementation generates a VLP format string internally and uses from_file()
         to ensure perfect consistency with the file-based solve() method.
         
+        Note: This approach uses temporary file I/O to leverage the bensolve VLP parser.
+        While this adds small I/O overhead during problem setup, it guarantees
+        correctness and consistency with solve(). The overhead is minimal since file
+        operations occur only once during initialization, not during solving.
+        
         Parameters:
         -----------
         B : array-like (m x n)
@@ -243,9 +248,12 @@ cdef class _cVlpProblem:
         opt_dir : int
             Optimization direction: 1 for minimize, -1 for maximize
         """
-        from tempfile import NamedTemporaryFile
+        # Import numpy and scipy at module level would be ideal, but for Cython
+        # compatibility and to avoid circular imports, we import here
         import numpy as np
         from scipy.sparse import lil_matrix
+        from tempfile import NamedTemporaryFile
+        import os
         
         # Generate VLP format string using the same logic as vlpProblem.vlpfile
         # This ensures perfect consistency with the file-based solve() method
@@ -350,18 +358,18 @@ cdef class _cVlpProblem:
         vlp_lines.append('e')
         
         # Write to temporary file and load via from_file
+        # This ensures we use the exact same VLP parser as solve()
         with NamedTemporaryFile(mode='w+t', suffix='.vlp', delete=False) as f:
             f.write('\n'.join(vlp_lines))
             f.write('\n')
             temp_filename = f.name
         
         try:
-            # Use from_file to load the problem
-            # This ensures we use exactly the same code path as solve()
+            # Use from_file to load the problem via vlp_init() C function
+            # This ensures perfect consistency with the file-based solve() method
             self.from_file(temp_filename)
         finally:
             # Clean up temporary file
-            import os
             try:
                 os.unlink(temp_filename)
             except:
