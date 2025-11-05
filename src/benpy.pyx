@@ -1065,6 +1065,9 @@ class vlpSolution:
         self.num_vertices_lower = None
         self.Y = None
         self.Z = None
+        self.eta = None
+        self.R = None
+        self.H = None
 
     @property
     def c_vector(self):
@@ -1132,6 +1135,9 @@ def solve(problem):
     sol.num_vertices_lower = cSolution.num_vertices_lower
     sol.Y = cSolution.Y
     sol.Z = cSolution.Z
+    sol.eta = cSolution.eta
+    sol.R = cSolution.R
+    sol.H = cSolution.H
     
     del cProblem
     del cSolution
@@ -1220,6 +1226,9 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     sol.num_vertices_lower = cSolution.num_vertices_lower
     sol.Y = cSolution.Y
     sol.Z = cSolution.Z
+    sol.eta = cSolution.eta
+    sol.R = cSolution.R
+    sol.H = cSolution.H
     
     del cProblem
     del cSolution
