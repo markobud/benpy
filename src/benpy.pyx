@@ -425,6 +425,10 @@ cdef class _cVlpProblem:
         """
         Get the objective matrix P as a dense numpy array.
         Returns array of shape (q, n)
+        
+        Note: bensolve internally negates objectives for minimization problems.
+        This property returns the original user-provided objective matrix by
+        applying the appropriate sign correction.
         """
         import numpy as np
         cdef lp_idx i, j
@@ -435,7 +439,12 @@ cdef class _cVlpProblem:
         for k in range(self._vlp.nzobj):
             i = self._vlp.A_ext.idx1[self._vlp.nz + k] - 1 - self._vlp.m  # Adjust for row offset
             j = self._vlp.A_ext.idx2[self._vlp.nz + k] - 1
-            P[i, j] = self._vlp.A_ext.data[self._vlp.nz + k]
+            # bensolve negates objectives for minimization (optdir=1)
+            # so we need to negate them back to get the original matrix
+            if self._vlp.optdir == 1:
+                P[i, j] = -self._vlp.A_ext.data[self._vlp.nz + k]
+            else:
+                P[i, j] = self._vlp.A_ext.data[self._vlp.nz + k]
         
         return P
 
