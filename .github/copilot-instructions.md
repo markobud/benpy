@@ -47,7 +47,7 @@ The build process:
 
 ### Development Container
 A devcontainer is configured with:
-- Python 3.12 base image (Debian Bullseye)
+- Python 3.12 base image (Debian bullseye)
 - Pre-installed GLPK dependencies
 - VSCode extensions for Cython, C/C++, and TOML editing
 
