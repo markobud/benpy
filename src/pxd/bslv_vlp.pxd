@@ -54,8 +54,6 @@ cdef extern from "bensolve-2.1.0/bslv_vlp.h":
     ctypedef struct opttype:
         int bounded
         int plot
-        int printfiles
-        int logfile
         char filename[256]
         pre_img_type solution
         format_type format

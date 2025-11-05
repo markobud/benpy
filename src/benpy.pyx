@@ -168,9 +168,14 @@ cdef class _cVlpProblem:
             elif (attr == "eps_benson_phase2"):
                 self._opt.eps_benson_phase2 = val
             elif (attr == "write_files"):
-                self._opt.printfiles = val
+                # Note: bensolve-2.1.0 removed printfiles field
+                # File writing is now controlled through other means
+                warn("'write_files' option not supported in bensolve-2.1.0, ignoring")
             elif (attr == "log_file"):
-                self._opt.logfile = val
+                # Note: bensolve-2.1.0 removed logfile field
+                # Logging is now controlled through other means
+                warn("'log_file' option not supported in bensolve-2.1.0, ignoring")
+
 
     @property
     def options(self):
@@ -250,12 +255,12 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
     if(problem._opt.alg_phase2 == PRIMAL_BENSON):
         if (problem._opt.message_level >= 3):
             print("Starting Phase 2 -- Primal Algorithm")
-        phase2_primal(solution._sol, problem._vlp, problem._opt, solution._image)
+        phase2_primal(solution._sol, problem._vlp, problem._opt)
         solution.argtype = "phase2 primal"
     else:
         if (problem._opt.message_level >=3):
             print("Starting Phase 2 -- Dual Algorithm")
-        phase2_dual(solution._sol, problem._vlp, problem._opt, solution._image)
+        phase2_dual(solution._sol, problem._vlp, problem._opt)
         solution.argtype = "phase2 dual"
 
     if (solution._sol.status == VLP_INFEASIBLE):
@@ -267,69 +272,10 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
         else:
             print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
     elapsedTime = (time.process_time() - elapsedTime)*1000 #Time in ms
-    if (problem._opt.logfile):
-        logfile = problem._opt.filename.decode('UTF-8') + '.log'
-        with open(logfile,'w') as logf:
-            logf.write("BENPY a WRAPPER of BENSOLVE: VLP solver, {}\n".format(THISVERSION))
-
-            lp_method_ph0 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
-            if (problem._opt.lp_method_phase0 == PRIMAL_SIMPLEX):
-                lp_method_ph0 = "primal_simplex"
-            elif (problem._opt.lp_method_phase0 == DUAL_SIMPLEX):
-                lp_method_ph0 = "dual_simplex"
-
-            lp_method_ph1 = "auto"
-            if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
-                lp_method_ph1 = "primal_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
-                lp_method_ph1 = "dual_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):
-                lp_method_ph1 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
-
-            lp_method_ph2 = "auto"
-            if (problem._opt.lp_method_phase1 == PRIMAL_SIMPLEX):
-                lp_method_ph2 = "primal_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_SIMPLEX):
-                lp_method_ph2 = "dual_simplex"
-            elif (problem._opt.lp_method_phase1 == DUAL_PRIMAL_SIMPLEX):
-                lp_method_ph2 = "dual_primal_simplex (dual simplex, if not succesful, primal simplex)"
-                
-            format_str = "short"
-            if (problem._opt.format == FORMAT_AUTO):
-                format_str = "auto"
-            elif (problem._opt.format == FORMAT_LONG):
-                format_str = "long"
-
-            logf.write("Problem parameters\n");
-            logf.write("  problem file:      {}\n".format(problem._opt.filename.decode()))
-            logf.write("  problem rows:      {}\n".format(problem._vlp.m))
-            logf.write("  problem columns:   {}\n".format(problem._vlp.n))
-            logf.write("  matrix non-zeros:  {}\n".format(problem._vlp.nz))
-            logf.write("  primal generators: {}\n".format(solution._sol.o))
-            logf.write("  dual generators:   {}\n".format(solution._sol.p))
-            logf.write("Options")
-            logf.write("  bounded:            {}\n".format("yes (run phase 2 only)"  if problem._opt.bounded  else  "no (run phases 0 to 2)"))
-            logf.write("  solution:           {}\n".format("off (no solution output)" if problem._opt.solution == PRE_IMG_OFF  else "on (solutions (pre-image) written to files)")) 
-            logf.write("  format:             {}\n".format(format_str))
-            logf.write("  lp_method_phase0:   {}\n".format(lp_method_ph0))
-            logf.write("  lp_method_phase1:   {}\n".format(lp_method_ph1))
-            logf.write("  lp_method_phase2:   {}\n".format(lp_method_ph2))
-            logf.write("  message_level:      {}\n".format(problem._opt.message_level))
-            logf.write("  lp_message_level:   {}\n".format(problem._opt.lp_message_level))
-            logf.write("  alg_phase1:         {}\n".format( "primal"  if problem._opt.alg_phase1 == PRIMAL_BENSON  else  "dual"))
-            logf.write("  alg_phase2:         {}\n".format( "primal"  if problem._opt.alg_phase2 == PRIMAL_BENSON  else  "dual"))
-            logf.write("  eps_benson_phase1:  {}\n".format(problem._opt.eps_benson_phase1))
-            logf.write("  eps_benson_phase2:  {}\n".format(problem._opt.eps_benson_phase2))
-            logf.write("  eps_phase0:         {}\n".format(problem._opt.eps_phase0))
-            logf.write("  eps_phase1:         {}\n".format(problem._opt.eps_phase1))
-            logf.write("Computational results")
-            logf.write("  CPU time (ms):      {:.4}\n".format(elapsedTime))
-            logf.write("  # LPs:              {}\n".format(lp_get_num(0)))
-            logf.write("Solution properties")
-            logf.write("  # primal solution points:     {}\n".format(solution._sol.pp))
-            logf.write("  # primal solution directions: {}\n".format(solution._sol.pp_dir))
-            logf.write("  # dual solution points:       {}\n".format(solution._sol.dd))
-            logf.write("  # dual solution directions:   {}\n".format(solution._sol.dd_dir))
+    # Note: bensolve-2.1.0 removed logfile option
+    # Log file generation would need to be reimplemented if needed
+    # if (problem._opt.logfile):
+    #     ...
     return(solution)
 
 cdef _poly__vrtx2arr(polytope* poly,permutation* prm):
@@ -419,44 +365,35 @@ cdef _poly__primg2arr(polytope *poly, permutation *prm):
     return(np.asarray(preimg))
 
 cdef _poly_output(_cVlpSolution s,swap = 0):
-    """Internal function. Mimics poly_output original functionality, but instead calling poly__*2file functions, use their _poly_*2arr counterparts to get the data."""
-    cdef polytope *primal
-    cdef polytope *dual
-    if (not swap):
-        primal = &(s._image).primal
-        dual = &(s._image).dual
-    else:
-        dual = &(s._image).primal
-        primal = &(s._image).dual
-
-    cdef size_t k
-
-    for k in range(dual.cnt):
-        if (IS_ELEM(dual.used,k)):
-            ST_BT(dual.sltn,k)
-
-    for k in range(primal.cnt):
-        if (IS_ELEM(primal.used,k)):
-            ST_BT(primal.sltn, k)
-
-    cdef permutation prm,prm_dual
-    poly__initialise_permutation (primal,&prm)
-    poly__initialise_permutation (dual,&prm_dual)
-
-    ls1_p, ls2_p = _poly__vrtx2arr(primal,&prm)
-    adj_p = _poly__adj2arr(primal,&prm)
-    ls1_d, ls2_d = _poly__vrtx2arr(dual,&prm_dual)
-    adj_d = _poly__adj2arr(dual,&prm_dual)
-    inc_p = _poly__inc2arr(primal,&prm,&prm_dual)
-    inc_d = _poly__inc2arr(dual,&prm_dual,&prm)
+    """
+    Internal function. Mimics poly_output original functionality.
+    
+    TODO: bensolve-2.1.0 API change - polytope data is no longer directly accessible.
+    Phase2 functions create poly_args internally and don't expose them.
+    Options to fix:
+    1. Read polytope data from files written by bensolve
+    2. Modify bensolve-2.1.0 to expose polytope data
+    3. Use alternative API if available
+    
+    For now, returning empty/placeholder data to allow compilation.
+    """
+    warn("WARNING: Polytope data extraction not yet implemented for bensolve-2.1.0 API. "
+         "Returning placeholder data. Full functionality requires additional implementation.")
+    
+    # Return placeholder empty data structures
+    import numpy as np
+    ls1_p = []
+    ls2_p = np.array([])
+    adj_p = []
+    inc_p = []
     pre_p = None
+    
+    ls1_d = []
+    ls2_d = np.array([])
+    adj_d = []
+    inc_d = []
     pre_d = None
-    if s._pre_img:
-        pre_p = _poly__primg2arr(primal,&prm)
-        pre_d = _poly__primg2arr(dual,&prm_dual)
-    else:
-        warn("\nPre image was not saved, preimage value set to None. Include 'solution':True in problem options dictionary")
-
+    
     return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))
 
 class vlpProblem:
