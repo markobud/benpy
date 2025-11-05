@@ -68,6 +68,12 @@ main() {
     echo "  6. Generate error report"
     echo ""
     
+    # Check if python is available
+    if ! command -v python &> /dev/null; then
+        echo -e "${RED}Error: python executable not found${NC}"
+        exit 1
+    fi
+    
     # Check if setup.py exists
     if [ ! -f "$SETUP_PY" ]; then
         echo -e "${RED}Error: setup.py not found at ${SETUP_PY}${NC}"
@@ -193,11 +199,19 @@ main() {
         if [ "$COMPILE_STATUS" = "SUCCESS" ]; then
             echo "1. Verify that the compilation truly succeeded (check build artifacts)"
             echo "2. Run tests to ensure functionality is preserved"
-            echo "3. Review HeaderDiffReport.txt to understand what changed"
+            if [ -f "${REPO_ROOT}/doc/HeaderDiffReport.txt" ]; then
+                echo "3. Review HeaderDiffReport.txt to understand what changed"
+            else
+                echo "3. Review header differences to understand what changed"
+            fi
             echo "4. Consider if the upgrade can proceed directly"
         else
             echo "1. Review all error messages in the 'Compilation Output' section above"
-            echo "2. Compare with HeaderDiffReport.txt to understand API changes"
+            if [ -f "${REPO_ROOT}/doc/HeaderDiffReport.txt" ]; then
+                echo "2. Compare with HeaderDiffReport.txt to understand API changes"
+            else
+                echo "2. Compare with header differences to understand API changes"
+            fi
             echo "3. Create .pxd files to centralize C declarations (Phase 1)"
             echo "4. Update type definitions, enums, and function signatures in .pxd files"
             echo "5. Modify benpy.pyx to use cimport instead of extern blocks"
