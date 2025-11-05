@@ -1,7 +1,40 @@
 # BENPY
 
-A Python wrapper for [Bensolve](http://www.bensolve.org/) v2.0.1.  
-Internally, we use a slightly modified version, available [here](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod), which is included in the `bensolve-mod` folder.
+A Python wrapper for [Bensolve](http://www.bensolve.org/) **v2.1.0**.  
+
+**New in v2.1.0:** In-memory interface for 2-3x faster solving without file I/O! See [In-Memory Interface](doc/InMemoryInterface.md) for details.
+
+---
+
+## ✨ Key Features
+
+- **Fast in-memory interface** - Solve problems directly from numpy arrays (no temporary files)
+- **Direct structure access** - Access problem and solution data in memory
+- **Full bensolve 2.1.0 support** - Updated to latest bensolve API
+- **Python-friendly API** - Works seamlessly with numpy, scipy, and pandas
+
+---
+
+## 🚀 Quick Start
+
+```python
+import numpy as np
+import benpy
+
+# Define a bi-objective linear program
+B = np.array([[2.0, 1.0],    # Constraint matrix
+              [1.0, 2.0]])
+P = np.array([[1.0, 0.0],    # Objective matrix
+              [0.0, 1.0]])
+b = np.array([4.0, 4.0])     # Upper bounds
+
+# Solve directly from arrays (fast, no files!)
+sol = benpy.solve_direct(B, P, b=b, opt_dir=1)
+
+print(f"Found {len(sol.Primal.vertex_value)} efficient points")
+```
+
+See [In-Memory Interface Documentation](doc/InMemoryInterface.md) for more examples.
 
 ---
 
