@@ -72,10 +72,6 @@ cdef class _cVlpProblem:
     cdef char* c_filename
 
 
-    @par_indent
-    def warn(text):
-        return warn(text)
-
     def __cinit__(self):
         self._opt = <opttype *>malloc(sizeof(opttype))
         self._vlp = <vlptype *>malloc(sizeof(vlptype))
@@ -200,17 +196,16 @@ cdef class _cVlpProblem:
 cdef class _cVlpSolution:
     """Internal Wrap Class for Solution structure."""
     cdef soltype* _sol
-    cdef poly_args* _image
+    # Note: _image field removed - bensolve-2.1.0 API no longer provides direct access to polytope data
+    # Polytope output handling needs to be reimplemented in future phases
     cdef int _pre_img
     cdef object argtype
 
     def __cinit__(self):
         self._sol = <soltype *>malloc(sizeof(soltype))
-        self._image = <poly_args *>malloc(sizeof(poly_args))
 
     def __dealloc__(self):
         free(self._sol)
-        free(self._image)
 
     def toString(self):
         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))
