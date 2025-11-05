@@ -1039,6 +1039,20 @@ class vlpProblem:
         return(cProb.options)
 
 
+def _status_to_string(status):
+    """Convert sol_status_type enum to human-readable string"""
+    status_map = {
+        VLP_NOSTATUS: "no_status",
+        VLP_INFEASIBLE: "infeasible",
+        VLP_UNBOUNDED: "unbounded",
+        VLP_NOVERTEX: "no_vertex",
+        VLP_OPTIMAL: "optimal",
+        VLP_INPUTERROR: "input_error",
+        VLP_UNEXPECTED_STATUS: "unexpected_status"
+    }
+    return status_map.get(status, f"unknown_status_{status}")
+
+
 class vlpSolution:
     """Wrapper Class for a vlpSolution"""
 
@@ -1046,6 +1060,19 @@ class vlpSolution:
         self.Primal = None
         self.Dual = None
         self.c = None
+        self.status = None
+        self.num_vertices_upper = None
+        self.num_vertices_lower = None
+        self.Y = None
+        self.Z = None
+
+    @property
+    def c_vector(self):
+        """Duality parameter vector as numpy array (alias for c)"""
+        import numpy as np
+        if self.c is None:
+            return None
+        return np.array(self.c)
 
     def __str__(self):
         def string_poly(ntp_poly,**kargs):
@@ -1098,6 +1125,14 @@ def solve(problem):
     sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)
     sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)
     sol.c = c
+    
+    # Add new attributes from cSolution
+    sol.status = _status_to_string(cSolution.status)
+    sol.num_vertices_upper = cSolution.num_vertices_upper
+    sol.num_vertices_lower = cSolution.num_vertices_lower
+    sol.Y = cSolution.Y
+    sol.Z = cSolution.Z
+    
     del cProblem
     del cSolution
     tempfile.close()
@@ -1178,6 +1213,13 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)
     sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)
     sol.c = c_result
+    
+    # Add new attributes from cSolution
+    sol.status = _status_to_string(cSolution.status)
+    sol.num_vertices_upper = cSolution.num_vertices_upper
+    sol.num_vertices_lower = cSolution.num_vertices_lower
+    sol.Y = cSolution.Y
+    sol.Z = cSolution.Z
     
     del cProblem
     del cSolution
