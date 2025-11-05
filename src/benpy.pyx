@@ -55,8 +55,13 @@ from pxd.bslv_poly cimport (
     poly__initialise_permutation, poly__kill
 )
 
-# Import list types from bslv_lists.pxd
-from pxd.bslv_lists cimport list1d, list2d, boundlist
+# Import list types and functions from bslv_lists.pxd
+from pxd.bslv_lists cimport (
+    list1d, list2d, boundlist,
+    list1d_alloc, list1d_calloc, list1d_init_idx, list1d_free,
+    list2d_alloc, list2d_calloc, list2d_init_idx, list2d_free,
+    boundlist_alloc, boundlist_calloc, boundlist_init_idx, boundlist_free
+)
 
 THISVERSION = 'version 2.1.0'
 
@@ -187,8 +192,270 @@ cdef class _cVlpProblem:
         if(vlp_init(filename,self._vlp,self._opt)):
             print("Error in reading")
 
+    def from_arrays(self, B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, opt_dir=1):
+        """
+        Initialize VLP problem directly from numpy arrays, bypassing file I/O.
+        
+        Parameters:
+        -----------
+        B : array-like (m x n)
+            Constraint matrix
+        P : array-like (q x n)  
+            Objective matrix
+        a : array-like (m,), optional
+            Lower bounds for constraints (default: -inf)
+        b : array-like (m,), optional
+            Upper bounds for constraints (default: +inf)
+        l : array-like (n,), optional
+            Lower bounds for variables (default: -inf)
+        s : array-like (n,), optional
+            Upper bounds for variables (default: +inf)
+        Y : array-like (q x k), optional
+            Ordering cone generators (primal)
+        Z : array-like (q x k), optional
+            Ordering cone generators (dual)
+        c : array-like (q,), optional
+            Duality parameter vector
+        opt_dir : int
+            Optimization direction: 1 for minimize, -1 for maximize
+        """
+        from scipy.sparse import lil_matrix, find as sparse_find
+        import numpy as np
+        
+        # Convert to sparse matrices
+        B_sparse = lil_matrix(B)
+        P_sparse = lil_matrix(P)
+        
+        # Get dimensions
+        cdef lp_idx m = B_sparse.shape[0]
+        cdef lp_idx n = B_sparse.shape[1]
+        cdef lp_idx q = P_sparse.shape[0]
+        
+        if P_sparse.shape[1] != n:
+            raise ValueError(f"B and P must have same number of columns, got {n} and {P_sparse.shape[1]}")
+        
+        # Find non-zero entries
+        A_rows, A_cols, A_vals = sparse_find(B_sparse)
+        P_rows, P_cols, P_vals = sparse_find(P_sparse)
+        
+        cdef long int nz = len(A_rows)
+        cdef long int nzobj = len(P_rows)
+        
+        # Initialize vlptype structure
+        self._vlp.m = m
+        self._vlp.n = n
+        self._vlp.q = q
+        self._vlp.nz = nz
+        self._vlp.nzobj = nzobj
+        self._vlp.optdir = opt_dir
+        
+        # Allocate and populate A_ext (combined constraint and objective matrix)
+        cdef size_t total_nz = nz + nzobj
+        self._vlp.A_ext = list2d_alloc(total_nz)
+        self._vlp.A_ext.size = total_nz
+        
+        cdef size_t i
+        # Copy constraint coefficients
+        for i in range(nz):
+            self._vlp.A_ext.idx1[i] = A_rows[i] + 1  # 1-based indexing
+            self._vlp.A_ext.idx2[i] = A_cols[i] + 1
+            self._vlp.A_ext.data[i] = A_vals[i]
+        
+        # Copy objective coefficients  
+        for i in range(nzobj):
+            self._vlp.A_ext.idx1[nz + i] = m + P_rows[i] + 1  # Objectives come after constraints
+            self._vlp.A_ext.idx2[nz + i] = P_cols[i] + 1
+            self._vlp.A_ext.data[nz + i] = P_vals[i]
+        
+        # Set up row bounds
+        self._vlp.rows = boundlist_alloc(m)
+        self._vlp.rows.size = 0  # Will be set when we add non-standard bounds
+        
+        cdef lp_idx row_count = 0
+        cdef double a_val, b_val
+        for i in range(m):
+            a_val = -np.inf if a is None else a[i]
+            b_val = np.inf if b is None else b[i]
+            
+            # Only store non-standard bounds (standard is 'f' for free)
+            if np.isfinite(a_val) or np.isfinite(b_val):
+                if a_val == b_val and np.isfinite(a_val):
+                    # Fixed bound 's'
+                    self._vlp.rows.idx[row_count] = i + 1
+                    self._vlp.rows.lb[row_count] = a_val
+                    self._vlp.rows.ub[row_count] = a_val
+                    self._vlp.rows.type[row_count] = ord('s')
+                elif np.isfinite(a_val) and np.isfinite(b_val):
+                    # Double bound 'd'
+                    self._vlp.rows.idx[row_count] = i + 1
+                    self._vlp.rows.lb[row_count] = a_val
+                    self._vlp.rows.ub[row_count] = b_val
+                    self._vlp.rows.type[row_count] = ord('d')
+                elif np.isfinite(a_val):
+                    # Lower bound 'l'
+                    self._vlp.rows.idx[row_count] = i + 1
+                    self._vlp.rows.lb[row_count] = a_val
+                    self._vlp.rows.ub[row_count] = 0.0  # Unused
+                    self._vlp.rows.type[row_count] = ord('l')
+                else:
+                    # Upper bound 'u'
+                    self._vlp.rows.idx[row_count] = i + 1
+                    self._vlp.rows.lb[row_count] = 0.0  # Unused
+                    self._vlp.rows.ub[row_count] = b_val
+                    self._vlp.rows.type[row_count] = ord('u')
+                row_count += 1
+        self._vlp.rows.size = row_count
+        
+        # Set up column bounds
+        self._vlp.cols = boundlist_alloc(n)
+        self._vlp.cols.size = 0
+        
+        cdef lp_idx col_count = 0
+        cdef double l_val, s_val
+        for i in range(n):
+            l_val = -np.inf if l is None else l[i]
+            s_val = np.inf if s is None else s[i]
+            
+            # Only store non-standard bounds (standard is 's' for fixed at zero,
+            # but for variables, standard is actually 'f' for free)
+            if np.isfinite(l_val) or np.isfinite(s_val):
+                if l_val == s_val and np.isfinite(l_val):
+                    # Fixed bound 's'
+                    self._vlp.cols.idx[col_count] = i + 1
+                    self._vlp.cols.lb[col_count] = l_val
+                    self._vlp.cols.ub[col_count] = l_val
+                    self._vlp.cols.type[col_count] = ord('s')
+                elif np.isfinite(l_val) and np.isfinite(s_val):
+                    # Double bound 'd'
+                    self._vlp.cols.idx[col_count] = i + 1
+                    self._vlp.cols.lb[col_count] = l_val
+                    self._vlp.cols.ub[col_count] = s_val
+                    self._vlp.cols.type[col_count] = ord('d')
+                elif np.isfinite(l_val):
+                    # Lower bound 'l'
+                    self._vlp.cols.idx[col_count] = i + 1
+                    self._vlp.cols.lb[col_count] = l_val
+                    self._vlp.cols.ub[col_count] = 0.0  # Unused
+                    self._vlp.cols.type[col_count] = ord('l')
+                else:
+                    # Upper bound 'u'
+                    self._vlp.cols.idx[col_count] = i + 1
+                    self._vlp.cols.lb[col_count] = 0.0  # Unused
+                    self._vlp.cols.ub[col_count] = s_val
+                    self._vlp.cols.type[col_count] = ord('u')
+                col_count += 1
+        self._vlp.cols.size = col_count
+        
+        # Handle ordering cone generators
+        if Y is not None:
+            Y_sparse = lil_matrix(Y)
+            K_rows, K_cols, K_vals = sparse_find(Y_sparse)
+            self._vlp.cone_gen = CONE
+            self._vlp.n_gen = Y_sparse.shape[1]
+            
+            # Allocate and store generators
+            self._vlp.gen = <double*>malloc(Y_sparse.shape[0] * Y_sparse.shape[1] * sizeof(double))
+            for i in range(len(K_vals)):
+                idx = K_rows[i] * Y_sparse.shape[1] + K_cols[i]
+                self._vlp.gen[idx] = K_vals[i]
+                
+        elif Z is not None:
+            Z_sparse = lil_matrix(Z)
+            K_rows, K_cols, K_vals = sparse_find(Z_sparse)
+            self._vlp.cone_gen = DUALCONE
+            self._vlp.n_gen = Z_sparse.shape[1]
+            
+            # Allocate and store generators
+            self._vlp.gen = <double*>malloc(Z_sparse.shape[0] * Z_sparse.shape[1] * sizeof(double))
+            for i in range(len(K_vals)):
+                idx = K_rows[i] * Z_sparse.shape[1] + K_cols[i]
+                self._vlp.gen[idx] = K_vals[i]
+        else:
+            self._vlp.cone_gen = DEFAULT
+            self._vlp.n_gen = 0
+            self._vlp.gen = NULL
+        
+        # Handle duality parameter vector
+        if c is not None:
+            if len(c) != q:
+                raise ValueError(f"c must have length {q}, got {len(c)}")
+            self._vlp.c = <double*>malloc(q * sizeof(double))
+            for i in range(q):
+                self._vlp.c[i] = c[i]
+        else:
+            self._vlp.c = NULL
+
     def toString(self):
         return("Rowns: {}, Columns: {},  Non-zero entries: {}, Non-zero objectives: {}".format(self._vlp.m, self._vlp.n, self._vlp.nz, self._vlp.nzobj))
+
+    # Expose VLP problem data for direct access
+    @property
+    def m(self):
+        """Number of constraints"""
+        return self._vlp.m
+    
+    @property
+    def n(self):
+        """Number of variables"""
+        return self._vlp.n
+    
+    @property
+    def q(self):
+        """Number of objectives"""
+        return self._vlp.q
+    
+    @property
+    def nz(self):
+        """Number of non-zero constraint coefficients"""
+        return self._vlp.nz
+    
+    @property
+    def nzobj(self):
+        """Number of non-zero objective coefficients"""
+        return self._vlp.nzobj
+    
+    @property
+    def optdir(self):
+        """Optimization direction: 1 for minimize, -1 for maximize"""
+        return self._vlp.optdir
+    
+    @property
+    def constraint_matrix(self):
+        """
+        Get the constraint matrix A as a dense numpy array.
+        Returns array of shape (m, n)
+        """
+        import numpy as np
+        cdef lp_idx i, j
+        cdef size_t k
+        A = np.zeros((self._vlp.m, self._vlp.n))
+        
+        # Extract from A_ext (first nz entries are constraints)
+        for k in range(self._vlp.nz):
+            i = self._vlp.A_ext.idx1[k] - 1  # Convert to 0-based
+            j = self._vlp.A_ext.idx2[k] - 1
+            A[i, j] = self._vlp.A_ext.data[k]
+        
+        return A
+    
+    @property
+    def objective_matrix(self):
+        """
+        Get the objective matrix P as a dense numpy array.
+        Returns array of shape (q, n)
+        """
+        import numpy as np
+        cdef lp_idx i, j
+        cdef size_t k
+        P = np.zeros((self._vlp.q, self._vlp.n))
+        
+        # Extract from A_ext (entries after nz are objectives)
+        for k in range(self._vlp.nzobj):
+            i = self._vlp.A_ext.idx1[self._vlp.nz + k] - 1 - self._vlp.m  # Adjust for row offset
+            j = self._vlp.A_ext.idx2[self._vlp.nz + k] - 1
+            P[i, j] = self._vlp.A_ext.data[self._vlp.nz + k]
+        
+        return P
 
     cdef print_vlp_address(self):
         print(<int>self._vlp)
@@ -209,6 +476,109 @@ cdef class _cVlpSolution:
 
     def toString(self):
         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))
+
+    # Expose solution data for direct access
+    @property
+    def status(self):
+        """Solution status"""
+        return self._sol.status
+    
+    @property
+    def num_vertices_upper(self):
+        """Number of vertices in upper image"""
+        return self._sol.pp
+    
+    @property
+    def num_vertices_lower(self):
+        """Number of vertices in lower image"""
+        return self._sol.dd
+    
+    @property
+    def num_extreme_directions_upper(self):
+        """Number of extreme directions in upper image"""
+        return self._sol.pp_dir
+    
+    @property
+    def num_extreme_directions_lower(self):
+        """Number of extreme directions in lower image"""
+        return self._sol.dd_dir
+    
+    @property
+    def eta(self):
+        """Phase 0 result (if computed)"""
+        import numpy as np
+        if self._sol.eta == NULL:
+            return None
+        cdef lp_idx i
+        result = np.zeros(self._sol.q)
+        for i in range(self._sol.q):
+            result[i] = self._sol.eta[i]
+        return result
+    
+    @property
+    def Y(self):
+        """Ordering cone generators (primal) as array of shape (q, o)"""
+        import numpy as np
+        if self._sol.Y == NULL:
+            return None
+        cdef lp_idx i, j
+        result = np.zeros((self._sol.q, self._sol.o))
+        for i in range(self._sol.q):
+            for j in range(self._sol.o):
+                result[i, j] = self._sol.Y[i * self._sol.o + j]
+        return result
+    
+    @property
+    def Z(self):
+        """Dual cone generators as array of shape (q, p)"""
+        import numpy as np
+        if self._sol.Z == NULL:
+            return None
+        cdef lp_idx i, j
+        result = np.zeros((self._sol.q, self._sol.p))
+        for i in range(self._sol.q):
+            for j in range(self._sol.p):
+                result[i, j] = self._sol.Z[i * self._sol.p + j]
+        return result
+    
+    @property
+    def c_vector(self):
+        """Duality parameter vector"""
+        import numpy as np
+        if self._sol.c == NULL:
+            return None
+        cdef lp_idx i
+        result = np.zeros(self._sol.q)
+        for i in range(self._sol.q):
+            result[i] = self._sol.c[i]
+        return result
+    
+    @property
+    def R(self):
+        """Generators of dual cone of recession cone (Phase 1 result)"""
+        import numpy as np
+        if self._sol.R == NULL:
+            return None
+        cdef lp_idx i, j
+        result = np.zeros((self._sol.q, self._sol.r))
+        for i in range(self._sol.q):
+            for j in range(self._sol.r):
+                result[i, j] = self._sol.R[i * self._sol.r + j]
+        return result
+    
+    @property
+    def H(self):
+        """Generators of recession cone (Phase 1 result)"""
+        import numpy as np
+        if self._sol.H == NULL:
+            return None
+        cdef lp_idx i, j
+        result = np.zeros((self._sol.q, self._sol.h))
+        for i in range(self._sol.q):
+            for j in range(self._sol.h):
+                result[i, j] = self._sol.H[i * self._sol.h + j]
+        return result
+
 
 cdef _cVlpSolution _csolve(_cVlpProblem problem):
     """"Internal function to drive solving procedure. Basically, mimics bensolve main function."""
@@ -656,4 +1026,86 @@ def solve(problem):
     del cSolution
     tempfile.close()
     return(sol)
+
+
+def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, opt_dir=1, options=None):
+    """
+    Solve a VLP problem directly from numpy arrays, bypassing file I/O.
+    
+    This is a more efficient alternative to the standard solve() function that avoids
+    writing to temporary files.
+    
+    Parameters:
+    -----------
+    B : array-like (m x n)
+        Constraint matrix
+    P : array-like (q x n)
+        Objective matrix
+    a : array-like (m,), optional
+        Lower bounds for constraints (default: -inf)
+    b : array-like (m,), optional
+        Upper bounds for constraints (default: +inf)
+    l : array-like (n,), optional
+        Lower bounds for variables (default: -inf)
+    s : array-like (n,), optional
+        Upper bounds for variables (default: +inf)
+    Y : array-like (q x k), optional
+        Ordering cone generators (primal)
+    Z : array-like (q x k), optional
+        Ordering cone generators (dual)
+    c : array-like (q,), optional
+        Duality parameter vector
+    opt_dir : int
+        Optimization direction: 1 for minimize, -1 for maximize
+    options : dict, optional
+        Solver options (same as vlpProblem.options)
+    
+    Returns:
+    --------
+    vlpSolution
+        Solution object containing primal and dual polytopes
+        
+    Example:
+    --------
+    >>> import numpy as np
+    >>> B = np.array([[1, 1], [1, 0]])
+    >>> P = np.array([[1, 0], [0, 1]])
+    >>> b = np.array([1, 1])
+    >>> sol = solve_direct(B, P, b=b, opt_dir=1)
+    """
+    # Create and configure problem
+    cProblem = _cVlpProblem()
+    
+    # Set options
+    if options is None:
+        options = vlpProblem().default_options
+    cProblem.set_options(options)
+    
+    # Initialize from arrays (bypasses file I/O)
+    cProblem.from_arrays(B, P, a, b, l, s, Y, Z, c, opt_dir)
+    
+    # Solve
+    cSolution = _csolve(cProblem)
+    
+    # Extract results
+    ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(options['alg_phase2']=='dual'))
+    
+    sol = vlpSolution()
+    Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])
+    Dual = ntp('Dual',['vertex_type','vertex_value','adj','incidence','preimage'])
+    
+    c_result = []
+    cdef size_t k
+    for k in range(<size_t> cProblem._vlp.q):
+        c_result.append(cSolution._sol.c[k])
+    
+    sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)
+    sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)
+    sol.c = c_result
+    
+    del cProblem
+    del cSolution
+    
+    return sol
+
 
