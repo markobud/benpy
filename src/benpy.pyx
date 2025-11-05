@@ -867,7 +867,13 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
     
     # Read preimage data
     def read_preimage(filepath):
-        """Read preimage file. Each line has space-separated coordinates."""
+        """Read preimage file. Each line has space-separated coordinates.
+        
+        Returns None if:
+        - File doesn't exist
+        - File contains error message (e.g., "Solution (pre-image) was not stored")
+        - File is empty
+        """
         if not os.path.exists(filepath):
             return None
         
@@ -875,10 +881,17 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
         with open(filepath, 'r') as f:
             for line in f:
                 parts = line.strip().split()
-                if len(parts) > 0:
+                # Skip empty lines or lines that start with non-numeric text
+                # (bensolve writes "Solution (pre-image) was not stored" when -s option not used)
+                if len(parts) == 0:
+                    continue
+                # Try to parse as floats; if it fails, skip this file
+                try:
                     preimage.append([float(x) for x in parts])
-                else:
-                    preimage.append([])
+                except ValueError:
+                    # This line contains non-numeric data (likely an error message)
+                    # Return None to indicate no preimage data available
+                    return None
         
         if len(preimage) == 0:
             return None
