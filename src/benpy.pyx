@@ -196,6 +196,14 @@ cdef class _cVlpProblem:
         return(self._opt[0])
 
     def from_file(self,filename):
+        # Free any existing allocations before loading new problem
+        vlp_free(self._vlp)
+        # Re-initialize to NULL
+        self._vlp.A_ext = NULL
+        self._vlp.rows = NULL
+        self._vlp.cols = NULL
+        self._vlp.gen = NULL
+        self._vlp.c = NULL
 
         if not isinstance(filename,bytes):
             filename = filename.encode()
@@ -234,6 +242,15 @@ cdef class _cVlpProblem:
         """
         from scipy.sparse import lil_matrix, find as sparse_find
         import numpy as np
+        
+        # Free any existing allocations before creating new problem
+        vlp_free(self._vlp)
+        # Re-initialize to NULL
+        self._vlp.A_ext = NULL
+        self._vlp.rows = NULL
+        self._vlp.cols = NULL
+        self._vlp.gen = NULL
+        self._vlp.c = NULL
         
         # Convert to sparse matrices
         B_sparse = lil_matrix(B)

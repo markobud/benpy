@@ -177,6 +177,30 @@ class TestMemoryManagement(unittest.TestCase):
         # Final delete should trigger __dealloc__
         del prob
         gc.collect()
+        
+    def test_reuse_problem_object(self):
+        """Test that reusing a problem object doesn't leak memory"""
+        prob = benpy._cVlpProblem()
+        
+        # First problem
+        prob.from_arrays(self.B, self.P, b=self.b, l=self.l, opt_dir=1)
+        self.assertEqual(prob.m, 2)
+        
+        # Second problem (should free first allocation)
+        B2 = np.array([[1.0, 0.0], [0.0, 1.0], [1.0, 1.0]])
+        P2 = np.array([[1.0, 0.0], [0.0, 1.0]])
+        b2 = np.array([1.0, 1.0, 2.0])
+        
+        prob.from_arrays(B2, P2, b=b2, l=self.l, opt_dir=1)
+        self.assertEqual(prob.m, 3)
+        
+        # Third problem (should free second allocation)
+        prob.from_arrays(self.B, self.P, b=self.b, l=self.l, opt_dir=1)
+        self.assertEqual(prob.m, 2)
+        
+        # Delete should only free the last allocation
+        del prob
+        gc.collect()
 
 
 class TestMemoryInitialization(unittest.TestCase):
