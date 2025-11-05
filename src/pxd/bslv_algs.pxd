@@ -20,12 +20,12 @@ cdef extern from "bensolve-2.1.0/bslv_algs.h":
         const opttype *opt,
         cone_out_type output,
         swap_type swap
-    )
+    ) nogil
     
-    int alg(soltype *const sol, const vlptype *vlp, const opttype *opt)
-    void phase0(soltype *const sol, const vlptype *vlp, const opttype *opt)
-    void phase1_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
-    void phase2_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
-    void phase1_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
-    void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
-    void phase2_init(soltype *sol, const vlptype *vlp)
+    int alg(soltype *const sol, const vlptype *vlp, const opttype *opt) nogil
+    void phase0(soltype *const sol, const vlptype *vlp, const opttype *opt) nogil
+    void phase1_primal(soltype *const sol, const vlptype *vlp, const opttype *opt) nogil
+    void phase2_primal(soltype *const sol, const vlptype *vlp, const opttype *opt) nogil
+    void phase1_dual(soltype *const sol, const vlptype *vlp, const opttype *opt) nogil
+    void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt) nogil
+    void phase2_init(soltype *sol, const vlptype *vlp) nogil
