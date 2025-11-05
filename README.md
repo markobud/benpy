@@ -12,6 +12,7 @@ A Python wrapper for [Bensolve](http://www.bensolve.org/) **v2.1.0**.
 - **Direct structure access** - Access problem and solution data in memory
 - **Full bensolve 2.1.0 support** - Updated to latest bensolve API
 - **Python-friendly API** - Works seamlessly with numpy, scipy, and pandas
+- **GIL release for responsiveness** - Long-running solves release Python's GIL for better I/O concurrency
 
 ---
 
@@ -84,6 +85,15 @@ import benpy
 example_dir = os.path.join(os.path.dirname(benpy.__file__), "examples")
 print(f"Examples are located at: {example_dir}")
 ```
+
+---
+
+## 📚 Documentation
+
+- **[In-Memory Interface](doc/InMemoryInterface.md)** - Fast array-based interface
+- **[Threading Safety](doc/ThreadingSafety.md)** - GIL release and threading considerations
+- **[Memory Management](doc/MemoryManagement.md)** - Memory ownership patterns
+- **[Ownership Patterns](doc/OwnershipPatterns.md)** - Developer guide for contributors
 
 ---
 

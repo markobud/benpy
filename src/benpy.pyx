@@ -648,12 +648,18 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
     
     try:
         if(problem._opt.bounded):
-            phase2_init(solution._sol, problem._vlp)
+            # Release GIL for phase2_init (computational work)
+            with nogil:
+                phase2_init(solution._sol, problem._vlp)
         else:
             #Phase 0
             if(problem._opt.message_level >= 3):
                 print("Starting Phase 0")
-            phase0(solution._sol, problem._vlp, problem._opt)
+            # Release GIL for phase0 (long-running operation)
+            # Note: bensolve is not thread-safe due to global state, but releasing
+            # the GIL allows other Python threads to do I/O and improves responsiveness
+            with nogil:
+                phase0(solution._sol, problem._vlp, problem._opt)
             if (solution._sol.status == VLP_UNBOUNDED):
                 print("VLP is totally unbounded, there is no solution")
             if (solution._sol.status == VLP_NOVERTEX):
@@ -667,22 +673,30 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
             if (problem._opt.alg_phase1 == PRIMAL_BENSON):
                 if (problem._opt.message_level >= 3):
                     print("Starting Phase 1 -- Primal Algorithm")
-                phase1_primal(solution._sol,problem._vlp,problem._opt)
+                # Release GIL for phase1_primal (long-running operation)
+                with nogil:
+                    phase1_primal(solution._sol,problem._vlp,problem._opt)
             else:
                 assert(problem._opt.alg_phase1 == DUAL_BENSON)
                 if (problem._opt.message_level >= 3):
                     print("Starting Phase 1 -- Dual Algorithm")
-                phase1_dual(solution._sol,problem._vlp, problem._opt)
+                # Release GIL for phase1_dual (long-running operation)
+                with nogil:
+                    phase1_dual(solution._sol,problem._vlp, problem._opt)
         #Phase 2
         if(problem._opt.alg_phase2 == PRIMAL_BENSON):
             if (problem._opt.message_level >= 3):
                 print("Starting Phase 2 -- Primal Algorithm")
-            phase2_primal(solution._sol, problem._vlp, problem._opt)
+            # Release GIL for phase2_primal (long-running operation)
+            with nogil:
+                phase2_primal(solution._sol, problem._vlp, problem._opt)
             solution.argtype = "phase2 primal"
         else:
             if (problem._opt.message_level >=3):
                 print("Starting Phase 2 -- Dual Algorithm")
-            phase2_dual(solution._sol, problem._vlp, problem._opt)
+            # Release GIL for phase2_dual (long-running operation)
+            with nogil:
+                phase2_dual(solution._sol, problem._vlp, problem._opt)
             solution.argtype = "phase2 dual"
 
         if (solution._sol.status == VLP_INFEASIBLE):
