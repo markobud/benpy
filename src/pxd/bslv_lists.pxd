@@ -4,7 +4,7 @@ Cython declarations for bensolve-2.1.0 bslv_lists.h
 Contains list and bound list structures
 """
 
-from .bslv_main cimport lp_idx
+from pxd.bslv_main cimport lp_idx
 
 cdef extern from "bensolve-2.1.0/bslv_lists.h":
     # Structures

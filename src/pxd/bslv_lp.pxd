@@ -4,9 +4,9 @@ Cython declarations for bensolve-2.1.0 bslv_lp.h
 Contains LP solver interface functions
 """
 
-from .bslv_main cimport lp_idx, lp_status_type, phase_type
-from .bslv_lists cimport list1d, list2d, boundlist
-from .bslv_vlp cimport vlptype, opttype
+from pxd.bslv_main cimport lp_idx, lp_status_type, phase_type
+from pxd.bslv_lists cimport list1d, list2d, boundlist
+from pxd.bslv_vlp cimport vlptype, opttype
 
 cdef extern from "bensolve-2.1.0/bslv_lp.h":
     # Functions

@@ -54,6 +54,7 @@ cdef extern from "bensolve-2.1.0/bslv_main.h":
         VLP_OPTIMAL
         VLP_INPUTERROR
         VLP_UNEXPECTED_STATUS
+        VLP_UNEXPECTED_STATUS
     
     cdef enum _cone_gen_type:
         CONE

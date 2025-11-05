@@ -4,8 +4,8 @@ Cython declarations for bensolve-2.1.0 bslv_algs.h
 Contains algorithm phase functions
 """
 
-from .bslv_main cimport lp_idx, cone_out_type, swap_type
-from .bslv_vlp cimport vlptype, soltype, opttype
+from pxd.bslv_main cimport lp_idx, cone_out_type, swap_type
+from pxd.bslv_vlp cimport vlptype, soltype, opttype
 
 cdef extern from "bensolve-2.1.0/bslv_algs.h":
     # Functions
