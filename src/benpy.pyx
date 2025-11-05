@@ -215,7 +215,15 @@ cdef class _cVlpProblem:
 
     def from_arrays(self, B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, opt_dir=1):
         """
-        Initialize VLP problem directly from numpy arrays, bypassing file I/O.
+        Initialize VLP problem directly from numpy arrays.
+        
+        This implementation generates a VLP format string internally and uses from_file()
+        to ensure perfect consistency with the file-based solve() method.
+        
+        Note: This approach uses temporary file I/O to leverage the bensolve VLP parser.
+        While this adds small I/O overhead during problem setup, it guarantees
+        correctness and consistency with solve(). The overhead is minimal since file
+        operations occur only once during initialization, not during solving.
         
         Parameters:
         -----------
@@ -240,186 +248,132 @@ cdef class _cVlpProblem:
         opt_dir : int
             Optimization direction: 1 for minimize, -1 for maximize
         """
-        from scipy.sparse import lil_matrix, find as sparse_find
+        # Import numpy and scipy at module level would be ideal, but for Cython
+        # compatibility and to avoid circular imports, we import here
         import numpy as np
+        from scipy.sparse import lil_matrix
+        from tempfile import NamedTemporaryFile
+        import os
         
-        # Free any existing allocations before creating new problem
-        vlp_free(self._vlp)
-        # Re-initialize to NULL
-        self._vlp.A_ext = NULL
-        self._vlp.rows = NULL
-        self._vlp.cols = NULL
-        self._vlp.gen = NULL
-        self._vlp.c = NULL
+        # Generate VLP format string using the same logic as vlpProblem.vlpfile
+        # This ensures perfect consistency with the file-based solve() method
         
         # Convert to sparse matrices
         B_sparse = lil_matrix(B)
         P_sparse = lil_matrix(P)
         
-        # Get dimensions
-        cdef lp_idx m = B_sparse.shape[0]
-        cdef lp_idx n = B_sparse.shape[1]
-        cdef lp_idx q = P_sparse.shape[0]
+        m, n = B_sparse.shape
+        q, p = P_sparse.shape
         
-        if P_sparse.shape[1] != n:
-            raise ValueError(f"B and P must have same number of columns, got {n} and {P_sparse.shape[1]}")
+        if n != p:
+            raise ValueError(f"B and P must have same number of columns, got {n} and {p}")
         
         # Find non-zero entries
-        A_rows, A_cols, A_vals = sparse_find(B_sparse)
-        P_rows, P_cols, P_vals = sparse_find(P_sparse)
-        
-        cdef long int nz = len(A_rows)
-        cdef long int nzobj = len(P_rows)
-        
-        # Initialize vlptype structure
-        self._vlp.m = m
-        self._vlp.n = n
-        self._vlp.q = q
-        self._vlp.nz = nz
-        self._vlp.nzobj = nzobj
-        self._vlp.optdir = opt_dir
-        
-        # Allocate and populate A_ext (combined constraint and objective matrix)
-        cdef size_t total_nz = nz + nzobj
-        self._vlp.A_ext = list2d_alloc(total_nz)
-        self._vlp.A_ext.size = total_nz
-        
-        cdef size_t i
-        # Copy constraint coefficients
-        for i in range(nz):
-            self._vlp.A_ext.idx1[i] = A_rows[i] + 1  # 1-based indexing
-            self._vlp.A_ext.idx2[i] = A_cols[i] + 1
-            self._vlp.A_ext.data[i] = A_vals[i]
-        
-        # Copy objective coefficients  
-        for i in range(nzobj):
-            self._vlp.A_ext.idx1[nz + i] = m + P_rows[i] + 1  # Objectives come after constraints
-            self._vlp.A_ext.idx2[nz + i] = P_cols[i] + 1
-            self._vlp.A_ext.data[nz + i] = P_vals[i]
-        
-        # Set up row bounds
-        self._vlp.rows = boundlist_alloc(m)
-        self._vlp.rows.size = 0  # Will be set when we add non-standard bounds
-        
-        cdef lp_idx row_count = 0
-        cdef double a_val, b_val
-        for i in range(m):
-            a_val = -np.inf if a is None else a[i]
-            b_val = np.inf if b is None else b[i]
-            
-            # Only store non-standard bounds (standard is 'f' for free)
-            if np.isfinite(a_val) or np.isfinite(b_val):
-                if a_val == b_val and np.isfinite(a_val):
-                    # Fixed bound 's'
-                    self._vlp.rows.idx[row_count] = i + 1
-                    self._vlp.rows.lb[row_count] = a_val
-                    self._vlp.rows.ub[row_count] = a_val
-                    self._vlp.rows.type[row_count] = ord('s')
-                elif np.isfinite(a_val) and np.isfinite(b_val):
-                    # Double bound 'd'
-                    self._vlp.rows.idx[row_count] = i + 1
-                    self._vlp.rows.lb[row_count] = a_val
-                    self._vlp.rows.ub[row_count] = b_val
-                    self._vlp.rows.type[row_count] = ord('d')
-                elif np.isfinite(a_val):
-                    # Lower bound 'l'
-                    self._vlp.rows.idx[row_count] = i + 1
-                    self._vlp.rows.lb[row_count] = a_val
-                    self._vlp.rows.ub[row_count] = 0.0  # Unused
-                    self._vlp.rows.type[row_count] = ord('l')
-                else:
-                    # Upper bound 'u'
-                    self._vlp.rows.idx[row_count] = i + 1
-                    self._vlp.rows.lb[row_count] = 0.0  # Unused
-                    self._vlp.rows.ub[row_count] = b_val
-                    self._vlp.rows.type[row_count] = ord('u')
-                row_count += 1
-        self._vlp.rows.size = row_count
-        
-        # Set up column bounds
-        self._vlp.cols = boundlist_alloc(n)
-        self._vlp.cols.size = 0
-        
-        cdef lp_idx col_count = 0
-        cdef double l_val, s_val
-        for i in range(n):
-            l_val = -np.inf if l is None else l[i]
-            s_val = np.inf if s is None else s[i]
-            
-            # Only store non-standard bounds (standard is 's' for fixed at zero,
-            # but for variables, standard is actually 'f' for free)
-            if np.isfinite(l_val) or np.isfinite(s_val):
-                if l_val == s_val and np.isfinite(l_val):
-                    # Fixed bound 's'
-                    self._vlp.cols.idx[col_count] = i + 1
-                    self._vlp.cols.lb[col_count] = l_val
-                    self._vlp.cols.ub[col_count] = l_val
-                    self._vlp.cols.type[col_count] = ord('s')
-                elif np.isfinite(l_val) and np.isfinite(s_val):
-                    # Double bound 'd'
-                    self._vlp.cols.idx[col_count] = i + 1
-                    self._vlp.cols.lb[col_count] = l_val
-                    self._vlp.cols.ub[col_count] = s_val
-                    self._vlp.cols.type[col_count] = ord('d')
-                elif np.isfinite(l_val):
-                    # Lower bound 'l'
-                    self._vlp.cols.idx[col_count] = i + 1
-                    self._vlp.cols.lb[col_count] = l_val
-                    self._vlp.cols.ub[col_count] = 0.0  # Unused
-                    self._vlp.cols.type[col_count] = ord('l')
-                else:
-                    # Upper bound 'u'
-                    self._vlp.cols.idx[col_count] = i + 1
-                    self._vlp.cols.lb[col_count] = 0.0  # Unused
-                    self._vlp.cols.ub[col_count] = s_val
-                    self._vlp.cols.type[col_count] = ord('u')
-                col_count += 1
-        self._vlp.cols.size = col_count
+        A_rows, A_cols, A_vals = find(B_sparse)
+        k = len(A_rows)
+        P_rows, P_cols, P_vals = find(P_sparse)
+        k1 = len(P_rows)
         
         # Handle ordering cone generators
-        if Y is not None:
+        kstr = ''
+        k2 = 0
+        if Y is not None and hasattr(Y, 'shape') and Y.shape[1] > 0:
             Y_sparse = lil_matrix(Y)
-            K_rows, K_cols, K_vals = sparse_find(Y_sparse)
-            self._vlp.cone_gen = CONE
-            self._vlp.n_gen = Y_sparse.shape[1]
-            
-            # Allocate and store generators
-            self._vlp.gen = <double*>malloc(Y_sparse.shape[0] * Y_sparse.shape[1] * sizeof(double))
-            if self._vlp.gen == NULL:
-                raise MemoryError("Failed to allocate memory for ordering cone generators")
-            for i in range(len(K_vals)):
-                idx = K_rows[i] * Y_sparse.shape[1] + K_cols[i]
-                self._vlp.gen[idx] = K_vals[i]
-                
-        elif Z is not None:
+            K_rows, K_cols, K_vals = find(Y_sparse)
+            k2 = len(K_rows)
+            kstr = ' cone {} {}'.format(Y.shape[1], k2)
+        elif Z is not None and hasattr(Z, 'shape') and Z.shape[1] > 0:
             Z_sparse = lil_matrix(Z)
-            K_rows, K_cols, K_vals = sparse_find(Z_sparse)
-            self._vlp.cone_gen = DUALCONE
-            self._vlp.n_gen = Z_sparse.shape[1]
-            
-            # Allocate and store generators
-            self._vlp.gen = <double*>malloc(Z_sparse.shape[0] * Z_sparse.shape[1] * sizeof(double))
-            if self._vlp.gen == NULL:
-                raise MemoryError("Failed to allocate memory for dual cone generators")
-            for i in range(len(K_vals)):
-                idx = K_rows[i] * Z_sparse.shape[1] + K_cols[i]
-                self._vlp.gen[idx] = K_vals[i]
-        else:
-            self._vlp.cone_gen = DEFAULT
-            self._vlp.n_gen = 0
-            self._vlp.gen = NULL
+            K_rows, K_cols, K_vals = find(Z_sparse)
+            k2 = len(K_rows)
+            kstr = ' dualcone {} {}'.format(Z.shape[1], k2)
         
-        # Handle duality parameter vector
+        # Optimization direction
+        opt_dir_str = 'min' if opt_dir == 1 else 'max'
+        
+        # Build VLP format string
+        vlp_lines = []
+        vlp_lines.append("p vlp {} {} {} {} {} {}{}".format(opt_dir_str, m, n, k, q, k1, kstr))
+        
+        # Write constraint coefficients
+        for i in range(k):
+            vlp_lines.append("a {} {} {}".format(A_rows[i]+1, A_cols[i]+1, A_vals[i]))
+        
+        # Write objective coefficients
+        for i in range(k1):
+            vlp_lines.append("o {} {} {}".format(P_rows[i]+1, P_cols[i]+1, P_vals[i]))
+        
+        # Write cone generators
+        if k2 > 0:
+            for i in range(k2):
+                vlp_lines.append("k {} {} {}".format(K_rows[i]+1, K_cols[i]+1, K_vals[i]))
+        
+        # Write duality parameter vector
         if c is not None:
             if len(c) != q:
                 raise ValueError(f"c must have length {q}, got {len(c)}")
-            self._vlp.c = <double*>malloc(q * sizeof(double))
-            if self._vlp.c == NULL:
-                raise MemoryError("Failed to allocate memory for duality parameter vector")
             for i in range(q):
-                self._vlp.c[i] = c[i]
-        else:
-            self._vlp.c = NULL
+                vlp_lines.append("k {} 0 {}".format(i+1, c[i]))
+        
+        # Write row bounds
+        aa = np.full(m, -np.inf) if a is None else np.asarray(a)
+        bb = np.full(m, np.inf) if b is None else np.asarray(b)
+        
+        for i in range(m):
+            if aa[i] < bb[i]:
+                ch = 2*np.isfinite(aa[i]) + np.isfinite(bb[i])
+                if ch == 0:
+                    vlp_lines.append('i {} f'.format(i+1))
+                elif ch == 1:
+                    vlp_lines.append('i {} u {}'.format(i+1, bb[i]))
+                elif ch == 2:
+                    vlp_lines.append('i {} l {}'.format(i+1, aa[i]))
+                elif ch == 3:
+                    vlp_lines.append('i {} d {} {}'.format(i+1, aa[i], bb[i]))
+            elif aa[i] == bb[i] and np.isfinite(aa[i]):
+                vlp_lines.append('i {} s {}'.format(i+1, aa[i]))
+            else:
+                raise ValueError('Invalid constraints: a[{}]={}, b[{}]={}'.format(i, aa[i], i, bb[i]))
+        
+        # Write column bounds
+        llb = np.full(n, -np.inf) if l is None else np.asarray(l)
+        uub = np.full(n, np.inf) if s is None else np.asarray(s)
+        
+        for j in range(n):
+            if llb[j] < uub[j]:
+                ch = 2*np.isfinite(llb[j]) + np.isfinite(uub[j])
+                if ch == 0:
+                    vlp_lines.append('j {} f'.format(j+1))
+                elif ch == 1:
+                    vlp_lines.append('j {} u {}'.format(j+1, uub[j]))
+                elif ch == 2:
+                    vlp_lines.append('j {} l {}'.format(j+1, llb[j]))
+                elif ch == 3:
+                    vlp_lines.append('j {} d {} {}'.format(j+1, llb[j], uub[j]))
+            elif llb[j] == uub[j] and np.isfinite(llb[j]):
+                vlp_lines.append('j {} s {}'.format(j+1, llb[j]))
+            else:
+                raise ValueError('Invalid variable bounds: l[{}]={}, s[{}]={}'.format(j, llb[j], j, uub[j]))
+        
+        vlp_lines.append('e')
+        
+        # Write to temporary file and load via from_file
+        # This ensures we use the exact same VLP parser as solve()
+        with NamedTemporaryFile(mode='w+t', suffix='.vlp', delete=False) as f:
+            f.write('\n'.join(vlp_lines))
+            f.write('\n')
+            temp_filename = f.name
+        
+        try:
+            # Use from_file to load the problem via vlp_init() C function
+            # This ensures perfect consistency with the file-based solve() method
+            self.from_file(temp_filename)
+        finally:
+            # Clean up temporary file
+            try:
+                os.unlink(temp_filename)
+            except:
+                pass
 
     def toString(self):
         return("Rowns: {}, Columns: {},  Non-zero entries: {}, Non-zero objectives: {}".format(self._vlp.m, self._vlp.n, self._vlp.nz, self._vlp.nzobj))
@@ -479,6 +433,10 @@ cdef class _cVlpProblem:
         """
         Get the objective matrix P as a dense numpy array.
         Returns array of shape (q, n)
+        
+        Note: bensolve internally negates objectives for minimization problems.
+        This property returns the original user-provided objective matrix by
+        applying the appropriate sign correction.
         """
         import numpy as np
         cdef lp_idx i, j
@@ -489,7 +447,12 @@ cdef class _cVlpProblem:
         for k in range(self._vlp.nzobj):
             i = self._vlp.A_ext.idx1[self._vlp.nz + k] - 1 - self._vlp.m  # Adjust for row offset
             j = self._vlp.A_ext.idx2[self._vlp.nz + k] - 1
-            P[i, j] = self._vlp.A_ext.data[self._vlp.nz + k]
+            # bensolve negates objectives for minimization (optdir=1)
+            # so we need to negate them back to get the original matrix
+            if self._vlp.optdir == 1:
+                P[i, j] = -self._vlp.A_ext.data[self._vlp.nz + k]
+            else:
+                P[i, j] = self._vlp.A_ext.data[self._vlp.nz + k]
         
         return P
 
