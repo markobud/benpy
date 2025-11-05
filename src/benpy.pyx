@@ -770,37 +770,152 @@ cdef _poly__primg2arr(polytope *poly, permutation *prm):
 
     return(np.asarray(preimg))
 
-cdef _poly_output(_cVlpSolution s,swap = 0):
+cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
     """
-    Internal function. Mimics poly_output original functionality.
+    Internal function. Reads polytope data from files written by bensolve.
     
-    TODO: bensolve-2.1.0 API change - polytope data is no longer directly accessible.
-    Phase2 functions create poly_args internally and don't expose them.
-    Options to fix:
-    1. Read polytope data from files written by bensolve
-    2. Modify bensolve-2.1.0 to expose polytope data
-    3. Use alternative API if available
+    Bensolve 2.1.0 writes polytope data to files during phase2 execution.
+    This function reads those files and converts them to Python data structures.
     
-    For now, returning empty/placeholder data to allow compilation.
+    Parameters:
+    -----------
+    s : _cVlpSolution
+        Solution object containing vertex counts
+    problem : _cVlpProblem  
+        Problem object containing filename in _opt.filename
+    swap : int
+        Whether primal/dual are swapped (0 for primal, 1 for dual algorithm)
+    
+    Returns:
+    --------
+    Tuple of ((primal_data), (dual_data)) where each contains:
+        (vertex_type_list, vertex_value_array, adjacency_list, incidence_list, preimage)
     """
-    warn("WARNING: Polytope data extraction not yet implemented for bensolve-2.1.0 API. "
-         "Returning placeholder data. Full functionality requires additional implementation.")
-    
-    # Return placeholder empty data structures
     import numpy as np
-    ls1_p = []
-    ls2_p = np.array([])
-    adj_p = []
-    inc_p = []
-    pre_p = None
+    import os
     
-    ls1_d = []
-    ls2_d = np.array([])
-    adj_d = []
-    inc_d = []
-    pre_d = None
+    # Get the base filename from problem options
+    # The filename is stored as a char array in _opt.filename (max 256 chars)
+    # We need to decode it from the C string
+    filename = problem._opt.filename.decode('utf-8') if problem._opt.filename[0] != 0 else ""
     
-    return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))
+    # Define file suffixes based on bensolve conventions
+    # These match the constants in bslv_main.h:
+    # IMG_P_STR "_img_p", IMG_D_STR "_img_d", ADJ_P_STR "_adj_p", etc.
+    img_p_file = filename + "_img_p.sol"
+    img_d_file = filename + "_img_d.sol"
+    adj_p_file = filename + "_adj_p.sol"
+    adj_d_file = filename + "_adj_d.sol"
+    inc_p_file = filename + "_inc_p.sol"
+    inc_d_file = filename + "_inc_d.sol"
+    pre_img_p_file = filename + "_pre_img_p.sol"
+    pre_img_d_file = filename + "_pre_img_d.sol"
+    
+    # Read vertex data (type and values)
+    def read_vertices(filepath):
+        """Read vertex file. Format: <type> <val1> <val2> ... <valn>"""
+        if not os.path.exists(filepath):
+            return [], np.array([])
+        
+        vertex_types = []
+        vertex_values = []
+        
+        with open(filepath, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) > 0:
+                    vertex_types.append(int(parts[0]))
+                    if len(parts) > 1:
+                        vertex_values.append([float(x) for x in parts[1:]])
+        
+        if len(vertex_values) == 0:
+            return vertex_types, np.array([])
+        return vertex_types, np.array(vertex_values)
+    
+    # Read adjacency data
+    def read_adjacency(filepath):
+        """Read adjacency file. Each line has space-separated vertex indices."""
+        if not os.path.exists(filepath):
+            return []
+        
+        adjacency = []
+        with open(filepath, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) > 0:
+                    adjacency.append([int(x) for x in parts])
+                else:
+                    adjacency.append([])
+        
+        return adjacency
+    
+    # Read incidence data  
+    def read_incidence(filepath):
+        """Read incidence file. Each line has space-separated vertex indices."""
+        if not os.path.exists(filepath):
+            return []
+        
+        incidence = []
+        with open(filepath, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split()
+                if len(parts) > 0:
+                    incidence.append([int(x) for x in parts])
+                else:
+                    incidence.append([])
+        
+        return incidence
+    
+    # Read preimage data
+    def read_preimage(filepath):
+        """Read preimage file. Each line has space-separated coordinates.
+        
+        Returns None if:
+        - File doesn't exist
+        - File contains error message (e.g., "Solution (pre-image) was not stored")
+        - File is empty
+        """
+        if not os.path.exists(filepath):
+            return None
+        
+        preimage = []
+        with open(filepath, 'r', encoding='utf-8') as f:
+            for line in f:
+                parts = line.strip().split()
+                # Skip empty lines or lines that start with non-numeric text
+                # (bensolve writes "Solution (pre-image) was not stored" when -s option not used)
+                if len(parts) == 0:
+                    continue
+                # Try to parse as floats; if it fails, skip this file
+                try:
+                    preimage.append([float(x) for x in parts])
+                except ValueError:
+                    # This line contains non-numeric data (likely an error message)
+                    # Return None to indicate no preimage data available
+                    return None
+        
+        if len(preimage) == 0:
+            return None
+        return np.array(preimage)
+    
+    # Read primal (upper) image data
+    ls1_p, ls2_p = read_vertices(img_p_file)
+    adj_p = read_adjacency(adj_p_file)
+    inc_p = read_incidence(inc_p_file)
+    pre_p = read_preimage(pre_img_p_file)
+    
+    # Read dual (lower) image data
+    ls1_d, ls2_d = read_vertices(img_d_file)
+    adj_d = read_adjacency(adj_d_file)
+    inc_d = read_incidence(inc_d_file)
+    pre_d = read_preimage(pre_img_d_file)
+    
+    # If swap is enabled, switch primal and dual
+    # This happens when using dual algorithm
+    if swap:
+        return ((ls1_d, ls2_d, adj_d, inc_d, pre_d), (ls1_p, ls2_p, adj_p, inc_p, pre_p))
+    else:
+        return ((ls1_p, ls2_p, adj_p, inc_p, pre_p), (ls1_d, ls2_d, adj_d, inc_d, pre_d))
 
 class vlpProblem:
     "Wrapper Class for a vlpProblem"
@@ -1080,7 +1195,7 @@ def solve(problem):
     cProblem.from_file(tempfile.name)
     cProblem.set_options(problem.options)
     cSolution = _csolve(cProblem)
-    ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(problem.options['alg_phase2']=='dual'))
+    ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,cProblem,swap=(problem.options['alg_phase2']=='dual'))
     sol = vlpSolution()
     Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])
     Dual = ntp('Dual',['vertex_type','vertex_value','adj','incidence','preimage'])
@@ -1168,7 +1283,7 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     cSolution = _csolve(cProblem)
     
     # Extract results
-    ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,swap=(options['alg_phase2']=='dual'))
+    ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,cProblem,swap=(options['alg_phase2']=='dual'))
     
     sol = vlpSolution()
     Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])
