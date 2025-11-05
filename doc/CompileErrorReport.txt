@@ -1,0 +1,571 @@
+
+==================================================================================
+Bensolve 2.1.0 Compilation Error Report
+==================================================================================
+
+Generated on: Wed Nov  5 00:57:59 UTC 2025
+Test: Cython compilation against bensolve 2.1.0
+Status: SUCCESS
+
+This report documents all compilation errors encountered when attempting
+to build the current Cython wrapper (benpy.pyx) against bensolve 2.1.0
+headers and source files.
+
+
+==================================================================================
+Build Configuration Changes
+==================================================================================
+
+The following changes were made to setup.py for this test:
+
+--- /home/runner/work/benpy/benpy/setup.py.backup	2025-11-05 00:57:45.244938929 +0000
++++ /home/runner/work/benpy/benpy/setup.py	2025-11-05 00:57:45.245938937 +0000
+@@ -5,12 +5,12 @@
+ 
+ ext = Extension(name="benpy",
+                 sources=["src/benpy.pyx",
+-                        "src/bensolve-mod/bslv_main.c",
+-                        "src/bensolve-mod/bslv_vlp.c",
+-                        "src/bensolve-mod/bslv_algs.c",
+-                        "src/bensolve-mod/bslv_lists.c",
+-                        "src/bensolve-mod/bslv_poly.c",
+-                        "src/bensolve-mod/bslv_lp.c"
++                        "src/bensolve-2.1.0/bslv_main.c",
++                        "src/bensolve-2.1.0/bslv_vlp.c",
++                        "src/bensolve-2.1.0/bslv_algs.c",
++                        "src/bensolve-2.1.0/bslv_lists.c",
++                        "src/bensolve-2.1.0/bslv_poly.c",
++                        "src/bensolve-2.1.0/bslv_lp.c"
+                         ],
+                 include_dirs=[numpy.get_include()],
+                 libraries=['glpk', 'm'],
+
+
+==================================================================================
+Compilation Output
+==================================================================================
+
+Full build output from: python setup.py build_ext --inplace
+
+warning: src/benpy.pyx:26:4: '_lp_method_type' redeclared 
+warning: src/benpy.pyx:27:8: 'PRIMAL_SIMPLEX' redeclared 
+warning: src/benpy.pyx:27:24: 'DUAL_SIMPLEX' redeclared 
+warning: src/benpy.pyx:27:38: 'DUAL_PRIMAL_SIMPLEX' redeclared 
+warning: src/benpy.pyx:27:59: 'LP_METHOD_AUTO' redeclared 
+warning: src/benpy.pyx:73:4: 'lp_hom_type' redeclared 
+warning: src/benpy.pyx:520:16: Non-trivial type declarators in shared declaration (e.g. mix of pointers and values). Each pointer declaration should be on its own line.
+warning: src/benpy.pyx:520:23: Non-trivial type declarators in shared declaration (e.g. mix of pointers and values). Each pointer declaration should be on its own line.
+warning: src/benpy.pyx:542:16: Non-trivial type declarators in shared declaration (e.g. mix of pointers and values). Each pointer declaration should be on its own line.
+warning: src/benpy.pyx:542:22: Non-trivial type declarators in shared declaration (e.g. mix of pointers and values). Each pointer declaration should be on its own line.
+Compiling src/benpy.pyx because it changed.
+[1/1] Cythonizing src/benpy.pyx
+running build_ext
+building 'benpy' extension
+creating build
+creating build/temp.linux-x86_64-cpython-312
+creating build/temp.linux-x86_64-cpython-312/src
+creating build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0
+x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -Isrc -I/home/runner/.local/lib/python3.12/site-packages/numpy/_core/include -I/usr/include/python3.12 -c src/benpy.c -o build/temp.linux-x86_64-cpython-312/src/benpy.o -std=c99 -O3
+src/benpy.c: In function ‘__pyx_f_5benpy_12_cVlpProblem_print_vlp_address’:
+src/benpy.c:8573:38: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+ 8573 |   __pyx_t_4 = __Pyx_PyLong_From_int(((int)__pyx_v_self->_vlp)); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 352, __pyx_L1_error)
+      |                                      ^
+x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -Isrc -I/home/runner/.local/lib/python3.12/site-packages/numpy/_core/include -I/usr/include/python3.12 -c src/bensolve-2.1.0/bslv_algs.c -o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_algs.o -std=c99 -O3
+src/bensolve-2.1.0/bslv_algs.c: In function ‘poly_output’:
+src/bensolve-2.1.0/bslv_algs.c:129:7: warning: variable ‘cone_out’ set but not used [-Wunused-but-set-variable]
+  129 |   int cone_out=0;
+      |       ^~~~~~~~
+src/bensolve-2.1.0/bslv_algs.c: In function ‘poly_plot_primal’:
+src/bensolve-2.1.0/bslv_algs.c:505:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  505 |                 for (size_t k=0; k<sol->r; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_algs.c: In function ‘phase0’:
+src/bensolve-2.1.0/bslv_algs.c:787:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  787 |         for (size_t i = 0; i < vlp->q - 1; i++)
+      |                              ^
+src/bensolve-2.1.0/bslv_algs.c:793:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  793 |                 for (size_t j=0; j<sol->p; j++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_algs.c:796:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  796 |                         for (size_t k=0; k<vlp->q-1; k++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_algs.c:802:40: warning: unused variable ‘stat’ [-Wunused-variable]
+  802 |                         lp_status_type stat =lp_solve(0);
+      |                                        ^~~~
+src/bensolve-2.1.0/bslv_algs.c:809:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  809 |                 for (size_t k=0; k<vlp->q-1; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_algs.c:813:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  813 |                 for (size_t k=0;k<vlp->q-1;k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_algs.c:821:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  821 |                 for (size_t k=0;k<vlp->q-1;k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_algs.c:827:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  827 |                         for (size_t j=0;j<sol->p;j++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:830:50: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  830 |                                 for (size_t k=0;k<vlp->q-1;k++)
+      |                                                  ^
+src/bensolve-2.1.0/bslv_algs.c:836:48: warning: unused variable ‘stat’ [-Wunused-variable]
+  836 |                                 lp_status_type stat =lp_solve(0);
+      |                                                ^~~~
+src/bensolve-2.1.0/bslv_algs.c:840:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  840 |                         for (size_t k=0;k<vlp->q-1;k++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:843:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  843 |                         for (size_t k=0;k<vlp->q-1;k++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:849:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  849 |                 for (size_t k=0;k<vlp->q-1;k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_algs.c:860:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  860 |                 for (size_t k=0;k<vlp->q;k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_algs.c:866:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  866 |                         for (size_t k=0;k<vlp->q-1;k++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:869:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  869 |                         for (size_t k=0;k<vlp->q-1;k++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:871:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  871 |                         for (size_t k=0;k<vlp->q-1;k++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:874:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  874 |                 for (size_t k=0;k<vlp->q-1;k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_algs.c:876:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  876 |                 for (size_t k=0;k<vlp->q-1;k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_algs.c:884:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  884 |         for (size_t k=0; k<vlp->q-1; k++)
+      |                           ^
+src/bensolve-2.1.0/bslv_algs.c:886:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  886 |         for (size_t i=1; i<vlp->q-1; i++)
+      |                           ^
+src/bensolve-2.1.0/bslv_algs.c:887:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  887 |                 for (size_t k=0; k<vlp->q-1; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_algs.c:889:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  889 |         for (size_t k=0; k<vlp->q-1; k++)
+      |                           ^
+src/bensolve-2.1.0/bslv_algs.c:891:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  891 |         for (size_t k=0; k<vlp->q-1; k++)
+      |                           ^
+src/bensolve-2.1.0/bslv_algs.c:894:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  894 |         for (size_t k=0; k<vlp->q-1; k++)
+      |                           ^
+src/bensolve-2.1.0/bslv_algs.c: In function ‘phase1_primal’:
+src/bensolve-2.1.0/bslv_algs.c:935:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  935 |                         for (size_t k=0; k<vlp->q-1; k++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_algs.c:939:48: warning: unused variable ‘stat’ [-Wunused-variable]
+  939 |                                 lp_status_type stat =lp_solve(0);
+      |                                                ^~~~
+src/bensolve-2.1.0/bslv_algs.c:971:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  971 |                         for (size_t j=0;j<sol->p;j++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:974:50: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  974 |                                 for (size_t k=0;k<vlp->q;k++)
+      |                                                  ^
+src/bensolve-2.1.0/bslv_algs.c:980:48: warning: unused variable ‘stat’ [-Wunused-variable]
+  980 |                                 lp_status_type stat =lp_solve(0);
+      |                                                ^~~~
+src/bensolve-2.1.0/bslv_algs.c:1019:51: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+ 1019 |                                 for (size_t j=0; j<vlp->q-1; j++)
+      |                                                   ^
+src/bensolve-2.1.0/bslv_algs.c:1029:46: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1029 |                         for (size_t k = 0; k < vlp->q; k++)
+      |                                              ^
+src/bensolve-2.1.0/bslv_algs.c: In function ‘phase2_init’:
+src/bensolve-2.1.0/bslv_algs.c:1049:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1049 |         for (size_t i = 0; i < sol->p; i++)
+      |                              ^
+src/bensolve-2.1.0/bslv_algs.c:1050:38: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1050 |                 for (size_t j = 0; j < sol->q; j++)
+      |                                      ^
+src/bensolve-2.1.0/bslv_algs.c:1055:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1055 |         for (size_t i = 0; i < sol->o; i++)
+      |                              ^
+src/bensolve-2.1.0/bslv_algs.c:1056:38: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1056 |                 for (size_t j = 0; j < sol->q; j++)
+      |                                      ^
+src/bensolve-2.1.0/bslv_algs.c: In function ‘phase2_primal’:
+src/bensolve-2.1.0/bslv_algs.c:1109:50: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1109 |                                 for (size_t k=0;k<vlp->q;k++)
+      |                                                  ^
+src/bensolve-2.1.0/bslv_algs.c:1150:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1150 |                         for (size_t j=0;j<sol->r;j++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_algs.c:1153:50: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1153 |                                 for (size_t k=0;k<vlp->q;k++)
+      |                                                  ^
+src/bensolve-2.1.0/bslv_algs.c:1159:48: warning: unused variable ‘stat’ [-Wunused-variable]
+ 1159 |                                 lp_status_type stat =lp_solve(0);
+      |                                                ^~~~
+src/bensolve-2.1.0/bslv_algs.c:1163:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+ 1163 |                         for (size_t k=0; k<vlp->q-1; k++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_algs.c:1171:46: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1171 |                         for (size_t i = 0; i < vlp->q; i++) // y_star_q = w'* P * x
+      |                                              ^
+src/bensolve-2.1.0/bslv_algs.c:1182:58: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1182 |                                         for (size_t k=0;k<vlp->q;k++)
+      |                                                          ^
+src/bensolve-2.1.0/bslv_algs.c:1217:50: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1217 |                                 for (size_t j=0;j<sol->p;j++)
+      |                                                  ^
+src/bensolve-2.1.0/bslv_algs.c:1220:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1220 |                                         for (size_t k=0; k<vlp->q; k++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_algs.c:1225:56: warning: unused variable ‘stat’ [-Wunused-variable]
+ 1225 |                                         lp_status_type stat =lp_solve(0);
+      |                                                        ^~~~
+src/bensolve-2.1.0/bslv_algs.c: In function ‘phase1_dual’:
+src/bensolve-2.1.0/bslv_algs.c:1400:40: warning: unused variable ‘stat’ [-Wunused-variable]
+ 1400 |                         lp_status_type stat =lp_solve(0);
+      |                                        ^~~~
+src/bensolve-2.1.0/bslv_algs.c:1408:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1408 |                         for (size_t i=0; i<vlp->q; i++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_algs.c:1435:46: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+ 1435 |                         for (size_t i = 0; i < vlp->q - 1; i++)
+      |                                              ^
+src/bensolve-2.1.0/bslv_algs.c:1443:48: warning: unused variable ‘stat’ [-Wunused-variable]
+ 1443 |                                 lp_status_type stat =lp_solve(0);
+      |                                                ^~~~
+src/bensolve-2.1.0/bslv_algs.c:1478:51: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+ 1478 |                                 for (size_t j=0; j<vlp->q-1; j++)
+      |                                                   ^
+src/bensolve-2.1.0/bslv_algs.c:1488:46: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1488 |                         for (size_t k = 0; k < vlp->q; k++)
+      |                                              ^
+src/bensolve-2.1.0/bslv_algs.c: In function ‘phase2_dual’:
+src/bensolve-2.1.0/bslv_algs.c:1580:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1580 |                                         for (size_t i=0; i<vlp->q; i++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_algs.c:1643:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1643 |                                         for (size_t k=0; k<vlp->q; k++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_algs.c:1676:50: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1676 |                                 for (size_t j=0;j<sol->p;j++)
+      |                                                  ^
+src/bensolve-2.1.0/bslv_algs.c:1679:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1679 |                                         for (size_t k=0; k<vlp->q; k++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_algs.c:1684:56: warning: unused variable ‘stat’ [-Wunused-variable]
+ 1684 |                                         lp_status_type stat =lp_solve(0);
+      |                                                        ^~~~
+x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -Isrc -I/home/runner/.local/lib/python3.12/site-packages/numpy/_core/include -I/usr/include/python3.12 -c src/bensolve-2.1.0/bslv_lists.c -o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_lists.o -std=c99 -O3
+src/bensolve-2.1.0/bslv_lists.c: In function ‘matrix_print’:
+src/bensolve-2.1.0/bslv_lists.c:107:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  107 |         for (size_t i = 0; i < m; i++)
+      |                              ^
+src/bensolve-2.1.0/bslv_lists.c:109:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  109 |                 for (size_t j=0; j< n; j++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_lists.c: In function ‘orthogonal_vector’:
+src/bensolve-2.1.0/bslv_lists.c:120:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  120 |         for (size_t r=0; r<dim;r++)
+      |                           ^
+src/bensolve-2.1.0/bslv_lists.c:122:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  122 |                 for (size_t k=0; k<dim; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_lists.c:126:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  126 |                 for (size_t j=0; j<i; j++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_lists.c:130:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  130 |                         for (size_t k=0; k<dim; k++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_lists.c:132:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  132 |                         for (size_t k=0; k<dim; k++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_lists.c:134:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  134 |                         for (size_t k=0; k<dim; k++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_lists.c:138:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  138 |                 for (size_t k=0; k<dim; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_lists.c:143:27: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  143 |         for (size_t k=0; k<dim; k++)
+      |                           ^
+src/bensolve-2.1.0/bslv_lists.c: In function ‘list1d_print’:
+src/bensolve-2.1.0/bslv_lists.c:216:30: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘int’ [-Wsign-compare]
+  216 |         for (size_t k = 0; k < size; k++)
+      |                              ^
+src/bensolve-2.1.0/bslv_lists.c: In function ‘list2d_init_idx’:
+src/bensolve-2.1.0/bslv_lists.c:246:24: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  246 |         if (list->size < nrows * ncols) {
+      |                        ^
+x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -Isrc -I/home/runner/.local/lib/python3.12/site-packages/numpy/_core/include -I/usr/include/python3.12 -c src/bensolve-2.1.0/bslv_lp.c -o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_lp.o -std=c99 -O3
+x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -Isrc -I/home/runner/.local/lib/python3.12/site-packages/numpy/_core/include -I/usr/include/python3.12 -c src/bensolve-2.1.0/bslv_main.c -o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_main.o -std=c99 -O3
+x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -Isrc -I/home/runner/.local/lib/python3.12/site-packages/numpy/_core/include -I/usr/include/python3.12 -c src/bensolve-2.1.0/bslv_poly.c -o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_poly.o -std=c99 -O3
+src/bensolve-2.1.0/bslv_poly.c: In function ‘poly__cut’:
+src/bensolve-2.1.0/bslv_poly.c:619:53: warning: ‘v_out’ may be used uninitialized [-Wmaybe-uninitialized]
+  619 |                         add_lst_elem(poly->adjacence+v_out,*k);
+      |                                                     ^
+src/bensolve-2.1.0/bslv_poly.c:550:37: note: ‘v_out’ was declared here
+  550 |         size_t *k,*j,*l,*js,*ks,*ls,v_out;
+      |                                     ^~~~~
+x86_64-linux-gnu-gcc -fno-strict-overflow -Wsign-compare -DNDEBUG -g -O2 -Wall -fPIC -Isrc -I/home/runner/.local/lib/python3.12/site-packages/numpy/_core/include -I/usr/include/python3.12 -c src/bensolve-2.1.0/bslv_vlp.c -o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_vlp.o -std=c99 -O3
+src/bensolve-2.1.0/bslv_vlp.c: In function ‘error’:
+src/bensolve-2.1.0/bslv_vlp.c:290:25: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  290 |         for(int i = 0; i<sizeof(csa->msg)-1; i++)
+      |                         ^
+src/bensolve-2.1.0/bslv_vlp.c: In function ‘warning’:
+src/bensolve-2.1.0/bslv_vlp.c:302:26: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+  302 |         for(int i = 0; i < sizeof(csa->msg)-1; i++)
+      |                          ^
+src/bensolve-2.1.0/bslv_vlp.c: In function ‘sol_init’:
+src/bensolve-2.1.0/bslv_vlp.c:934:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  934 |                 for (size_t k=0; k<vlp->q; k++){
+      |                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:947:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  947 |                         for (size_t j=0; j<vlp->q; j++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_vlp.c:956:50: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  956 |                                 for (size_t k=0;k<sol->o;k++)
+      |                                                  ^
+src/bensolve-2.1.0/bslv_vlp.c:959:58: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  959 |                                         for (size_t j=0;j<vlp->q;j++)
+      |                                                          ^
+src/bensolve-2.1.0/bslv_vlp.c:961:58: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  961 |                                         for (size_t j=0;j<vlp->q;j++)
+      |                                                          ^
+src/bensolve-2.1.0/bslv_vlp.c:968:51: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  968 |                                 for (size_t i=0; i<vlp->q; i++)
+      |                                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:978:51: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  978 |                                 for (size_t j=0; j<vlp->q; j++)
+      |                                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:983:51: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  983 |                                 for (size_t i=0; i<sol->o; i++)
+      |                                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:989:67: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  989 |                                                 for (size_t j=0; j<vlp->q; j++)
+      |                                                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:997:67: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+  997 |                                                 for (size_t j=0; j<vlp->q; j++)
+      |                                                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:1005:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1005 |                                         for (size_t i=0; i<vlp->q; i++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_vlp.c:1011:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1011 |                                         for (size_t i=0; i<vlp->q; i++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_vlp.c:1027:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1027 |                                         for (size_t i=0; i<vlp->q; i++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_vlp.c:1029:59: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1029 |                                         for (size_t i=0; i<vlp->q; i++)
+      |                                                           ^
+src/bensolve-2.1.0/bslv_vlp.c:1045:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1045 |                 for (size_t k=0; k<sol->p; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:1048:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1048 |                         for (size_t j=0; j<vlp->q; j++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_vlp.c:1055:43: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1055 |                         for (size_t j=0; j<vlp->q; j++)
+      |                                           ^
+src/bensolve-2.1.0/bslv_vlp.c:1065:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1065 |                 for(size_t j=0; j<sol->q; j++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_vlp.c:1066:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1066 |                         for(size_t k=0; k<sol->o; k++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_vlp.c:1068:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1068 |                 for(size_t j=0; j<sol->q; j++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_vlp.c:1069:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1069 |                         for(size_t k=0; k<sol->p; k++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_vlp.c:1071:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1071 |                 for(size_t k=0; k<sol->p; k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_vlp.c:1074:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1074 |                         for(size_t j=0; j<sol->q; j++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_vlp.c:1082:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1082 |                 for(size_t k=0; k<sol->o; k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_vlp.c:1085:42: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1085 |                         for(size_t j=0; j<sol->q; j++)
+      |                                          ^
+src/bensolve-2.1.0/bslv_vlp.c:1100:34: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1100 |                 for(size_t k=0; k<vlp->q; k++)
+      |                                  ^
+src/bensolve-2.1.0/bslv_vlp.c:1112:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1112 |                 for (size_t k=0; k<sol->o*vlp->q; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:1114:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1114 |                 for (size_t k=0; k<sol->p*vlp->q; k++)
+      |                                   ^
+src/bensolve-2.1.0/bslv_vlp.c:1116:35: warning: comparison of integer expressions of different signedness: ‘size_t’ {aka ‘long unsigned int’} and ‘lp_idx’ {aka ‘int’} [-Wsign-compare]
+ 1116 |                 for (size_t k=0; k<vlp->q; k++)
+      |                                   ^
+creating build/lib.linux-x86_64-cpython-312
+x86_64-linux-gnu-gcc -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -Wl,-z,relro -g -fwrapv -O2 build/temp.linux-x86_64-cpython-312/src/benpy.o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_algs.o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_lists.o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_lp.o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_main.o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_poly.o build/temp.linux-x86_64-cpython-312/src/bensolve-2.1.0/bslv_vlp.o -L/usr/lib/x86_64-linux-gnu -lglpk -lm -o build/lib.linux-x86_64-cpython-312/benpy.cpython-312-x86_64-linux-gnu.so
+copying build/lib.linux-x86_64-cpython-312/benpy.cpython-312-x86_64-linux-gnu.so -> src
+
+
+==================================================================================
+Error Analysis
+==================================================================================
+
+
+✓ Compilation succeeded without errors!
+
+This is unexpected and indicates that either:
+  - The wrapper is already compatible with bensolve 2.1.0
+  - The header changes are backward compatible
+
+
+==================================================================================
+Recommendations
+==================================================================================
+
+Based on this compilation test, the following actions are recommended:
+
+1. Verify that the compilation truly succeeded (check build artifacts)
+2. Run tests to ensure functionality is preserved
+3. Review HeaderDiffReport.txt to understand what changed
+4. Consider if the upgrade can proceed directly
+
+
+==================================================================================
+Next Steps
+==================================================================================
+
+Proceed to Phase 1 of the upgrade plan:
+  1. Create .pxd files in src/ directory (one per bensolve header)
+  2. Centralize all C declarations from benpy.pyx into .pxd files
+  3. Update declarations to match bensolve 2.1.0 API
+  4. Refactor benpy.pyx to cimport from .pxd files
+  5. Test compilation iteratively
+
+See doc/A_plan.md for the complete upgrade strategy.
+
+
+==================================================================================
+End of Report
+==================================================================================
+
+
+==================================================================================
+Detailed Warning Analysis
+==================================================================================
+
+## Cython Warnings (from benpy.pyx)
+
+1. **Redeclared identifiers** (lines 26-27, 73):
+   - '_lp_method_type' redeclared
+   - Enum values redeclared (PRIMAL_SIMPLEX, DUAL_SIMPLEX, etc.)
+   - 'lp_hom_type' redeclared
+   
+   **Impact**: These are duplicate declarations in the Cython code. The code has 
+   redundant extern declarations.
+   **Fix needed**: Phase 1 should consolidate these into .pxd files to eliminate 
+   duplicates.
+
+2. **Non-trivial type declarators** (lines 520, 542):
+   - Mixed pointer/value declarations on same line
+   
+   **Impact**: Style warning, no functional issue
+   **Fix needed**: Low priority - refactor for cleaner code style
+
+## C Compiler Warnings (from bensolve-2.1.0 sources)
+
+1. **Pointer-to-int cast** (benpy.c:8573):
+   - Casting pointer to int in print_vlp_address function
+   
+   **Impact**: Potential portability issue on 64-bit systems
+   **Fix needed**: Phase 1 - use proper pointer-to-int conversion (cast to 
+   intptr_t or long)
+
+2. **Unused variables** (multiple locations):
+   - 'cone_out', 'stat' variables set but not used
+   
+   **Impact**: No functional issue, just cluttered code
+   **Fix needed**: Upstream issue - not our concern for this upgrade
+
+3. **Sign comparison warnings** (many locations in bensolve-2.1.0 sources):
+   - Comparing size_t (unsigned) with int/lp_idx (signed)
+   
+   **Impact**: Potential issues with negative values or large sizes, but unlikely
+   in practice for bensolve's problem sizes
+   **Fix needed**: Upstream issue - not our concern unless it causes runtime 
+   problems
+
+4. **Uninitialized variable warning** (bslv_poly.c:619):
+   - 'v_out' may be used uninitialized
+   
+   **Impact**: Potential runtime bug if the variable is actually used uninitialized
+   **Fix needed**: Upstream issue - should be investigated if poly operations fail
+
+==================================================================================
+Key Findings
+==================================================================================
+
+The compilation SUCCEEDED because:
+  ✓ The bensolve 2.1.0 API is backward compatible with 2.0.1
+  ✓ The new enum value VLP_UNEXPECTED_STATUS doesn't break existing code
+  ✓ All function signatures remained the same between versions
+  ✓ Struct definitions are unchanged
+  ✓ Only minor version string and copyright changes
+
+API Changes Detected:
+  - THISVERSION changed from "version 2.0.1" to "2.1.0"
+  - Copyright years updated (2014-2015 → 2014-2017)
+  - New enum value: VLP_UNEXPECTED_STATUS added to _sol_status_type
+  - WELCOME message formatting changed (umlaut handling)
+
+Issues to Address:
+  1. Cython wrapper has redundant/duplicate declarations
+  2. Pointer-to-int cast in wrapper code (portability issue)
+  3. Missing VLP_UNEXPECTED_STATUS in wrapper enum declarations
+  4. Version string in wrapper still says "MODIFIED 2.0.1"
+
+==================================================================================
+Action Items for Next Phase
+==================================================================================
+
+**Priority 1 (Must Do):**
+  1. Create .pxd files to centralize C declarations and eliminate duplicates
+  2. Add VLP_UNEXPECTED_STATUS to the sol_status_type enum in wrapper
+  3. Update THISVERSION string in benpy.pyx to "2.1.0"
+  4. Fix pointer-to-int cast issue (use intptr_t or long)
+
+**Priority 2 (Should Do):**
+  5. Clean up mixed pointer/value declarations (lines 520, 542)
+  6. Test wrapper thoroughly with bensolve 2.1.0
+  7. Update documentation to reflect 2.1.0 support
+
+**Priority 3 (Nice to Have):**
+  8. Consider contributing fixes for upstream warnings to bensolve project
+  9. Add regression tests for upgrade
+
+==================================================================================
+Conclusion
+==================================================================================
+
+Phase 0 is COMPLETE with POSITIVE results!
+
+The current Cython wrapper (benpy.pyx) compiles successfully against bensolve 
+2.1.0 with only minor warnings. This indicates that the upgrade path is smoother 
+than anticipated. The API compatibility is excellent.
+
+However, to ensure code quality and maintainability, we should still proceed 
+with Phase 1 (Cython refactoring) to:
+  - Eliminate duplicate declarations (reduce warnings)
+  - Centralize type definitions in .pxd files
+  - Incorporate the minor API additions (VLP_UNEXPECTED_STATUS)
+  - Update version strings
+  - Fix the pointer cast issue
+
+The fact that it compiles is encouraging, but thorough testing is still required
+to ensure runtime compatibility and correct behavior with the new version.
+
+**Recommendation:** Proceed to Phase 1 with confidence, knowing that the API 
+changes are minimal and backward compatible.
+
