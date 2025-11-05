@@ -795,9 +795,9 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
     import os
     
     # Get the base filename from problem options
-    # The filename is stored as a char array in _opt.filename
-    cdef bytes filename_bytes = problem._opt.filename
-    filename = filename_bytes.decode('utf-8') if filename_bytes else ""
+    # The filename is stored as a char array in _opt.filename (max 256 chars)
+    # We need to decode it from the C string
+    filename = problem._opt.filename.decode('utf-8') if problem._opt.filename[0] != 0 else ""
     
     # Define file suffixes based on bensolve conventions
     # These match the constants in bslv_main.h:
@@ -820,7 +820,7 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
         vertex_types = []
         vertex_values = []
         
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             for line in f:
                 parts = line.strip().split()
                 if len(parts) > 0:
@@ -839,7 +839,7 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
             return []
         
         adjacency = []
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             for line in f:
                 parts = line.strip().split()
                 if len(parts) > 0:
@@ -856,7 +856,7 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
             return []
         
         incidence = []
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             for line in f:
                 parts = line.strip().split()
                 if len(parts) > 0:
@@ -879,7 +879,7 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
             return None
         
         preimage = []
-        with open(filepath, 'r') as f:
+        with open(filepath, 'r', encoding='utf-8') as f:
             for line in f:
                 parts = line.strip().split()
                 # Skip empty lines or lines that start with non-numeric text
