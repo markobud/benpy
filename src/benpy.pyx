@@ -84,11 +84,11 @@ cdef extern from "bensolve-mod/bslv_lp.h":
 
 cdef extern from "bensolve-mod/bslv_algs.h":
 
-    void phase0(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr)
-    void phase1_primal(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr)
-    void phase2_primal(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr, poly_args *image)
-    void phase1_dual(soltype * sol, vlptype *vlp, opttype *opt, lptype *lpstr)
-    void phase2_dual(soltype * sol, vlptype *vlp, opttype *opt, lptype *lpstr, poly_args *image)
+    void phase0(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr) nogil
+    void phase1_primal(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr) nogil
+    void phase2_primal(soltype *sol, vlptype *vlp, opttype *opt, lptype *lpstr, poly_args *image) nogil
+    void phase1_dual(soltype * sol, vlptype *vlp, opttype *opt, lptype *lpstr) nogil
+    void phase2_dual(soltype * sol, vlptype *vlp, opttype *opt, lptype *lpstr, poly_args *image) nogil
     void phase2_init(soltype *sol, vlptype *vlp)
 
 
@@ -370,7 +370,14 @@ cdef class _cVlpSolution:
         return("Vertices Upper: {}. Vertices Lower: {}. Extreme dir Upper: {}, Extreme dir Lower: {}".format(self._sol.pp, self._sol.dd, self._sol.pp_dir, self._sol.dd_dir))
 
 cdef _cVlpSolution _csolve(_cVlpProblem problem):
-    """"Internal function to drive solving procedure. Basically, mimics bensolve main function."""
+    """"Internal function to drive solving procedure. Basically, mimics bensolve main function.
+    
+    Note on threading: The GIL is released during long-running phase computations to allow
+    other Python threads to execute. However, the underlying bensolve library uses global
+    state (fnc_prmtr) and is NOT safe for concurrent calls from multiple threads. Only one
+    thread should call bensolve solve functions at a time. Use a threading.Lock if you need
+    to solve multiple problems concurrently from different threads.
+    """
     elapsedTime = time.process_time()
     solution = _cVlpSolution()
     solution._pre_img = problem._opt.solution
@@ -385,7 +392,9 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
         #Phase 0
         if(problem._opt.message_level >= 3):
             print("Starting Phase 0")
-        phase0(solution._sol, problem._vlp, problem._opt, problem._lps)
+        # Release GIL during long-running phase0 computation
+        with nogil:
+            phase0(solution._sol, problem._vlp, problem._opt, problem._lps)
         if (solution._sol.status == VLP_UNBOUNDED):
             print("VLP is totally unbounded, there is no solution")
         if (solution._sol.status == VLP_NOVERTEX):
@@ -399,22 +408,30 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
         if (problem._opt.alg_phase1 == PRIMAL_BENSON):
             if (problem._opt.message_level >= 3):
                 print("Starting Phase 1 -- Primal Algorithm")
-            phase1_primal(solution._sol,problem._vlp,problem._opt, problem._lps)
+            # Release GIL during long-running phase1_primal computation
+            with nogil:
+                phase1_primal(solution._sol,problem._vlp,problem._opt, problem._lps)
         else:
             assert(problem._opt.alg_phase1 == DUAL_BENSON)
             if (problem._opt.message_level >= 3):
                 print("Starting Phase 1 -- Dual Algorithm")
-            phase1_dual(solution._sol,problem._vlp, problem._opt, problem._lps)
+            # Release GIL during long-running phase1_dual computation
+            with nogil:
+                phase1_dual(solution._sol,problem._vlp, problem._opt, problem._lps)
     #Phase 2
     if(problem._opt.alg_phase2 == PRIMAL_BENSON):
         if (problem._opt.message_level >= 3):
             print("Starting Phase 2 -- Primal Algorithm")
-        phase2_primal(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
+        # Release GIL during long-running phase2_primal computation
+        with nogil:
+            phase2_primal(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
         solution.argtype = "phase2 primal"
     else:
         if (problem._opt.message_level >=3):
             print("Starting Phase 2 -- Dual Algorithm")
-        phase2_dual(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
+        # Release GIL during long-running phase2_dual computation
+        with nogil:
+            phase2_dual(solution._sol, problem._vlp, problem._opt, problem._lps, solution._image)
         solution.argtype = "phase2 dual"
 
     if (solution._sol.status == VLP_INFEASIBLE):
@@ -619,7 +636,16 @@ cdef _poly_output(_cVlpSolution s,swap = 0):
     return(((ls1_p,ls2_p,adj_p,inc_p,pre_p),(ls1_d,ls2_d,adj_d,inc_d,pre_d)))
 
 class vlpProblem:
-    "Wrapper Class for a vlpProblem"
+    """Wrapper Class for a vlpProblem.
+    
+    This class represents a Vector Linear Program (VLP) or Multi-Objective Linear Program (MOLP).
+    
+    Threading Note:
+        When solving vlpProblems using the solve() function, the GIL is released during
+        computation to allow other Python threads to run. However, bensolve uses global
+        state internally, so concurrent calls to solve() from multiple threads are NOT safe.
+        Use a threading.Lock to serialize solve() calls if solving from multiple threads.
+    """
 
     @property
     def default_options(self):
@@ -857,7 +883,22 @@ class vlpSolution:
 
 
 def solve(problem):
-    """Solves a vlpProblem instance. It returns a vlpSolution instance"""
+    """Solves a vlpProblem instance. It returns a vlpSolution instance.
+    
+    Threading Considerations:
+        The GIL (Global Interpreter Lock) is released during long-running phase computations,
+        allowing other Python threads to execute while the solver is running. However, the
+        underlying bensolve library uses global state and is NOT thread-safe for concurrent
+        execution. Only one thread should call solve() at a time.
+        
+        For concurrent solving of multiple problems:
+            import threading
+            solver_lock = threading.Lock()
+            
+            def solve_with_lock(problem):
+                with solver_lock:
+                    return solve(problem)
+    """
     tempfile = NamedTemporaryFile(mode='w+t')
     problem.to_vlp_file(filename=tempfile.name)
     tempfile.flush()

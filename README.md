@@ -54,6 +54,29 @@ print(f"Examples are located at: {example_dir}")
 
 ---
 
+## 🧵 Threading Support
+
+`benpy` releases the Python GIL (Global Interpreter Lock) during long-running solve operations, allowing other Python threads to run concurrently. However, the underlying bensolve library uses global state and is **NOT thread-safe** for concurrent solve calls.
+
+**Key points:**
+- ✓ GIL is released during computation (other Python threads can run)
+- ⚠️ Use a `threading.Lock` to serialize `solve()` calls from multiple threads
+- See [THREADING.md](THREADING.md) for detailed threading guidelines and examples
+
+**Example:**
+```python
+import threading
+from benpy import solve, vlpProblem
+
+solver_lock = threading.Lock()
+
+def solve_with_lock(problem):
+    with solver_lock:
+        return solve(problem)
+```
+
+---
+
 ## 🏠 Built With
 - **[setuptools](https://pypi.python.org/pypi/setuptools)** – Used for building the package.
 - **[bensolve-mod](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod)** – A modified version of [Bensolve](http://www.bensolve.org/) included in this repository.
