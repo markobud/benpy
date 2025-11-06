@@ -204,6 +204,12 @@ jobs:
   #         retention-days: 30
 
 
+  # macOS build and test job - Python 3.12
+  # See issue: CI: Add macOS-latest build (Python 3.12)
+  # macOS-specific notes:
+  # - Uses $(brew --prefix) to handle both Intel (/usr/local) and Apple Silicon (/opt/homebrew) locations
+  # - GLPK must be installed via Homebrew before building the Cython extension
+  # - Pip caching speeds up dependency installation
   macos-py312:
     name: Test on macOS-latest - Python 3.12
     runs-on: macos-latest
@@ -220,6 +226,8 @@ jobs:
           cache: 'pip'
           cache-dependency-path: 'requirements.txt'
       
+      # Install GLPK via Homebrew
+      # Note: brew --prefix handles both Intel and Apple Silicon Macs automatically
       - name: Install GLPK via Homebrew
         run: |
           brew install glpk
@@ -227,6 +235,8 @@ jobs:
           echo "CFLAGS=-I${BREW_PREFIX}/include" >> $GITHUB_ENV
           echo "LDFLAGS=-L${BREW_PREFIX}/lib" >> $GITHUB_ENV
       
+      # Display diagnostic information for debugging
+      # Helps troubleshoot SDK paths, library locations, and environment variables
       - name: Display environment info
         run: |
           echo "Python version:"
@@ -247,10 +257,15 @@ jobs:
         run: |
           pip install -e .
       
+      # Run tests with faulthandler for better crash diagnostics
+      # Uses JUnit XML output for better CI integration
+      # Note: Some tests may be excluded via pytest markers (see doc/TEST_FAILURE_REPORT.md)
       - name: Run tests with faulthandler
         run: |
           python -X faulthandler -m pytest -q --tb=short --junit-xml=junit-macos-py312.xml
       
+      # Upload diagnostics on failure for debugging
+      # Collects test results, logs, and any core dumps
       - name: Upload test results on failure
         if: failure()
         uses: actions/upload-artifact@v4
