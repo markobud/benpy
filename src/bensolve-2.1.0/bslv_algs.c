@@ -30,7 +30,7 @@ see <http://www.gnu.org/licenses/>
 #include "bslv_main.h"
 #include "bslv_algs.h"
 
-extern struct timeval t_end;
+struct timeval t_end;
 
 int alg(soltype *const sol, const vlptype *vlp, const opttype *opt)
 {
