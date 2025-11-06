@@ -9,6 +9,10 @@ import sys
 import os
 import gc
 import numpy as np
+import faulthandler
+
+# Enable faulthandler to capture native crash tracebacks
+faulthandler.enable()
 
 # Add src directory to path for imports
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
