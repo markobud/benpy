@@ -251,7 +251,9 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install wheel setuptools
+          # Pin native dependencies to known-working versions to reduce ABI/extension mismatch risk
+          pip install "Cython>=3.0.0,<4.0.0" "numpy>=1.26.0,<2.0.0" "scipy>=1.11.0,<2.0.0" prettytable
           pip install pytest pytest-cov
       
       - name: Build and install extension
