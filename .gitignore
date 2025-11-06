@@ -27,4 +27,4 @@ htmlcov/
 # Test outputs
 *.log
 .tox/
-pytest-results.xml
+pytest-results*.xml
