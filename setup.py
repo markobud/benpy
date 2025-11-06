@@ -5,7 +5,6 @@ import numpy
 
 ext = Extension(name="benpy",
                 sources=["src/benpy.pyx",
-                        "src/bensolve-2.1.0/bslv_main.c",
                         "src/bensolve-2.1.0/bslv_vlp.c",
                         "src/bensolve-2.1.0/bslv_algs.c",
                         "src/bensolve-2.1.0/bslv_lists.c",
