@@ -164,12 +164,12 @@ jobs:
             elif command -v yum >/dev/null; then
               # Use dnf for newer RHEL-based systems (AlmaLinux 8+)
               if command -v dnf >/dev/null; then
-                dnf install -y epel-release || true
+                dnf install -y epel-release || echo "EPEL repository already installed or not needed" >&2
                 dnf install -y glpk-devel || { echo "dnf install glpk-devel failed" >&2; exit 1; }
               else
                 # Fallback to yum for older systems
                 yum clean all
-                yum -y install epel-release || true
+                yum -y install epel-release || echo "EPEL repository already installed or not needed" >&2
                 yum -y install glpk-devel || { echo "yum install glpk-devel failed" >&2; exit 1; }
               fi
             else
@@ -178,6 +178,7 @@ jobs:
             fi
           CIBW_BEFORE_ALL_MACOS: "brew install glpk || brew upgrade glpk"
           # Install GLPK on Windows using MSYS2
+          # Note: GitHub Actions Windows runners have MSYS2 at C:\msys64 by default
           CIBW_BEFORE_ALL_WINDOWS: >-
             C:\\msys64\\usr\\bin\\bash -lc "pacman -S --noconfirm mingw-w64-x86_64-glpk"
           # Install build dependencies
