@@ -50,25 +50,34 @@ export LDFLAGS="-L$(brew --prefix glpk)/lib"
 
 ## Build Wheels Job
 
-Uses `cibuildwheel` to build wheels for multiple platforms.
+Uses `cibuildwheel` to build wheels for Linux and macOS platforms.
+
+**Note**: Windows wheels are not built automatically due to the complexity of packaging the GLPK dependency. Windows users can build from source using the installation instructions in the README.
 
 ### Configuration:
+- **Platforms**: Ubuntu, macOS (Windows excluded)
 - **Skip**: PyPy and musllinux builds
-- **Build**: CPython 3.8-3.12 for all platforms
+- **Build**: CPython 3.8-3.12 for Linux and macOS
 - **Before All**: Install GLPK on the target platform
-- **Before Build**: Install Cython and numpy
+- **Before Build**: Install Cython, numpy, setuptools, and wheel
 - **Test**: Run basic import test on built wheel
 
 ### Platform-specific GLPK setup:
-- **Linux**: Uses yum or apt-get
-- **macOS**: Uses homebrew
-- **Windows**: Uses chocolatey
+- **Linux**: Uses yum or apt-get (supports both RHEL and Debian-based distros)
+- **macOS**: Uses homebrew (supports both Intel and Apple Silicon paths)
 
 ### Notes:
 Building wheels with external C dependencies like GLPK can be complex. The current configuration:
+- Builds wheels for Linux and macOS only
+- Windows users can build from source (tests still run on Windows via the test job)
 - Assumes GLPK can be installed in the cibuildwheel environment
 - Tests only basic imports (not full test suite) to keep build times reasonable
 - May require adjustments based on actual build results
+
+For Windows wheel support in the future, options include:
+- Vendoring GLPK libraries in the wheel
+- Using delvewheel to bundle DLLs
+- Providing pre-built GLPK packages
 
 ## Build Source Distribution Job
 

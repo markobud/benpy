@@ -105,7 +105,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        # Note: Windows wheels excluded for now due to GLPK dependency complexity
+        # Users can build from source on Windows
+        os: [ubuntu-latest, macos-latest]
     
     steps:
       - uses: actions/checkout@v4
@@ -122,16 +124,6 @@ jobs:
         run: |
           brew install glpk
       
-      - name: Setup MSYS2 (Windows)
-        if: runner.os == 'Windows'
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: UCRT64
-          update: true
-          install: >-
-            mingw-w64-ucrt-x86_64-gcc
-            mingw-w64-ucrt-x86_64-glpk
-      
       # Build wheels
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.16.5
@@ -141,18 +133,16 @@ jobs:
           # Build for Python 3.8-3.12
           CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-*"
           # Install GLPK in the build environment
-          CIBW_BEFORE_ALL_LINUX: "yum install -y glpk-devel || apt-get install -y libglpk-dev"
-          CIBW_BEFORE_ALL_MACOS: "brew install glpk"
-          CIBW_BEFORE_ALL_WINDOWS: "choco install glpk"
+          CIBW_BEFORE_ALL_LINUX: "yum install -y glpk-devel || (apt-get update && apt-get install -y libglpk-dev)"
+          CIBW_BEFORE_ALL_MACOS: "brew install glpk || brew upgrade glpk"
           # Install build dependencies
-          CIBW_BEFORE_BUILD: "pip install Cython numpy"
+          CIBW_BEFORE_BUILD: "pip install Cython numpy setuptools wheel"
           # Run tests after building
           CIBW_TEST_REQUIRES: "pytest numpy scipy prettytable"
           CIBW_TEST_COMMAND: "pytest {project}/tests/test_import.py -v"
           # Environment variables for finding GLPK
-          CIBW_ENVIRONMENT_LINUX: "CFLAGS='-I/usr/include' LDFLAGS='-L/usr/lib'"
-          CIBW_ENVIRONMENT_MACOS: "CFLAGS='-I/usr/local/include' LDFLAGS='-L/usr/local/lib'"
-          CIBW_ENVIRONMENT_WINDOWS: "CFLAGS='-IC:/ProgramData/chocolatey/lib/glpk/include' LDFLAGS='-LC:/ProgramData/chocolatey/lib/glpk/lib'"
+          CIBW_ENVIRONMENT_LINUX: "CFLAGS='-I/usr/include' LDFLAGS='-L/usr/lib -L/usr/lib/x86_64-linux-gnu'"
+          CIBW_ENVIRONMENT_MACOS: "CFLAGS='-I/usr/local/include -I/opt/homebrew/include' LDFLAGS='-L/usr/local/lib -L/opt/homebrew/lib'"
       
       # Upload wheels as artifacts
       - name: Upload wheels
