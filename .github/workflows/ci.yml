@@ -256,8 +256,15 @@ jobs:
           pip install "Cython>=3.0.0,<4.0.0" "numpy>=1.26.0,<2.0.0" "scipy>=1.11.0,<2.0.0" prettytable
           pip install pytest pytest-cov
       
-      - name: Build and install extension
+      - name: Build and install extension (with rpath)
         run: |
+          # Ensure env vars from earlier steps are available and add rpath
+          BREW_PREFIX=$(brew --prefix)
+          export CFLAGS="${CFLAGS:--I${BREW_PREFIX}/include}"
+          export LDFLAGS="${LDFLAGS:--L${BREW_PREFIX}/lib} -Wl,-rpath,${BREW_PREFIX}/lib"
+          # Build extension in-place (ensures it uses current env flags)
+          python setup.py build_ext --inplace
+          # Then install in editable mode
           pip install -e .
       
       # Run tests with faulthandler for better crash diagnostics
