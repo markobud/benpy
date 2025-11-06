@@ -88,14 +88,14 @@ jobs:
       - name: Run tests (Unix)
         if: runner.os != 'Windows'
         run: |
-          PYTHONPATH=$PWD/src:$PYTHONPATH pytest tests/ -v --cov=benpy --cov-report=xml --cov-report=term -k "not test_example03_no_vertex and not test_example04_totally_unbounded"
+          PYTHONPATH=$PWD/src:$PYTHONPATH pytest tests/ -v --cov=benpy --cov-report=xml --cov-report=term
       
       # Run tests (Windows)
       - name: Run tests (Windows)
         if: runner.os == 'Windows'
         shell: bash
         run: |
-          PYTHONPATH=$PWD/src:$PYTHONPATH pytest tests/ -v --cov=benpy --cov-report=xml --cov-report=term -k "not test_example03_no_vertex and not test_example04_totally_unbounded"
+          PYTHONPATH=$PWD/src:$PYTHONPATH pytest tests/ -v --cov=benpy --cov-report=xml --cov-report=term
       
       # Upload coverage to Codecov (optional)
       - name: Upload coverage reports
