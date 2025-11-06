@@ -1,5 +1,7 @@
 # BENPY
 
+[![CI](https://github.com/markobud/benpy/actions/workflows/ci.yml/badge.svg)](https://github.com/markobud/benpy/actions/workflows/ci.yml)
+
 A Python wrapper for [Bensolve](http://www.bensolve.org/) **v2.1.0**.  
 
 **New in v2.1.0:** In-memory interface for 2-3x faster solving without file I/O! See [In-Memory Interface](doc/InMemoryInterface.md) for details.
