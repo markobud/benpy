@@ -204,6 +204,65 @@ jobs:
   #         retention-days: 30
 
 
+  macos-py312:
+    name: Test on macOS-latest - Python 3.12
+    runs-on: macos-latest
+    permissions:
+      contents: read
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+          cache-dependency-path: 'requirements.txt'
+      
+      - name: Install GLPK via Homebrew
+        run: |
+          brew install glpk
+          BREW_PREFIX=$(brew --prefix)
+          echo "CFLAGS=-I${BREW_PREFIX}/include" >> $GITHUB_ENV
+          echo "LDFLAGS=-L${BREW_PREFIX}/lib" >> $GITHUB_ENV
+      
+      - name: Display environment info
+        run: |
+          echo "Python version:"
+          python --version
+          echo "Brew prefix:"
+          brew --prefix
+          echo "GLPK location:"
+          brew --prefix glpk
+          echo "CFLAGS: $CFLAGS"
+          echo "LDFLAGS: $LDFLAGS"
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      
+      - name: Build and install extension
+        run: |
+          pip install -e .
+      
+      - name: Run tests with faulthandler
+        run: |
+          python -X faulthandler -m pytest -q --tb=short --junit-xml=junit-macos-py312.xml
+      
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-macos-py312
+          path: |
+            junit-macos-py312.xml
+            **/*.log
+            **/core.*
+          retention-days: 7
+          if-no-files-found: ignore
+
   build-sdist:
     name: Build source distribution
     runs-on: ubuntu-latest
