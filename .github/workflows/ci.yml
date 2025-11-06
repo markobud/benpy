@@ -2,40 +2,39 @@ name: CI
 
 on:
   push:
-    branches: [ main, development, copilot/** ]
+    branches: [main, development, copilot/**]
   pull_request:
-    branches: [ main, development ]
+    branches: [main, development]
   workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  build-sdist:
-    name: Build source distribution
+  build-source:
+    name: Build Source Distribution
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       
-      - name: Set up Python
+      - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       
-      - name: Install dependencies
+      - name: Install build dependencies
         run: |
           python -m pip install --upgrade pip
           pip install build wheel setuptools Cython numpy
       
-      - name: Build sdist
+      - name: Build source distribution
         run: python -m build --sdist
       
-      - name: Upload sdist
+      - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: sdist
+          name: source-distribution
           path: dist/*.tar.gz
           retention-days: 30
