@@ -46,8 +46,7 @@ jobs:
           LDFLAGS: "-L/usr/lib"
       
       - name: Run tests
-        run: |
-          PYTHONPATH=src:$PYTHONPATH pytest -q tests/ --junit-xml=pytest-results.xml
+        run: pytest -q tests/ --junit-xml=pytest-results.xml
         env:
           PYTHONPATH: "src"
       
