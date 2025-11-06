@@ -144,7 +144,21 @@ jobs:
           # Build for Python 3.8-3.12
           CIBW_BUILD: "cp38-* cp39-* cp310-* cp311-* cp312-*"
           # Install GLPK in the build environment
-          CIBW_BEFORE_ALL_LINUX: "if command -v apt-get >/dev/null; then apt-get update && apt-get install -y libglpk-dev; elif command -v yum >/dev/null; then (yum install -y glpk-devel || (yum clean all && yum install -y glpk-devel)) || echo 'Warning: yum failed but continuing'; else echo 'No supported package manager found'; exit 1; fi"
+          CIBW_BEFORE_ALL_LINUX: |
+            if command -v apt-get >/dev/null; then
+              apt-get update && apt-get install -y libglpk-dev
+              if [ $? -ne 0 ]; then
+                echo "apt-get install libglpk-dev failed" >&2
+                exit 1
+              fi
+            elif command -v yum >/dev/null; then
+              # Ensure yum caches are refreshed and fail loudly if installation fails
+              yum clean all
+              yum -y install glpk-devel || { echo "yum install glpk-devel failed" >&2; exit 1; }
+            else
+              echo "No supported package manager found to install GLPK" >&2
+              exit 1
+            fi
           CIBW_BEFORE_ALL_MACOS: "brew install glpk || brew upgrade glpk"
           # Install build dependencies
           CIBW_BEFORE_BUILD: "pip install Cython numpy setuptools wheel"
