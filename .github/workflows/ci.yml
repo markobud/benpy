@@ -11,6 +11,55 @@ permissions:
   contents: read
 
 jobs:
+  ubuntu-py312:
+    name: Ubuntu Latest - Python 3.12
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install GLPK system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libglpk-dev glpk-utils
+      
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-timeout
+        env:
+          CFLAGS: "-I/usr/include"
+          LDFLAGS: "-L/usr/lib"
+      
+      - name: Install package in editable mode
+        run: pip install --no-build-isolation --no-deps -e .
+        env:
+          CFLAGS: "-I/usr/include"
+          LDFLAGS: "-L/usr/lib"
+      
+      - name: Run tests
+        run: pytest -q tests/ --junit-xml=pytest-results.xml
+      
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-ubuntu-py312
+          path: |
+            pytest-results.xml
+            pytest.log
+            core.*
+          retention-days: 7
+          if-no-files-found: ignore
+  
   build-source:
     name: Build Source Distribution
     runs-on: ubuntu-latest
