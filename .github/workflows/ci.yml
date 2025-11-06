@@ -55,11 +55,11 @@ jobs:
       
       - name: Set GLPK paths (Windows)
         if: runner.os == 'Windows'
-        shell: msys2 {0}
+        shell: bash
         run: |
           echo "CFLAGS=-I/ucrt64/include" >> $GITHUB_ENV
           echo "LDFLAGS=-L/ucrt64/lib" >> $GITHUB_ENV
-          echo "/ucrt64/bin" >> $GITHUB_PATH
+          echo "C:/msys64/ucrt64/bin" >> $GITHUB_PATH
       
       # Install Python dependencies
       - name: Install dependencies
@@ -77,8 +77,11 @@ jobs:
       
       - name: Build extension (Windows)
         if: runner.os == 'Windows'
-        shell: msys2 {0}
+        shell: bash
+        env:
+          SETUPTOOLS_USE_DISTUTILS: stdlib
         run: |
+          export PATH="/c/msys64/ucrt64/bin:$PATH"
           python setup.py build_ext --inplace
       
       # Run tests
