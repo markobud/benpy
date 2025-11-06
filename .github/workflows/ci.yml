@@ -39,16 +39,14 @@ jobs:
           CFLAGS: "-I/usr/include"
           LDFLAGS: "-L/usr/lib"
       
-      - name: Build extension
-        run: python setup.py build_ext --inplace
+      - name: Install package in editable mode
+        run: pip install --no-build-isolation --no-deps -e .
         env:
           CFLAGS: "-I/usr/include"
           LDFLAGS: "-L/usr/lib"
       
       - name: Run tests
         run: pytest -q tests/ --junit-xml=pytest-results.xml
-        env:
-          PYTHONPATH: "src"
       
       - name: Upload test results on failure
         if: failure()
