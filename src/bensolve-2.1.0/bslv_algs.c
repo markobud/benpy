@@ -144,7 +144,7 @@ void poly_output(poly_args *args, const opttype *opt, int stdout_at_msg_lev, pre
 		dual = &args->primal;
 	}
 
-	char filename[strlen(opt->filename)+MAX_STR_LNGTH+strlen(str3)+1];
+	BSLV_VLA_ALLOC(char, filename, strlen(opt->filename)+MAX_STR_LNGTH+strlen(str3)+1);
 
 	for (size_t k=0; k<dual->cnt; k++)
 		if (IS_ELEM(dual->used, k))
@@ -227,6 +227,7 @@ void poly_output(poly_args *args, const opttype *opt, int stdout_at_msg_lev, pre
 	
 	poly__kill_permutation (&prm_dual);
 	poly__kill_permutation (&prm);
+	BSLV_VLA_FREE(filename);
 }
 
 void poly_count(poly_args *args, soltype *sol, swap_type swap)
@@ -564,12 +565,12 @@ void poly_plot_primal(const vlptype *vlp, const soltype *sol, const opttype *opt
 	
 	// write polytope to off-file, write transformation to inst-file
 	{
-		char filename[strlen(opt->filename)+6+1];
+		BSLV_VLA_ALLOC(char, filename, strlen(opt->filename)+6+1);
 		strcpy(filename,opt->filename);
 		strcat(filename, "_p.off");
 		poly__plot(poly,filename);
 		
-		char filename2[strlen(opt->filename)+7+1];
+		BSLV_VLA_ALLOC(char, filename2, strlen(opt->filename)+7+1);
 		strcpy(filename2,opt->filename);
 		char *ptr=strrchr(filename,'/');
 		if (ptr)
@@ -581,6 +582,8 @@ void poly_plot_primal(const vlptype *vlp, const soltype *sol, const opttype *opt
 		fprintf(strm, "INST\ngeom < %s",ptr);
 		fprintf(strm, "\ntransform {%f 0 0 0 0 %f 0 0 0 0 %f 0 0 0 0 1.0}\n", 1.0/(wdth_max[0]-wdth_min[0]),1.0/(wdth_max[1]-wdth_min[1]),1.0/(wdth_max[2]-wdth_min[2]));
 		fclose(strm);
+		BSLV_VLA_FREE(filename2);
+		BSLV_VLA_FREE(filename);
 	}
 }
 
@@ -627,11 +630,11 @@ void poly_plot_dual(const vlptype *vlp, const soltype *sol, const opttype *opt, 
 	// write polytope to off-file, write transformation to inst-file 
 	{
 
-		char filename[strlen(opt->filename)+6+1];
+		BSLV_VLA_ALLOC(char, filename, strlen(opt->filename)+6+1);
 		strcpy(filename,opt->filename);
 		strcat(filename, "_d.off");
 		poly__plot(poly,filename);
-		char filename2[strlen(opt->filename)+7+1];
+		BSLV_VLA_ALLOC(char, filename2, strlen(opt->filename)+7+1);
 		strcpy(filename2,opt->filename);
 		char *ptr=strrchr(filename,'/');
 		if (ptr)
@@ -643,6 +646,8 @@ void poly_plot_dual(const vlptype *vlp, const soltype *sol, const opttype *opt, 
 		fprintf(strm, "INST\ngeom < %s",ptr);
 		fprintf(strm, "\ntransform {%f 0 0 0 0 %f 0 0 0 0 %f 0 0 0 0 1.0}\n", 1.0/(wdth_max[0]-wdth_min[0]), 1.0/(wdth_max[1]-wdth_min[1]), 1.0/hght/golden_ratio);
 		fclose(strm);
+		BSLV_VLA_FREE(filename2);
+		BSLV_VLA_FREE(filename);
 	}
 }
 
@@ -1560,6 +1565,7 @@ void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 			if (lp_status != LP_OPTIMAL)
 			{
 				list1d_free(obj);
+				BSLV_VLA_FREE(w);
 				if (POLY_TEST)
 					poly__polyck (&lower_image);
 				poly__kill (&lower_image);
