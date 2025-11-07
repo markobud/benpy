@@ -106,6 +106,9 @@ int write_log_file(vlptype * vlp, soltype *sol, opttype *opt, double elapsedTime
 
 
 
+#ifndef _WIN32
+// Command-line parsing with getopt is only available on Unix-like systems
+// This function is not used by the Python extension, only by the standalone CLI
 int set_opt(opttype* opt, const int argc, char **argv)
 {
 	const char *options_string =
@@ -284,6 +287,7 @@ int set_opt(opttype* opt, const int argc, char **argv)
 	}
 	return 0;
 }
+#endif // _WIN32
 
 
 static void error(csatype *csa, char const *msg)
