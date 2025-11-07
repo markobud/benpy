@@ -37,7 +37,7 @@ see <http://www.gnu.org/licenses/>
 
 /* Platform-independent timing variables */
 #ifdef _WIN32
-    extern LARGE_INTEGER t_start, t_end, t_freq;
+    LARGE_INTEGER t_end;
 #else
     struct timeval t_end;
 #endif
