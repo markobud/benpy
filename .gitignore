@@ -1,5 +1,6 @@
 *.vlp
 *.cone
+*.sol
 
 build/
 dist/
