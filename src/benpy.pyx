@@ -625,8 +625,16 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
                 phase0(solution._sol, problem._vlp, problem._opt)
             if (solution._sol.status == VLP_UNBOUNDED):
                 print("VLP is totally unbounded, there is no solution")
+                # Early return to avoid undefined behavior in phase 1/2
+                # This matches bensolve main.c behavior and prevents crashes on Windows
+                # Note: lp_free(0) will be called in finally block
+                return solution
             if (solution._sol.status == VLP_NOVERTEX):
                 print("upper image of VLP has no vertex, not covered by this version")
+                # Early return to avoid undefined behavior in phase 1/2
+                # This matches bensolve main.c behavior and prevents crashes on Windows
+                # Note: lp_free(0) will be called in finally block
+                return solution
             if (problem._opt.message_level >= 2):
                 eta = []
                 for k in range(problem._vlp.q):
