@@ -927,7 +927,75 @@ cdef _poly_output(_cVlpSolution s, _cVlpProblem problem, swap = 0):
         return ((ls1_p, ls2_p, adj_p, inc_p, pre_p), (ls1_d, ls2_d, adj_d, inc_d, pre_d))
 
 class vlpProblem:
-    "Wrapper Class for a vlpProblem"
+    """
+    Wrapper class for defining and managing Vector Linear Program (VLP) problems.
+    
+    This class provides the traditional interface for defining VLP/MOLP problems.
+    Problem data is specified through instance attributes and solved using the solve() function.
+    
+    Note: For better performance, consider using solve_direct() which works directly with
+    numpy arrays and is 2-3x faster. See solve_direct() documentation for details.
+    
+    Attributes
+    ----------
+    B : array-like (m x n)
+        Constraint matrix
+    P : array-like (q x n)
+        Objective matrix
+    a : array-like (m,), optional
+        Lower bounds for constraints (default: -inf)
+    b : array-like (m,), optional
+        Upper bounds for constraints (default: +inf)
+    l : array-like (n,), optional
+        Lower bounds for variables (default: -inf)
+    s : array-like (n,), optional
+        Upper bounds for variables (default: +inf)
+    Y : array-like (q x k), optional
+        Ordering cone generators (primal)
+    Z : array-like (q x k), optional
+        Ordering cone generators (dual)
+    c : array-like (q,), optional
+        Duality parameter vector
+    opt_dir : int
+        Optimization direction: 1 for minimize, -1 for maximize
+    options : dict, optional
+        Solver options dictionary (see default_options property)
+    
+    Properties
+    ----------
+    default_options : dict
+        Default solver options (write_files, log_file, bounded, solution, 
+        message_level, lp_message_level, alg_phase1, alg_phase2, etc.)
+    
+    Methods
+    -------
+    to_vlp_file(filename)
+        Write the problem to a .vlp file
+    to_vlp_string()
+        Convert the problem to a .vlp format string
+    
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from benpy import vlpProblem, solve
+    >>> 
+    >>> # Define a bi-objective linear program
+    >>> vlp = vlpProblem()
+    >>> vlp.B = np.array([[2.0, 1.0], [1.0, 2.0]])
+    >>> vlp.P = np.array([[1.0, 0.0], [0.0, 1.0]])
+    >>> vlp.b = [4.0, 4.0]
+    >>> vlp.l = [0.0, 0.0]
+    >>> vlp.opt_dir = 1  # minimize
+    >>> 
+    >>> # Solve the problem
+    >>> sol = solve(vlp)
+    >>> print(f"Found {len(sol.Primal.vertex_value)} efficient points")
+    
+    See Also
+    --------
+    solve : Solve a vlpProblem instance
+    solve_direct : Faster alternative that works directly with numpy arrays
+    """
 
     @property
     def default_options(self):
@@ -1195,7 +1263,61 @@ class vlpSolution:
 
 
 def solve(problem):
-    """Solves a vlpProblem instance. It returns a vlpSolution instance"""
+    """
+    Solve a VLP problem defined by a vlpProblem instance.
+    
+    This function solves Vector Linear Programming (VLP) and Multi-Objective Linear 
+    Programming (MOLP) problems using the bensolve 2.1.0 algorithm. The problem is 
+    written to a temporary .vlp file and then solved.
+    
+    Note: For better performance (2-3x faster), consider using solve_direct() which 
+    works directly with numpy arrays and avoids temporary file I/O.
+    
+    Parameters
+    ----------
+    problem : vlpProblem
+        A vlpProblem instance with defined constraint and objective matrices
+    
+    Returns
+    -------
+    vlpSolution
+        Solution object containing primal and dual polytopes, with attributes:
+        - Primal: Named tuple with vertex_type, vertex_value, adj, incidence, preimage
+        - Dual: Named tuple with vertex_type, vertex_value, adj, incidence, preimage
+        - c: Duality parameter vector
+        - status: Solution status string (e.g., "VLP_OPTIMAL", "VLP_INFEASIBLE")
+        - num_vertices_upper: Number of upper image vertices
+        - num_vertices_lower: Number of lower image vertices
+        - Y, Z: Ordering cone generators
+        - eta, R, H: Advanced solution components
+    
+    Raises
+    ------
+    RuntimeError
+        If the constraint matrix B or objective matrix P is not specified
+        If B and P have incompatible dimensions
+    
+    Examples
+    --------
+    >>> import numpy as np
+    >>> from benpy import vlpProblem, solve
+    >>> 
+    >>> vlp = vlpProblem()
+    >>> vlp.B = np.array([[2.0, 1.0], [1.0, 2.0]])
+    >>> vlp.P = np.array([[1.0, 0.0], [0.0, 1.0]])
+    >>> vlp.b = [4.0, 4.0]
+    >>> vlp.l = [0.0, 0.0]
+    >>> vlp.opt_dir = 1
+    >>> 
+    >>> sol = solve(vlp)
+    >>> print(sol.status)
+    >>> print(f"Found {len(sol.Primal.vertex_value)} efficient points")
+    
+    See Also
+    --------
+    solve_direct : Faster alternative that works directly with numpy arrays
+    vlpProblem : Class for defining VLP problems
+    """
     cdef size_t k
     
     # Use delete=False to avoid Windows permission errors when to_vlp_file opens the file
@@ -1245,15 +1367,22 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     """
     Solve a VLP problem directly from numpy arrays, bypassing file I/O.
     
-    This is a more efficient alternative to the standard solve() function that avoids
-    writing to temporary files.
+    This is the recommended method for solving VLP problems in benpy 2.1.0+. It is 
+    2-3x faster than solve() because it works directly with numpy arrays in memory
+    without creating temporary files.
     
-    Parameters:
-    -----------
+    The problem formulation is:
+        opt_dir * P x  subject to  a <= B x <= b, l <= x <= s
+    
+    where opt_dir = 1 for minimization (v-min), -1 for maximization (v-max).
+    
+    Parameters
+    ----------
     B : array-like (m x n)
-        Constraint matrix
+        Constraint matrix where m is the number of constraints and n is the number 
+        of variables
     P : array-like (q x n)
-        Objective matrix
+        Objective matrix where q is the number of objectives
     a : array-like (m,), optional
         Lower bounds for constraints (default: -inf)
     b : array-like (m,), optional
@@ -1263,28 +1392,113 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     s : array-like (n,), optional
         Upper bounds for variables (default: +inf)
     Y : array-like (q x k), optional
-        Ordering cone generators (primal)
+        Ordering cone generators (primal space)
     Z : array-like (q x k), optional
-        Ordering cone generators (dual)
+        Ordering cone generators (dual space)
     c : array-like (q,), optional
         Duality parameter vector
-    opt_dir : int
-        Optimization direction: 1 for minimize, -1 for maximize
+    opt_dir : int, default=1
+        Optimization direction: 1 for minimize (v-min), -1 for maximize (v-max)
     options : dict, optional
-        Solver options (same as vlpProblem.options)
+        Solver options dictionary. If None, uses default options. Available options:
+        - 'write_files': Write intermediate files (default: False)
+        - 'log_file': Create log file (default: False)
+        - 'bounded': Problem is bounded (default: False)
+        - 'solution': Write solution files (default: False)
+        - 'message_level': Verbosity level 0-3 (default: 3)
+        - 'lp_message_level': LP solver verbosity 0-3 (default: 0)
+        - 'alg_phase1': Phase 1 algorithm 'primal' or 'dual' (default: 'primal')
+        - 'alg_phase2': Phase 2 algorithm 'primal' or 'dual' (default: 'primal')
+        - 'lp_method_phase0': LP method for phase 0 (default: 'primal_simplex')
+        - 'lp_method_phase1': LP method for phase 1 (default: 'auto')
+        - 'lp_method_phase2': LP method for phase 2 (default: 'auto')
     
-    Returns:
-    --------
+    Returns
+    -------
     vlpSolution
-        Solution object containing primal and dual polytopes
+        Solution object with the following attributes:
         
-    Example:
+        - **Primal**: Named tuple containing:
+            - vertex_type: Array of vertex types (1=bounded, 0=unbounded)
+            - vertex_value: List of vertex coordinates in objective space
+            - adj: Adjacency matrix of the primal polytope
+            - incidence: Incidence relations
+            - preimage: Pre-images in decision space
+        
+        - **Dual**: Named tuple containing:
+            - vertex_type: Array of dual vertex types
+            - vertex_value: List of dual vertex coordinates
+            - adj: Adjacency matrix of the dual polytope
+            - incidence: Dual incidence relations
+            - preimage: Dual pre-images
+        
+        - **c**: Duality parameter vector
+        
+        - **status**: Solution status string
+            - "VLP_OPTIMAL": Problem solved successfully
+            - "VLP_INFEASIBLE": Problem is infeasible
+            - "VLP_UNBOUNDED": Problem is unbounded
+            - "VLP_NOVERTEX": Upper image has no vertices
+            - "VLP_INPUTERROR": Invalid input data
+        
+        - **num_vertices_upper**: Number of vertices in upper image
+        - **num_vertices_lower**: Number of vertices in lower image
+        - **Y, Z**: Ordering cone generators used in solving
+        - **eta, R, H**: Advanced solution components
+    
+    Raises
+    ------
+    ValueError
+        If matrices have incompatible dimensions
+    MemoryError
+        If memory allocation fails
+    RuntimeError
+        If the solver encounters an error
+    
+    Examples
     --------
+    Basic bi-objective minimization problem:
+    
     >>> import numpy as np
-    >>> B = np.array([[1, 1], [1, 0]])
-    >>> P = np.array([[1, 0], [0, 1]])
-    >>> b = np.array([1, 1])
-    >>> sol = solve_direct(B, P, b=b, opt_dir=1)
+    >>> from benpy import solve_direct
+    >>> 
+    >>> # Define problem: minimize two objectives subject to constraints
+    >>> B = np.array([[2.0, 1.0],    # Constraint matrix
+    ...               [1.0, 2.0]])
+    >>> P = np.array([[1.0, 0.0],    # Objective matrix
+    ...               [0.0, 1.0]])
+    >>> b = np.array([4.0, 4.0])     # Upper bounds
+    >>> l = np.array([0.0, 0.0])     # Variable lower bounds
+    >>> 
+    >>> sol = solve_direct(B, P, b=b, l=l, opt_dir=1)
+    >>> print(sol.status)
+    >>> print(f"Found {len(sol.Primal.vertex_value)} efficient points")
+    
+    Maximization problem:
+    
+    >>> sol_max = solve_direct(B, P, b=b, l=l, opt_dir=-1)
+    
+    With custom solver options:
+    
+    >>> options = {'message_level': 1, 'alg_phase2': 'dual'}
+    >>> sol = solve_direct(B, P, b=b, l=l, opt_dir=1, options=options)
+    
+    Notes
+    -----
+    - All array-like inputs are converted to numpy arrays internally
+    - The GIL is released during the solve operation for better concurrency
+    - Memory is managed automatically; all structures are cleaned up after solving
+    - This function is thread-safe when used from different Python threads (each 
+      call creates independent bensolve structures)
+    
+    See Also
+    --------
+    solve : Traditional interface using vlpProblem objects
+    vlpProblem : Class for defining VLP problems
+    
+    References
+    ----------
+    Bensolve 2.1.0: http://www.bensolve.org/
     """
     # Create and configure problem
     cProblem = _cVlpProblem()

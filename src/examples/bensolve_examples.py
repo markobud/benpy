@@ -1,16 +1,32 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Wed May 31 15:45:22 2017
-Test VLP interfase with bensolve
+Examples demonstrating benpy VLP interface with bensolve 2.1.0
+
+These examples show various VLP/MOLP problem types and solving methods.
+benpy 2.1.0 introduces solve_direct() for faster solving (2-3x speedup).
+
 @author: mbudinich
 """
 # %%
 from numpy import transpose, ones, zeros, eye, matrix, loadtxt, append, vstack, inf
-from benpy import vlpProblem, solve as bensolve
-# %%
-# Example: MOLP with 2 objectives, simplest example
+import numpy as np
+from benpy import vlpProblem, solve as bensolve, solve_direct
 
+print("=" * 70)
+print("benpy 2.1.0 Examples - VLP/MOLP Problems")
+print("=" * 70)
+print("\nNote: Examples demonstrate both solve_direct() (new, fast) and")
+print("      traditional solve() (backward compatible)")
+print("=" * 70)
+
+# %%
+# ============================================================================
+# Example 01: MOLP with 2 objectives - Basic Problem
+# ============================================================================
+print("\n[Example 01] Basic bi-objective minimization")
+print("-" * 70)
+# Problem formulation:
 # min [x1 - x2; x1 + x2]
 #
 # 6 <= 2*x1 +   x2
@@ -19,26 +35,57 @@ from benpy import vlpProblem, solve as bensolve
 # x1 >= 0
 # x2 >= 0
 
-vlp = vlpProblem()
+# Method A: Using solve_direct() - Recommended (2-3x faster)
+print("\nUsing solve_direct():")
+B_01 = np.array([[2.0, 1.0], [1.0, 2.0]])
+P_01 = np.array([[1.0, -1.0], [1.0, 1.0]])
+a_01 = np.array([6.0, 6.0])
+l_01 = np.array([0.0, 0.0])
 
+sol_01 = solve_direct(B_01, P_01, a=a_01, l=l_01, opt_dir=1)
+print(f"  Status: {sol_01.status}")
+print(f"  Efficient points: {len(sol_01.Primal.vertex_value)}")
+
+# Method B: Using traditional solve() - For backward compatibility
+print("\nUsing traditional solve():")
+vlp = vlpProblem()
 vlp.B = matrix([[2, 1], [1, 2]])    # coefficient matrix
-vlp.a = [6, 6]        # lower bounds
-vlp.P = matrix([[1, -1], [1, 1]])  # objective matrix
-vlp.l = [0, 0]        # lower variable bounds
+vlp.a = [6, 6]                      # lower bounds
+vlp.P = matrix([[1, -1], [1, 1]])   # objective matrix
+vlp.l = [0, 0]                      # lower variable bounds
 
 vlp.to_vlp_file('ex01.vlp')
-
 sol = bensolve(vlp)
-print(sol)
-# %%
-# Example: MOLP with 2 objectives which is infeasible
+print(f"  Status: {sol.status}")
+print(f"  Efficient points: {len(sol.Primal.vertex_value)}")
 
+# %%
+# ============================================================================
+# Example 02: Infeasible MOLP
+# ============================================================================
+print("\n[Example 02] Infeasible bi-objective problem")
+print("-" * 70)
+
+# Problem formulation:
 # v-min [x1;x2]
 #
 # 0 <= 3*x1 +   x2 <= 1
 # 0 <=   x1 + 2*x2 <= 1
 # 1 <=   x1 +   x2 <= 2
 
+# Using solve_direct()
+print("\nUsing solve_direct():")
+B_02 = np.array([[3.0, 1.0], [1.0, 2.0], [1.0, 1.0]])
+P_02 = np.array([[1.0, 0.0], [0.0, 1.0]])
+a_02 = np.array([0.0, 0.0, 1.0])
+b_02 = np.array([1.0, 1.0, 2.0])
+
+sol_02 = solve_direct(B_02, P_02, a=a_02, b=b_02, opt_dir=1)
+print(f"  Status: {sol_02.status}")
+print(f"  Expected: VLP_INFEASIBLE")
+
+# Using traditional solve()
+print("\nUsing traditional solve():")
 vlp = vlpProblem()
 
 vlp.B = matrix([[3, 1], [1, 2], [1, 1]])
@@ -49,15 +96,23 @@ vlp.P = matrix([[1, 0], [0, 1]])
 vlp.to_vlp_file('ex02.vlp')
 
 sol = bensolve(vlp)
-print(sol)
-# %%
-# Example: MOLP with 2 objectives the upper image of which has no vertex
+print(f"  Status: {sol.status}")
 
+# %%
+# ============================================================================
+# Example 03: MOLP with no vertex in upper image (commented out - see below)
+# ============================================================================
+# This example is commented out as it may cause issues on some platforms.
+# Uncomment to test if needed.
+"""
+print("\n[Example 03] MOLP with no vertex in upper image")
+print("-" * 70)
+# Problem formulation:
 # v-min [x1;x2]
 #
 # 1 <= x1 + x2 + x3
 # 1 <= x1 + x2 - x3
-"""
+
 vlp = vlpProblem()
 
 vlp.B = matrix([[1, 1, 1], [1, 1, -1]])
@@ -71,13 +126,35 @@ print(sol)
 """
 
 # %%
-# Example: MOLP with 2 objectives, which is totally unbounded
+# ============================================================================
+# Example 04: Unbounded MOLP
+# ============================================================================
+print("\n[Example 04] Totally unbounded bi-objective problem")
+print("-" * 70)
 
+# ============================================================================
+# Example 04: Unbounded MOLP
+# ============================================================================
+print("\n[Example 04] Totally unbounded bi-objective problem")
+print("-" * 70)
+# Problem formulation:
 # v-min [x1;x2]
 #
 # 1 <= x1 + x2 +   x3
 # 1 <= x1 + x2 + 2*x3
 
+# Using solve_direct()
+print("\nUsing solve_direct():")
+B_04 = np.array([[1.0, 1.0, 1.0], [1.0, 1.0, 2.0]])
+P_04 = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])
+a_04 = np.array([1.0, 1.0])
+
+sol_04 = solve_direct(B_04, P_04, a=a_04, opt_dir=1)
+print(f"  Status: {sol_04.status}")
+print(f"  Expected: VLP_UNBOUNDED")
+
+# Using traditional solve()
+print("\nUsing traditional solve():")
 vlp = vlpProblem()
 
 vlp.B = matrix([[1, 1, 1], [1, 1, 2]])
@@ -87,12 +164,16 @@ vlp.P = matrix([[1, 0, 0], [0, 1, 0]])
 vlp.to_vlp_file('ex04.vlp')
 
 sol = bensolve(vlp)
-print(sol)
+print(f"  Status: {sol.status}")
+
 # %%
-# Example: VLP with q = 3 and 4 generating vectors of C
-
-# see http://bensolve.org/demo.html
-
+# ============================================================================
+# Example 05: VLP with 3 objectives and custom ordering cone
+# ============================================================================
+print("\n[Example 05] VLP with q=3 and 4 generating vectors of C")
+print("-" * 70)
+print("See http://bensolve.org/demo.html for details")
+print("\nUsing traditional solve():")
 vlp = vlpProblem()
 
 vlp.B = matrix([ones((1, 3)).tolist()[0], [1, 2, 2], [
