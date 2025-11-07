@@ -8,20 +8,18 @@
 
 #ifdef _WIN32
 /* Windows-specific definitions */
+/* Suppress MSVC warnings about deprecated CRT functions (strcpy, strcat, etc.) */
+#ifndef _CRT_SECURE_NO_WARNINGS
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
+/* Include winsock2.h before windows.h to get timeval definition
+ * and avoid conflicts. winsock2.h must come before windows.h */
+#include <winsock2.h>
 #include <windows.h>
 #include <time.h>
 
-/* Define timeval structure for Windows
- * Note: Uses 'long' for compatibility with standard Unix timeval structure.
- * On Windows x64, long is 32-bit, but this matches the expected semantics.
- */
-#ifndef _TIMEVAL_DEFINED
-#define _TIMEVAL_DEFINED
-struct timeval {
-    long tv_sec;
-    long tv_usec;
-};
-#endif
+/* timeval is already defined in winsock2.h on Windows, so we don't redefine it */
 
 /* Implement gettimeofday for Windows
  * Parameters:
@@ -55,10 +53,22 @@ static inline int gettimeofday(struct timeval *tv, void *tz)
     return 0;
 }
 
+/* MSVC doesn't support C99 VLAs (variable-length arrays).
+ * Use _malloca for stack-like allocation with automatic cleanup via _freea.
+ * _malloca allocates on stack if size is small, otherwise uses heap.
+ */
+#include <malloc.h>
+#define BSLV_VLA_ALLOC(type, name, size) type *name = (type *)_malloca((size) * sizeof(type))
+#define BSLV_VLA_FREE(name) _freea(name)
+
 #else
 /* Unix-like systems */
 #include <sys/time.h>
 #include <unistd.h>
+
+/* On Unix/POSIX systems, VLAs are supported natively in C99 */
+#define BSLV_VLA_ALLOC(type, name, size) type name[size]
+#define BSLV_VLA_FREE(name) /* No-op on systems with native VLA support */
 
 #endif /* _WIN32 */
 

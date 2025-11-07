@@ -764,10 +764,10 @@ void phase0(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	init_P2(sol, vlp, HOMOGENEOUS);
 	lp_set_options(opt, PHASE0);
 	double tmp1, tmp2;
-	double z[vlp->q - 1]; // to store the vector z (see [1])
-	double V[(vlp->q - 1)*(vlp->q - 1)]; // to store the vectors V(0), ... ,V(q-2) in R^{q-1} (see [1])
-	double C[(vlp->q - 1) * (vlp->q - 1)]; // to store the vectors C(0), ... ,C(q-2) in R^{q-1} (see [1])
-	double ww_red[vlp->q - 1];
+	BSLV_VLA_ALLOC(double, z, vlp->q - 1); // to store the vector z (see [1])
+	BSLV_VLA_ALLOC(double, V, (vlp->q - 1)*(vlp->q - 1)); // to store the vectors V(0), ... ,V(q-2) in R^{q-1} (see [1])
+	BSLV_VLA_ALLOC(double, C, (vlp->q - 1) * (vlp->q - 1)); // to store the vectors C(0), ... ,C(q-2) in R^{q-1} (see [1])
+	BSLV_VLA_ALLOC(double, ww_red, vlp->q - 1);
 	boundlist* rows = boundlist_calloc(sol->p, 'u'); // to reset the upper row bounds Z'y in P_2(y)
 	boundlist_init_idx(rows, vlp->m + vlp->q + 1); // upper bounds for indices m+1 to m+p
 	if (opt->message_level >= 3) printf("solve lp\n");
@@ -777,6 +777,10 @@ void phase0(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	{		
 		sol->status=VLP_UNBOUNDED;
 		boundlist_free(rows);
+		BSLV_VLA_FREE(ww_red);
+		BSLV_VLA_FREE(C);
+		BSLV_VLA_FREE(V);
+		BSLV_VLA_FREE(z);
 		return;
 	}
 	else	
@@ -893,6 +897,10 @@ void phase0(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	for (size_t k=0; k<vlp->q-1; k++)
 		sol->eta[vlp->q-1]-=sol->c[k]*sol->eta[k];
 	boundlist_free(rows);
+	BSLV_VLA_FREE(ww_red);
+	BSLV_VLA_FREE(C);
+	BSLV_VLA_FREE(V);
+	BSLV_VLA_FREE(z);
 } // end of phase0
 
 /*
@@ -953,7 +961,7 @@ void phase1_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	 */
 	{
 		double alpha;
-		double ww[vlp->q];
+		BSLV_VLA_ALLOC(double, ww, vlp->q);
 		
 		upper_image.ideal=0; // mark y^* (dual vertex to be added) as a point
 
@@ -996,6 +1004,7 @@ void phase1_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
 			}
 		}
 		boundlist_free(rows);
+		BSLV_VLA_FREE(ww);
 	}
 	/* PHASE 1 -- PRIMAL -- PART 3
 	 *
@@ -1008,7 +1017,7 @@ void phase1_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	 *		compute dual cone of cone(R) and store directions as columns of H
 	 */
 	{
-		double arr[vlp->q * upper_image.dual.cnt];
+		BSLV_VLA_ALLOC(double, arr, vlp->q * upper_image.dual.cnt);
 		size_t pp=0;
 		for (size_t l=0; l<upper_image.dual.cnt; l++)
 		{
@@ -1023,11 +1032,13 @@ void phase1_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
 				pp++;
 			}
 		}
-		double arr_trans[vlp->q * pp];
+		BSLV_VLA_ALLOC(double, arr_trans, vlp->q * pp);
 		for (size_t l = 0; l < pp; l++)
 			for (size_t k = 0; k < vlp->q; k++)
 				arr_trans[k*pp+l]=arr[l*vlp->q+k];
 		cone_vertenum(&sol->R, &sol->r,&sol->H, &sol->h,arr_trans,pp,vlp->q,opt,CONE_OUT_OFF,NO_SWAP);
+		BSLV_VLA_FREE(arr_trans);
+		BSLV_VLA_FREE(arr);
 	}
 	if (POLY_TEST)
 		poly__polyck (&upper_image);
@@ -1133,10 +1144,10 @@ void phase2_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	 */
 	if (vlp->q>1)
 	{
-		double ww[vlp->q];
+		BSLV_VLA_ALLOC(double, ww, vlp->q);
 		boundlist* rows = boundlist_calloc(sol->r, 'u'); // list to update the upper row bounds Z'y in P_2(y)
 		boundlist_init_idx(rows, vlp->m + vlp->q + 1); // upper bounds for indices m+q+1 to m+q+r
-		double yy[sol->q]; // vector to store yy = P x
+		BSLV_VLA_ALLOC(double, yy, sol->q); // vector to store yy = P x
 		for(;;)
 		{
 			if (poly__get_vrtx (&upper_image))
@@ -1191,6 +1202,8 @@ void phase2_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
 			}
 		}
 		boundlist_free(rows);
+		BSLV_VLA_FREE(yy);
+		BSLV_VLA_FREE(ww);
 	}
 	
 
@@ -1380,7 +1393,7 @@ void phase1_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	 *
 	 */
 	{
-		double w[vlp->q];
+		BSLV_VLA_ALLOC(double, w, vlp->q);
 		for(lp_idx i = 0; i < vlp->q; i++) // w = mean of columns of Z
 		{
 			w[i] = 0;
@@ -1410,6 +1423,7 @@ void phase1_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 		}
 		list1d_free(obj);
 		poly__intl_apprx (&lower_image);
+		BSLV_VLA_FREE(w);
 	}
 
 	/* PHASE 1 -- DUAL -- PART 2
@@ -1467,7 +1481,7 @@ void phase1_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	 *		compute dual cone of cone(R) and store directions as columns of H
 	 */
 	{
-		double arr[vlp->q * lower_image.primal.cnt];
+		BSLV_VLA_ALLOC(double, arr, vlp->q * lower_image.primal.cnt);
 		size_t pp=0;
 		for (size_t l=0; l<lower_image.primal.cnt; l++)
 		{
@@ -1482,11 +1496,13 @@ void phase1_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 				pp++;
 			}
 		}
-		double arr_trans[vlp->q * pp];
+		BSLV_VLA_ALLOC(double, arr_trans, vlp->q * pp);
 		for (size_t l = 0; l < pp; l++)
 			for (size_t k = 0; k < vlp->q; k++)
 				arr_trans[k*pp+l]=arr[l*vlp->q+k];
 		cone_vertenum(&sol->R,&sol->r,&sol->H,&sol->h,arr_trans,pp,vlp->q,opt,CONE_OUT_OFF,NO_SWAP);
+		BSLV_VLA_FREE(arr_trans);
+		BSLV_VLA_FREE(arr);
 	}
 	if (POLY_TEST)
 		poly__polyck (&lower_image);
@@ -1523,7 +1539,7 @@ void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	 *
 	 */
 	{
-		double w[vlp->q];
+		BSLV_VLA_ALLOC(double, w, vlp->q);
 		list1d *obj = list1d_calloc(vlp->q);
 		list1d_init_idx(obj, vlp->n + 1);
 
@@ -1645,6 +1661,7 @@ void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 			}
 		}
 		list1d_free(obj);
+		BSLV_VLA_FREE(w);
 	}
 	if (sol->status == VLP_UNBOUNDED)
 	{

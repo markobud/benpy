@@ -971,8 +971,8 @@ int sol_init(soltype *sol, const vlptype *vlp, const opttype *opt)
 			}
 			else
 			{
-				double tmp1[vlp->q];
-				double tmp2[vlp->q];
+				BSLV_VLA_ALLOC(double, tmp1, vlp->q);
+				BSLV_VLA_ALLOC(double, tmp2, vlp->q);
 				double max=0, min=0;
 				size_t k1=0,k2=0;
 				for (size_t j=0; j<vlp->q; j++)
@@ -1035,6 +1035,8 @@ int sol_init(soltype *sol, const vlptype *vlp, const opttype *opt)
 					return 1;
 				}
 				if (opt->message_level >= 1) printf("Warning: geometric duality parameter vector c was generated\n");
+				BSLV_VLA_FREE(tmp2);
+				BSLV_VLA_FREE(tmp1);
 			}
 		}
 	}
@@ -1096,14 +1098,15 @@ int sol_init(soltype *sol, const vlptype *vlp, const opttype *opt)
 
 	// write c to file and stdout
 	{
-		double c[vlp->q];
+		BSLV_VLA_ALLOC(double, c, vlp->q);
 		for(size_t k=0; k<vlp->q; k++)
 			c[k]=sol->c[k];
 		char filename[strlen(opt->filename)+6+1];
 		strcpy(filename,opt->filename);
 		strcat(filename, "_c.sol");
 		matrix_fprint (c, 1, vlp->q, 1, filename, opt->format==FORMAT_SHORT?FORMAT_SHORT_STR:FORMAT_LONG_STR);
-		if (opt->message_level >= 2) { printf("Duality parameter vector c = \n  "); matrix_print(sol->c, 1, vlp->q, opt->format==FORMAT_LONG?FORMAT_LONG_STR:FORMAT_SHORT_STR);}		
+		if (opt->message_level >= 2) { printf("Duality parameter vector c = \n  "); matrix_print(sol->c, 1, vlp->q, opt->format==FORMAT_LONG?FORMAT_LONG_STR:FORMAT_SHORT_STR);}
+		BSLV_VLA_FREE(c);
 	}
 
 	// invert C and c in case of c_q<0 in order to obtain standard problem of type c_q>0
