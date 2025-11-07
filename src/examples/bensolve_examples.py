@@ -158,7 +158,7 @@ vlp.to_vlp_file('ex06.vlp')
 
 vlp = vlpProblem()
 
-vlp.B = loadtxt('src/bensolve-mod/ex/example07.txt')
+vlp.B = loadtxt('src/bensolve-2.1.0/ex/example07.txt')
 vlp.P = -1 * matrix([append(zeros((1, 1140)), [-1, 0, 0]), append(
     zeros((1, 1140)), [0, -1, 0]), append(zeros((1, 1140)), [0, 0, -1])])
 vlp.l = append(zeros((1140, 1)), [0, -45, 0])

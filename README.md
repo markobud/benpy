@@ -101,7 +101,7 @@ print(f"Examples are located at: {example_dir}")
 
 ## 🏠 Built With
 - **[setuptools](https://pypi.python.org/pypi/setuptools)** – Used for building the package.
-- **[bensolve-mod](https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod)** – A modified version of [Bensolve](http://www.bensolve.org/) included in this repository.
+- **[Bensolve](http://www.bensolve.org/)** – Bensolve v2.1.0 library for VLP/MOLP solving, included in this repository.
 - **[PTable](https://pypi.python.org/pypi/PTable/0.9.0)** – Used for pretty-printing results.
 
 ---
