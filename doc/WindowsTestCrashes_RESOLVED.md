@@ -140,7 +140,7 @@ initialization - solve lp
 process primal vertex - solve lp
 Starting Phase 2 -- Primal Algorithm       ← ❌ SHOULD NOT RUN
 initialization - solve lp
-LP in Phase 2 is not bounded, probably by innacuracy in phase 1
+LP in Phase 2 is not bounded, probably by inaccuracy in phase 1
 Status: unbounded                          ← ❌ WRONG STATUS
 ```
 

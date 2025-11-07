@@ -677,7 +677,7 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
             if (problem._opt.bounded == 1):
                 print("VLP is not bounded, re-run without bounded opt")
             else:
-                print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
+                print("LP in Phase 2 is not bounded, probably by inaccuracy in phase 1")
     finally:
         # Always free LP structure, even if solving fails
         # bensolve 2.1.0 uses index 0 for the main LP
