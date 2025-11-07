@@ -75,7 +75,6 @@ class TestExampleProblems:
         # The exact behavior depends on how bensolve reports infeasibility
         pytest.fail("Problem should be detected as infeasible")
         
-    @pytest.mark.skipif(sys.platform == 'win32', reason="Crashes on Windows - known issue with no-vertex problems")
     def test_example03_no_vertex(self):
         """Test example03: Upper image has no vertex."""
         prob_data = get_example03()
@@ -88,9 +87,9 @@ class TestExampleProblems:
         )
         
         assert sol is not None, "Solution should not be None"
+        assert sol.status == 'no_vertex', "Status should be 'no_vertex'"
         
     @pytest.mark.slow
-    @pytest.mark.skipif(sys.platform == 'win32', reason="Crashes on Windows - known issue with unbounded problems")
     def test_example04_totally_unbounded(self):
         """Test example04: Totally unbounded problem."""
         prob_data = get_example04()
@@ -104,6 +103,7 @@ class TestExampleProblems:
         
         # Unbounded problems should still return a solution object
         assert sol is not None, "Solution should not be None"
+        assert sol.status == 'unbounded', "Status should be 'unbounded'"
         
     @pytest.mark.slow
     def test_example05_custom_cone(self):
@@ -186,16 +186,9 @@ class TestExampleConsistency:
         solvable = get_solvable_examples()
         examples = get_all_examples()
         
-        # Skip examples that crash on Windows (see doc/WindowsTestCrashes.md)
-        windows_crash_examples = ['example03', 'example04']
-        
         for name in solvable:
             if name not in examples:
                 continue
-            
-            # Skip known crash examples on Windows
-            if sys.platform == 'win32' and name in windows_crash_examples:
-                pytest.skip(f"Skipping {name} on Windows - known to crash (see doc/WindowsTestCrashes.md)")
                 
             prob_data = examples[name]
             

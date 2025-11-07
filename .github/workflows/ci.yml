@@ -151,14 +151,11 @@ jobs:
           export LDFLAGS="-L/mingw64/lib"
           pip install --no-build-isolation --no-deps -e .
       
-      # TODO: Re-enable Windows tests in future issue
-      # Tests are currently skipped due to platform-specific crashes in edge cases
-      # See: test_example03_no_vertex, test_example04_totally_unbounded, test_all_solvable_examples_run
-      # - name: Run tests
-      #   shell: msys2 {0}
-      #   run: |
-      #     export PATH="/mingw64/bin:$PATH"
-      #     pytest -q tests/ --junit-xml=pytest-results.xml
+      - name: Run tests
+        shell: msys2 {0}
+        run: |
+          export PATH="/mingw64/bin:$PATH"
+          pytest -q tests/ --junit-xml=pytest-results.xml
       
       - name: Upload test results on failure
         if: failure()

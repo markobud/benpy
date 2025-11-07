@@ -7,6 +7,7 @@ from libc.stdlib cimport malloc, free
 from libc.limits cimport CHAR_BIT
 from prettytable import PrettyTable
 from os.path import splitext
+import os
 from collections import namedtuple as ntp
 from warnings import warn
 from scipy.sparse import lil_matrix, find
@@ -372,7 +373,7 @@ cdef class _cVlpProblem:
             # Clean up temporary file
             try:
                 os.unlink(temp_filename)
-            except:
+            except (OSError, FileNotFoundError):
                 pass
 
     def toString(self):
@@ -625,8 +626,16 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
                 phase0(solution._sol, problem._vlp, problem._opt)
             if (solution._sol.status == VLP_UNBOUNDED):
                 print("VLP is totally unbounded, there is no solution")
+                # Early return to avoid undefined behavior in phase 1/2
+                # This matches bensolve main.c behavior and prevents crashes on Windows
+                # Note: lp_free(0) will be called in finally block
+                return solution
             if (solution._sol.status == VLP_NOVERTEX):
                 print("upper image of VLP has no vertex, not covered by this version")
+                # Early return to avoid undefined behavior in phase 1/2
+                # This matches bensolve main.c behavior and prevents crashes on Windows
+                # Note: lp_free(0) will be called in finally block
+                return solution
             if (problem._opt.message_level >= 2):
                 eta = []
                 for k in range(problem._vlp.q):
@@ -669,7 +678,7 @@ cdef _cVlpSolution _csolve(_cVlpProblem problem):
             if (problem._opt.bounded == 1):
                 print("VLP is not bounded, re-run without bounded opt")
             else:
-                print("LP in Phase 2 is not bounded, probably by innacuracy in phase 1")
+                print("LP in Phase 2 is not bounded, probably by inaccuracy in phase 1")
     finally:
         # Always free LP structure, even if solving fails
         # bensolve 2.1.0 uses index 0 for the main LP
@@ -1187,40 +1196,49 @@ class vlpSolution:
 
 def solve(problem):
     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
-    tempfile = NamedTemporaryFile(mode='w+t')
-    problem.to_vlp_file(filename=tempfile.name)
-    tempfile.flush()
-    tempfile.seek(0)
-    cProblem = _cVlpProblem()
-    cProblem.from_file(tempfile.name)
-    cProblem.set_options(problem.options)
-    cSolution = _csolve(cProblem)
-    ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,cProblem,swap=(problem.options['alg_phase2']=='dual'))
-    sol = vlpSolution()
-    Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])
-    Dual = ntp('Dual',['vertex_type','vertex_value','adj','incidence','preimage'])
-    c = []
     cdef size_t k
-    for k in range(<size_t> cProblem._vlp.q):
-        c.append(cSolution._sol.c[k])
-    sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)
-    sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)
-    sol.c = c
     
-    # Add new attributes from cSolution
-    sol.status = _status_to_string(cSolution.status)
-    sol.num_vertices_upper = cSolution.num_vertices_upper
-    sol.num_vertices_lower = cSolution.num_vertices_lower
-    sol.Y = cSolution.Y
-    sol.Z = cSolution.Z
-    sol.eta = cSolution.eta
-    sol.R = cSolution.R
-    sol.H = cSolution.H
+    # Use delete=False to avoid Windows permission errors when to_vlp_file opens the file
+    tempfile = NamedTemporaryFile(mode='w+t', delete=False, suffix='.vlp')
+    temp_filename = tempfile.name
+    tempfile.close()  # Close before to_vlp_file tries to open it
     
-    del cProblem
-    del cSolution
-    tempfile.close()
-    return(sol)
+    try:
+        problem.to_vlp_file(filename=temp_filename)
+        cProblem = _cVlpProblem()
+        cProblem.from_file(temp_filename)
+        cProblem.set_options(problem.options)
+        cSolution = _csolve(cProblem)
+        ((ls1_p,ls2_p,adj_p,inc_p,preimg_p),(ls1_d,ls2_d,adj_d,inc_d,preimg_d)) = _poly_output(cSolution,cProblem,swap=(problem.options['alg_phase2']=='dual'))
+        sol = vlpSolution()
+        Primal = ntp('Primal',['vertex_type','vertex_value','adj','incidence','preimage'])
+        Dual = ntp('Dual',['vertex_type','vertex_value','adj','incidence','preimage'])
+        c = []
+        for k in range(<size_t> cProblem._vlp.q):
+            c.append(cSolution._sol.c[k])
+        sol.Primal = Primal(ls1_p,ls2_p,adj_p,inc_p,preimg_p)
+        sol.Dual = Dual(ls1_d,ls2_d,adj_d,inc_d,preimg_d)
+        sol.c = c
+        
+        # Add new attributes from cSolution
+        sol.status = _status_to_string(cSolution.status)
+        sol.num_vertices_upper = cSolution.num_vertices_upper
+        sol.num_vertices_lower = cSolution.num_vertices_lower
+        sol.Y = cSolution.Y
+        sol.Z = cSolution.Z
+        sol.eta = cSolution.eta
+        sol.R = cSolution.R
+        sol.H = cSolution.H
+        
+        del cProblem
+        del cSolution
+        return(sol)
+    finally:
+        # Clean up temporary file
+        try:
+            os.unlink(temp_filename)
+        except (OSError, FileNotFoundError):
+            pass
 
 
 def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, opt_dir=1, options=None):
