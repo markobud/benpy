@@ -18,11 +18,10 @@ along with this program (see the reference manual). If not,
 see <http://www.gnu.org/licenses/>
 */
 
-#include <sys/time.h>	// for gettimeofday()
+#include "bslv_compat.h"	// Cross-platform compatibility (includes sys/time.h, unistd.h)
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
 
 #include "bslv_vlp.h"
 #include "bslv_lp.h"

@@ -18,9 +18,8 @@ along with this program (see the reference manual). If not,
 see <http://www.gnu.org/licenses/>
 */
 
-#include <sys/time.h>	// gettimeofday()
+#include "bslv_compat.h"	// Cross-platform compatibility (includes sys/time.h, unistd.h)
 #include <assert.h>	// assert
-#include <unistd.h>	// usleep
 #include <string.h>
 #include <float.h>
 #include <math.h>
