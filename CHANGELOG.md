@@ -10,6 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Cleaned up repository documentation, removed outdated phase summaries and diagnostic reports
 
+### Fixed
+- **Windows crash fix**: Resolved fatal crashes on Windows for unbounded and no-vertex problems (ex03, ex04)
+  - Fixed control flow issue in `_csolve()` that continued execution after phase0 detected edge cases
+  - Added early returns for VLP_UNBOUNDED and VLP_NOVERTEX status, matching original bensolve behavior
+  - Re-enabled Windows tests in CI/CD pipeline
+  - See `doc/WindowsTestCrashes_RESOLVED.md` for technical details
+
 ## [2.1.0] - Unreleased
 
 Major upgrade to bensolve 2.1.0 with new in-memory interface.

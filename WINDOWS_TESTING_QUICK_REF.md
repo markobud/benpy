@@ -1,33 +1,30 @@
-# Quick Reference: Windows Testing Tools
+# Quick Reference: Windows Testing - ✅ ISSUES RESOLVED
 
 ## TL;DR - What You Need to Know
 
-**Problem**: Some benpy tests crash on Windows with "Fatal Python error: Aborted"  
-**Solution**: We've created diagnostic tools to identify and work around these crashes
+**Previous Problem**: Some benpy tests crashed on Windows with "Fatal Python error: Aborted"  
+**Status**: ✅ **FIXED** - All tests now work on Windows!
 
-### Which Tests Crash on Windows?
+### All Tests Now Work on Windows! ✅
 
-❌ **example03** - Upper image has no vertex  
-❌ **example04** - Totally unbounded problem
+✅ **example03** - Upper image has no vertex - **NOW WORKS**  
+✅ **example04** - Totally unbounded problem - **NOW WORKS**  
+✅ **Everything else** - Still works!
 
-✅ **Everything else works!** (5 out of 8 examples)
+**Fix Details**: See `doc/WindowsTestCrashes_RESOLVED.md`
 
 ---
 
 ## For CI/CD Engineers
 
-### Run Safe Tests Only (No Crashes)
+### Run All Tests (Including Previously Problematic Ones)
 
 ```bash
-# Recommended for Windows CI
-pytest tests/test_windows_diagnostics.py::TestWindowsSafeSubset -v
+# All tests now enabled on Windows CI
+pytest tests/ -v
 ```
 
-Or:
-
-```bash
-# Skip tests marked as windows_crash
-pytest tests/test_examples.py -v -m "not windows_crash"
+The Windows test job in `.github/workflows/ci.yml` has been re-enabled.
 ```
 
 ---
