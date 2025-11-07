@@ -47,7 +47,7 @@ class TestMemoryManagement:
     def test_solution_dealloc_called(self, simple_2d_problem):
         """Test that __dealloc__ is called when solution is deleted."""
         # Create and solve
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -86,7 +86,7 @@ class TestMemoryManagement:
         """Test that creating/destroying multiple solutions doesn't crash."""
         # This would crash if memory isn't properly freed
         for i in range(20):
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 simple_2d_problem['B'],
                 simple_2d_problem['P'],
                 a=simple_2d_problem.get('a'),
@@ -130,7 +130,7 @@ class TestMemoryManagement:
         
     def test_solution_properties_access(self, simple_2d_problem):
         """Test that accessing solution properties doesn't cause issues."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),

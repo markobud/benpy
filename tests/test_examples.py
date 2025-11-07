@@ -29,7 +29,7 @@ class TestExampleProblems:
         prob_data = get_example01()
         
         # Test using solve_direct
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -63,7 +63,7 @@ class TestExampleProblems:
         """Test example02: Infeasible problem should be detected."""
         prob_data = get_example02()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data.get('a'),
@@ -79,7 +79,7 @@ class TestExampleProblems:
         """Test example03: Upper image has no vertex."""
         prob_data = get_example03()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -94,7 +94,7 @@ class TestExampleProblems:
         """Test example04: Totally unbounded problem."""
         prob_data = get_example04()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -110,7 +110,7 @@ class TestExampleProblems:
         """Test example05: VLP with custom ordering cone."""
         prob_data = get_example05()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -128,7 +128,7 @@ class TestExampleProblems:
         """Test example06: Maximization problem with dual cone."""
         prob_data = get_example06()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -148,7 +148,7 @@ class TestExampleProblems:
         """Test example08: Unbounded but not totally unbounded."""
         prob_data = get_example08()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -164,7 +164,7 @@ class TestExampleProblems:
         """Test example11: 5-objective problem with many constraints."""
         prob_data = get_example11()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -194,7 +194,7 @@ class TestExampleConsistency:
             
             # Try to solve it
             try:
-                sol = benpy.solve_direct(
+                sol = benpy.solve(
                     prob_data['B'],
                     prob_data['P'],
                     a=prob_data.get('a'),
@@ -246,7 +246,7 @@ class TestExampleProperties:
         """Test that example01 solution has expected properties."""
         prob_data = get_example01()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],
@@ -265,7 +265,7 @@ class TestExampleProperties:
         """Test that solutions contain primal data."""
         prob_data = get_example01()
         
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data['a'],

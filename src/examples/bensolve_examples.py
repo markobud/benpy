@@ -4,19 +4,19 @@
 Examples demonstrating benpy VLP interface with bensolve 2.1.0
 
 These examples show various VLP/MOLP problem types and solving methods.
-benpy 2.1.0 introduces solve_direct() for faster solving (2-3x speedup).
+benpy 2.1.0 introduces solve() for faster solving (2-3x speedup).
 
 @author: mbudinich
 """
 # %%
 from numpy import transpose, ones, zeros, eye, matrix, loadtxt, append, vstack, inf
 import numpy as np
-from benpy import vlpProblem, solve as bensolve, solve_direct
+from benpy import vlpProblem, solve_legacy as bensolve, solve
 
 print("=" * 70)
 print("benpy 2.1.0 Examples - VLP/MOLP Problems")
 print("=" * 70)
-print("\nNote: Examples demonstrate both solve_direct() (new, fast) and")
+print("\nNote: Examples demonstrate both solve() (new, fast) and")
 print("      traditional solve() (backward compatible)")
 print("=" * 70)
 
@@ -35,14 +35,14 @@ print("-" * 70)
 # x1 >= 0
 # x2 >= 0
 
-# Method A: Using solve_direct() - Recommended (2-3x faster)
-print("\nUsing solve_direct():")
+# Method A: Using solve() - Recommended (2-3x faster)
+print("\nUsing solve():")
 B_01 = np.array([[2.0, 1.0], [1.0, 2.0]])
 P_01 = np.array([[1.0, -1.0], [1.0, 1.0]])
 a_01 = np.array([6.0, 6.0])
 l_01 = np.array([0.0, 0.0])
 
-sol_01 = solve_direct(B_01, P_01, a=a_01, l=l_01, opt_dir=1)
+sol_01 = solve(B_01, P_01, a=a_01, l=l_01, opt_dir=1)
 print(f"  Status: {sol_01.status}")
 print(f"  Efficient points: {len(sol_01.Primal.vertex_value)}")
 
@@ -73,14 +73,14 @@ print("-" * 70)
 # 0 <=   x1 + 2*x2 <= 1
 # 1 <=   x1 +   x2 <= 2
 
-# Using solve_direct()
-print("\nUsing solve_direct():")
+# Using solve()
+print("\nUsing solve():")
 B_02 = np.array([[3.0, 1.0], [1.0, 2.0], [1.0, 1.0]])
 P_02 = np.array([[1.0, 0.0], [0.0, 1.0]])
 a_02 = np.array([0.0, 0.0, 1.0])
 b_02 = np.array([1.0, 1.0, 2.0])
 
-sol_02 = solve_direct(B_02, P_02, a=a_02, b=b_02, opt_dir=1)
+sol_02 = solve(B_02, P_02, a=a_02, b=b_02, opt_dir=1)
 print(f"  Status: {sol_02.status}")
 print(f"  Expected: VLP_INFEASIBLE")
 
@@ -143,13 +143,13 @@ print("-" * 70)
 # 1 <= x1 + x2 +   x3
 # 1 <= x1 + x2 + 2*x3
 
-# Using solve_direct()
-print("\nUsing solve_direct():")
+# Using solve()
+print("\nUsing solve():")
 B_04 = np.array([[1.0, 1.0, 1.0], [1.0, 1.0, 2.0]])
 P_04 = np.array([[1.0, 0.0, 0.0], [0.0, 1.0, 0.0]])
 a_04 = np.array([1.0, 1.0])
 
-sol_04 = solve_direct(B_04, P_04, a=a_04, opt_dir=1)
+sol_04 = solve(B_04, P_04, a=a_04, opt_dir=1)
 print(f"  Status: {sol_04.status}")
 print(f"  Expected: VLP_UNBOUNDED")
 

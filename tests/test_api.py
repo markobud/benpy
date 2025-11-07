@@ -65,7 +65,7 @@ class TestInMemoryInterface:
         
     def test_solve_direct(self, simple_2d_problem):
         """Test solve_direct function."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -201,15 +201,15 @@ class TestCompatibility:
     """Test backward compatibility."""
     
     def test_traditional_solve_still_works(self):
-        """Ensure traditional solve() method still works."""
+        """Ensure traditional solve_legacy() method still works."""
         B = np.array([[1.0, 1.0]])
         P = np.array([[1.0, 0.0], [0.0, 1.0]])
         b = np.array([1.0])
         l = np.array([0.0, 0.0])
         
-        # Traditional approach
+        # Traditional approach (legacy)
         prob = benpy.vlpProblem(B=B, P=P, b=b, l=l, opt_dir=1)
-        sol = benpy.solve(prob)
+        sol = benpy.solve_legacy(prob)
         
         assert sol is not None
         assert sol.c is not None
@@ -235,7 +235,7 @@ class TestSolutionInterface:
     
     def test_solution_attributes(self, simple_2d_problem):
         """Test that solution has expected attributes."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -251,7 +251,7 @@ class TestSolutionInterface:
         
     def test_solution_primal_access(self, simple_2d_problem):
         """Test accessing primal solution data."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -265,7 +265,7 @@ class TestSolutionInterface:
         
     def test_solution_cone_data(self, simple_2d_problem):
         """Test accessing ordering cone data from solution."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -279,7 +279,7 @@ class TestSolutionInterface:
         
     def test_solution_vertex_counts(self, simple_2d_problem):
         """Test vertex count attributes."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -304,7 +304,7 @@ class TestOptimizationDirections:
         b = np.array([2.0])
         l = np.array([0.0, 0.0])
         
-        sol = benpy.solve_direct(B, P, b=b, l=l, opt_dir=1)
+        sol = benpy.solve(B, P, b=b, l=l, opt_dir=1)
         assert sol is not None
         
     def test_maximization(self):
@@ -314,7 +314,7 @@ class TestOptimizationDirections:
         b = np.array([2.0])
         l = np.array([0.0, 0.0])
         
-        sol = benpy.solve_direct(B, P, b=b, l=l, opt_dir=-1)
+        sol = benpy.solve(B, P, b=b, l=l, opt_dir=-1)
         assert sol is not None
 
 
@@ -329,7 +329,7 @@ class TestDataTypes:
         b = np.array([1.0], dtype=np.float32)
         l = np.array([0.0, 0.0], dtype=np.float32)
         
-        sol = benpy.solve_direct(B, P, b=b, l=l, opt_dir=1)
+        sol = benpy.solve(B, P, b=b, l=l, opt_dir=1)
         assert sol is not None
         
     def test_float64_arrays(self):
@@ -339,7 +339,7 @@ class TestDataTypes:
         b = np.array([1.0], dtype=np.float64)
         l = np.array([0.0, 0.0], dtype=np.float64)
         
-        sol = benpy.solve_direct(B, P, b=b, l=l, opt_dir=1)
+        sol = benpy.solve(B, P, b=b, l=l, opt_dir=1)
         assert sol is not None
         
     def test_integer_conversion(self):
@@ -350,5 +350,5 @@ class TestDataTypes:
         l = np.array([0, 0])
         
         # Should work by converting to float
-        sol = benpy.solve_direct(B, P, b=b, l=l, opt_dir=1)
+        sol = benpy.solve(B, P, b=b, l=l, opt_dir=1)
         assert sol is not None

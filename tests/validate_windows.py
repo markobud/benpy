@@ -64,7 +64,7 @@ def test_example(name, prob_data, verbose=True):
     
     try:
         # Attempt to solve the problem
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'],
             prob_data['P'],
             a=prob_data.get('a'),

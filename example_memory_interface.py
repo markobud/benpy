@@ -39,7 +39,7 @@ def example_basic():
     print("    x1, x2 >= 0")
     
     # Solve using new in-memory interface
-    sol = benpy.solve_direct(B, P, b=b, l=l, opt_dir=1)
+    sol = benpy.solve(B, P, b=b, l=l, opt_dir=1)
     
     print(f"\nSolution:")
     print(f"  Status: {sol.Primal.vertex_type}")
@@ -106,7 +106,7 @@ def example_custom_ordering_cone():
     print("\nProblem with custom ordering cone:")
     print(f"  Cone generators Y:\n{Y}")
     
-    sol = benpy.solve_direct(B, P, b=b, l=l, Y=Y, opt_dir=1)
+    sol = benpy.solve(B, P, b=b, l=l, Y=Y, opt_dir=1)
     
     print(f"\nSolution with custom cone:")
     print(f"  Efficient points found: {len(sol.Primal.vertex_value)}")
@@ -135,18 +135,18 @@ def example_performance_comparison():
     print(f"\nProblem size:")
     print(f"  {m} constraints, {n} variables, {q} objectives")
     
-    # Traditional approach
-    print("\nTraditional solve() with file I/O:")
+    # Legacy approach (file-based)
+    print("\nLegacy solve_legacy() with file I/O:")
     t1 = time.time()
     prob = benpy.vlpProblem(B=B, P=P, b=b, l=l, s=s, opt_dir=1)
-    sol1 = benpy.solve(prob)
+    sol1 = benpy.solve_legacy(prob)
     t_file = time.time() - t1
     print(f"  Time: {t_file:.4f} seconds")
     
-    # New approach
-    print("\nNew solve_direct() without file I/O:")
+    # New approach (in-memory)
+    print("\nNew solve() without file I/O:")
     t2 = time.time()
-    sol2 = benpy.solve_direct(B, P, b=b, l=l, s=s, opt_dir=1)
+    sol2 = benpy.solve(B, P, b=b, l=l, s=s, opt_dir=1)
     t_mem = time.time() - t2
     print(f"  Time: {t_mem:.4f} seconds")
     
