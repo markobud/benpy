@@ -18,9 +18,14 @@ along with this program (see the reference manual). If not,
 see <http://www.gnu.org/licenses/>
 */
 
-#include <sys/time.h>	// gettimeofday()
+/* Platform-specific timing headers */
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <sys/time.h>
+#endif
+
 #include <assert.h>	// assert
-#include <unistd.h>	// usleep
 #include <string.h>
 #include <float.h>
 #include <math.h>
@@ -30,7 +35,12 @@ see <http://www.gnu.org/licenses/>
 #include "bslv_main.h"
 #include "bslv_algs.h"
 
-struct timeval t_end;
+/* Platform-independent timing variables */
+#ifdef _WIN32
+    LARGE_INTEGER t_end;
+#else
+    struct timeval t_end;
+#endif
 
 int alg(soltype *const sol, const vlptype *vlp, const opttype *opt)
 {
@@ -1255,7 +1265,11 @@ void phase2_primal(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	poly_trans_primal(vlp, sol, opt, &upper_image);
 	
 	// end of computations - stop timer
+#ifdef _WIN32
+	QueryPerformanceCounter(&t_end);
+#else
 	gettimeofday(&t_end, NULL);
+#endif
 	
 	poly_chop(&upper_image);
 	poly_normalize_dir(&upper_image);
@@ -1717,7 +1731,11 @@ void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 	poly__update_adjacence (&lower_image.dual);
 	
 	// end of computations - stop timer
+#ifdef _WIN32
+	QueryPerformanceCounter(&t_end);
+#else
 	gettimeofday(&t_end, NULL);
+#endif
 	
 	poly_output(&lower_image,opt,1,opt->solution,SWAP,vlp->optdir==1?MIN_P_STR:MAX_P_STR, vlp->optdir==1?MIN_D_STR:MAX_D_STR,SOL_ENDING_STR);
 	poly_count(&lower_image,sol,SWAP);
