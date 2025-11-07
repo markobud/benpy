@@ -90,6 +90,65 @@ print(f"Examples are located at: {example_dir}")
 
 ---
 
+## 🔄 Migration Guide
+
+### Upgrading from benpy 1.0.x to 2.1.0
+
+**Good news:** benpy 2.1.0 is fully backward compatible! Your existing code will continue to work without changes.
+
+#### What's New
+- **Faster solving**: New `solve_direct()` function is 2-3x faster than the traditional `solve()` method
+- **No temporary files**: `solve_direct()` works directly with numpy arrays in memory
+- **Enhanced solutions**: Solution objects now include additional status and metadata
+
+#### Optional Migration to `solve_direct()`
+
+**Old way (still works):**
+```python
+from benpy import vlpProblem, solve
+
+vlp = vlpProblem()
+vlp.B = np.array([[2.0, 1.0], [1.0, 2.0]])
+vlp.P = np.array([[1.0, 0.0], [0.0, 1.0]])
+vlp.b = [4.0, 4.0]
+vlp.l = [0.0, 0.0]
+
+sol = solve(vlp)
+```
+
+**New way (recommended for better performance):**
+```python
+from benpy import solve_direct
+
+B = np.array([[2.0, 1.0], [1.0, 2.0]])
+P = np.array([[1.0, 0.0], [0.0, 1.0]])
+b = np.array([4.0, 4.0])
+l = np.array([0.0, 0.0])
+
+sol = solve_direct(B, P, b=b, l=l, opt_dir=1)
+```
+
+**Key differences:**
+- `solve_direct()` takes numpy arrays directly as function arguments
+- No need to create a `vlpProblem` object
+- `opt_dir` parameter (1 for minimize, -1 for maximize) is passed explicitly
+- Returns the same `vlpSolution` object with additional status information
+
+#### New Solution Attributes
+
+Solutions now include helpful metadata:
+```python
+sol = solve_direct(B, P, b=b, opt_dir=1)
+
+print(sol.status)                # "VLP_OPTIMAL", "VLP_INFEASIBLE", etc.
+print(sol.num_vertices_upper)    # Number of upper image vertices
+print(sol.num_vertices_lower)    # Number of lower image vertices
+```
+
+See the [CHANGELOG](CHANGELOG.md) for complete migration details.
+
+---
+
 ## 📚 Documentation
 
 - **[In-Memory Interface](doc/InMemoryInterface.md)** - Fast array-based interface
