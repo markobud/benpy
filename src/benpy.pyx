@@ -1535,9 +1535,14 @@ def solve(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, opt_dir=
     # Create and configure problem
     cProblem = _cVlpProblem()
     
-    # Set options
+    # Set options - merge user options with defaults
     if options is None:
         options = vlpProblem().default_options
+    else:
+        # Merge user options with defaults
+        default_options = vlpProblem().default_options
+        default_options.update(options)
+        options = default_options
     cProblem.set_options(options)
     
     # Initialize from arrays (bypasses file I/O)
