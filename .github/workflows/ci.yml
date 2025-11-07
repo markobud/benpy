@@ -129,13 +129,20 @@ jobs:
             mingw-w64-x86_64-python
             mingw-w64-x86_64-python-pip
             mingw-w64-x86_64-python-numpy
+            mingw-w64-x86_64-python-scipy
             mingw-w64-x86_64-cython
+      
+      - name: Fix SSL certificates for pip
+        shell: msys2 {0}
+        run: |
+          python -m pip install --upgrade pip setuptools wheel certifi
+          export SSL_CERT_FILE=$(python -m certifi)
+          echo "SSL_CERT_FILE=$SSL_CERT_FILE" >> $GITHUB_ENV
       
       - name: Install Python dependencies
         shell: msys2 {0}
         run: |
-          python -m pip install --upgrade pip setuptools wheel
-          pip install prettytable scipy pytest pytest-timeout
+          pip install prettytable pytest pytest-timeout
       
       - name: Install package in editable mode
         shell: msys2 {0}
