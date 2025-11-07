@@ -22,7 +22,12 @@ see <http://www.gnu.org/licenses/>
 #define BSLV_VLP_H
 
 #include <setjmp.h> // longjmp, setjmp
+/* getopt.h is only needed for the standalone command-line tool (bslv_main.c)
+ * which is not compiled as part of the Python extension.
+ * Skip it on Windows where it's not available. */
+#ifndef _WIN32
 #include <getopt.h>
+#endif
 
 #include "bslv_main.h"
 #include "bslv_lists.h" 
