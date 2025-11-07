@@ -21,7 +21,6 @@ see <http://www.gnu.org/licenses/>
 #include <glpk.h>
 #include <time.h>
 #include <assert.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include "bslv_lp.h"
 

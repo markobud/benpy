@@ -18,19 +18,28 @@ along with this program (see the reference manual). If not,
 see <http://www.gnu.org/licenses/>
 */
 
-#include <sys/time.h>	// for gettimeofday()
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include <unistd.h>
+
+/* Platform-specific timing headers */
+#ifdef _WIN32
+    #include <windows.h>
+#else
+    #include <sys/time.h>
+#endif
 
 #include "bslv_vlp.h"
 #include "bslv_lp.h"
 #include "bslv_lists.h"
 #include "bslv_algs.h"
 
-
-struct timeval t_start,t_end;
+/* Platform-independent timing variables */
+#ifdef _WIN32
+    LARGE_INTEGER t_start, t_end, t_freq;
+#else
+    struct timeval t_start, t_end;
+#endif
 
 
 int main(int argc, char **argv)
@@ -67,7 +76,12 @@ int main(int argc, char **argv)
 	if (opt->message_level >= 1) printf("done: %d rows, %d columns, %zd non-zero matrix coefficients\n", vlp->m, vlp->n, vlp->nz);
 
 	// begin of computations - start timer
+#ifdef _WIN32
+	QueryPerformanceFrequency(&t_freq);
+	QueryPerformanceCounter(&t_start);
+#else
 	gettimeofday(&t_start, NULL);
+#endif
 	
 	/*
 	 *  solve problem
@@ -91,9 +105,15 @@ int main(int argc, char **argv)
 	{
 		/*
 		*  write info
-		*/		
+		*/
+#ifdef _WIN32
+		double elapsedTime;
+		QueryPerformanceCounter(&t_end);
+		elapsedTime = (double)(t_end.QuadPart - t_start.QuadPart) * 1000.0 / t_freq.QuadPart; // ms
+#else
 		double elapsedTime = (t_end.tv_sec - t_start.tv_sec) * 1000.0; // sec to ms
 		elapsedTime += (t_end.tv_usec - t_start.tv_usec) / 1000.0; // us to ms
+#endif
 
 		write_log_file(vlp, sol, opt, elapsedTime, lp_get_num(0));
 		display_info(opt, elapsedTime, lp_get_num(0));
