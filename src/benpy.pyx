@@ -7,6 +7,7 @@ from libc.stdlib cimport malloc, free
 from libc.limits cimport CHAR_BIT
 from prettytable import PrettyTable
 from os.path import splitext
+import os
 from collections import namedtuple as ntp
 from warnings import warn
 from scipy.sparse import lil_matrix, find
@@ -372,7 +373,7 @@ cdef class _cVlpProblem:
             # Clean up temporary file
             try:
                 os.unlink(temp_filename)
-            except:
+            except (OSError, FileNotFoundError):
                 pass
 
     def toString(self):
@@ -1195,7 +1196,6 @@ class vlpSolution:
 
 def solve(problem):
     """Solves a vlpProblem instance. It returns a vlpSolution instance"""
-    import os
     cdef size_t k
     
     # Use delete=False to avoid Windows permission errors when to_vlp_file opens the file
@@ -1237,7 +1237,7 @@ def solve(problem):
         # Clean up temporary file
         try:
             os.unlink(temp_filename)
-        except:
+        except (OSError, FileNotFoundError):
             pass
 
 
