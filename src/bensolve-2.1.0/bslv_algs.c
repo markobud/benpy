@@ -35,9 +35,9 @@ see <http://www.gnu.org/licenses/>
 #include "bslv_main.h"
 #include "bslv_algs.h"
 
-/* Platform-independent timing variable */
+/* Platform-independent timing variables */
 #ifdef _WIN32
-    extern LARGE_INTEGER t_end, t_freq;
+    extern LARGE_INTEGER t_start, t_end, t_freq;
 #else
     struct timeval t_end;
 #endif
