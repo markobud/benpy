@@ -75,7 +75,7 @@ class TestWindowsCompatibilityMatrix:
     
     @pytest.mark.skipif(
         sys.platform != 'win32',
-        reason="Only test on Windows - known to pass on Linux/macOS"
+        reason="Windows-specific test - skipped on Linux/macOS"
     )
     def test_example02_infeasible_diagnostic(self):
         """
@@ -101,7 +101,7 @@ class TestWindowsCompatibilityMatrix:
     @pytest.mark.windows_crash
     @pytest.mark.skipif(
         sys.platform != 'win32',
-        reason="Only test on Windows - this is the crash test"
+        reason="Windows crash test - skipped on Linux/macOS"
     )
     def test_example03_no_vertex_diagnostic(self):
         """
@@ -133,7 +133,7 @@ class TestWindowsCompatibilityMatrix:
     @pytest.mark.windows_crash
     @pytest.mark.skipif(
         sys.platform != 'win32',
-        reason="Only test on Windows - this is the crash test"
+        reason="Windows crash test - skipped on Linux/macOS"
     )
     def test_example04_totally_unbounded_diagnostic(self):
         """
@@ -266,7 +266,7 @@ class TestWindowsCrashPatterns:
     
     @pytest.mark.skipif(
         sys.platform != 'win32',
-        reason="Pattern analysis only needed on Windows"
+        reason="Windows-specific pattern analysis - skipped on Linux/macOS"
     )
     def test_no_vertex_minimal(self):
         """
@@ -289,7 +289,7 @@ class TestWindowsCrashPatterns:
     
     @pytest.mark.skipif(
         sys.platform != 'win32',
-        reason="Pattern analysis only needed on Windows"
+        reason="Windows-specific pattern analysis - skipped on Linux/macOS"
     )
     def test_unbounded_minimal(self):
         """
