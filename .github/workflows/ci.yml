@@ -110,6 +110,82 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
   
+  windows-py312:
+    name: Windows Latest - Python 3.12
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      # Install GLPK using vcpkg (preferred method for headers + libs)
+      - name: Install vcpkg
+        run: |
+          git clone https://github.com/microsoft/vcpkg.git C:\vcpkg
+          C:\vcpkg\bootstrap-vcpkg.bat
+        shell: cmd
+      
+      - name: Install GLPK via vcpkg
+        run: |
+          C:\vcpkg\vcpkg install glpk:x64-windows
+        shell: cmd
+      
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      
+      # Set environment variables for MSVC to find GLPK headers and libraries
+      - name: Set build environment variables
+        run: |
+          echo "INCLUDE=C:\vcpkg\installed\x64-windows\include;$env:INCLUDE" >> $env:GITHUB_ENV
+          echo "LIB=C:\vcpkg\installed\x64-windows\lib;$env:LIB" >> $env:GITHUB_ENV
+          echo "PATH=C:\vcpkg\installed\x64-windows\bin;$env:PATH" >> $env:GITHUB_ENV
+        shell: powershell
+      
+      - name: Verify GLPK installation
+        run: |
+          if (Test-Path "C:\vcpkg\installed\x64-windows\include\glpk.h") {
+            Write-Host "✓ GLPK header found"
+          } else {
+            Write-Host "✗ GLPK header NOT found"
+            exit 1
+          }
+          if (Test-Path "C:\vcpkg\installed\x64-windows\lib\glpk.lib") {
+            Write-Host "✓ GLPK library found"
+          } else {
+            Write-Host "✗ GLPK library NOT found"
+            exit 1
+          }
+        shell: powershell
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-timeout
+      
+      - name: Install package in editable mode
+        run: pip install --no-build-isolation --no-deps -e .
+      
+      - name: Run tests with faulthandler
+        run: |
+          python -X faulthandler -m pytest -q tests/ --junit-xml=pytest-results.xml
+      
+      - name: Upload test results and crash dumps on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-windows-py312
+          path: |
+            pytest-results.xml
+            pytest.log
+            *.dmp
+            *.mdmp
+          retention-days: 7
+          if-no-files-found: ignore
+  
   build-source:
     name: Build Source Distribution
     runs-on: ubuntu-latest
