@@ -74,6 +74,11 @@ jobs:
           echo "GLPK installed at: $(brew --prefix glpk)"
           echo "Homebrew prefix: $(brew --prefix)"
       
+      - name: Set build environment variables
+        run: |
+          echo "CFLAGS=-I$(brew --prefix)/include" >> $GITHUB_ENV
+          echo "LDFLAGS=-L$(brew --prefix)/lib" >> $GITHUB_ENV
+      
       - name: Setup Python 3.12
         uses: actions/setup-python@v5
         with:
@@ -85,15 +90,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install pytest pytest-timeout
-        env:
-          CFLAGS: "-I$(brew --prefix)/include"
-          LDFLAGS: "-L$(brew --prefix)/lib"
       
       - name: Install package in editable mode
         run: pip install --no-build-isolation --no-deps -e .
-        env:
-          CFLAGS: "-I$(brew --prefix)/include"
-          LDFLAGS: "-L$(brew --prefix)/lib"
       
       - name: Run tests
         run: |
