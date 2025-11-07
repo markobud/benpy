@@ -7,10 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Added
 - Cleaned up repository documentation, removed outdated phase summaries and diagnostic reports
 
-## [2.1.0] - In Development
+## [2.1.0] - Unreleased
 
 Major upgrade to bensolve 2.1.0 with new in-memory interface.
 
@@ -37,7 +37,7 @@ Major upgrade to bensolve 2.1.0 with new in-memory interface.
 - `solve_direct()` consistency bug for bounded problems
 - Objective matrix sign correction for minimization problems
 
-## [1.0.3] - Release date unknown
+## [1.0.3]
 
 This release renames the `tests` folder to `examples` and includes them in distribution files.
 
@@ -46,14 +46,14 @@ This release renames the `tests` folder to `examples` and includes them in distr
 - Updated MANIFEST.in to include examples
 - Improved README installation instructions
 
-## [1.0.2] - Release date unknown
+## [1.0.2]
 
 This release adds MANIFEST.in for package building.
 
 ### Added
 - MANIFEST.in for package building
 
-## [1.0.1] - Release date unknown
+## [1.0.1]
 
 This release updates the installation method and replaces a deprecated function used in the example script.
 
