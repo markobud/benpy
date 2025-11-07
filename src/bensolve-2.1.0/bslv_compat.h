@@ -1,6 +1,6 @@
 /*
  * Windows compatibility header for BENSOLVE
- * Provides cross-platform definitions for timing functions
+ * Provides cross-platform definitions for timing and system functions
  */
 
 #ifndef BSLV_COMPAT_H
@@ -11,7 +11,10 @@
 #include <windows.h>
 #include <time.h>
 
-/* Define timeval structure for Windows */
+/* Define timeval structure for Windows
+ * Note: Uses 'long' for compatibility with standard Unix timeval structure.
+ * On Windows x64, long is 32-bit, but this matches the expected semantics.
+ */
 #ifndef _TIMEVAL_DEFINED
 #define _TIMEVAL_DEFINED
 struct timeval {
@@ -20,11 +23,19 @@ struct timeval {
 };
 #endif
 
-/* Implement gettimeofday for Windows */
+/* Implement gettimeofday for Windows
+ * Parameters:
+ *   tv - pointer to timeval structure to fill (must not be NULL)
+ *   tz - timezone parameter (ignored, provided for API compatibility)
+ * Returns:
+ *   0 on success
+ */
 static inline int gettimeofday(struct timeval *tv, void *tz)
 {
     FILETIME ft;
     unsigned __int64 tmpres = 0;
+    
+    (void)tz;  /* Unused parameter - timezone info is not provided */
     
     if (tv != NULL) {
         GetSystemTimeAsFileTime(&ft);
