@@ -4,17 +4,25 @@ This document describes the GitHub Actions CI/CD pipeline for benpy.
 
 ## Overview
 
-The CI/CD pipeline is defined in `.github/workflows/ci.yml` and consists of three main jobs:
+The CI/CD pipeline consists of three separate workflows:
 
-1. **test** - Run tests on all supported platforms and Python versions
-2. **build-wheels** - Build binary wheels using cibuildwheel
-3. **build-sdist** - Build source distribution
+1. **ci.yml** - Continuous integration (tests on all platforms)
+2. **build-wheels.yml** - Build distributable binary wheels using cibuildwheel
+3. **publish.yml** - Publish releases to PyPI (draft)
 
-## Test Job
+## CI Workflow (ci.yml)
 
-The test job runs on a matrix of:
-- **Operating Systems**: Ubuntu, macOS, Windows
-- **Python Versions**: 3.8, 3.9, 3.10, 3.11, 3.12
+The CI workflow runs tests on all supported platforms and Python versions to ensure code quality.
+
+### Test Jobs
+
+The CI workflow runs tests on a matrix of platforms and Python versions:
+- **ubuntu-py312**: Ubuntu Latest with Python 3.12
+- **macos-py312**: macOS Latest with Python 3.12  
+- **windows-py312**: Windows Latest with Python 3.12
+- **build-source**: Build source distribution
+
+For complete test matrix details, see the workflow file.
 
 ### Steps:
 1. Checkout code
@@ -48,36 +56,64 @@ export LDFLAGS="-L$(brew --prefix glpk)/lib"
 - Installs mingw-w64-ucrt-x86_64-gcc and mingw-w64-ucrt-x86_64-glpk
 - Sets appropriate CFLAGS and LDFLAGS
 
-## Build Wheels Job
+## Build Wheels Workflow (build-wheels.yml)
 
-Uses `cibuildwheel` to build wheels for Linux and macOS platforms.
+The build-wheels workflow uses **cibuildwheel** to build portable binary wheels for distribution.
 
-**Note**: Windows wheels are not built automatically due to the complexity of packaging the GLPK dependency. Windows users can build from source using the installation instructions in the README.
+See [CibuildwheelConfiguration.md](CibuildwheelConfiguration.md) for comprehensive documentation.
 
-### Configuration:
-- **Platforms**: Ubuntu, macOS (Windows excluded)
-- **Skip**: PyPy and musllinux builds
-- **Build**: CPython 3.8-3.12 for Linux and macOS
-- **Before All**: Install GLPK on the target platform
-- **Before Build**: Install Cython, numpy, setuptools, and wheel
-- **Test**: Run basic import test on built wheel
+### Key Features
 
-### Platform-specific GLPK setup:
-- **Linux**: Uses yum or apt-get (supports both RHEL and Debian-based distros)
-- **macOS**: Uses homebrew (supports both Intel and Apple Silicon paths)
+- **Multi-platform builds**: Linux (x86_64, ARM64), macOS (Intel, Apple Silicon, Universal), Windows (x64)
+- **Multiple Python versions**: CPython 3.9-3.12
+- **Wheel repair**: Vendors dependencies for portability (manylinux, delocate, delvewheel)
+- **Automated testing**: Tests each wheel after building
+- **Artifact storage**: Uploads wheels and sdist to GitHub
 
-### Notes:
-Building wheels with external C dependencies like GLPK can be complex. The current configuration:
-- Builds wheels for Linux and macOS only
-- Windows users can build from source (tests still run on Windows via the test job)
-- Assumes GLPK can be installed in the cibuildwheel environment
-- Tests only basic imports (not full test suite) to keep build times reasonable
-- May require adjustments based on actual build results
+### Jobs
 
-For Windows wheel support in the future, options include:
-- Vendoring GLPK libraries in the wheel
-- Using delvewheel to bundle DLLs
-- Providing pre-built GLPK packages
+1. **build_wheels**: Builds wheels on multiple OS runners
+2. **build_sdist**: Builds source distribution
+3. **verify_wheels**: Tests wheels in clean environments
+
+### Configuration
+
+All cibuildwheel configuration is in `pyproject.toml` under `[tool.cibuildwheel]`.
+
+For details on:
+- Platform-specific settings
+- GLPK installation strategies
+- Wheel repair processes
+- Troubleshooting
+
+See [CibuildwheelConfiguration.md](CibuildwheelConfiguration.md).
+
+## Publish Workflow (publish.yml)
+
+**Status**: DRAFT - Not yet production-ready
+
+The publish workflow automates publishing releases to PyPI.
+
+### Features
+
+- Manual confirmation required
+- TestPyPI support for testing
+- Trusted publishing (no API tokens)
+- Post-publish verification
+
+### Setup Required
+
+Before using this workflow:
+
+1. Configure PyPI trusted publishing at https://pypi.org/manage/account/publishing/
+2. Create GitHub environments: `testpypi` (optional) and `pypi`
+3. Test with TestPyPI first
+
+See the workflow file for detailed comments and setup instructions.
+
+## Legacy Build Information
+
+The following sections describe the legacy build configuration that was previously in ci.yml.
 
 ## Build Source Distribution Job
 

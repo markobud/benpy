@@ -24,3 +24,45 @@ license = {text = 'GPL-3.0'}
 Repository = 'https://github.com/markobud/benpy'
 
 #long_description = 'A Python wrapper around bensolve'
+
+[tool.cibuildwheel]
+# Build for CPython 3.9-3.12 (3.8 EOL Oct 2024)
+build = "cp39-* cp310-* cp311-* cp312-*"
+
+# Skip PyPy, musllinux, and 32-bit builds
+skip = "pp* *-musllinux* *-win32 *-manylinux_i686"
+
+# Install build dependencies before building wheel
+before-build = "pip install Cython numpy setuptools wheel"
+
+# Test the built wheels
+test-requires = ["pytest", "numpy", "scipy", "prettytable"]
+test-command = "pytest {project}/tests/test_import.py -v"
+
+# Linux-specific configuration
+[tool.cibuildwheel.linux]
+archs = ["x86_64", "aarch64"]
+before-all = [
+    "yum install -y glpk glpk-devel || apt-get update && apt-get install -y libglpk-dev glpk-utils",
+]
+repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
+manylinux-x86_64-image = "manylinux2014"
+manylinux-aarch64-image = "manylinux2014"
+
+# macOS-specific configuration
+[tool.cibuildwheel.macos]
+archs = ["x86_64", "arm64", "universal2"]
+before-all = [
+    "brew install glpk",
+]
+environment = { CFLAGS="-I$(brew --prefix)/include", LDFLAGS="-L$(brew --prefix)/lib" }
+repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+
+# Windows-specific configuration
+[tool.cibuildwheel.windows]
+archs = ["AMD64"]
+before-all = [
+    "C:\\msys64\\usr\\bin\\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc'",
+]
+environment = { CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
+repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
