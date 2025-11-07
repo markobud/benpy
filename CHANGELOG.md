@@ -37,19 +37,25 @@ Major upgrade to bensolve 2.1.0 with new in-memory interface.
 - `solve_direct()` consistency bug for bounded problems
 - Objective matrix sign correction for minimization problems
 
-## [1.0.3] - 2026-03-16
+## [1.0.3] - Release date unknown
+
+This release renames the `tests` folder to `examples` and includes them in distribution files.
 
 ### Changed
 - Renamed `tests` folder to `examples` and include them in distribution files
 - Updated MANIFEST.in to include examples
 - Improved README installation instructions
 
-## [1.0.2] - 2026-03-14
+## [1.0.2] - Release date unknown
+
+This release adds MANIFEST.in for package building.
 
 ### Added
 - MANIFEST.in for package building
 
-## [1.0.1] - 2026-02-01
+## [1.0.1] - Release date unknown
+
+This release updates the installation method and replaces a deprecated function used in the example script.
 
 ### Added
 - pyproject.toml for modern Python packaging
