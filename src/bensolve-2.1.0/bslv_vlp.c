@@ -29,6 +29,7 @@ see <http://www.gnu.org/licenses/>
 #include <float.h>
 #include <math.h>
 
+#include "bslv_compat.h"
 #include "bslv_vlp.h"
 #include "bslv_algs.h"
 #include "bslv_main.h"
@@ -1101,11 +1102,12 @@ int sol_init(soltype *sol, const vlptype *vlp, const opttype *opt)
 		BSLV_VLA_ALLOC(double, c, vlp->q);
 		for(size_t k=0; k<vlp->q; k++)
 			c[k]=sol->c[k];
-		char filename[strlen(opt->filename)+6+1];
+		BSLV_VLA_ALLOC(char, filename, strlen(opt->filename)+6+1);
 		strcpy(filename,opt->filename);
 		strcat(filename, "_c.sol");
 		matrix_fprint (c, 1, vlp->q, 1, filename, opt->format==FORMAT_SHORT?FORMAT_SHORT_STR:FORMAT_LONG_STR);
 		if (opt->message_level >= 2) { printf("Duality parameter vector c = \n  "); matrix_print(sol->c, 1, vlp->q, opt->format==FORMAT_LONG?FORMAT_LONG_STR:FORMAT_SHORT_STR);}
+		BSLV_VLA_FREE(filename);
 		BSLV_VLA_FREE(c);
 	}
 
