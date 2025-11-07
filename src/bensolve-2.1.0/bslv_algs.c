@@ -1607,6 +1607,7 @@ void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 		}
 		
 		list1d_free(obj);
+		BSLV_VLA_FREE(w);
 	}
 
 	/* PHASE 2 -- DUAL -- PART 2
@@ -1667,7 +1668,6 @@ void phase2_dual(soltype *const sol, const vlptype *vlp, const opttype *opt)
 			}
 		}
 		list1d_free(obj);
-		BSLV_VLA_FREE(w);
 	}
 	if (sol->status == VLP_UNBOUNDED)
 	{
