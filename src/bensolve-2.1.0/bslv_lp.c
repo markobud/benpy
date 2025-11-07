@@ -90,12 +90,13 @@ void lp_update_extra_coeffs(lp_idx n_rows, lp_idx n_cols)
 {
 	if (extra_rows > 0)
 	{
-		int row_idx[extra_rows + 1];
+		BSLV_VLA_ALLOC(int, row_idx, extra_rows + 1);
 		for (lp_idx j = 0; j < extra_rows; j++)
 		{
 			row_idx[j+1] = glp_get_num_rows(lp[0]) - extra_rows + j + 1;
 		}
 		glp_del_rows(lp[0], extra_rows, row_idx);
+		BSLV_VLA_FREE(row_idx);
 	}
 	extra_rows = n_rows;
 	if (n_rows > 0)
@@ -103,12 +104,13 @@ void lp_update_extra_coeffs(lp_idx n_rows, lp_idx n_cols)
 	
 	if (extra_cols > 0)
 	{
-		int col_idx[extra_cols + 1];
+		BSLV_VLA_ALLOC(int, col_idx, extra_cols + 1);
 		for (lp_idx j = 0; j < extra_cols; j++)
 		{
 			col_idx[j+1] = glp_get_num_cols(lp[0]) - extra_cols + j + 1;
 		}
 		glp_del_cols(lp[0], extra_cols, col_idx);
+		BSLV_VLA_FREE(col_idx);
 	}
 	extra_cols = n_cols;
 	if (n_cols > 0)

@@ -49,7 +49,7 @@ void display_info(opttype *opt, double elapsedTime, int lp_num)
 int write_log_file(vlptype * vlp, soltype *sol, opttype *opt, double elapsedTime, int lp_num)
 {
 	FILE *log_fp;
-	char filename[strlen(opt->filename)+4+1];
+	BSLV_VLA_ALLOC(char, filename, strlen(opt->filename)+4+1);
 	strcpy(filename,opt->filename);
 	strcat(filename, ".log");
 	log_fp = fopen (filename, "w+");
@@ -99,6 +99,7 @@ int write_log_file(vlptype * vlp, soltype *sol, opttype *opt, double elapsedTime
 	fprintf(log_fp, "  # dual solution directions:   %7zu\n", sol->dd_dir);
 	fclose(log_fp);
 	
+	BSLV_VLA_FREE(filename);
 	return 0;
 }
 
