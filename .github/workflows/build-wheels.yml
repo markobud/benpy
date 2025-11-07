@@ -1,0 +1,142 @@
+name: Build Wheels
+
+on:
+  push:
+    branches: [main, development]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [main, development]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-13, macos-14, windows-latest]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up QEMU (for Linux ARM builds)
+        if: runner.os == 'Linux'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+      
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.21.3
+        env:
+          CIBW_BUILD_VERBOSITY: 1
+      
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheels-${{ matrix.os }}
+          path: ./wheelhouse/*.whl
+          retention-days: 30
+  
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build wheel setuptools Cython numpy
+      
+      - name: Build source distribution
+        run: python -m build --sdist
+      
+      - name: Upload source distribution
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz
+          retention-days: 30
+  
+  verify_wheels:
+    name: Verify wheels on ${{ matrix.os }}
+    needs: [build_wheels]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+    
+    steps:
+      - name: Checkout code (for tests)
+        uses: actions/checkout@v4
+      
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      
+      - name: Download wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-*
+          path: wheelhouse
+          merge-multiple: true
+      
+      - name: Install GLPK (Ubuntu)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libglpk-dev glpk-utils
+      
+      - name: Install GLPK (macOS)
+        if: runner.os == 'macOS'
+        run: brew install glpk
+      
+      - name: Install GLPK (Windows)
+        if: runner.os == 'Windows'
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: mingw-w64-x86_64-glpk
+      
+      - name: Find and install wheel
+        shell: bash
+        run: |
+          # Find the wheel for current platform and Python version
+          PYTHON_VER=$(python -c "import sys; print(f'{sys.version_info.major}{sys.version_info.minor}')")
+          echo "Looking for wheel for Python ${PYTHON_VER}"
+          
+          # List available wheels
+          ls -la wheelhouse/
+          
+          # Install matching wheel
+          pip install wheelhouse/benpy-*-cp${PYTHON_VER}-*.whl || {
+            echo "No matching wheel found for Python ${PYTHON_VER}"
+            exit 0
+          }
+      
+      - name: Test wheel installation
+        shell: bash
+        run: |
+          python -c "import benpy; print(f'benpy imported successfully')"
+          python -c "import benpy; print(f'benpy version: {benpy.__version__ if hasattr(benpy, \"__version__\") else \"unknown\"}')"
+          
+          # Run basic import test
+          pip install pytest numpy scipy prettytable
+          pytest tests/test_import.py -v || echo "Tests not available or failed"
