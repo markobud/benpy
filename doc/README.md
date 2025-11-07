@@ -6,31 +6,29 @@ This directory contains technical documentation for benpy developers and advance
 
 For general usage, installation instructions, and quick start examples, see the main [README.md](../README.md) in the repository root.
 
-## Technical Documentation
-
-### API Documentation
+## Core API Documentation
 
 - **[InMemoryInterface.md](InMemoryInterface.md)** - Complete guide to the in-memory interface
-  - `solve_direct()` API reference
-  - Direct structure access
-  - Performance benchmarks
+  - `solve_direct()` API reference with examples
+  - Direct structure access patterns
+  - Performance benchmarks and comparisons
   - Migration guide from file-based interface
 
-### Developer Guides
+## Developer Guides
 
 - **[MemoryManagement.md](MemoryManagement.md)** - Memory management patterns in benpy
-  - bensolve 2.1.0 memory ownership
-  - Wrapper memory management
-  - Memory leak prevention
+  - bensolve 2.1.0 memory ownership model
+  - Wrapper memory management best practices
+  - Memory leak prevention strategies
   - Technical audit details
 
 - **[OwnershipPatterns.md](OwnershipPatterns.md)** - Developer guide for contributors
   - Memory ownership by component
-  - Lifecycle examples
+  - Object lifecycle examples
   - Common pitfalls and best practices
-  - Testing guidelines
+  - Testing guidelines for memory safety
 
-### Safety and Concurrency
+## Safety and Concurrency
 
 - **[ThreadingSafety.md](ThreadingSafety.md)** - Threading behavior and GIL release
   - Thread safety status of bensolve 2.1.0
@@ -38,13 +36,34 @@ For general usage, installation instructions, and quick start examples, see the 
   - GIL release implementation details
   - Multiprocessing for parallelism
 
-### Infrastructure
+## Build and Distribution
 
 - **[CI_CD_Documentation.md](CI_CD_Documentation.md)** - CI/CD workflow documentation
   - GitHub Actions pipeline overview
-  - Platform-specific build configurations
-  - Wheel building with cibuildwheel
+  - Test suite execution
   - Troubleshooting guide
+
+- **[BuildingWheels.md](BuildingWheels.md)** - Building distributable wheels
+  - Local wheel building with cibuildwheel
+  - GitHub Actions workflows for releases
+  - Publishing to PyPI
+
+- **[CibuildwheelConfiguration.md](CibuildwheelConfiguration.md)** - Detailed cibuildwheel config
+  - Platform-specific build configurations
+  - GLPK dependency installation
+  - Wheel repair and testing
+
+- **[CrossPlatformCompilation.md](CrossPlatformCompilation.md)** - Cross-platform implementation
+  - Platform-specific code (timing, headers)
+  - Windows/Unix compatibility layer
+  - Compilation troubleshooting
+
+## Historical Reference
+
+- **[WindowsTestCrashes_RESOLVED.md](WindowsTestCrashes_RESOLVED.md)** - Windows crash fix documentation
+  - Root cause analysis of Windows test failures
+  - Solution implementation details
+  - Control flow fix in _csolve()
 
 ## Additional Resources
 
@@ -52,8 +71,8 @@ For general usage, installation instructions, and quick start examples, see the 
 - **Changelog**: [../CHANGELOG.md](../CHANGELOG.md)
 - **License**: [../LICENSE.md](../LICENSE.md)
 - **Examples**: [../src/examples/](../src/examples/)
-- **Test Suite**: [../tests/README.md](../tests/README.md)
-- **Notebooks**: [../notebooks/README.md](../notebooks/README.md)
+- **Test Suite**: [../tests/](../tests/)
+- **Notebooks**: [../notebooks/](../notebooks/)
 
 ## Contributing
 
@@ -62,7 +81,7 @@ When adding new documentation:
 1. **User-facing features** → Update main README.md
 2. **API changes** → Update InMemoryInterface.md or create new API doc
 3. **Internal implementation** → Update MemoryManagement.md or OwnershipPatterns.md
-4. **Build/CI changes** → Update CI_CD_Documentation.md
+4. **Build/CI changes** → Update CI_CD_Documentation.md or BuildingWheels.md
 5. **Version changes** → Update CHANGELOG.md
 
 Keep documentation:
