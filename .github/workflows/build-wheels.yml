@@ -20,21 +20,24 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Linux builds on ubuntu-latest (x86_64 host, cross-compiles arm64)
-          - os: ubuntu-latest
-            cibw_archs: "x86_64 aarch64"
+          # Temporarily disabled: Linux and Windows builds (focusing on macOS issues)
+          # - os: ubuntu-latest
+          #   cibw_archs: "x86_64 aarch64"
           
           # macOS x86_64 builds on Intel runner
           - os: macos-13
             cibw_archs: "x86_64"
+            macos_target: "13.0"
           
           # macOS ARM64 builds on Apple Silicon runner
+          # Note: GLPK on macos-14 requires macOS 14.0+
           - os: macos-14
             cibw_archs: "arm64"
+            macos_target: "14.0"
           
-          # Windows builds
-          - os: windows-latest
-            cibw_archs: "AMD64"
+          # Temporarily disabled: Windows builds (focusing on macOS issues)
+          # - os: windows-latest
+          #   cibw_archs: "AMD64"
     
     steps:
       - name: Checkout code
@@ -50,7 +53,8 @@ jobs:
         uses: pypa/cibuildwheel@v2.21.3
         env:
           CIBW_BUILD_VERBOSITY: 1
-          MACOSX_DEPLOYMENT_TARGET: "13.0"
+          # Set macOS deployment target based on runner (13.0 for macos-13, 14.0 for macos-14)
+          MACOSX_DEPLOYMENT_TARGET: ${{ matrix.macos_target || '13.0' }}
           # Set architecture to build based on matrix
           CIBW_ARCHS: ${{ matrix.cibw_archs }}
       
