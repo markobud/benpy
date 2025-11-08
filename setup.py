@@ -93,6 +93,35 @@ if platform.system() == 'Darwin':
     # Add rpath for delocate-repaired wheels (where dylibs are bundled)
     extra_link_args.append('-Wl,-rpath,@loader_path/../.dylibs')
 
+# Windows-specific configuration
+elif platform.system() == 'Windows':
+    # On Windows, rely on CFLAGS/LDFLAGS environment variables set by cibuildwheel
+    # These point to MSYS2/MinGW GLPK installation
+    cflags = os.environ.get('CFLAGS', '')
+    ldflags = os.environ.get('LDFLAGS', '')
+    
+    print(f"Windows build with CFLAGS={cflags}, LDFLAGS={ldflags}")
+    
+    # Extract include dirs from CFLAGS
+    if '-I' in cflags:
+        for flag in cflags.split():
+            if flag.startswith('-I'):
+                include_dirs.append(flag[2:])
+    else:
+        # Fallback to default MSYS2 MinGW64 paths if no CFLAGS set
+        include_dirs.append('C:/msys64/mingw64/include')
+    
+    # Extract library dirs from LDFLAGS
+    if '-L' in ldflags:
+        for flag in ldflags.split():
+            if flag.startswith('-L'):
+                library_dirs.append(flag[2:])
+    else:
+        # Fallback to default MSYS2 MinGW64 paths if no LDFLAGS set
+        library_dirs.append('C:/msys64/mingw64/lib')
+    
+    print(f"Windows GLPK paths: includes={include_dirs}, libs={library_dirs}")
+
 ext = Extension(name="benpy",
                 sources=["src/benpy.pyx",
                         "src/bensolve-2.1.0/bslv_vlp.c",
