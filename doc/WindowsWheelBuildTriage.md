@@ -90,6 +90,22 @@ Modified `.github/workflows/build-wheels.yml` to focus exclusively on Windows bu
 
 **Purpose**: Isolate Windows builds to capture and analyze any compilation or linking errors without interference from other platforms.
 
+### Fix #4: Force MinGW/GCC Compiler Usage on Windows
+
+**Problem**: cibuildwheel was defaulting to MSVC compiler on Windows, but MinGW headers (from GLPK) contain GCC-specific syntax (`__asm__`, `__volatile__`, `__builtin_*`) that MSVC cannot parse.
+
+**Solution**: Added `CC="gcc"` and `CXX="g++"` to the environment section in `pyproject.toml`:
+
+```toml
+[tool.cibuildwheel.windows]
+environment = { CC="gcc", CXX="g++", CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
+```
+
+**Impact**: This forces setuptools/distutils to use MinGW GCC from the PATH instead of auto-detecting and using MSVC. This ensures:
+- GCC can compile the code with `-std=c99` flag
+- MinGW headers are compatible with the compiler
+- Cross-platform consistency (GCC on all platforms)
+
 ## Windows Build Configuration Summary
 
 ### Toolchain: MSYS2/MinGW (Not MSVC)
@@ -99,6 +115,7 @@ The project uses **MinGW** (Minimalist GNU for Windows) instead of MSVC for Wind
 1. **GLPK Availability**: GLPK is readily available via MSYS2 package manager
 2. **GCC Compatibility**: The Bensolve C code is written for GCC (uses `-std=c99`)
 3. **Cross-Platform Consistency**: Uses GCC on all platforms (Linux, macOS, Windows)
+4. **Header Compatibility**: MinGW headers use GCC-specific syntax incompatible with MSVC
 
 ### GLPK Installation Strategy
 
@@ -114,6 +131,8 @@ pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc
 
 **Environment Variables Set by cibuildwheel**:
 ```
+CC="gcc"
+CXX="g++"
 CFLAGS="-IC:/msys64/mingw64/include"
 LDFLAGS="-LC:/msys64/mingw64/lib"
 PATH="C:\msys64\mingw64\bin;$PATH"
@@ -160,24 +179,31 @@ This automatically detects and bundles all required DLLs, similar to how `deloca
 
 When the build succeeds, you should see:
 
-1. **setup.py output**:
+1. **Compiler selection** (GCC instead of MSVC):
+   ```
+   building 'benpy' extension
+   gcc.exe -std=c99 -O3 ...
+   ```
+   NOT: `cl.exe` (MSVC compiler)
+
+2. **setup.py output**:
    ```
    Windows build with CFLAGS=-IC:/msys64/mingw64/include, LDFLAGS=-LC:/msys64/mingw64/lib
    Windows GLPK paths: includes=['...', 'C:/msys64/mingw64/include'], libs=['C:/msys64/mingw64/lib']
    ```
 
-2. **Compilation output**:
+3. **Compilation output**:
    ```
    building 'benpy' extension
    gcc ... -IC:/msys64/mingw64/include ...
    ```
 
-3. **Linking output**:
+4. **Linking output**:
    ```
    gcc ... -LC:/msys64/mingw64/lib -lglpk ...
    ```
 
-4. **delvewheel output**:
+5. **delvewheel output**:
    ```
    analyzing wheel: benpy-2.1.0-cp39-cp39-win_amd64.whl
    adding libglpk-40.dll
@@ -186,6 +212,15 @@ When the build succeeds, you should see:
    ```
 
 ### Common Failure Patterns to Watch For
+
+❌ **MSVC compiler being used instead of GCC** (THE CRITICAL ISSUE):
+```
+cl.exe /c /nologo /O2 /W3 /GL /DNDEBUG /MD ...
+C:/msys64/mingw64/include\stdio.h(214): error C2061: syntax error: identifier '__asm__'
+C:/msys64/mingw64/include\stdio.h(214): error C2059: syntax error: ';'
+```
+**Diagnosis**: CC and CXX environment variables not set, causing setuptools to auto-detect and use MSVC
+**Solution**: Set `CC="gcc"` and `CXX="g++"` in pyproject.toml environment section
 
 ❌ **GLPK headers not found**:
 ```
@@ -252,11 +287,15 @@ Once the workflow runs successfully:
 
 1. `Focus build-wheels.yml on Windows builds only` - Isolated Windows builds for triage
 2. `Add Windows-specific GLPK path handling to setup.py and install delvewheel` - Core fixes
+3. `Add comprehensive Windows wheel build triage documentation` - Initial triage documentation
+4. `Force MinGW GCC compiler usage on Windows to avoid MSVC incompatibility` - Critical fix for MSVC/MinGW header conflict
 
 ## Status
 
 ✅ **Configuration Complete**: All identified issues have been fixed in the configuration files.
 
-⏳ **Awaiting CI Run**: Waiting for GitHub Actions approval to run the Windows build and verify fixes.
+✅ **MSVC Issue Resolved**: Added CC=gcc and CXX=g++ to force MinGW compiler usage.
+
+⏳ **Awaiting CI Run**: Waiting for GitHub Actions to run Windows build with MinGW GCC compiler.
 
 The Windows wheel build configuration should now work correctly. Once the CI run completes, we can verify the wheel builds successfully and contains all required DLLs.
