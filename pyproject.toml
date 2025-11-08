@@ -43,7 +43,7 @@ test-command = "pytest {project}/tests/test_import.py -v"
 [tool.cibuildwheel.linux]
 archs = ["x86_64", "aarch64"]
 before-all = [
-    "yum install -y glpk glpk-devel || apt-get update && apt-get install -y libglpk-dev glpk-utils",
+    "bash -c 'if command -v yum >/dev/null 2>&1; then yum install -y epel-release || true; yum install -y glpk glpk-devel; elif command -v apt-get >/dev/null 2>&1; then apt-get update; apt-get install -y libglpk-dev glpk-utils; else echo \"No supported package manager found (yum or apt-get). Cannot install GLPK.\" >&2; exit 1; fi'",
 ]
 repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
 manylinux-x86_64-image = "manylinux2014"
