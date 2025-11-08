@@ -43,7 +43,6 @@ test-command = "python -c \"import benpy; import os; print('benpy from:', benpy.
 
 # Linux-specific configuration
 [tool.cibuildwheel.linux]
-archs = ["x86_64", "aarch64"]
 before-all = [
     "bash -c 'if command -v yum >/dev/null 2>&1; then yum install -y epel-release || true; yum install -y glpk glpk-devel; elif command -v apt-get >/dev/null 2>&1; then apt-get update; apt-get install -y libglpk-dev glpk-utils; else echo \"No supported package manager found (yum or apt-get). Cannot install GLPK.\" >&2; exit 1; fi'",
 ]
@@ -52,11 +51,14 @@ manylinux-x86_64-image = "manylinux2014"
 manylinux-aarch64-image = "manylinux2014"
 
 # macOS-specific configuration
+# Note: We use platform-specific runners to avoid cross-compilation issues
+#   - macos-13 (x86_64 runner) for x86_64 wheels
+#   - macos-14 (arm64 runner) for arm64 wheels
+# This ensures GLPK is installed for the correct architecture
 [tool.cibuildwheel.macos]
-archs = ["x86_64", "arm64"]
 before-all = [
-    # Install GLPK for the target architecture
-    "bash -c 'if [ \"$(uname -m)\" = \"x86_64\" ]; then arch -x86_64 brew install glpk || brew install glpk; else brew install glpk; fi'",
+    # Install GLPK - will match runner architecture (x86_64 on macos-13, arm64 on macos-14)
+    "brew install glpk",
     "pip install delocate",
 ]
 environment = { MACOSX_DEPLOYMENT_TARGET="13.0" }
@@ -64,7 +66,6 @@ repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest
 
 # Windows-specific configuration
 [tool.cibuildwheel.windows]
-archs = ["AMD64"]
 before-all = [
     "C:\\msys64\\usr\\bin\\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc'",
 ]
