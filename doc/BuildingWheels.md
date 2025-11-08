@@ -41,10 +41,18 @@ Runs on every push and PR to main/development branches:
 ### Build Wheels Workflow (build-wheels.yml)
 
 Builds distributable wheels for all platforms:
-- Linux: x86_64 and ARM64 (manylinux2014)
-- macOS: Intel, Apple Silicon, and Universal2
-- Windows: AMD64 (x64)
-- Python: 3.9, 3.10, 3.11, 3.12
+- **Linux**: x86_64 and ARM64 (manylinux2014) on `ubuntu-latest`
+- **macOS**: 
+  - x86_64 (Intel) on `macos-13` runner
+  - ARM64 (Apple Silicon) on `macos-14` runner
+- **Windows**: AMD64 (x64) on `windows-latest`
+- **Python**: 3.9, 3.10, 3.11, 3.12
+
+**macOS Architecture Strategy**:
+To avoid cross-compilation issues with GLPK dependencies, we use native builds:
+- `macos-13` runner (Intel) builds x86_64 wheels with x86_64 GLPK
+- `macos-14` runner (Apple Silicon) builds ARM64 wheels with ARM64 GLPK
+- No Universal2 wheels (users get the appropriate arch-specific wheel)
 
 **Triggers**:
 - Push to `main` or `development`
@@ -117,18 +125,23 @@ cibuildwheel --only cp312-manylinux_x86_64
 
 ## Build Matrix
 
-Current build matrix produces **24 wheel variants**:
+Current build matrix produces **20 wheel variants**:
 
 | Platform | Arch | Py 3.9 | Py 3.10 | Py 3.11 | Py 3.12 |
 |----------|------|--------|---------|---------|---------|
 | Linux    | x86_64 | ✓ | ✓ | ✓ | ✓ |
 | Linux    | ARM64 | ✓ | ✓ | ✓ | ✓ |
-| macOS    | Intel | ✓ | ✓ | ✓ | ✓ |
-| macOS    | ARM64 | ✓ | ✓ | ✓ | ✓ |
-| macOS    | Universal2 | ✓ | ✓ | ✓ | ✓ |
-| Windows  | x64 | ✓ | ✓ | ✓ | ✓ |
+| macOS    | x86_64 (Intel) | ✓ | ✓ | ✓ | ✓ |
+| macOS    | ARM64 (Apple Silicon) | ✓ | ✓ | ✓ | ✓ |
+| Windows  | AMD64 (x64) | ✓ | ✓ | ✓ | ✓ |
 
-**Total**: 24 wheels + 1 source distribution
+**Total**: 20 wheels + 1 source distribution
+
+**Note**: macOS wheels are built using architecture-specific runners:
+- `macos-13` (Intel) for x86_64 wheels
+- `macos-14` (Apple Silicon) for ARM64 wheels
+
+This approach avoids cross-compilation issues with GLPK dependencies.
 
 ## Release Process
 
@@ -197,15 +210,25 @@ python -c "import benpy; print(benpy.__version__)"
 - Verify GLPK package names are correct for platform
 - Check CFLAGS and LDFLAGS environment variables
 
+**macOS architecture mismatch** (symbol not found errors):
+- **Symptom**: `ld: warning: ignoring file ... found architecture 'arm64', required architecture 'x86_64'`
+- **Symptom**: `ImportError: symbol not found in flat namespace '_glp_add_cols'`
+- **Cause**: Trying to cross-compile (e.g., building x86_64 on ARM64 runner)
+- **Solution**: Use architecture-specific runners:
+  - `macos-13` for x86_64 wheels
+  - `macos-14` for ARM64 wheels
+- See the `build_wheels` job matrix in `.github/workflows/build-wheels.yml`
+
 **Wheel repair failures**:
 - Linux: Check auditwheel compatibility
-- macOS: Verify Homebrew paths are correct
+- macOS: Verify Homebrew paths are correct; check `delocate-wheel` output
 - Windows: Ensure MSYS2 DLLs are in PATH
 
 **Test failures**:
 - Check that test dependencies are installed
 - Verify test command path is correct
 - Review pytest output in logs
+- On macOS, ensure DYLD_FALLBACK_LIBRARY_PATH is set correctly
 
 ### Local Build Issues
 
