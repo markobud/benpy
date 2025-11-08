@@ -134,7 +134,7 @@ class TestVlpSolutionAttributes:
             prob.l = simple_2d_problem['l']
         prob.opt_dir = simple_2d_problem['opt_dir']
         
-        sol = benpy.solve(prob)
+        sol = benpy.solve_legacy(prob)
         
         # Check new attributes exist
         assert hasattr(sol, 'status')

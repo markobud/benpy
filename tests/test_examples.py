@@ -53,7 +53,7 @@ class TestExampleProblems:
             opt_dir=prob_data['opt_dir']
         )
         
-        sol = benpy.solve(prob)
+        sol = benpy.solve_legacy(prob)
         
         assert sol is not None, "Solution should not be None"
         assert hasattr(sol, 'c'), "Solution should have c attribute"
