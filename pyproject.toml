@@ -37,7 +37,9 @@ before-build = "pip install Cython numpy setuptools wheel"
 
 # Test the built wheels
 test-requires = ["pytest", "numpy", "scipy", "prettytable"]
-test-command = "pytest {project}/tests/test_import.py -v"
+# Use pytest's --import-mode=importlib to avoid sys.path manipulation
+# First verify benpy imports from site-packages, then run tests
+test-command = "python -c \"import benpy; import os; print('benpy from:', benpy.__file__); assert 'site-packages' in benpy.__file__ or 'dist-packages' in benpy.__file__\" && pytest {project}/tests/test_import.py -v --import-mode=importlib"
 
 # Linux-specific configuration
 [tool.cibuildwheel.linux]
@@ -54,8 +56,9 @@ manylinux-aarch64-image = "manylinux2014"
 archs = ["x86_64", "arm64"]
 before-all = [
     "brew install glpk",
+    "pip install delocate",
 ]
-environment = { MACOSX_DEPLOYMENT_TARGET="13.0", CFLAGS="-I$(brew --prefix)/include", LDFLAGS="-L$(brew --prefix)/lib" }
+environment = { MACOSX_DEPLOYMENT_TARGET="13.0", CFLAGS="-I$(brew --prefix)/include", LDFLAGS="-L$(brew --prefix)/lib", DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib" }
 repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
 # Windows-specific configuration
