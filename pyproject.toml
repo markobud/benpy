@@ -55,10 +55,11 @@ manylinux-aarch64-image = "manylinux2014"
 [tool.cibuildwheel.macos]
 archs = ["x86_64", "arm64"]
 before-all = [
-    "brew install glpk",
+    # Install GLPK for the target architecture
+    "bash -c 'if [ \"$(uname -m)\" = \"x86_64\" ]; then arch -x86_64 brew install glpk || brew install glpk; else brew install glpk; fi'",
     "pip install delocate",
 ]
-environment = { MACOSX_DEPLOYMENT_TARGET="13.0", CFLAGS="-I$(brew --prefix)/include", LDFLAGS="-L$(brew --prefix)/lib", DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib" }
+environment = { MACOSX_DEPLOYMENT_TARGET="13.0" }
 repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
 
 # Windows-specific configuration
