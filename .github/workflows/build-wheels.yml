@@ -35,6 +35,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.21.3
         env:
           CIBW_BUILD_VERBOSITY: 1
+          MACOSX_DEPLOYMENT_TARGET: "13.0"
       
       - name: Upload wheels
         uses: actions/upload-artifact@v4
@@ -105,7 +106,20 @@ jobs:
       
       - name: Install GLPK (macOS)
         if: runner.os == 'macOS'
-        run: brew install glpk
+        run: |
+          set -e
+          # Get Homebrew prefix (may be /opt/homebrew for arm64 or /usr/local for x86_64)
+          BREW_PREFIX="$(brew --prefix || true)"
+          echo "Homebrew prefix: $BREW_PREFIX"
+          
+          # Install GLPK
+          brew install glpk
+          
+          # Set library path for dyld at test time
+          echo "DYLD_FALLBACK_LIBRARY_PATH=${BREW_PREFIX}/lib:${DYLD_FALLBACK_LIBRARY_PATH:-}" >> $GITHUB_ENV
+          
+          # Debug: list installed GLPK libraries
+          ls -la "${BREW_PREFIX}/lib" | grep glpk || true
       
       - name: Install GLPK (Windows)
         if: runner.os == 'Windows'
@@ -134,8 +148,41 @@ jobs:
       - name: Test wheel installation
         shell: bash
         run: |
-          python -c "import benpy; print(f'benpy imported successfully')"
-          python -c "import benpy; print(f'benpy version: {benpy.__version__ if hasattr(benpy, \"__version__\") else \"unknown\"}')"
+          # Display DYLD path for debugging on macOS
+          if [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH"
+          fi
+          
+          # Try to import benpy with diagnostic output
+          python - <<'PY'
+          import sys
+          import traceback
+          
+          try:
+              import benpy
+              print('✓ benpy imported successfully')
+              print(f'benpy version: {benpy.__version__ if hasattr(benpy, "__version__") else "unknown"}')
+              
+              # On macOS, show what libraries the extension is linked against
+              if sys.platform == 'darwin':
+                  import importlib
+                  import subprocess
+                  import os
+                  m = importlib.import_module('benpy')
+                  if hasattr(m, '__file__'):
+                      so_path = m.__file__
+                      print(f'\nbenpy extension path: {so_path}')
+                      if so_path and (so_path.endswith('.so') or so_path.endswith('.dylib')):
+                          print('\notool -L output:')
+                          try:
+                              subprocess.run(['otool', '-L', so_path], check=True)
+                          except Exception as e:
+                              print(f'  Could not run otool: {e}')
+          except Exception as e:
+              print('✗ Failed to import benpy')
+              traceback.print_exc()
+              sys.exit(1)
+          PY
           
           # Run basic import test
           pip install pytest numpy scipy prettytable
