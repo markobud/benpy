@@ -1,0 +1,168 @@
+name: Publish to PyPI
+
+# This is a DRAFT workflow for publishing to PyPI
+# Before using in production:
+# 1. Configure PyPI trusted publishing in your PyPI project settings
+# 2. Set up the PYPI_API_TOKEN secret if not using trusted publishing
+# 3. Remove the manual approval requirement if desired
+# 4. Test with TestPyPI first
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type "publish" to confirm PyPI publication'
+        required: true
+        default: ''
+
+permissions:
+  contents: read
+  id-token: write  # Required for trusted publishing
+
+jobs:
+  verify_release:
+    name: Verify release conditions
+    runs-on: ubuntu-latest
+    outputs:
+      should_publish: ${{ steps.check.outputs.should_publish }}
+    
+    steps:
+      - name: Check release conditions
+        id: check
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            if [[ "${{ github.event.inputs.confirm }}" != "publish" ]]; then
+              echo "Manual trigger requires 'publish' confirmation"
+              exit 1
+            fi
+          fi
+          echo "should_publish=true" >> $GITHUB_OUTPUT
+  
+  build_artifacts:
+    name: Build all artifacts
+    needs: [verify_release]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Trigger wheel build workflow
+        run: |
+          echo "In production, this would trigger the build-wheels.yml workflow"
+          echo "For now, wheels should be built separately before publishing"
+  
+  download_artifacts:
+    name: Download build artifacts
+    needs: [build_artifacts]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Download wheels
+        uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-*
+          path: dist
+          merge-multiple: true
+      
+      - name: Download source distribution
+        uses: actions/download-artifact@v4
+        with:
+          name: sdist
+          path: dist
+      
+      - name: List artifacts
+        run: |
+          ls -lh dist/
+          echo "Total artifacts: $(ls dist/ | wc -l)"
+      
+      - name: Upload combined artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-dist-artifacts
+          path: dist/*
+          retention-days: 90
+  
+  publish_testpypi:
+    name: Publish to TestPyPI (Optional)
+    needs: [download_artifacts]
+    runs-on: ubuntu-latest
+    environment:
+      name: testpypi
+      url: https://test.pypi.org/p/benpy
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: all-dist-artifacts
+          path: dist
+      
+      - name: Publish to TestPyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository-url: https://test.pypi.org/legacy/
+          skip-existing: true
+          verbose: true
+        continue-on-error: true  # Don't fail if TestPyPI upload fails
+  
+  publish_pypi:
+    name: Publish to PyPI
+    needs: [download_artifacts, publish_testpypi]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/benpy
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: all-dist-artifacts
+          path: dist
+      
+      - name: Verify artifacts
+        run: |
+          echo "Verifying artifacts before publication..."
+          ls -lh dist/
+          
+          # Check we have wheels and sdist
+          if [ ! -f dist/*.tar.gz ]; then
+            echo "ERROR: No source distribution found"
+            exit 1
+          fi
+          
+          if [ -z "$(ls dist/*.whl 2>/dev/null)" ]; then
+            echo "WARNING: No wheels found, publishing source only"
+          fi
+          
+          echo "Artifacts verified, ready for publication"
+      
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          # Using trusted publishing (no token needed if configured in PyPI)
+          # If trusted publishing is not configured, add:
+          # password: ${{ secrets.PYPI_API_TOKEN }}
+  
+  verify_publication:
+    name: Verify PyPI publication
+    needs: [publish_pypi]
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Wait for PyPI to update
+        run: sleep 60
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Verify installation from PyPI
+        run: |
+          pip install --index-url https://pypi.org/simple/ --no-cache-dir benpy
+          python -c "import benpy; print('Successfully installed from PyPI')"
