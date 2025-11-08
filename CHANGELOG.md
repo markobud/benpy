@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **API Simplification**: Renamed `solve_direct()` to `solve()` as the new default solving method
+  - `solve()` is now the fast, array-based interface (was `solve_direct()`)
+  - Old file-based `solve()` renamed to `solve_legacy()` with deprecation warning
+  - This makes the faster method the default, improving user experience
+  - Backward compatibility maintained: `solve_legacy()` works with `vlpProblem` objects
+
+### Deprecated
+- `solve_legacy()`: Use `solve()` with arrays instead for 2-3x better performance
+  - Will be removed in a future major version
+  - Legacy file-based interface still works but emits deprecation warning
+
 ## [2.1.0] - 2025-11-07
 
 Major upgrade to bensolve 2.1.0 with new in-memory interface and comprehensive improvements.
@@ -15,7 +27,7 @@ This release represents a significant upgrade from benpy 1.0.3, introducing bens
 a new high-performance in-memory interface, and extensive cross-platform improvements.
 
 ### Added
-- **In-memory interface**: New `solve_direct()` function for 2-3x faster solving without file I/O
+- **In-memory interface**: New array-based solving for 2-3x faster performance without file I/O
   - Solves problems directly from numpy arrays without creating temporary files
   - Cleaner, more Pythonic API that works seamlessly with numpy, scipy, and pandas
   - See [In-Memory Interface Documentation](doc/InMemoryInterface.md) for details

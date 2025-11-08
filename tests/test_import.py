@@ -38,7 +38,7 @@ def test_import_core_functions():
     
     # Check for main functions
     assert hasattr(benpy, 'solve'), "solve function not found"
-    assert hasattr(benpy, 'solve_direct'), "solve_direct function not found"
+    assert hasattr(benpy, 'solve_legacy'), "solve_legacy function not found"
 
 
 def test_import_internal_classes():

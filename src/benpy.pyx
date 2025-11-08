@@ -931,10 +931,12 @@ class vlpProblem:
     Wrapper class for defining and managing Vector Linear Program (VLP) problems.
     
     This class provides the traditional interface for defining VLP/MOLP problems.
-    Problem data is specified through instance attributes and solved using the solve() function.
+    Problem data is specified through instance attributes and solved using the solve_legacy() function.
     
-    Note: For better performance, consider using solve_direct() which works directly with
-    numpy arrays and is 2-3x faster. See solve_direct() documentation for details.
+    .. note::
+        For better performance (2-3x faster), use the solve() function directly with 
+        numpy arrays instead of creating a vlpProblem object. See solve() documentation 
+        for the modern interface.
     
     Attributes
     ----------
@@ -976,8 +978,10 @@ class vlpProblem:
     
     Examples
     --------
+    Legacy interface (uses temporary files):
+    
     >>> import numpy as np
-    >>> from benpy import vlpProblem, solve
+    >>> from benpy import vlpProblem, solve_legacy
     >>> 
     >>> # Define a bi-objective linear program
     >>> vlp = vlpProblem()
@@ -988,13 +992,25 @@ class vlpProblem:
     >>> vlp.opt_dir = 1  # minimize
     >>> 
     >>> # Solve the problem
-    >>> sol = solve(vlp)
+    >>> sol = solve_legacy(vlp)
     >>> print(f"Found {len(sol.Primal.vertex_value)} efficient points")
+    
+    Modern interface (recommended, faster):
+    
+    >>> from benpy import solve
+    >>> 
+    >>> B = np.array([[2.0, 1.0], [1.0, 2.0]])
+    >>> P = np.array([[1.0, 0.0], [0.0, 1.0]])
+    >>> b = [4.0, 4.0]
+    >>> l = [0.0, 0.0]
+    >>> 
+    >>> # Solve directly with arrays (2-3x faster)
+    >>> sol = solve(B, P, b=b, l=l, opt_dir=1)
     
     See Also
     --------
-    solve : Solve a vlpProblem instance
-    solve_direct : Faster alternative that works directly with numpy arrays
+    solve : Recommended faster method that works directly with numpy arrays
+    solve_legacy : Legacy solver for vlpProblem instances
     """
 
     @property
@@ -1262,16 +1278,18 @@ class vlpSolution:
                                                         string_inc(self.Dual,self.Primal,"Dual","Primal"))
 
 
-def solve(problem):
+def solve_legacy(problem):
     """
-    Solve a VLP problem defined by a vlpProblem instance.
+    Solve a VLP problem defined by a vlpProblem instance (legacy file-based method).
+    
+    .. deprecated:: 2.1.0
+        Use :func:`solve` instead. This legacy function writes the problem to a 
+        temporary file before solving, which is 2-3x slower than the new solve() 
+        function that works directly with arrays in memory.
     
     This function solves Vector Linear Programming (VLP) and Multi-Objective Linear 
     Programming (MOLP) problems using the bensolve 2.1.0 algorithm. The problem is 
     written to a temporary .vlp file and then solved.
-    
-    Note: For better performance (2-3x faster), consider using solve_direct() which 
-    works directly with numpy arrays and avoids temporary file I/O.
     
     Parameters
     ----------
@@ -1300,7 +1318,7 @@ def solve(problem):
     Examples
     --------
     >>> import numpy as np
-    >>> from benpy import vlpProblem, solve
+    >>> from benpy import vlpProblem, solve_legacy
     >>> 
     >>> vlp = vlpProblem()
     >>> vlp.B = np.array([[2.0, 1.0], [1.0, 2.0]])
@@ -1309,15 +1327,22 @@ def solve(problem):
     >>> vlp.l = [0.0, 0.0]
     >>> vlp.opt_dir = 1
     >>> 
-    >>> sol = solve(vlp)
+    >>> sol = solve_legacy(vlp)
     >>> print(sol.status)
     >>> print(f"Found {len(sol.Primal.vertex_value)} efficient points")
     
     See Also
     --------
-    solve_direct : Faster alternative that works directly with numpy arrays
+    solve : Recommended faster method that works directly with numpy arrays
     vlpProblem : Class for defining VLP problems
     """
+    # Issue deprecation warning
+    warn(
+        "solve_legacy() is deprecated and will be removed in a future version. "
+        "Use solve() instead for 2-3x better performance.",
+        DeprecationWarning,
+        stacklevel=2
+    )
     cdef size_t k
     
     # Use delete=False to avoid Windows permission errors when to_vlp_file opens the file
@@ -1363,13 +1388,13 @@ def solve(problem):
             pass
 
 
-def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, opt_dir=1, options=None):
+def solve(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, opt_dir=1, options=None):
     """
-    Solve a VLP problem directly from numpy arrays, bypassing file I/O.
+    Solve a VLP problem directly from numpy arrays.
     
-    This is the recommended method for solving VLP problems in benpy 2.1.0+. It is 
-    2-3x faster than solve() because it works directly with numpy arrays in memory
-    without creating temporary files.
+    This is the recommended method for solving VLP problems in benpy. It works 
+    directly with numpy arrays in memory without creating temporary files, making 
+    it 2-3x faster than the legacy file-based approach.
     
     The problem formulation is:
         opt_dir * P x  subject to  a <= B x <= b, l <= x <= s
@@ -1460,7 +1485,7 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     Basic bi-objective minimization problem:
     
     >>> import numpy as np
-    >>> from benpy import solve_direct
+    >>> from benpy import solve
     >>> 
     >>> # Define problem: minimize two objectives subject to constraints
     >>> B = np.array([[2.0, 1.0],    # Constraint matrix
@@ -1470,18 +1495,24 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     >>> b = np.array([4.0, 4.0])     # Upper bounds
     >>> l = np.array([0.0, 0.0])     # Variable lower bounds
     >>> 
-    >>> sol = solve_direct(B, P, b=b, l=l, opt_dir=1)
+    >>> sol = solve(B, P, b=b, l=l, opt_dir=1)
     >>> print(sol.status)
     >>> print(f"Found {len(sol.Primal.vertex_value)} efficient points")
     
     Maximization problem:
     
-    >>> sol_max = solve_direct(B, P, b=b, l=l, opt_dir=-1)
+    >>> sol_max = solve(B, P, b=b, l=l, opt_dir=-1)
     
     With custom solver options:
     
     >>> options = {'message_level': 1, 'alg_phase2': 'dual'}
-    >>> sol = solve_direct(B, P, b=b, l=l, opt_dir=1, options=options)
+    >>> sol = solve(B, P, b=b, l=l, opt_dir=1, options=options)
+    
+    Legacy interface (vlpProblem):
+    
+    >>> from benpy import vlpProblem, solve_legacy
+    >>> vlp = vlpProblem(B=B, P=P, b=b, l=l, opt_dir=1)
+    >>> sol = solve_legacy(vlp)  # Use solve_legacy for vlpProblem objects
     
     Notes
     -----
@@ -1493,7 +1524,8 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     
     See Also
     --------
-    solve : Traditional interface using vlpProblem objects
+    solve_legacy : Legacy interface using vlpProblem objects (deprecated)
+    solve_direct : Alias for solve() (for backward compatibility)
     vlpProblem : Class for defining VLP problems
     
     References
@@ -1503,9 +1535,14 @@ def solve_direct(B, P, a=None, b=None, l=None, s=None, Y=None, Z=None, c=None, o
     # Create and configure problem
     cProblem = _cVlpProblem()
     
-    # Set options
+    # Set options - merge user options with defaults
     if options is None:
         options = vlpProblem().default_options
+    else:
+        # Merge user options with defaults
+        default_options = vlpProblem().default_options
+        default_options.update(options)
+        options = default_options
     cProblem.set_options(options)
     
     # Initialize from arrays (bypasses file I/O)

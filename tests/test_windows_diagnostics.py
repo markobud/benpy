@@ -60,7 +60,7 @@ class TestWindowsCompatibilityMatrix:
         prob_data = get_example01()
         
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data['a'],
@@ -87,7 +87,7 @@ class TestWindowsCompatibilityMatrix:
         prob_data = get_example02()
         
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data.get('a'),
@@ -118,7 +118,7 @@ class TestWindowsCompatibilityMatrix:
         # On Windows, this may crash the Python process
         # We use try-except but crashes may not be catchable
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data['a'],
@@ -147,7 +147,7 @@ class TestWindowsCompatibilityMatrix:
         prob_data = get_example04()
         
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data['a'],
@@ -169,7 +169,7 @@ class TestWindowsCompatibilityMatrix:
         prob_data = get_example05()
         
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data['a'],
@@ -193,7 +193,7 @@ class TestWindowsCompatibilityMatrix:
         prob_data = get_example06()
         
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data['a'],
@@ -221,7 +221,7 @@ class TestWindowsCompatibilityMatrix:
         prob_data = get_example08()
         
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data['a'],
@@ -244,7 +244,7 @@ class TestWindowsCompatibilityMatrix:
         prob_data = get_example11()
         
         try:
-            sol = benpy.solve_direct(
+            sol = benpy.solve(
                 prob_data['B'],
                 prob_data['P'],
                 a=prob_data['a'],
@@ -280,7 +280,7 @@ class TestWindowsCrashPatterns:
         a = np.array([1.0, 1.0])
         
         try:
-            sol = benpy.solve_direct(B, P, a=a, opt_dir=1)
+            sol = benpy.solve(B, P, a=a, opt_dir=1)
             print("\n✓ Minimal no-vertex: SUCCESS")
             assert sol is not None
         except Exception as e:
@@ -303,7 +303,7 @@ class TestWindowsCrashPatterns:
         a = np.array([1.0, 1.0])
         
         try:
-            sol = benpy.solve_direct(B, P, a=a, opt_dir=1)
+            sol = benpy.solve(B, P, a=a, opt_dir=1)
             print("\n✓ Minimal unbounded: SUCCESS")
             assert sol is not None
         except Exception as e:
@@ -322,7 +322,7 @@ class TestWindowsCrashPatterns:
         a = np.array([1.0, 1.0])
         
         try:
-            sol = benpy.solve_direct(B, P, a=a, opt_dir=1)
+            sol = benpy.solve(B, P, a=a, opt_dir=1)
             assert sol is not None
             print("\n✓ Bounded with vertices: SUCCESS")
         except Exception as e:
@@ -340,7 +340,7 @@ class TestWindowsSafeSubset:
     def test_safe_example01(self):
         """Safe: Example01 works on Windows"""
         prob_data = get_example01()
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'], prob_data['P'],
             a=prob_data['a'], l=prob_data['l'],
             opt_dir=prob_data['opt_dir']
@@ -350,7 +350,7 @@ class TestWindowsSafeSubset:
     def test_safe_example05(self):
         """Safe: Example05 works on Windows"""
         prob_data = get_example05()
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'], prob_data['P'],
             a=prob_data['a'], l=prob_data['l'],
             Y=prob_data['Y'], c=prob_data['c'],
@@ -361,7 +361,7 @@ class TestWindowsSafeSubset:
     def test_safe_example06(self):
         """Safe: Example06 works on Windows"""
         prob_data = get_example06()
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'], prob_data['P'],
             a=prob_data['a'], b=prob_data['b'],
             l=prob_data['l'], s=prob_data['s'],
@@ -373,7 +373,7 @@ class TestWindowsSafeSubset:
     def test_safe_example08(self):
         """Safe: Example08 works on Windows"""
         prob_data = get_example08()
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'], prob_data['P'],
             a=prob_data['a'], Y=prob_data['Y'],
             c=prob_data['c'], opt_dir=prob_data['opt_dir']
@@ -383,7 +383,7 @@ class TestWindowsSafeSubset:
     def test_safe_example11(self):
         """Safe: Example11 works on Windows"""
         prob_data = get_example11()
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             prob_data['B'], prob_data['P'],
             a=prob_data['a'], opt_dir=prob_data['opt_dir']
         )

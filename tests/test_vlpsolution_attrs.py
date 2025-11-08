@@ -22,7 +22,7 @@ class TestVlpSolutionAttributes:
     
     def test_status_attribute_exists(self, simple_2d_problem):
         """Test that status attribute exists and is a string."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -40,7 +40,7 @@ class TestVlpSolutionAttributes:
     
     def test_num_vertices_upper_attribute(self, simple_2d_problem):
         """Test that num_vertices_upper attribute exists and is an integer."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -57,7 +57,7 @@ class TestVlpSolutionAttributes:
     
     def test_num_vertices_lower_attribute(self, simple_2d_problem):
         """Test that num_vertices_lower attribute exists and is an integer."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -74,7 +74,7 @@ class TestVlpSolutionAttributes:
     
     def test_Y_attribute(self, simple_2d_problem):
         """Test that Y (ordering cone generators) attribute exists."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -90,7 +90,7 @@ class TestVlpSolutionAttributes:
     
     def test_Z_attribute(self, simple_2d_problem):
         """Test that Z (dual cone generators) attribute exists."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -106,7 +106,7 @@ class TestVlpSolutionAttributes:
     
     def test_all_notebook_attributes(self, simple_2d_problem):
         """Test that all attributes used in example notebooks are present."""
-        sol = benpy.solve_direct(
+        sol = benpy.solve(
             simple_2d_problem['B'],
             simple_2d_problem['P'],
             a=simple_2d_problem.get('a'),
@@ -134,7 +134,7 @@ class TestVlpSolutionAttributes:
             prob.l = simple_2d_problem['l']
         prob.opt_dir = simple_2d_problem['opt_dir']
         
-        sol = benpy.solve(prob)
+        sol = benpy.solve_legacy(prob)
         
         # Check new attributes exist
         assert hasattr(sol, 'status')

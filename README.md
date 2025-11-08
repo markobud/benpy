@@ -4,13 +4,13 @@
 
 A Python wrapper for [Bensolve](http://www.bensolve.org/) **v2.1.0**.  
 
-**New in v2.1.0:** In-memory interface for 2-3x faster solving without file I/O! See [In-Memory Interface](doc/InMemoryInterface.md) for details.
+**New in v2.1.0:** Fast array-based interface for 2-3x faster solving! See [In-Memory Interface](doc/InMemoryInterface.md) for details.
 
 ---
 
 ## ✨ Key Features
 
-- **Fast in-memory interface** - Solve problems directly from numpy arrays (no temporary files)
+- **Fast array-based interface** - Solve problems directly from numpy arrays (no temporary files)
 - **Direct structure access** - Access problem and solution data in memory
 - **Full bensolve 2.1.0 support** - Updated to latest bensolve API
 - **Python-friendly API** - Works seamlessly with numpy, scipy, and pandas
@@ -31,8 +31,8 @@ P = np.array([[1.0, 0.0],    # Objective matrix
               [0.0, 1.0]])
 b = np.array([4.0, 4.0])     # Upper bounds
 
-# Solve directly from arrays (fast, no files!)
-sol = benpy.solve_direct(B, P, b=b, opt_dir=1)
+# Solve directly from arrays (fast!)
+sol = benpy.solve(B, P, b=b, opt_dir=1)
 
 print(f"Found {len(sol.Primal.vertex_value)} efficient points")
 ```
@@ -97,15 +97,15 @@ print(f"Examples are located at: {example_dir}")
 **Good news:** benpy 2.1.0 is fully backward compatible! Your existing code will continue to work without changes.
 
 #### What's New
-- **Faster solving**: New `solve_direct()` function is 2-3x faster than the traditional `solve()` method
-- **No temporary files**: `solve_direct()` works directly with numpy arrays in memory
+- **Faster solving**: New `solve()` function works directly with arrays (2-3x faster)
+- **No temporary files**: Solves problems in memory without creating temp files
 - **Enhanced solutions**: Solution objects now include additional status and metadata
 
-#### Optional Migration to `solve_direct()`
+#### Recommended Migration
 
-**Old way (still works):**
+**Old way (still works, but slower):**
 ```python
-from benpy import vlpProblem, solve
+from benpy import vlpProblem, solve_legacy
 
 vlp = vlpProblem()
 vlp.B = np.array([[2.0, 1.0], [1.0, 2.0]])
@@ -113,23 +113,23 @@ vlp.P = np.array([[1.0, 0.0], [0.0, 1.0]])
 vlp.b = [4.0, 4.0]
 vlp.l = [0.0, 0.0]
 
-sol = solve(vlp)
+sol = solve_legacy(vlp)  # Deprecated: writes to temp file
 ```
 
 **New way (recommended for better performance):**
 ```python
-from benpy import solve_direct
+from benpy import solve
 
 B = np.array([[2.0, 1.0], [1.0, 2.0]])
 P = np.array([[1.0, 0.0], [0.0, 1.0]])
 b = np.array([4.0, 4.0])
 l = np.array([0.0, 0.0])
 
-sol = solve_direct(B, P, b=b, l=l, opt_dir=1)
+sol = solve(B, P, b=b, l=l, opt_dir=1)  # Fast: no temp files
 ```
 
 **Key differences:**
-- `solve_direct()` takes numpy arrays directly as function arguments
+- `solve()` takes numpy arrays directly as function arguments
 - No need to create a `vlpProblem` object
 - `opt_dir` parameter (1 for minimize, -1 for maximize) is passed explicitly
 - Returns the same `vlpSolution` object with additional status information
@@ -138,9 +138,9 @@ sol = solve_direct(B, P, b=b, l=l, opt_dir=1)
 
 Solutions now include helpful metadata:
 ```python
-sol = solve_direct(B, P, b=b, opt_dir=1)
+sol = solve(B, P, b=b, opt_dir=1)
 
-print(sol.status)                # "VLP_OPTIMAL", "VLP_INFEASIBLE", etc.
+print(sol.status)                # "optimal", "infeasible", etc.
 print(sol.num_vertices_upper)    # Number of upper image vertices
 print(sol.num_vertices_lower)    # Number of lower image vertices
 ```
