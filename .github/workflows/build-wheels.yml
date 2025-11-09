@@ -44,26 +44,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Remove MSYS2/MinGW from PATH (Windows only)
+      - name: Verify MinGW/MSYS2 setup (Windows diagnostic)
         if: runner.os == 'Windows'
-        shell: pwsh
+        shell: bash
         run: |
-          # Remove MSYS2/MinGW directories from PATH to prevent toolchain mixing
-          $paths = $env:PATH -split ';'
-          $clean = $paths | Where-Object { $_ -notmatch 'msys64|mingw64|MINGW' }
-          $new = $clean -join ';'
-          echo "PATH=$new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          Write-Output "Cleaned PATH to remove MSYS2/MinGW"
-          Write-Output "New PATH: $new"
-      
-      - name: Show compiler environment (Windows diagnostic)
-        if: runner.os == 'Windows'
-        shell: cmd
-        run: |
-          where cl 2>nul || echo cl.exe not found
-          where gcc 2>nul || echo gcc not found
-          echo Current PATH:
-          echo %PATH%
+          echo "Checking for MSYS2/MinGW installation..."
+          ls -la /c/msys64/mingw64/bin/gcc.exe || echo "GCC not found at expected location"
+          ls -la /c/msys64/mingw64/bin/g++.exe || echo "G++ not found at expected location"
+          echo "PATH: $PATH"
+          which gcc || echo "gcc not in PATH"
+          which g++ || echo "g++ not in PATH"
+          which cl.exe || echo "cl.exe not in PATH (good for MinGW build)"
       
       - name: Set up QEMU (for Linux ARM builds)
         if: runner.os == 'Linux'

@@ -68,17 +68,17 @@ repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest
 # Windows-specific configuration
 [tool.cibuildwheel.windows]
 before-all = [
-    # Install vcpkg and GLPK for MSVC
-    "git clone --depth 1 https://github.com/Microsoft/vcpkg.git C:\\vcpkg",
-    "C:\\vcpkg\\bootstrap-vcpkg.bat",
-    "C:\\vcpkg\\vcpkg install glpk:x64-windows",
-    # Install delvewheel for bundling DLLs
+    "C:\\msys64\\usr\\bin\\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc'",
     "pip install delvewheel",
 ]
-# Use MSVC compiler (default on Windows) with vcpkg GLPK paths
+# Force use of MinGW GCC instead of MSVC
+# Set PATH first so gcc/g++ are found before cl.exe
+# Use full paths to MinGW binaries to be explicit
 environment = { 
-    VCPKG_ROOT="C:\\vcpkg",
-    GLPK_INCLUDE_DIR="C:\\vcpkg\\installed\\x64-windows\\include",
-    GLPK_LIBRARY_DIR="C:\\vcpkg\\installed\\x64-windows\\lib"
+    CC="C:/msys64/mingw64/bin/gcc.exe",
+    CXX="C:/msys64/mingw64/bin/g++.exe",
+    CFLAGS="-IC:/msys64/mingw64/include",
+    LDFLAGS="-LC:/msys64/mingw64/lib",
+    PATH="C:\\msys64\\mingw64\\bin;C:\\msys64\\usr\\bin;$PATH"
 }
 repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
