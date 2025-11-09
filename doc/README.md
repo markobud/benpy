@@ -58,6 +58,29 @@ For general usage, installation instructions, and quick start examples, see the 
   - Windows/Unix compatibility layer
   - Compilation troubleshooting
 
+### Windows-Specific Build Issues
+
+- **[WindowsWheelSizeOfVoidPFix.md](WindowsWheelSizeOfVoidPFix.md)** - **⭐ Windows wheel SIZEOF_VOID_P fix**
+  - Complete solution to Cython compile-time assertion error
+  - Root cause analysis and technical details
+  - Testing and verification guide
+  - **Start here** if encountering Windows build issues
+
+- **[WindowsWheelFix_Comparison.md](WindowsWheelFix_Comparison.md)** - Comparison with previous attempts
+  - Why previous fixes failed
+  - Side-by-side technical comparison
+  - Timeline and lessons learned
+
+- **[WindowsWheelBuildAttempts_Post_c788f5a.md](WindowsWheelBuildAttempts_Post_c788f5a.md)** - Historical attempt log
+  - Chronological record of failed attempts
+  - Build logs and error messages
+  - Background context
+
+- **[WindowsWheelBuildTriage.md](WindowsWheelBuildTriage.md)** - Initial triage documentation
+  - GLPK path configuration
+  - MinGW vs MSVC strategy
+  - delvewheel setup
+
 ## Historical Reference
 
 - **[WindowsTestCrashes_RESOLVED.md](WindowsTestCrashes_RESOLVED.md)** - Windows crash fix documentation
