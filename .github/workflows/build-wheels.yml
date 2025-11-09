@@ -44,25 +44,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Remove MSYS/MinGW from PATH and clear GCC env vars (Windows only)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        run: |
-          # Remove msys64 or mingw64 entries from PATH for this process
-          $paths = $env:PATH -split ';'
-          $clean = $paths | Where-Object { $_ -notmatch 'msys64|mingw64' }
-          $new = $clean -join ';'
-          [Environment]::SetEnvironmentVariable('PATH', $new, 'Process')
-          echo "PATH=$new" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          
-          # Clear environment variables that can inject GCC includes/flags
-          echo "CPATH=" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "C_INCLUDE_PATH=" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "CPLUS_INCLUDE_PATH=" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          echo "LIBRARY_PATH=" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-          
-          Write-Output "Cleaned PATH and unset GCC include/flags for the process"
-      
       - name: Set up QEMU (for Linux ARM builds)
         if: runner.os == 'Linux'
         uses: docker/setup-qemu-action@v3

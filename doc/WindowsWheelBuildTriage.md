@@ -1,171 +1,141 @@
-# Windows Wheel Build Triage - MSVC-Based Configuration
+# Windows Wheel Build Triage - Configuration Fixes
 
 ## Issue Summary
 
-Windows wheel builds were failing because MSVC compiler was trying to use MinGW/MSYS2 headers that contain GCC-specific syntax (`__asm__`, `__volatile__`, `__builtin_*`), causing 100+ compilation errors. This document details the root cause analysis and MSVC-based solution.
+Windows wheel builds were failing due to missing GLPK library path configuration and missing delvewheel installation. This document details the triage findings and fixes applied.
 
-## Root Cause
+## Problems Identified
 
-The initial approach attempted to use MinGW/GCC on Windows, but this created a toolchain conflict:
-1. cibuildwheel defaulted to MSVC compiler (`cl.exe`) on Windows
-2. GLPK was installed via MSYS2/MinGW which added MinGW headers to the include path
-3. MSVC cannot parse GCC-specific constructs in MinGW headers
-4. Result: 100+ syntax errors in system headers (stdio.h, stdlib.h, math.h, etc.)
+### 1. Missing Windows-Specific Path Handling in setup.py
 
-## New Solution: Use MSVC Cleanly
+**Problem**: The `setup.py` file had extensive macOS-specific configuration to extract GLPK paths from environment variables (lines 68-91), but this logic was inside an `if platform.system() == 'Darwin':` block. On Windows, the script would not extract CFLAGS/LDFLAGS from environment variables, leading to missing GLPK headers and library paths.
 
-Instead of forcing MinGW/GCC, we now use MSVC as the compiler with MSVC-compatible GLPK libraries installed via vcpkg.
+**Impact**: Windows builds would fail with "GLPK headers not found" or "cannot find -lglpk" linker errors.
 
-### Key Changes
+**Root Cause**: When the macOS GLPK path handling was added, Windows was not given equivalent logic.
 
-1. **Install GLPK via vcpkg** (MSVC-compatible) instead of MSYS2/MinGW
-2. **Sanitize Windows environment** to remove MinGW paths from PATH
-3. **Use MSVC-friendly compile flags** (`/EHsc`, `/O2`) instead of GCC flags (`-std=c99`, `-O3`)
-4. **Let MSVC be the default compiler** (no CC/CXX override)
+### 2. Missing delvewheel Installation
 
-## Problems Identified and Fixed
+**Problem**: The `pyproject.toml` configured `repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"` for Windows, but delvewheel was never installed during the build process.
 
-### Problem 1: MSVC/MinGW Header Incompatibility
+**Impact**: After successfully building the wheel, the repair step would fail with "delvewheel: command not found".
 
-**Problem**: MSVC compiler was including MinGW headers from MSYS2 which contain GCC-specific syntax.
-
-**Impact**: Compilation failed with errors like:
-```
-C:/msys64/mingw64/include\stdio.h(214): error C2061: syntax error: identifier '__asm__'
-C:/msys64/mingw64/include\math.h(213): error C2065: '__asm__': undeclared identifier
-```
-
-**Solution**: 
-- Remove MSYS2/MinGW from PATH before building
-- Clear environment variables that inject GCC includes (CPATH, C_INCLUDE_PATH, etc.)
-- Use vcpkg to install MSVC-compatible GLPK
-
-### Problem 2: GCC-Specific Compile Flags
-
-**Problem**: setup.py used GCC flags (`-std=c99`, `-O3`) for all platforms, which MSVC ignores or warns about.
-
-**Impact**: MSVC warnings and potentially missed optimizations.
-
-**Solution**: Use platform-specific compile flags:
-- Windows (MSVC): `/EHsc /O2`
-- macOS/Linux (GCC): `-std=c99 -O3`
-
-### Problem 3: Missing GLPK for MSVC
-
-**Problem**: GLPK was only available via MSYS2/MinGW, which is GCC-based.
-
-**Impact**: No MSVC-compatible GLPK library available.
-
-**Solution**: Install GLPK via vcpkg which provides MSVC-compiled libraries.
+**Comparison**: macOS properly installs `delocate` via `pip install delocate` in the `before-all` step, but Windows was missing the equivalent `pip install delvewheel`.
 
 ## Solutions Implemented
 
-### Fix #1: Sanitize Windows Build Environment
+### Fix #1: Add Windows-Specific GLPK Path Handling to setup.py
 
-Added a workflow step to remove MinGW from PATH and clear GCC environment variables:
+Added a new Windows-specific configuration block to `setup.py` (after line 94):
 
-```yaml
-- name: Remove MSYS/MinGW from PATH and clear GCC env vars (Windows only)
-  if: runner.os == 'Windows'
-  shell: pwsh
-  run: |
-    # Remove msys64 or mingw64 entries from PATH
-    $paths = $env:PATH -split ';'
-    $clean = $paths | Where-Object { $_ -notmatch 'msys64|mingw64' }
-    $new = $clean -join ';'
-    [Environment]::SetEnvironmentVariable('PATH', $new, 'Process')
+```python
+# Windows-specific configuration
+elif platform.system() == 'Windows':
+    # On Windows, rely on CFLAGS/LDFLAGS environment variables set by cibuildwheel
+    # These point to MSYS2/MinGW GLPK installation
+    cflags = os.environ.get('CFLAGS', '')
+    ldflags = os.environ.get('LDFLAGS', '')
     
-    # Clear GCC-related environment variables
-    echo "CPATH=" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
-    echo "C_INCLUDE_PATH=" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+    print(f"Windows build with CFLAGS={cflags}, LDFLAGS={ldflags}")
+    
+    # Extract include dirs from CFLAGS
+    if '-I' in cflags:
+        for flag in cflags.split():
+            if flag.startswith('-I'):
+                include_dirs.append(flag[2:])
+    else:
+        # Fallback to default MSYS2 MinGW64 paths if no CFLAGS set
+        include_dirs.append('C:/msys64/mingw64/include')
+    
+    # Extract library dirs from LDFLAGS
+    if '-L' in ldflags:
+        for flag in ldflags.split():
+            if flag.startswith('-L'):
+                library_dirs.append(flag[2:])
+    else:
+        # Fallback to default MSYS2 MinGW64 paths if no LDFLAGS set
+        library_dirs.append('C:/msys64/mingw64/lib')
+    
+    print(f"Windows GLPK paths: includes={include_dirs}, libs={library_dirs}")
 ```
 
-**Purpose**: Prevents MSVC from accidentally using MinGW headers and libraries.
+**Key Features**:
+- Mirrors the macOS approach of extracting paths from CFLAGS/LDFLAGS
+- Includes fallback to default MSYS2 MinGW64 paths
+- Adds diagnostic logging to help debug path issues
+- Ensures GLPK headers and libraries are found during compilation
 
-### Fix #2: Install GLPK via vcpkg
+### Fix #2: Install delvewheel in Windows Build Pipeline
 
-Updated `pyproject.toml` to use vcpkg instead of MSYS2:
+Modified `pyproject.toml` to install delvewheel before building wheels:
 
 ```toml
 [tool.cibuildwheel.windows]
 before-all = [
-    # Install vcpkg and GLPK
-    "git clone https://github.com/Microsoft/vcpkg.git C:\\vcpkg",
-    "C:\\vcpkg\\bootstrap-vcpkg.bat",
-    "C:\\vcpkg\\vcpkg install glpk:x64-windows",
-    # Install delvewheel for bundling DLLs
-    "pip install delvewheel",
+    "C:\\msys64\\usr\\bin\\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc'",
+    "pip install delvewheel",  # Added this line
 ]
-environment = { 
-    VCPKG_ROOT="C:\\vcpkg",
-    GLPK_INCLUDE_DIR="C:\\vcpkg\\installed\\x64-windows\\include",
-    GLPK_LIBRARY_DIR="C:\\vcpkg\\installed\\x64-windows\\lib"
-}
 ```
 
-**Purpose**: Provides MSVC-compatible GLPK libraries.
+**Purpose**: Ensures delvewheel is available for the `repair-wheel-command` to bundle required DLLs (glpk.dll, libgcc_s_seh-1.dll, etc.) into the wheel.
 
-### Fix #3: Add Windows-Specific MSVC Configuration to setup.py
+### Fix #3: Updated Build Workflow for Triage
 
-Added Windows-specific block with MSVC flags:
+Modified `.github/workflows/build-wheels.yml` to focus exclusively on Windows builds for triage:
 
-```python
-# Windows-specific configuration (MSVC)
-elif platform.system() == 'Windows':
-    # Use vcpkg-installed GLPK paths from environment variables
-    glpk_include = os.environ.get('GLPK_INCLUDE_DIR', 'C:\\vcpkg\\installed\\x64-windows\\include')
-    glpk_lib = os.environ.get('GLPK_LIBRARY_DIR', 'C:\\vcpkg\\installed\\x64-windows\\lib')
-    
-    include_dirs.append(glpk_include)
-    library_dirs.append(glpk_lib)
-    
-    # Use MSVC-friendly compile flags
-    extra_compile_args = ['/EHsc', '/O2']  # Exception handling and optimization
-    
-    print(f"Windows MSVC build: GLPK include={glpk_include}, lib={glpk_lib}")
+- Commented out macOS x86_64 and ARM64 builds
+- Commented out Linux x86_64 and aarch64 builds
+- Enabled Windows AMD64 builds
+- Commented out the entire `verify_wheels` job (per triage instructions)
+
+**Purpose**: Isolate Windows builds to capture and analyze any compilation or linking errors without interference from other platforms.
+
+### Fix #4: Force MinGW/GCC Compiler Usage on Windows
+
+**Problem**: cibuildwheel was defaulting to MSVC compiler on Windows, but MinGW headers (from GLPK) contain GCC-specific syntax (`__asm__`, `__volatile__`, `__builtin_*`) that MSVC cannot parse.
+
+**Solution**: Added `CC="gcc"` and `CXX="g++"` to the environment section in `pyproject.toml`:
+
+```toml
+[tool.cibuildwheel.windows]
+environment = { CC="gcc", CXX="g++", CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
 ```
 
-**Key Features**:
-- Extracts GLPK paths from environment variables set by cibuildwheel
-- Uses MSVC-specific compile flags
-- Adds diagnostic logging
-
-### Fix #4: Platform-Specific Compile Flags
-
-Made compile flags conditional:
-- **macOS/Linux**: `-std=c99 -O3` (GCC flags)
-- **Windows**: `/EHsc /O2` (MSVC flags)
+**Impact**: This forces setuptools/distutils to use MinGW GCC from the PATH instead of auto-detecting and using MSVC. This ensures:
+- GCC can compile the code with `-std=c99` flag
+- MinGW headers are compatible with the compiler
+- Cross-platform consistency (GCC on all platforms)
 
 ## Windows Build Configuration Summary
 
-### Toolchain: MSVC (Microsoft Visual C++)
+### Toolchain: MSYS2/MinGW (Not MSVC)
 
-The project now uses **MSVC** for Windows builds. This is the standard approach for Python wheels on Windows because:
+The project uses **MinGW** (Minimalist GNU for Windows) instead of MSVC for Windows builds. This is the correct approach because:
 
-1. **Official Python builds use MSVC**: Binary compatibility with standard Python
-2. **No header conflicts**: MSVC headers compatible with MSVC compiler
-3. **vcpkg ecosystem**: Easy access to MSVC-compiled libraries
-4. **Standard practice**: NumPy, SciPy, and most scientific Python packages use MSVC on Windows
+1. **GLPK Availability**: GLPK is readily available via MSYS2 package manager
+2. **GCC Compatibility**: The Bensolve C code is written for GCC (uses `-std=c99`)
+3. **Cross-Platform Consistency**: Uses GCC on all platforms (Linux, macOS, Windows)
+4. **Header Compatibility**: MinGW headers use GCC-specific syntax incompatible with MSVC
 
 ### GLPK Installation Strategy
 
-**Method**: vcpkg package manager
+**Method**: MSYS2 package manager (pacman)
 ```bash
-git clone https://github.com/Microsoft/vcpkg.git C:\vcpkg
-C:\vcpkg\bootstrap-vcpkg.bat
-C:\vcpkg\vcpkg install glpk:x64-windows
+pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc
 ```
 
 **Paths**:
-- Headers: `C:\vcpkg\installed\x64-windows\include`
-- Libraries: `C:\vcpkg\installed\x64-windows\lib`
-- Binaries: `C:\vcpkg\installed\x64-windows\bin`
+- Headers: `C:/msys64/mingw64/include`
+- Libraries: `C:/msys64/mingw64/lib`
+- Binaries: `C:/msys64/mingw64/bin`
 
 **Environment Variables Set by cibuildwheel**:
 ```
-VCPKG_ROOT="C:\vcpkg"
-GLPK_INCLUDE_DIR="C:\vcpkg\installed\x64-windows\include"
-GLPK_LIBRARY_DIR="C:\vcpkg\installed\x64-windows\lib"
+CC="gcc"
+CXX="g++"
+CFLAGS="-IC:/msys64/mingw64/include"
+LDFLAGS="-LC:/msys64/mingw64/lib"
+PATH="C:\msys64\mingw64\bin;$PATH"
 ```
 
 ### DLL Bundling: delvewheel
@@ -173,33 +143,31 @@ GLPK_LIBRARY_DIR="C:\vcpkg\installed\x64-windows\lib"
 **Purpose**: Bundle required runtime DLLs into the wheel so it's self-contained.
 
 **Required DLLs**:
-- `glpk.dll` - GLPK library
-- MSVC runtime DLLs (automatically detected)
+- `libglpk-40.dll` - GLPK library
+- `libgcc_s_seh-1.dll` - GCC runtime
+- `libwinpthread-1.dll` - Threading library
+- `libgmp-10.dll` - GMP library (GLPK dependency)
 
 **Command**: `delvewheel repair -w {dest_dir} {wheel}`
 
-This automatically detects and bundles all required DLLs.
+This automatically detects and bundles all required DLLs, similar to how `delocate` works on macOS and `auditwheel` works on Linux.
 
 ## Build Process Flow
 
-1. **Sanitize environment** (workflow step)
-   - Remove MSYS2/MinGW from PATH
-   - Clear GCC-related environment variables
-
-2. **Install dependencies** (before-all)
-   - Clone and bootstrap vcpkg
-   - Install GLPK via vcpkg
+1. **Install MSYS2 packages** (before-all)
+   - GLPK library and headers
+   - GCC compiler toolchain
    - Install delvewheel via pip
 
-3. **Build wheel** (cibuildwheel)
-   - Environment variables (GLPK paths) set
-   - setup.py extracts paths from environment
+2. **Build wheel** (cibuildwheel)
+   - Environment variables (CFLAGS, LDFLAGS, PATH) set
+   - setup.py extracts paths from environment variables
    - Cython compiles .pyx to C
-   - **MSVC** compiles C sources with `/EHsc /O2` flags
-   - Links against GLPK from vcpkg
+   - GCC compiles C sources and bensolve library
+   - Links against GLPK from MinGW64
    - Creates initial wheel
 
-4. **Repair wheel** (delvewheel)
+3. **Repair wheel** (delvewheel)
    - Analyzes wheel for DLL dependencies
    - Copies required DLLs into wheel
    - Patches imports to load bundled DLLs
@@ -211,58 +179,60 @@ This automatically detects and bundles all required DLLs.
 
 When the build succeeds, you should see:
 
-1. **Compiler selection** (MSVC instead of GCC):
+1. **Compiler selection** (GCC instead of MSVC):
    ```
    building 'benpy' extension
-   cl.exe /c /nologo /O2 /W3 /GL /DNDEBUG /MD /EHsc /O2 ...
+   gcc.exe -std=c99 -O3 ...
    ```
-   NOT: `gcc.exe` (MinGW compiler)
+   NOT: `cl.exe` (MSVC compiler)
 
 2. **setup.py output**:
    ```
-   Windows MSVC build: GLPK include=C:\vcpkg\installed\x64-windows\include, lib=C:\vcpkg\installed\x64-windows\lib
+   Windows build with CFLAGS=-IC:/msys64/mingw64/include, LDFLAGS=-LC:/msys64/mingw64/lib
+   Windows GLPK paths: includes=['...', 'C:/msys64/mingw64/include'], libs=['C:/msys64/mingw64/lib']
    ```
 
-3. **Compilation output** (MSVC paths):
+3. **Compilation output**:
    ```
    building 'benpy' extension
-   cl.exe ... -IC:\vcpkg\installed\x64-windows\include ...
+   gcc ... -IC:/msys64/mingw64/include ...
    ```
 
 4. **Linking output**:
    ```
-   link.exe ... /LIBPATH:C:\vcpkg\installed\x64-windows\lib glpk.lib ...
+   gcc ... -LC:/msys64/mingw64/lib -lglpk ...
    ```
 
 5. **delvewheel output**:
    ```
    analyzing wheel: benpy-2.1.0-cp39-cp39-win_amd64.whl
-   adding glpk.dll
+   adding libglpk-40.dll
+   adding libgcc_s_seh-1.dll
    ...
    ```
 
 ### Common Failure Patterns to Watch For
 
-❌ **MSVC trying to use MinGW headers** (THE CRITICAL ISSUE):
+❌ **MSVC compiler being used instead of GCC** (THE CRITICAL ISSUE):
 ```
 cl.exe /c /nologo /O2 /W3 /GL /DNDEBUG /MD ...
 C:/msys64/mingw64/include\stdio.h(214): error C2061: syntax error: identifier '__asm__'
 C:/msys64/mingw64/include\stdio.h(214): error C2059: syntax error: ';'
 ```
-**Diagnosis**: MinGW still in PATH or GCC environment variables set
-**Solution**: Ensure PATH sanitization step runs before build
+**Diagnosis**: CC and CXX environment variables not set, causing setuptools to auto-detect and use MSVC
+**Solution**: Set `CC="gcc"` and `CXX="g++"` in pyproject.toml environment section
 
 ❌ **GLPK headers not found**:
 ```
 glpk.h: No such file or directory
 ```
-**Diagnosis**: vcpkg not installed or GLPK_INCLUDE_DIR not set
+**Diagnosis**: CFLAGS not properly extracted or GLPK not installed
 
-❌ **Cannot find glpk.lib**:
+❌ **Cannot find -lglpk**:
 ```
-LINK : fatal error LNK1181: cannot open input file 'glpk.lib'
+ld.exe: cannot find -lglpk
 ```
-**Diagnosis**: GLPK_LIBRARY_DIR not set or vcpkg GLPK not installed
+**Diagnosis**: LDFLAGS not properly extracted or library path incorrect
 
 ❌ **delvewheel not found**:
 ```
@@ -278,21 +248,20 @@ ImportError: DLL load failed: The specified module could not be found
 
 ## Comparison with Other Platforms
 
-| Aspect | Linux | macOS | Windows (MSVC) |
-|--------|-------|-------|----------------|
-| **Package Manager** | apt/yum | Homebrew | vcpkg |
-| **Compiler** | GCC | Clang/GCC | MSVC (cl.exe) |
-| **GLPK Package** | libglpk-dev | glpk | glpk:x64-windows |
-| **Compile Flags** | -std=c99 -O3 | -std=c99 -O3 | /EHsc /O2 |
+| Aspect | Linux | macOS | Windows |
+|--------|-------|-------|---------|
+| **Package Manager** | apt/yum | Homebrew | MSYS2/pacman |
+| **Compiler** | GCC | Clang/GCC | MinGW GCC |
+| **GLPK Package** | libglpk-dev | glpk | mingw-w64-x86_64-glpk |
 | **Wheel Repair** | auditwheel | delocate | delvewheel |
 | **Math Library** | libm (explicit) | libm (explicit) | Built into CRT |
-| **Path Setup** | Simple | pkg-config/brew | vcpkg env vars |
+| **Path Setup** | Simple | pkg-config/brew | CFLAGS/LDFLAGS env |
 
 ## Next Steps
 
 Once the workflow runs successfully:
 
-1. ✅ Verify wheel builds without MSVC/MinGW conflicts
+1. ✅ Verify wheel builds without compilation errors
 2. ✅ Verify delvewheel successfully repairs the wheel
 3. ✅ Check that required DLLs are bundled into the wheel
 4. ⏳ Download and test the wheel on a clean Windows system
@@ -301,10 +270,10 @@ Once the workflow runs successfully:
 
 ## References
 
-- **vcpkg**: https://github.com/Microsoft/vcpkg
+- **MSYS2**: https://www.msys2.org/
 - **delvewheel**: https://github.com/adang1345/delvewheel
 - **cibuildwheel Windows**: https://cibuildwheel.readthedocs.io/en/stable/options/#windows-options
-- **MSVC**: https://docs.microsoft.com/en-us/cpp/
+- **MinGW-w64**: https://www.mingw-w64.org/
 - **GLPK**: https://www.gnu.org/software/glpk/
 
 ## Related Documentation
@@ -317,19 +286,16 @@ Once the workflow runs successfully:
 ## Commit History
 
 1. `Focus build-wheels.yml on Windows builds only` - Isolated Windows builds for triage
-2. `Add Windows-specific GLPK path handling to setup.py and install delvewheel` - Initial MinGW attempt (reverted)
+2. `Add Windows-specific GLPK path handling to setup.py and install delvewheel` - Core fixes
 3. `Add comprehensive Windows wheel build triage documentation` - Initial triage documentation
-4. `Force MinGW GCC compiler usage on Windows` - MinGW approach (reverted)
-5. `Use MSVC with vcpkg GLPK and sanitized environment` - MSVC-based solution (current)
+4. `Force MinGW GCC compiler usage on Windows to avoid MSVC incompatibility` - Critical fix for MSVC/MinGW header conflict
 
 ## Status
 
-✅ **Configuration Complete**: All identified issues have been fixed with MSVC-based approach.
+✅ **Configuration Complete**: All identified issues have been fixed in the configuration files.
 
-✅ **MSVC/MinGW Conflict Resolved**: PATH sanitization prevents header conflicts.
+✅ **MSVC Issue Resolved**: Added CC=gcc and CXX=g++ to force MinGW compiler usage.
 
-✅ **vcpkg GLPK Integration**: MSVC-compatible GLPK library installation configured.
+⏳ **Awaiting CI Run**: Waiting for GitHub Actions to run Windows build with MinGW GCC compiler.
 
-⏳ **Awaiting CI Run**: Waiting for GitHub Actions to run Windows build with MSVC and vcpkg.
-
-The Windows wheel build configuration now uses MSVC (the standard Windows compiler) with vcpkg-provided GLPK libraries, avoiding all MinGW/GCC toolchain conflicts.
+The Windows wheel build configuration should now work correctly. Once the CI run completes, we can verify the wheel builds successfully and contains all required DLLs.

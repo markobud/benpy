@@ -15,7 +15,6 @@ if platform.system() != 'Windows':
 include_dirs = [numpy.get_include(), 'src']
 library_dirs = []
 extra_link_args = []
-extra_compile_args = []  # Will be set per platform
 
 # macOS-specific configuration
 if platform.system() == 'Darwin':
@@ -93,26 +92,35 @@ if platform.system() == 'Darwin':
     
     # Add rpath for delocate-repaired wheels (where dylibs are bundled)
     extra_link_args.append('-Wl,-rpath,@loader_path/../.dylibs')
-    
-    # Use GCC-style flags for macOS
-    extra_compile_args = ['-std=c99', '-O3']
 
-# Windows-specific configuration (MSVC)
+# Windows-specific configuration
 elif platform.system() == 'Windows':
-    # Use vcpkg-installed GLPK paths from environment variables
-    glpk_include = os.environ.get('GLPK_INCLUDE_DIR', 'C:\\vcpkg\\installed\\x64-windows\\include')
-    glpk_lib = os.environ.get('GLPK_LIBRARY_DIR', 'C:\\vcpkg\\installed\\x64-windows\\lib')
+    # On Windows, rely on CFLAGS/LDFLAGS environment variables set by cibuildwheel
+    # These point to MSYS2/MinGW GLPK installation
+    cflags = os.environ.get('CFLAGS', '')
+    ldflags = os.environ.get('LDFLAGS', '')
     
-    include_dirs.append(glpk_include)
-    library_dirs.append(glpk_lib)
+    print(f"Windows build with CFLAGS={cflags}, LDFLAGS={ldflags}")
     
-    # Use MSVC-friendly compile flags
-    extra_compile_args = ['/EHsc', '/O2']  # Exception handling and optimization
+    # Extract include dirs from CFLAGS
+    if '-I' in cflags:
+        for flag in cflags.split():
+            if flag.startswith('-I'):
+                include_dirs.append(flag[2:])
+    else:
+        # Fallback to default MSYS2 MinGW64 paths if no CFLAGS set
+        include_dirs.append('C:/msys64/mingw64/include')
     
-    print(f"Windows MSVC build: GLPK include={glpk_include}, lib={glpk_lib}")
-else:
-    # Default for other platforms
-    extra_compile_args = ['-std=c99', '-O3']
+    # Extract library dirs from LDFLAGS
+    if '-L' in ldflags:
+        for flag in ldflags.split():
+            if flag.startswith('-L'):
+                library_dirs.append(flag[2:])
+    else:
+        # Fallback to default MSYS2 MinGW64 paths if no LDFLAGS set
+        library_dirs.append('C:/msys64/mingw64/lib')
+    
+    print(f"Windows GLPK paths: includes={include_dirs}, libs={library_dirs}")
 
 ext = Extension(name="benpy",
                 sources=["src/benpy.pyx",
@@ -125,7 +133,7 @@ ext = Extension(name="benpy",
                 include_dirs=include_dirs,
                 library_dirs=library_dirs,
                 libraries=libraries,
-                extra_compile_args=extra_compile_args,
+                extra_compile_args=['-std=c99', '-O3'],
                 extra_link_args=extra_link_args
                 )
 setup(
