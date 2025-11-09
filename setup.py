@@ -122,6 +122,21 @@ elif platform.system() == 'Windows':
     
     print(f"Windows GLPK paths: includes={include_dirs}, libs={library_dirs}")
 
+# Platform-specific compile args
+extra_compile_args = ['-std=c99', '-O3']
+if platform.system() == 'Windows':
+    # On Windows AMD64, explicitly set architecture to ensure SIZEOF_VOID_P matches
+    # This fixes Cython's compile-time assertion: enum { __pyx_check_sizeof_voidp = 1 / (int)(SIZEOF_VOID_P == sizeof(void*)) }
+    import struct
+    pointer_size = struct.calcsize('P')
+    if pointer_size == 8:
+        # 64-bit
+        extra_compile_args.append('-m64')
+    elif pointer_size == 4:
+        # 32-bit
+        extra_compile_args.append('-m32')
+    print(f"Windows build: Adding -m{pointer_size*8} flag to match pointer size {pointer_size} bytes")
+
 ext = Extension(name="benpy",
                 sources=["src/benpy.pyx",
                         "src/bensolve-2.1.0/bslv_vlp.c",
@@ -133,7 +148,7 @@ ext = Extension(name="benpy",
                 include_dirs=include_dirs,
                 library_dirs=library_dirs,
                 libraries=libraries,
-                extra_compile_args=['-std=c99', '-O3'],
+                extra_compile_args=extra_compile_args,
                 extra_link_args=extra_link_args
                 )
 
@@ -143,6 +158,25 @@ compiler_directives = {
     'embedsignature': True,
 }
 
+# Windows-specific Cython configuration to fix SIZEOF_VOID_P compile-time assertion
+# The issue occurs when Cython generates C code with SIZEOF_VOID_P that doesn't match
+# the target platform's sizeof(void*) during C compilation on Windows
+if platform.system() == 'Windows':
+    compiler_directives['preliminary_late_includes_cy28'] = True
+    # Use build_dir to ensure clean builds on Windows
+    cythonize_kwargs = {
+        'include_path': ['src'],
+        'compiler_directives': compiler_directives,
+        'nthreads': 0,  # Force single-threaded to avoid race conditions
+        'build_dir': 'build',
+        'force': True,  # Force regeneration on Windows
+    }
+else:
+    cythonize_kwargs = {
+        'include_path': ['src'],
+        'compiler_directives': compiler_directives,
+    }
+
 setup(
-    ext_modules=cythonize([ext], include_path=['src'], compiler_directives=compiler_directives)
+    ext_modules=cythonize([ext], **cythonize_kwargs)
 )
