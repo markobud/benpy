@@ -44,18 +44,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Verify MinGW/MSYS2 setup (Windows diagnostic)
-        if: runner.os == 'Windows'
-        shell: bash
-        run: |
-          echo "Checking for MSYS2/MinGW installation..."
-          ls -la /c/msys64/mingw64/bin/gcc.exe || echo "GCC not found at expected location"
-          ls -la /c/msys64/mingw64/bin/g++.exe || echo "G++ not found at expected location"
-          echo "PATH: $PATH"
-          which gcc || echo "gcc not in PATH"
-          which g++ || echo "g++ not in PATH"
-          which cl.exe || echo "cl.exe not in PATH (good for MinGW build)"
-      
       - name: Set up QEMU (for Linux ARM builds)
         if: runner.os == 'Linux'
         uses: docker/setup-qemu-action@v3

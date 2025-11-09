@@ -72,13 +72,5 @@ before-all = [
     "pip install delvewheel",
 ]
 # Force use of MinGW GCC instead of MSVC
-# Set PATH first so gcc/g++ are found before cl.exe
-# Use full paths to MinGW binaries to be explicit
-environment = { 
-    CC="C:/msys64/mingw64/bin/gcc.exe",
-    CXX="C:/msys64/mingw64/bin/g++.exe",
-    CFLAGS="-IC:/msys64/mingw64/include",
-    LDFLAGS="-LC:/msys64/mingw64/lib",
-    PATH="C:\\msys64\\mingw64\\bin;C:\\msys64\\usr\\bin;$PATH"
-}
+environment = { CC="gcc", CXX="g++", CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
 repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
