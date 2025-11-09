@@ -141,8 +141,12 @@ ext = Extension(name="benpy",
 compiler_directives = {
     'language_level': 3,
     'embedsignature': True,
+    'c_string_type': 'unicode',  # Use unicode strings
+    'c_string_encoding': 'utf8',  # UTF-8 encoding
 }
 
+# Force Cython to generate code that works with the target platform
+# by regenerating the C code on each platform rather than using cached/pregenerated code
 setup(
-    ext_modules=cythonize([ext], include_path=['src'], compiler_directives=compiler_directives)
+    ext_modules=cythonize([ext], include_path=['src'], compiler_directives=compiler_directives, force=True)
 )
