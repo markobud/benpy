@@ -1,113 +1,198 @@
-name: CI - Build and Test
+name: CI
 
 on:
   push:
-    branches: [ master, development ]
+    branches: [main, development, copilot/**]
   pull_request:
-    branches: [ master, development ]
+    branches: [main, development]
   workflow_dispatch:
 
-# Allow Copilot agents to access workflow runs and logs
 permissions:
-  actions: read
   contents: read
-  pull-requests: read
-  checks: write
 
 jobs:
-  test:
-    name: Test on ${{ matrix.os }} - Python ${{ matrix.python-version }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        python-version: ['3.9', '3.10', '3.11', '3.12']
-    
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-    
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: 'pip'
-    
-    - name: Install GLPK (Ubuntu)
-      if: runner.os == 'Linux'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y glpk-utils libglpk-dev
-        echo "CFLAGS=-I/usr/include" >> $GITHUB_ENV
-        echo "LDFLAGS=-L/usr/lib" >> $GITHUB_ENV
-    
-    - name: Install GLPK (macOS)
-      if: runner.os == 'macOS'
-      run: |
-        brew install glpk
-        echo "CFLAGS=-I$(brew --prefix glpk)/include" >> $GITHUB_ENV
-        echo "LDFLAGS=-L$(brew --prefix glpk)/lib" >> $GITHUB_ENV
-    
-    - name: Install GLPK (Windows)
-      if: runner.os == 'Windows'
-      shell: bash
-      run: |
-        # Use chocolatey to install MSYS2
-        choco install msys2 -y
-        # Install GLPK via MSYS2
-        C:/tools/msys64/usr/bin/bash -lc "pacman -S --noconfirm mingw-w64-x86_64-glpk"
-        echo "CFLAGS=-IC:/tools/msys64/mingw64/include" >> $GITHUB_ENV
-        echo "LDFLAGS=-LC:/tools/msys64/mingw64/lib" >> $GITHUB_ENV
-        echo "C:/tools/msys64/mingw64/bin" >> $GITHUB_PATH
-    
-    - name: Install Python dependencies
-      run: |
-        python -m pip install --upgrade pip setuptools wheel
-        pip install -r requirements.txt
-    
-    - name: Build benpy
-      run: |
-        pip install -v .
-    
-    - name: Run example tests
-      run: |
-        python src/examples/TestVLP.py
-    
-    - name: Upload build artifacts on failure
-      if: failure()
-      uses: actions/upload-artifact@v4
-      with:
-        name: build-logs-${{ matrix.os }}-py${{ matrix.python-version }}
-        path: |
-          build/
-          *.log
-        retention-days: 7
-
-  lint:
-    name: Code Quality Checks
+  ubuntu-py312:
+    name: Ubuntu Latest - Python 3.12
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install GLPK system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libglpk-dev glpk-utils
+      
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-timeout
+        env:
+          CFLAGS: "-I/usr/include"
+          LDFLAGS: "-L/usr/lib"
+      
+      - name: Install package in editable mode
+        run: pip install --no-build-isolation --no-deps -e .
+        env:
+          CFLAGS: "-I/usr/include"
+          LDFLAGS: "-L/usr/lib"
+      
+      - name: Run tests
+        run: pytest -q tests/ --junit-xml=pytest-results.xml
+      
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-ubuntu-py312
+          path: |
+            pytest-results.xml
+            pytest.log
+            core.*
+          retention-days: 7
+          if-no-files-found: ignore
+  
+  macos-py312:
+    name: macOS Latest - Python 3.12
+    runs-on: macos-latest
     
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install GLPK via Homebrew
+        run: |
+          brew install glpk
+          echo "GLPK installed at: $(brew --prefix glpk)"
+          echo "Homebrew prefix: $(brew --prefix)"
+      
+      - name: Set build environment variables
+        run: |
+          echo "CFLAGS=-I$(brew --prefix)/include" >> $GITHUB_ENV
+          echo "LDFLAGS=-L$(brew --prefix)/lib" >> $GITHUB_ENV
+      
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+      
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-timeout
+      
+      - name: Install package in editable mode
+        run: pip install --no-build-isolation --no-deps -e .
+      
+      - name: Run tests
+        run: |
+          python -X faulthandler -m pytest -q tests/ --junit-xml=pytest-results.xml
+      
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-macos-py312
+          path: |
+            pytest-results.xml
+            pytest.log
+            core.*
+          retention-days: 7
+          if-no-files-found: ignore
+  
+  windows-py312:
+    name: Windows Latest - Python 3.12
+    runs-on: windows-latest
     
-    - name: Install linting tools
-      run: |
-        pip install flake8 pylint cython-lint
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup MSYS2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-glpk
+            mingw-w64-x86_64-gcc
+            mingw-w64-x86_64-python
+            mingw-w64-x86_64-python-pip
+            mingw-w64-x86_64-python-numpy
+            mingw-w64-x86_64-python-scipy
+            mingw-w64-x86_64-cython
+      
+      - name: Fix SSL certificates for pip
+        shell: msys2 {0}
+        run: |
+          python -m pip install --upgrade pip setuptools wheel certifi
+          export SSL_CERT_FILE=$(python -m certifi)
+          echo "SSL_CERT_FILE=$SSL_CERT_FILE" >> $GITHUB_ENV
+      
+      - name: Install Python dependencies
+        shell: msys2 {0}
+        run: |
+          pip install prettytable pytest pytest-timeout
+      
+      - name: Install package in editable mode
+        shell: msys2 {0}
+        run: |
+          export CFLAGS="-I/mingw64/include"
+          export LDFLAGS="-L/mingw64/lib"
+          pip install --no-build-isolation --no-deps -e .
+      
+      - name: Run tests
+        shell: msys2 {0}
+        run: |
+          export PATH="/mingw64/bin:$PATH"
+          pytest -q tests/ --junit-xml=pytest-results.xml
+      
+      - name: Upload test results on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-windows-py312
+          path: |
+            pytest-results.xml
+            pytest.log
+            core.*
+          retention-days: 7
+          if-no-files-found: ignore
+  
+  build-source:
+    name: Build Source Distribution
+    runs-on: ubuntu-latest
     
-    - name: Lint Python files
-      continue-on-error: true
-      run: |
-        flake8 src/examples/ --count --select=E9,F63,F7,F82 --show-source --statistics
-        flake8 src/examples/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-    
-    - name: Lint Cython files
-      continue-on-error: true
-      run: |
-        cython-lint src/benpy.pyx || true
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install build dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build wheel setuptools Cython numpy
+      
+      - name: Build source distribution
+        run: python -m build --sdist
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-distribution
+          path: dist/*.tar.gz
+          retention-days: 30
