@@ -216,3 +216,117 @@ If you're unsure which agent to use:
 5. Add supporting agents as you discover additional needs
 
 Remember: The goal is to leverage each agent's specialized expertise for the best results!
+
+---
+
+## Service Access and External Resources
+
+All agents have access to GitHub Actions workflows and external services to enhance their capabilities.
+
+### GitHub Actions Access
+
+**Available Tools:**
+- `summarize_run_log_failures` - AI-powered failure analysis (USE THIS FIRST)
+- `get_job_logs` - Download and analyze job logs
+- `list_workflow_runs` - Check CI/CD history
+- `list_workflow_jobs` - Identify failing jobs
+- `list_code_scanning_alerts` - Review security alerts
+- `list_secret_scanning_alerts` - Check for exposed secrets
+- `list_workflow_run_artifacts` - Access build artifacts
+
+**Quick Reference:** `.github/SERVICE_ACCESS_QUICK_REF.md`  
+**Complete Guide:** `.github/GITHUB_ACTIONS_ACCESS.md`  
+**MCP Resources:** `.github/MCP_RESOURCES.md`
+
+### Agent-to-Service Mapping
+
+| Agent | Primary Services | Use Cases |
+|-------|------------------|-----------|
+| **cicd-agent** | GitHub Actions workflows, job logs, artifacts | Debug build failures, optimize CI/CD, analyze cross-platform issues |
+| **crossplatform-compiler** | Job logs, platform-specific builds | Diagnose compilation errors, GLPK linking issues, platform differences |
+| **testing-agent** | Test results, job logs, artifacts | Analyze test failures, identify flaky tests, review coverage |
+| **security-agent** | CodeQL alerts, dependency scans, secret scanning | Review vulnerabilities, audit dependencies, security analysis |
+| **performance-agent** | Workflow timing, job duration, artifacts | Detect performance regressions, analyze build performance |
+| **dev_base** | All GitHub Actions services | Informed development decisions, CI/CD feedback integration |
+| **docagent** | Workflow status, security alerts | Document CI/CD setup, troubleshooting guides |
+
+### Best Practices for Service Access
+
+1. **Start with summarization**: Use `summarize_run_log_failures` before diving into raw logs
+2. **Filter efficiently**: Use `failed_only=true` to focus on problems
+3. **Check patterns**: Analyze multiple runs to identify trends
+4. **Platform awareness**: Always consider OS/Python version in cross-platform issues
+5. **Correlate changes**: Link failures to specific commits and code changes
+
+### Example Workflows with Service Access
+
+**Scenario 1: "CI is failing on PR #123"**
+```
+1. cicd-agent: 
+   - Calls list_workflow_runs to find PR's runs
+   - Calls summarize_run_log_failures for analysis
+   - Identifies issue category (build, test, or config)
+
+2. Hand off to specialist:
+   - Compilation error → crossplatform-compiler
+   - Test failure → testing-agent
+   - Security alert → security-agent
+```
+
+**Scenario 2: "Windows build broken but Linux works"**
+```
+1. cicd-agent:
+   - Calls list_workflow_jobs to identify Windows jobs
+   - Gets Windows job logs with get_job_logs
+
+2. crossplatform-compiler:
+   - Analyzes Windows-specific errors
+   - Reviews GLPK installation steps
+   - Suggests Windows compilation fixes
+```
+
+**Scenario 3: "New CodeQL security alert"**
+```
+1. security-agent:
+   - Calls list_code_scanning_alerts
+   - Calls get_code_scanning_alert for details
+   - Reviews vulnerable code
+   - Suggests remediation
+   - Verifies fix in next run
+```
+
+### Configured Workflows
+
+The repository has three CI/CD workflows with full agent access:
+
+1. **CI - Build and Test** (`.github/workflows/ci.yml`)
+   - Multi-platform builds (Linux, macOS, Windows)
+   - Python 3.9-3.12 testing
+   - Code quality checks
+   - Artifact uploads on failure
+
+2. **CodeQL Security Analysis** (`.github/workflows/codeql.yml`)
+   - Python and C/C++ scanning
+   - Weekly automated scans
+   - Security alert generation
+
+3. **Dependency Security Scan** (`.github/workflows/dependency-scan.yml`)
+   - pip-audit for vulnerabilities
+   - Daily automated checks
+   - Outdated package tracking
+
+All workflows have appropriate permissions for agent access:
+```yaml
+permissions:
+  actions: read          # Access workflow runs
+  contents: read         # Read repository
+  security-events: write # Security scanning
+  pull-requests: read    # PR information
+```
+
+### Getting Help with Services
+
+- **Quick Reference**: `.github/SERVICE_ACCESS_QUICK_REF.md`
+- **Complete Guide**: `.github/GITHUB_ACTIONS_ACCESS.md`
+- **MCP Documentation**: `.github/MCP_RESOURCES.md`
+- **Workflow Files**: `.github/workflows/`
