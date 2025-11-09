@@ -288,14 +288,27 @@ Once the workflow runs successfully:
 1. `Focus build-wheels.yml on Windows builds only` - Isolated Windows builds for triage
 2. `Add Windows-specific GLPK path handling to setup.py and install delvewheel` - Core fixes
 3. `Add comprehensive Windows wheel build triage documentation` - Initial triage documentation
-4. `Force MinGW GCC compiler usage on Windows to avoid MSVC incompatibility` - Critical fix for MSVC/MinGW header conflict
+4. `Force MinGW GCC compiler usage on Windows to avoid MSVC incompatibility` - MinGW/GCC approach
+5. `Use MSVC with vcpkg GLPK instead of MinGW` - MSVC approach (REVERTED - broke other checks)
+6. `Revert to MinGW approach` - Back to MinGW/GCC (current)
 
 ## Status
 
-✅ **Configuration Complete**: All identified issues have been fixed in the configuration files.
+✅ **MinGW/GCC Approach Active**: Using MinGW GCC compiler with MSYS2 GLPK installation.
 
-✅ **MSVC Issue Resolved**: Added CC=gcc and CXX=g++ to force MinGW compiler usage.
+⚠️ **Previous MSVC Attempt Failed**: vcpkg/MSVC approach broke other CI checks and was reverted.
 
-⏳ **Awaiting CI Run**: Waiting for GitHub Actions to run Windows build with MinGW GCC compiler.
+⏳ **Current State**: Back to MinGW approach, investigating if additional fixes needed.
 
-The Windows wheel build configuration should now work correctly. Once the CI run completes, we can verify the wheel builds successfully and contains all required DLLs.
+**Current Configuration:**
+- Compiler: MinGW GCC (via CC=gcc, CXX=g++)
+- GLPK: MSYS2 package (mingw-w64-x86_64-glpk)
+- Compile flags: -std=c99 -O3
+- DLL bundling: delvewheel
+
+**Known Challenges:**
+- MSVC approach broke CI checks (reason under investigation)
+- MinGW approach may still have build issues
+- Need to verify Windows wheel builds successfully
+
+The Windows wheel build configuration uses MinGW/GCC to avoid MSVC/MinGW header conflicts. Further investigation may be needed to ensure successful builds.
