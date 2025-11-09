@@ -20,24 +20,25 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # Temporarily disabled: Linux and Windows builds (focusing on macOS issues)
+          # Temporarily disabled: Linux builds (focusing on Windows triage)
           # - os: ubuntu-latest
           #   cibw_archs: "x86_64 aarch64"
           
+          # Temporarily disabled: macOS builds (focusing on Windows triage)
           # macOS x86_64 builds on Intel runner
-          - os: macos-13
-            cibw_archs: "x86_64"
-            macos_target: "13.0"
+          # - os: macos-13
+          #   cibw_archs: "x86_64"
+          #   macos_target: "13.0"
           
           # macOS ARM64 builds on Apple Silicon runner
           # Note: GLPK on macos-14 requires macOS 14.0+
-          - os: macos-14
-            cibw_archs: "arm64"
-            macos_target: "14.0"
+          # - os: macos-14
+          #   cibw_archs: "arm64"
+          #   macos_target: "14.0"
           
-          # Temporarily disabled: Windows builds (focusing on macOS issues)
-          # - os: windows-latest
-          #   cibw_archs: "AMD64"
+          # Windows AMD64 builds (TRIAGE FOCUS)
+          - os: windows-latest
+            cibw_archs: "AMD64"
     
     steps:
       - name: Checkout code
@@ -93,158 +94,159 @@ jobs:
           path: dist/*.tar.gz
           retention-days: 30
 
-  verify_wheels:
-    name: Verify wheels on ${{ matrix.os }}
-    needs: [build_wheels]
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          # Temporarily disabled: Linux and Windows verification (no wheels built)
-          # - os: ubuntu-latest
-          #   python-version: '3.12'
-          - os: macos-13
-            python-version: '3.12'
-          - os: macos-14
-            python-version: '3.12'
-          # - os: windows-latest
-          #   python-version: '3.12'
-    
-    steps:
-      - name: Checkout code (for tests)
-        uses: actions/checkout@v4
-      
-      - name: Setup Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-      
-      - name: Download wheels
-        uses: actions/download-artifact@v4
-        with:
-          pattern: wheels-*
-          path: wheelhouse
-          merge-multiple: true
-      
-      - name: Install GLPK (Ubuntu)
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y libglpk-dev glpk-utils
-      
-      - name: Install GLPK (macOS)
-        if: runner.os == 'macOS'
-        run: |
-          set -e
-          # Install GLPK - on macOS-13 this will be x86_64, on macOS-14 this will be arm64
-          brew install glpk
-          
-          # Get Homebrew prefix
-          BREW_PREFIX="$(brew --prefix)"
-          echo "Homebrew prefix: $BREW_PREFIX"
-          
-          # Set library path for dyld at test time
-          echo "DYLD_FALLBACK_LIBRARY_PATH=${BREW_PREFIX}/lib:${DYLD_FALLBACK_LIBRARY_PATH:-}" >> $GITHUB_ENV
-          
-          # Debug: list installed GLPK libraries
-          ls -la "${BREW_PREFIX}/lib" | grep glpk || true
-      
-      - name: Install GLPK (Windows)
-        if: runner.os == 'Windows'
-        uses: msys2/setup-msys2@v2
-        with:
-          msystem: MINGW64
-          update: true
-          install: mingw-w64-x86_64-glpk
-      
-      - name: Find and install wheel
-        shell: bash
-        run: |
-          # Find the wheel for current platform and Python version
-          PYTHON_VER=$(python -c "import sys; print(f'{sys.version_info.major}{sys.version_info.minor}')")
-          echo "Looking for wheel for Python ${PYTHON_VER}"
-          
-          # On macOS, determine architecture
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            ARCH=$(python -c "import platform; print(platform.machine())")
-            echo "Architecture: ${ARCH}"
-          fi
-          
-          # List available wheels
-          echo "Available wheels:"
-          ls -la wheelhouse/
-          
-          # Install matching wheel
-          pip install wheelhouse/benpy-*-cp${PYTHON_VER}-*.whl || {
-            echo "No matching wheel found for Python ${PYTHON_VER}"
-            exit 0
-          }
-          
-          # Show what was installed
-          pip show benpy
-      
-      - name: Test wheel installation
-        shell: bash
-        run: |
-          # Display environment info
-          echo "=== Environment Info ==="
-          python --version
-          uname -a
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH"
-            sw_vers || true
-          fi
-          
-          # Try to import benpy with diagnostic output
-          echo ""
-          echo "=== Testing benpy import ==="
-          python - <<'PY'
-          import sys
-          import traceback
-          import platform
-          
-          print(f"Python: {sys.version}")
-          print(f"Platform: {platform.platform()}")
-          print(f"Machine: {platform.machine()}")
-          
-          try:
-              import benpy
-              print('\n✓ benpy imported successfully')
-              print(f'benpy version: {benpy.__version__ if hasattr(benpy, "__version__") else "unknown"}')
-              print(f'benpy file: {benpy.__file__}')
-              
-              # On macOS, show what libraries the extension is linked against
-              if sys.platform == 'darwin':
-                  import subprocess
-                  import os
-                  so_path = benpy.__file__
-                  if so_path and (so_path.endswith('.so') or so_path.endswith('.dylib')):
-                      print('\n=== otool -L output ===')
-                      try:
-                          subprocess.run(['otool', '-L', so_path], check=True)
-                      except Exception as e:
-                          print(f'Could not run otool: {e}')
-                      
-                      # Check if wheel has bundled dylibs
-                      wheel_dir = os.path.dirname(so_path)
-                      dylibs_dir = os.path.join(os.path.dirname(wheel_dir), '.dylibs')
-                      if os.path.exists(dylibs_dir):
-                          print(f'\n=== Bundled .dylibs directory ===')
-                          print(f'Found at: {dylibs_dir}')
-                          for f in os.listdir(dylibs_dir):
-                              print(f'  - {f}')
-                      else:
-                          print(f'\n⚠ No .dylibs directory found at {dylibs_dir}')
-          except Exception as e:
-              print('\n✗ Failed to import benpy')
-              print(f'Error: {e}')
-              traceback.print_exc()
-              sys.exit(1)
-          PY
-          
-          # Run basic import test
-          echo ""
-          echo "=== Running pytest ==="
-          pip install pytest numpy scipy prettytable
-          pytest tests/test_import.py -v || echo "Tests not available or failed"
+  # Temporarily disabled: verify_wheels job (focusing on Windows build triage)
+  # verify_wheels:
+  #   name: Verify wheels on ${{ matrix.os }}
+  #   needs: [build_wheels]
+  #   runs-on: ${{ matrix.os }}
+  #   strategy:
+  #     fail-fast: false
+  #     matrix:
+  #       include:
+  #         # Temporarily disabled: Linux and Windows verification (no wheels built)
+  #         # - os: ubuntu-latest
+  #         #   python-version: '3.12'
+  #         # - os: macos-13
+  #         #   python-version: '3.12'
+  #         # - os: macos-14
+  #         #   python-version: '3.12'
+  #         # - os: windows-latest
+  #         #   python-version: '3.12'
+  #   
+  #   steps:
+  #     - name: Checkout code (for tests)
+  #       uses: actions/checkout@v4
+  #     
+  #     - name: Setup Python ${{ matrix.python-version }}
+  #       uses: actions/setup-python@v5
+  #       with:
+  #         python-version: ${{ matrix.python-version }}
+  #     
+  #     - name: Download wheels
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         pattern: wheels-*
+  #         path: wheelhouse
+  #         merge-multiple: true
+  #     
+  #     - name: Install GLPK (Ubuntu)
+  #       if: runner.os == 'Linux'
+  #       run: |
+  #         sudo apt-get update -qq
+  #         sudo apt-get install -y libglpk-dev glpk-utils
+  #     
+  #     - name: Install GLPK (macOS)
+  #       if: runner.os == 'macOS'
+  #       run: |
+  #         set -e
+  #         # Install GLPK - on macOS-13 this will be x86_64, on macOS-14 this will be arm64
+  #         brew install glpk
+  #         
+  #         # Get Homebrew prefix
+  #         BREW_PREFIX="$(brew --prefix)"
+  #         echo "Homebrew prefix: $BREW_PREFIX"
+  #         
+  #         # Set library path for dyld at test time
+  #         echo "DYLD_FALLBACK_LIBRARY_PATH=${BREW_PREFIX}/lib:${DYLD_FALLBACK_LIBRARY_PATH:-}" >> $GITHUB_ENV
+  #         
+  #         # Debug: list installed GLPK libraries
+  #         ls -la "${BREW_PREFIX}/lib" | grep glpk || true
+  #     
+  #     - name: Install GLPK (Windows)
+  #       if: runner.os == 'Windows'
+  #       uses: msys2/setup-msys2@v2
+  #       with:
+  #         msystem: MINGW64
+  #         update: true
+  #         install: mingw-w64-x86_64-glpk
+  #     
+  #     - name: Find and install wheel
+  #       shell: bash
+  #       run: |
+  #         # Find the wheel for current platform and Python version
+  #         PYTHON_VER=$(python -c "import sys; print(f'{sys.version_info.major}{sys.version_info.minor}')")
+  #         echo "Looking for wheel for Python ${PYTHON_VER}"
+  #         
+  #         # On macOS, determine architecture
+  #         if [[ "$RUNNER_OS" == "macOS" ]]; then
+  #           ARCH=$(python -c "import platform; print(platform.machine())")
+  #           echo "Architecture: ${ARCH}"
+  #         fi
+  #         
+  #         # List available wheels
+  #         echo "Available wheels:"
+  #         ls -la wheelhouse/
+  #         
+  #         # Install matching wheel
+  #         pip install wheelhouse/benpy-*-cp${PYTHON_VER}-*.whl || {
+  #           echo "No matching wheel found for Python ${PYTHON_VER}"
+  #           exit 0
+  #         }
+  #         
+  #         # Show what was installed
+  #         pip show benpy
+  #     
+  #     - name: Test wheel installation
+  #       shell: bash
+  #       run: |
+  #         # Display environment info
+  #         echo "=== Environment Info ==="
+  #         python --version
+  #         uname -a
+  #         if [[ "$RUNNER_OS" == "macOS" ]]; then
+  #           echo "DYLD_FALLBACK_LIBRARY_PATH=$DYLD_FALLBACK_LIBRARY_PATH"
+  #           sw_vers || true
+  #         fi
+  #         
+  #         # Try to import benpy with diagnostic output
+  #         echo ""
+  #         echo "=== Testing benpy import ==="
+  #         python - <<'PY'
+  #         import sys
+  #         import traceback
+  #         import platform
+  #         
+  #         print(f"Python: {sys.version}")
+  #         print(f"Platform: {platform.platform()}")
+  #         print(f"Machine: {platform.machine()}")
+  #         
+  #         try:
+  #             import benpy
+  #             print('\n✓ benpy imported successfully')
+  #             print(f'benpy version: {benpy.__version__ if hasattr(benpy, "__version__") else "unknown"}')
+  #             print(f'benpy file: {benpy.__file__}')
+  #             
+  #             # On macOS, show what libraries the extension is linked against
+  #             if sys.platform == 'darwin':
+  #                 import subprocess
+  #                 import os
+  #                 so_path = benpy.__file__
+  #                 if so_path and (so_path.endswith('.so') or so_path.endswith('.dylib')):
+  #                     print('\n=== otool -L output ===')
+  #                     try:
+  #                         subprocess.run(['otool', '-L', so_path], check=True)
+  #                     except Exception as e:
+  #                         print(f'Could not run otool: {e}')
+  #                     
+  #                     # Check if wheel has bundled dylibs
+  #                     wheel_dir = os.path.dirname(so_path)
+  #                     dylibs_dir = os.path.join(os.path.dirname(wheel_dir), '.dylibs')
+  #                     if os.path.exists(dylibs_dir):
+  #                         print(f'\n=== Bundled .dylibs directory ===')
+  #                         print(f'Found at: {dylibs_dir}')
+  #                         for f in os.listdir(dylibs_dir):
+  #                             print(f'  - {f}')
+  #                     else:
+  #                         print(f'\n⚠ No .dylibs directory found at {dylibs_dir}')
+  #         except Exception as e:
+  #             print('\n✗ Failed to import benpy')
+  #             print(f'Error: {e}')
+  #             traceback.print_exc()
+  #             sys.exit(1)
+  #         PY
+  #         
+  #         # Run basic import test
+  #         echo ""
+  #         echo "=== Running pytest ==="
+  #         pip install pytest numpy scipy prettytable
+  #         pytest tests/test_import.py -v || echo "Tests not available or failed"

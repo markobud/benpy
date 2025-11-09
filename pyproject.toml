@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "Cython","numpy", "wheel"]
+requires = ["setuptools", "Cython>=3.0.0","numpy", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -69,6 +69,13 @@ repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest
 [tool.cibuildwheel.windows]
 before-all = [
     "C:\\msys64\\usr\\bin\\bash -lc 'pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc'",
+    "pip install delvewheel",
 ]
-environment = { CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
+# Configure distutils to use MinGW GCC instead of MSVC
+before-build = [
+    "pip install Cython numpy setuptools wheel",
+    "python -c \"import os; content='[build]\\ncompiler=mingw32\\n\\n[build_ext]\\ncompiler=mingw32\\n'; os.makedirs(os.path.expanduser('~'), exist_ok=True); open(os.path.join(os.path.expanduser('~'), 'pydistutils.cfg'), 'w').write(content); print('Created pydistutils.cfg with MinGW compiler')\"",
+]
+# Force use of MinGW GCC instead of MSVC
+environment = { CC="gcc", CXX="g++", CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
 repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
