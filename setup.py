@@ -136,6 +136,13 @@ ext = Extension(name="benpy",
                 extra_compile_args=['-std=c99', '-O3'],
                 extra_link_args=extra_link_args
                 )
+
+# Cython compiler directives to handle Windows/MinGW compatibility
+compiler_directives = {
+    'language_level': 3,
+    'embedsignature': True,
+}
+
 setup(
-    ext_modules=cythonize([ext], include_path=['src'])
+    ext_modules=cythonize([ext], include_path=['src'], compiler_directives=compiler_directives)
 )
