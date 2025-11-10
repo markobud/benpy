@@ -233,11 +233,16 @@ ext_modules = cythonize([ext], **cythonize_kwargs)
 # Post-process generated C file to fix SIZEOF_VOID_P check
 # This fixes the non-portable enum trick that causes build failures with MinGW/GCC on Windows
 # We apply this fix on all platforms since the C file may be built on different systems
-c_file_path = 'src/benpy.c'
-if os.path.exists(c_file_path):
-    fix_sizeof_voidp_check(c_file_path)
-else:
-    print(f"Warning: Generated C file not found at {c_file_path}")
+# Check both possible locations where Cython might generate the C file
+c_file_paths = ['src/benpy.c', 'build/src/benpy.c']
+fixed = False
+for c_file_path in c_file_paths:
+    if os.path.exists(c_file_path):
+        if fix_sizeof_voidp_check(c_file_path):
+            fixed = True
+
+if not fixed:
+    print(f"Warning: Generated C file not found at any of: {c_file_paths}")
 
 setup(
     ext_modules=ext_modules
