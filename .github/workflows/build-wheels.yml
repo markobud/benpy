@@ -176,11 +176,8 @@ jobs:
           echo "Available wheels:"
           ls -la wheelhouse/
           
-          # Install matching wheel
-          pip install wheelhouse/benpy-*-cp${PYTHON_VER}-*.whl || {
-            echo "No matching wheel found for Python ${PYTHON_VER}"
-            exit 0
-          }
+          # Install all matching wheels - pip will select the compatible one
+          pip install wheelhouse/benpy-*-cp${PYTHON_VER}-*.whl
           
           # Show what was installed
           pip show benpy
@@ -211,7 +208,7 @@ jobs:
           
           try:
               import benpy
-              print('\n✓ benpy imported successfully')
+              print('\n[OK] benpy imported successfully')
               print(f'benpy version: {benpy.__version__ if hasattr(benpy, "__version__") else "unknown"}')
               print(f'benpy file: {benpy.__file__}')
               
@@ -236,9 +233,9 @@ jobs:
                           for f in os.listdir(dylibs_dir):
                               print(f'  - {f}')
                       else:
-                          print(f'\n⚠ No .dylibs directory found at {dylibs_dir}')
+                          print(f'\n[WARNING] No .dylibs directory found at {dylibs_dir}')
           except Exception as e:
-              print('\n✗ Failed to import benpy')
+              print('\n[FAILED] Failed to import benpy')
               print(f'Error: {e}')
               traceback.print_exc()
               sys.exit(1)
