@@ -125,9 +125,8 @@ jobs:
       - name: Download wheels
         uses: actions/download-artifact@v4
         with:
-          pattern: wheels-*
+          name: wheels-${{ matrix.os }}
           path: wheelhouse
-          merge-multiple: true
       
       - name: Install GLPK (Ubuntu)
         if: runner.os == 'Linux'
