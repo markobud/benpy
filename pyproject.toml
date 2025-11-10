@@ -78,4 +78,5 @@ before-build = [
 ]
 # Force use of MinGW GCC instead of MSVC
 environment = { CC="gcc", CXX="g++", CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
-repair-wheel-command = "delvewheel repair -w {dest_dir} {wheel}"
+# Add MSYS2 MinGW64 bin directory to delvewheel search path for finding libglpk-40.dll
+repair-wheel-command = "delvewheel repair --add-path C:\\msys64\\mingw64\\bin -w {dest_dir} {wheel}"

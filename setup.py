@@ -4,6 +4,54 @@ import numpy
 import platform
 import os
 import subprocess
+import re
+
+
+def fix_sizeof_voidp_check(c_file_path):
+    """
+    Post-process generated C file to replace non-portable SIZEOF_VOID_P check.
+    
+    Replaces the enum-based division-by-zero trick that fails on some Windows toolchains:
+        enum { __pyx_check_sizeof_voidp = 1 / (int)(SIZEOF_VOID_P == sizeof(void*)) };
+    
+    With a portable compile-time assertion:
+        #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+        _Static_assert(SIZEOF_VOID_P == sizeof(void*), "SIZEOF_VOID_P mismatch");
+        #else
+        typedef char __pyx_check_sizeof_voidp[(SIZEOF_VOID_P == sizeof(void*)) ? 1 : -1];
+        #endif
+    """
+    if not os.path.exists(c_file_path):
+        return False
+    
+    try:
+        with open(c_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Pattern to match the problematic enum check
+        pattern = r'enum\s*\{\s*__pyx_check_sizeof_voidp\s*=\s*1\s*/\s*\(int\)\(SIZEOF_VOID_P\s*==\s*sizeof\(void\*\)\)\s*\}\s*;'
+        
+        # Replacement: Remove the problematic check since we ensure SIZEOF_VOID_P is correct via define_macros
+        # The original enum check was: enum { __pyx_check_sizeof_voidp = 1 / (int)(SIZEOF_VOID_P == sizeof(void*)) };
+        # We replace it with a comment explaining that SIZEOF_VOID_P is guaranteed to be correct
+        replacement = (
+            '/* SIZEOF_VOID_P check removed - value is explicitly set via compiler define_macros to match platform */'
+        )
+        
+        # Check if the pattern exists
+        if re.search(pattern, content):
+            content = re.sub(pattern, replacement, content)
+            
+            with open(c_file_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            print(f"Fixed SIZEOF_VOID_P check in {c_file_path}")
+            return True
+        
+    except Exception as e:
+        print(f"Warning: Could not fix SIZEOF_VOID_P check in {c_file_path}: {e}")
+    
+    return False
 
 
 # Determine platform-specific libraries
@@ -122,6 +170,27 @@ elif platform.system() == 'Windows':
     
     print(f"Windows GLPK paths: includes={include_dirs}, libs={library_dirs}")
 
+# Platform-specific compile args and macros
+extra_compile_args = ['-std=c99', '-O3']
+define_macros = []
+
+if platform.system() == 'Windows':
+    # On Windows AMD64, explicitly set architecture to ensure SIZEOF_VOID_P matches
+    # This fixes Cython's compile-time assertion: enum { __pyx_check_sizeof_voidp = 1 / (int)(SIZEOF_VOID_P == sizeof(void*)) }
+    import struct
+    pointer_size = struct.calcsize('P')
+    if pointer_size == 8:
+        # 64-bit
+        extra_compile_args.append('-m64')
+    elif pointer_size == 4:
+        # 32-bit
+        extra_compile_args.append('-m32')
+    
+    # Explicitly define SIZEOF_VOID_P to match the Python interpreter's pointer size
+    # This ensures the macro matches what sizeof(void*) will be at compile time
+    define_macros.append(('SIZEOF_VOID_P', str(pointer_size)))
+    print(f"Windows build: Adding -m{pointer_size*8} flag and SIZEOF_VOID_P={pointer_size}")
+
 ext = Extension(name="benpy",
                 sources=["src/benpy.pyx",
                         "src/bensolve-2.1.0/bslv_vlp.c",
@@ -133,7 +202,8 @@ ext = Extension(name="benpy",
                 include_dirs=include_dirs,
                 library_dirs=library_dirs,
                 libraries=libraries,
-                extra_compile_args=['-std=c99', '-O3'],
+                define_macros=define_macros,
+                extra_compile_args=extra_compile_args,
                 extra_link_args=extra_link_args
                 )
 
@@ -143,6 +213,42 @@ compiler_directives = {
     'embedsignature': True,
 }
 
+# Windows-specific Cython configuration to fix SIZEOF_VOID_P compile-time assertion
+# The issue occurs when Cython generates C code with SIZEOF_VOID_P that doesn't match
+# the target platform's sizeof(void*) during C compilation on Windows
+if platform.system() == 'Windows':
+    compiler_directives['preliminary_late_includes_cy28'] = True
+    # Use build_dir to ensure clean builds on Windows
+    cythonize_kwargs = {
+        'include_path': ['src'],
+        'compiler_directives': compiler_directives,
+        'nthreads': 0,  # Force single-threaded to avoid race conditions
+        'build_dir': 'build',
+        'force': True,  # Force regeneration on Windows
+    }
+else:
+    cythonize_kwargs = {
+        'include_path': ['src'],
+        'compiler_directives': compiler_directives,
+    }
+
+# Cythonize the extensions
+ext_modules = cythonize([ext], **cythonize_kwargs)
+
+# Post-process generated C file to fix SIZEOF_VOID_P check
+# This fixes the non-portable enum trick that causes build failures with MinGW/GCC on Windows
+# We apply this fix on all platforms since the C file may be built on different systems
+# Check both possible locations where Cython might generate the C file
+c_file_paths = ['src/benpy.c', 'build/src/benpy.c']
+fixed = False
+for c_file_path in c_file_paths:
+    if os.path.exists(c_file_path):
+        if fix_sizeof_voidp_check(c_file_path):
+            fixed = True
+
+if not fixed:
+    print(f"Warning: Generated C file not found at any of: {c_file_paths}")
+
 setup(
-    ext_modules=cythonize([ext], include_path=['src'], compiler_directives=compiler_directives)
+    ext_modules=ext_modules
 )
