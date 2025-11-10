@@ -4,6 +4,56 @@ import numpy
 import platform
 import os
 import subprocess
+import re
+
+
+def fix_sizeof_voidp_check(c_file_path):
+    """
+    Post-process generated C file to replace non-portable SIZEOF_VOID_P check.
+    
+    Replaces the enum-based division-by-zero trick that fails on some Windows toolchains:
+        enum { __pyx_check_sizeof_voidp = 1 / (int)(SIZEOF_VOID_P == sizeof(void*)) };
+    
+    With a portable compile-time assertion:
+        #if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L
+        _Static_assert(SIZEOF_VOID_P == sizeof(void*), "SIZEOF_VOID_P mismatch");
+        #else
+        typedef char __pyx_check_sizeof_voidp[(SIZEOF_VOID_P == sizeof(void*)) ? 1 : -1];
+        #endif
+    """
+    if not os.path.exists(c_file_path):
+        return False
+    
+    try:
+        with open(c_file_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Pattern to match the problematic enum check
+        pattern = r'enum\s*\{\s*__pyx_check_sizeof_voidp\s*=\s*1\s*/\s*\(int\)\(SIZEOF_VOID_P\s*==\s*sizeof\(void\*\)\)\s*\}\s*;'
+        
+        # Replacement with portable compile-time assertion
+        replacement = (
+            '#if defined(__STDC_VERSION__) && __STDC_VERSION__ >= 201112L\n'
+            '_Static_assert(SIZEOF_VOID_P == sizeof(void*), "SIZEOF_VOID_P does not match sizeof(void*)");\n'
+            '#else\n'
+            'typedef char __pyx_check_sizeof_voidp[(SIZEOF_VOID_P == sizeof(void*)) ? 1 : -1];\n'
+            '#endif'
+        )
+        
+        # Check if the pattern exists
+        if re.search(pattern, content):
+            content = re.sub(pattern, replacement, content)
+            
+            with open(c_file_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+            
+            print(f"Fixed SIZEOF_VOID_P check in {c_file_path}")
+            return True
+        
+    except Exception as e:
+        print(f"Warning: Could not fix SIZEOF_VOID_P check in {c_file_path}: {e}")
+    
+    return False
 
 
 # Determine platform-specific libraries
@@ -177,6 +227,18 @@ else:
         'compiler_directives': compiler_directives,
     }
 
+# Cythonize the extensions
+ext_modules = cythonize([ext], **cythonize_kwargs)
+
+# Post-process generated C file to fix SIZEOF_VOID_P check
+# This fixes the non-portable enum trick that causes build failures with MinGW/GCC on Windows
+# We apply this fix on all platforms since the C file may be built on different systems
+c_file_path = 'src/benpy.c'
+if os.path.exists(c_file_path):
+    fix_sizeof_voidp_check(c_file_path)
+else:
+    print(f"Warning: Generated C file not found at {c_file_path}")
+
 setup(
-    ext_modules=cythonize([ext], **cythonize_kwargs)
+    ext_modules=ext_modules
 )
