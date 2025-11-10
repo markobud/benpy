@@ -166,18 +166,30 @@ jobs:
           PYTHON_VER=$(python -c "import sys; print(f'{sys.version_info.major}{sys.version_info.minor}')")
           echo "Looking for wheel for Python ${PYTHON_VER}"
           
-          # On macOS, determine architecture
-          if [[ "$RUNNER_OS" == "macOS" ]]; then
-            ARCH=$(python -c "import platform; print(platform.machine())")
-            echo "Architecture: ${ARCH}"
-          fi
+          # Determine architecture
+          ARCH=$(uname -m)
+          echo "System architecture: ${ARCH}"
           
           # List available wheels
           echo "Available wheels:"
           ls -la wheelhouse/
           
-          # Install all matching wheels - pip will select the compatible one
-          pip install wheelhouse/benpy-*-cp${PYTHON_VER}-*.whl
+          # Install wheel matching the system architecture
+          # For Linux: look for manylinux wheels with matching arch
+          # For macOS: look for macosx wheels with matching arch
+          # For Windows: look for win_amd64 wheels
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            WHEEL_PATTERN="wheelhouse/benpy-*-cp${PYTHON_VER}-*manylinux*_${ARCH}*.whl"
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            WHEEL_PATTERN="wheelhouse/benpy-*-cp${PYTHON_VER}-*macosx*_${ARCH}*.whl"
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            WHEEL_PATTERN="wheelhouse/benpy-*-cp${PYTHON_VER}-*win_amd64*.whl"
+          else
+            WHEEL_PATTERN="wheelhouse/benpy-*-cp${PYTHON_VER}-*.whl"
+          fi
+          
+          echo "Wheel pattern: ${WHEEL_PATTERN}"
+          pip install ${WHEEL_PATTERN}
           
           # Show what was installed
           pip show benpy
