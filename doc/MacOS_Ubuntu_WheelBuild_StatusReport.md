@@ -26,7 +26,7 @@ The following build configurations have been re-enabled:
 - **Total Wheels**: 8 wheels (2 architectures × 4 Python versions)
 
 ### macOS x86_64 (Intel)
-- **Runner**: `macos-13` (Intel runner)
+- **Runner**: `macos-15` (Intel runner)
 - **Architecture**: x86_64
 - **Python Versions**: 3.9, 3.10, 3.11, 3.12
 - **Deployment Target**: macOS 13.0
@@ -81,7 +81,7 @@ pip install delocate
 ```
 
 **Architecture Strategy**:
-- **macos-13 runner**: Installs x86_64 GLPK via Homebrew, builds x86_64 wheels
+- **macos-15 runner**: Installs x86_64 GLPK via Homebrew, builds x86_64 wheels
 - **macos-14 runner**: Installs ARM64 GLPK via Homebrew, builds arm64 wheels
 - **No cross-compilation**: Each runner builds for its native architecture
 
@@ -90,7 +90,7 @@ pip install delocate
 - Uses `--require-archs {delocate_archs}` to verify correct architecture
 
 **Deployment Targets**:
-- macOS 13.0 for x86_64 wheels (macos-13 runner)
+- macOS 13.0 for x86_64 wheels (macos-15 runner)
 - macOS 14.0 for ARM64 wheels (macos-14 runner)
 
 ### Windows Configuration (Reference)
@@ -116,7 +116,7 @@ The `verify_wheels` job tests each platform with Python 3.12:
 - Sets `DYLD_FALLBACK_LIBRARY_PATH` for runtime library loading
 - Uses `otool -L` to inspect library dependencies
 - Verifies bundled `.dylibs` directory exists
-- Tests wheel import on both x86_64 (macos-13) and arm64 (macos-14)
+- Tests wheel import on both x86_64 (macos-15) and arm64 (macos-14)
 
 ### Windows Verification
 - Installs GLPK via MSYS2
@@ -129,7 +129,7 @@ The `verify_wheels` job tests each platform with Python 3.12:
 
 The build configuration has been successfully updated in `.github/workflows/build-wheels.yml`:
 - ✅ Ubuntu x86_64 and ARM64 builds re-enabled
-- ✅ macOS x86_64 (Intel, macos-13) builds re-enabled  
+- ✅ macOS x86_64 (Intel, macos-15) builds re-enabled  
 - ✅ macOS ARM64 (Apple Silicon, macos-14) builds re-enabled
 - ✅ Windows AMD64 builds kept active for reference
 - ✅ Verification jobs re-enabled for all platforms
@@ -160,7 +160,7 @@ Based on review of the existing configuration:
 - **Confidence Level**: **HIGH** - Configuration is mature and well-tested
 
 #### macOS x86_64 Configuration - Status: ✅ Expected to Work  
-- **GLPK Installation**: Via Homebrew on Intel runner (macos-13)
+- **GLPK Installation**: Via Homebrew on Intel runner (macos-15)
 - **Wheel Repair**: Uses `delocate` to bundle GLPK dylibs
 - **Architecture Strategy**: Native builds on x86_64 runner
 - **Deployment Target**: macOS 13.0
@@ -217,7 +217,7 @@ Based on review of the existing configuration:
 
 The `verify_wheels` job has been re-enabled to test wheels on all platforms with Python 3.12:
 - ✅ Ubuntu Latest verification configured
-- ✅ macOS-13 (x86_64) verification configured
+- ✅ macOS-15 (x86_64) verification configured
 - ✅ macOS-14 (ARM64) verification configured  
 - ✅ Windows Latest verification configured
 
@@ -246,7 +246,7 @@ Once the workflow runs complete, verification results will be documented here.
 
 #### macOS
 - ✅ No configuration issues identified  
-- ✅ Smart architecture separation strategy (macos-13 for x86_64, macos-14 for ARM64)
+- ✅ Smart architecture separation strategy (macos-15 for x86_64, macos-14 for ARM64)
 - ✅ Avoids cross-compilation complexity
 - ✅ Uses delocate for library bundling
 
@@ -263,7 +263,7 @@ Once the workflow runs complete, verification results will be documented here.
 - **GLPK availability**: Available in standard apt repositories
 
 ### macOS
-- **Architecture separation**: Using separate runners (macos-13, macos-14) to avoid cross-compilation issues
+- **Architecture separation**: Using separate runners (macos-15, macos-14) to avoid cross-compilation issues
 - **Deployment targets**: Different minimum macOS versions for x86_64 (13.0) and ARM64 (14.0)
 - **Homebrew architecture**: Automatically matches runner architecture
 - **Library bundling**: delocate must bundle GLPK dylibs for portability

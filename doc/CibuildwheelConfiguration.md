@@ -292,7 +292,7 @@ CIBW_ARCHS_MACOS=x86_64 cibuildwheel --platform macos
 **macOS ARM64**:
 - Requires macOS 11+ runner
 - Use `macos-14` runner for native ARM builds
-- Use `macos-13` runner for Intel builds
+- Use `macos-15` runner for Intel builds
 
 ## Performance Considerations
 

@@ -92,7 +92,7 @@ export LDFLAGS="-L$(brew --prefix)/lib"
 - Python: 3.10, 3.11, 3.12
 
 **Architecture Handling:**
-- **Intel Macs (x86_64)**: Use `macos-13` GitHub Actions runner
+- **Intel Macs (x86_64)**: Use `macos-15` GitHub Actions runner
 - **Apple Silicon (ARM64)**: Use `macos-14` GitHub Actions runner
 - benpy builds architecture-specific wheels (not Universal2) to avoid cross-compilation issues
 
@@ -327,7 +327,7 @@ strategy:
   
 - **macOS**: x86_64 and ARM64 (architecture-specific)
   - Python 3.10, 3.11, 3.12
-  - x86_64: Built on `macos-13` (Intel runner)
+  - x86_64: Built on `macos-15` (Intel runner)
   - ARM64: Built on `macos-14` (Apple Silicon runner)
   
 - **Windows**: AMD64/x64
@@ -370,7 +370,7 @@ jobs:
             cibw_archs: "x86_64 aarch64"
           
           # macOS Intel builds
-          - os: macos-13
+          - os: macos-15
             cibw_archs: "x86_64"
             macos_target: "13.0"
           
@@ -646,7 +646,7 @@ repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest
 ```
 
 **What This Does:**
-- Installs GLPK for the runner's architecture (x86_64 on macos-13, arm64 on macos-14)
+- Installs GLPK for the runner's architecture (x86_64 on macos-15, arm64 on macos-14)
 - Uses delocate to copy GLPK dylibs into wheel's `.dylibs` directory
 - Sets up proper `@loader_path` references
 
@@ -877,7 +877,7 @@ Current build configuration produces **15 wheel variants** (Python 3.10, 3.11, 3
 |----------|--------------|---------|---------|---------|--------|------------|
 | Linux    | x86_64       | ✓       | ✓       | ✓       | ubuntu-latest | manylinux2014 |
 | Linux    | ARM64/aarch64| ✓       | ✓       | ✓       | ubuntu-latest | manylinux2014 |
-| macOS    | x86_64 (Intel)| ✓      | ✓       | ✓       | macos-13 | macOS 13.0+ |
+| macOS    | x86_64 (Intel)| ✓      | ✓       | ✓       | macos-15 | macOS 13.0+ |
 | macOS    | ARM64 (Apple Silicon)| ✓ | ✓    | ✓       | macos-14 | macOS 14.0+ |
 | Windows  | AMD64 (x64)  | ✓       | ✓       | ✓       | windows-latest | MinGW-w64 |
 
@@ -939,7 +939,7 @@ benpy-2.1.0-cp310-cp310-win_amd64.whl
 - Cross-compilation of GLPK can lead to runtime issues
 
 **Our Approach:**
-- Use `macos-13` (Intel runner) to build x86_64 wheels with x86_64 GLPK
+- Use `macos-15` (Intel runner) to build x86_64 wheels with x86_64 GLPK
 - Use `macos-14` (Apple Silicon runner) to build ARM64 wheels with ARM64 GLPK
 - pip automatically selects the correct wheel for the user's architecture
 - More reliable and simpler build process
@@ -956,7 +956,7 @@ Approximate build times per platform (GitHub Actions runners):
 |----------|--------------|------------|-------|
 | Linux    | x86_64       | 3-5 min    | Native build |
 | Linux    | ARM64        | 15-25 min  | QEMU emulation (slow) |
-| macOS    | x86_64       | 5-8 min    | Native on macos-13 |
+| macOS    | x86_64       | 5-8 min    | Native on macos-15 |
 | macOS    | ARM64        | 5-8 min    | Native on macos-14 |
 | Windows  | AMD64        | 8-12 min   | MinGW setup overhead |
 
@@ -1189,7 +1189,7 @@ dyld: Symbol not found: _glp_create_prob
    # In GitHub Actions workflow
    matrix:
      include:
-       - os: macos-13      # Intel runner
+       - os: macos-15      # Intel runner
          cibw_archs: "x86_64"
          
        - os: macos-14      # Apple Silicon runner
