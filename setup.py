@@ -66,77 +66,89 @@ extra_link_args = []
 
 # macOS-specific configuration
 if platform.system() == 'Darwin':
-    # Try pkg-config first (most reliable for getting correct flags)
-    try:
-        pkg_config_cflags = subprocess.check_output(
-            ['pkg-config', '--cflags', 'glpk'],
-            text=True,
-            stderr=subprocess.DEVNULL
-        ).strip()
-        pkg_config_libs = subprocess.check_output(
-            ['pkg-config', '--libs-only-L', 'glpk'],
-            text=True,
-            stderr=subprocess.DEVNULL
-        ).strip()
-        
-        # Extract include dirs from pkg-config
-        for flag in pkg_config_cflags.split():
-            if flag.startswith('-I'):
-                include_dirs.append(flag[2:])
-        
-        # Extract library dirs from pkg-config
-        for flag in pkg_config_libs.split():
-            if flag.startswith('-L'):
-                lib_dir = flag[2:]
-                library_dirs.append(lib_dir)
-                extra_link_args.append(f'-Wl,-rpath,{lib_dir}')
-        
-        print(f"Using pkg-config for GLPK: includes={include_dirs}, libs={library_dirs}")
-    except (subprocess.CalledProcessError, FileNotFoundError):
-        # Fallback to brew or environment variables if pkg-config not available
-        print("pkg-config not available, using brew/environment variables")
-        
-        # Try to get brew prefix from environment or by calling brew
-        brew_prefix = os.environ.get('HOMEBREW_PREFIX')
-        if not brew_prefix:
-            try:
-                # Get the brew prefix for the current architecture
-                brew_prefix = subprocess.check_output(['brew', '--prefix'], text=True).strip()
-            except (subprocess.CalledProcessError, FileNotFoundError):
-                # Try architecture-specific defaults
-                import platform as plat
-                machine = plat.machine()
-                if machine == 'arm64':
-                    brew_prefix = '/opt/homebrew'
-                else:
-                    brew_prefix = '/usr/local'
-        
-        print(f"Using brew prefix: {brew_prefix}")
-        
-        # Check if CFLAGS/LDFLAGS are set (e.g., by cibuildwheel)
-        cflags = os.environ.get('CFLAGS', '')
-        ldflags = os.environ.get('LDFLAGS', '')
-        
-        # Extract include dirs from CFLAGS
-        if '-I' in cflags:
-            for flag in cflags.split():
+    # Check for explicitly set GLPK paths (set by install script for cross-compilation)
+    glpk_include = os.environ.get('GLPK_INCLUDE_DIR')
+    glpk_libdir = os.environ.get('GLPK_LIBRARY_DIR')
+    
+    if glpk_include and glpk_libdir:
+        print(f"Using explicitly set GLPK paths:")
+        print(f"  Include: {glpk_include}")
+        print(f"  Library: {glpk_libdir}")
+        include_dirs.append(glpk_include)
+        library_dirs.append(glpk_libdir)
+        extra_link_args.append(f'-Wl,-rpath,{glpk_libdir}')
+    else:
+        # Try pkg-config first (most reliable for getting correct flags)
+        try:
+            pkg_config_cflags = subprocess.check_output(
+                ['pkg-config', '--cflags', 'glpk'],
+                text=True,
+                stderr=subprocess.DEVNULL
+            ).strip()
+            pkg_config_libs = subprocess.check_output(
+                ['pkg-config', '--libs-only-L', 'glpk'],
+                text=True,
+                stderr=subprocess.DEVNULL
+            ).strip()
+            
+            # Extract include dirs from pkg-config
+            for flag in pkg_config_cflags.split():
                 if flag.startswith('-I'):
                     include_dirs.append(flag[2:])
-        else:
-            include_dirs.append(os.path.join(brew_prefix, 'include'))
-        
-        # Extract library dirs from LDFLAGS
-        if '-L' in ldflags:
-            for flag in ldflags.split():
+            
+            # Extract library dirs from pkg-config
+            for flag in pkg_config_libs.split():
                 if flag.startswith('-L'):
                     lib_dir = flag[2:]
                     library_dirs.append(lib_dir)
-                    # Add rpath for each library dir found in LDFLAGS
                     extra_link_args.append(f'-Wl,-rpath,{lib_dir}')
-        else:
-            lib_dir = os.path.join(brew_prefix, 'lib')
-            library_dirs.append(lib_dir)
-            extra_link_args.append(f'-Wl,-rpath,{lib_dir}')
+            
+            print(f"Using pkg-config for GLPK: includes={include_dirs}, libs={library_dirs}")
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            # Fallback to brew or environment variables if pkg-config not available
+            print("pkg-config not available, using brew/environment variables")
+            
+            # Try to get brew prefix from environment or by calling brew
+            brew_prefix = os.environ.get('HOMEBREW_PREFIX')
+            if not brew_prefix:
+                try:
+                    # Get the brew prefix for the current architecture
+                    brew_prefix = subprocess.check_output(['brew', '--prefix'], text=True).strip()
+                except (subprocess.CalledProcessError, FileNotFoundError):
+                    # Try architecture-specific defaults
+                    import platform as plat
+                    machine = plat.machine()
+                    if machine == 'arm64':
+                        brew_prefix = '/opt/homebrew'
+                    else:
+                        brew_prefix = '/usr/local'
+            
+            print(f"Using brew prefix: {brew_prefix}")
+            
+            # Check if CFLAGS/LDFLAGS are set (e.g., by cibuildwheel)
+            cflags = os.environ.get('CFLAGS', '')
+            ldflags = os.environ.get('LDFLAGS', '')
+            
+            # Extract include dirs from CFLAGS
+            if '-I' in cflags:
+                for flag in cflags.split():
+                    if flag.startswith('-I'):
+                        include_dirs.append(flag[2:])
+            else:
+                include_dirs.append(os.path.join(brew_prefix, 'include'))
+            
+            # Extract library dirs from LDFLAGS
+            if '-L' in ldflags:
+                for flag in ldflags.split():
+                    if flag.startswith('-L'):
+                        lib_dir = flag[2:]
+                        library_dirs.append(lib_dir)
+                        # Add rpath for each library dir found in LDFLAGS
+                        extra_link_args.append(f'-Wl,-rpath,{lib_dir}')
+            else:
+                lib_dir = os.path.join(brew_prefix, 'lib')
+                library_dirs.append(lib_dir)
+                extra_link_args.append(f'-Wl,-rpath,{lib_dir}')
     
     # Add rpath for delocate-repaired wheels (where dylibs are bundled)
     extra_link_args.append('-Wl,-rpath,@loader_path/../.dylibs')
