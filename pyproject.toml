@@ -69,7 +69,7 @@ repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest
 [tool.cibuildwheel.windows]
 before-all = [
     # Install MSYS2 packages with retry logic for robustness against mirror failures
-    "C:\\msys64\\usr\\bin\\bash -lc 'set -e; for i in 1 2 3; do echo \"Attempt $i: update database and install packages\"; if pacman -Syu --noconfirm && pacman -S --noconfirm mingw-w64-x86_64-glpk mingw-w64-x86_64-gcc; then break; fi; echo \"pacman install failed, retrying in $((i*10))s...\"; sleep $((i*10)); done'",
+    "bash .github/scripts/install-msys2-packages.sh",
     "pip install delvewheel",
 ]
 # Configure distutils to use MinGW GCC instead of MSVC
