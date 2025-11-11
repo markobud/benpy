@@ -26,8 +26,8 @@ Repository = 'https://github.com/markobud/benpy'
 #long_description = 'A Python wrapper around bensolve'
 
 [tool.cibuildwheel]
-# Build for CPython 3.9-3.12 (3.8 EOL Oct 2024)
-build = "cp39-* cp310-* cp311-* cp312-*"
+# Build for CPython 3.10-3.12 (3.9 has numpy incompatibility)
+build = "cp310-* cp311-* cp312-*"
 
 # Skip PyPy, musllinux, and 32-bit builds
 skip = "pp* *-musllinux* *-win32 *-manylinux_i686"
