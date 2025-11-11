@@ -70,6 +70,19 @@ if platform.system() == 'Darwin':
     glpk_include = os.environ.get('GLPK_INCLUDE_DIR')
     glpk_libdir = os.environ.get('GLPK_LIBRARY_DIR')
     
+    # If not in environment, try reading from config file
+    if not (glpk_include and glpk_libdir):
+        config_file = '/tmp/glpk_config.txt'
+        if os.path.exists(config_file):
+            print(f"Reading GLPK config from {config_file}")
+            with open(config_file, 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith('GLPK_INCLUDE_DIR='):
+                        glpk_include = line.split('=', 1)[1]
+                    elif line.startswith('GLPK_LIBRARY_DIR='):
+                        glpk_libdir = line.split('=', 1)[1]
+    
     if glpk_include and glpk_libdir:
         print(f"Using explicitly set GLPK paths:")
         print(f"  Include: {glpk_include}")

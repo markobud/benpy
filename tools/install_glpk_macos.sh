@@ -11,6 +11,9 @@ echo "Runner architecture: $RUNNER_ARCH"
 TARGET_ARCH="${CIBW_ARCHS:-$RUNNER_ARCH}"
 echo "Target architecture: $TARGET_ARCH"
 
+# Create a config file to store GLPK paths for setup.py
+CONFIG_FILE="/tmp/glpk_config.txt"
+
 # If we're on ARM64 and building for x86_64, we need x86_64 GLPK
 if [[ "$RUNNER_ARCH" == "arm64" ]] && [[ "$TARGET_ARCH" == "x86_64" ]]; then
     echo "Cross-compilation detected: ARM64 runner building x86_64 wheels"
@@ -35,34 +38,27 @@ if [[ "$RUNNER_ARCH" == "arm64" ]] && [[ "$TARGET_ARCH" == "x86_64" ]]; then
     make -j$(sysctl -n hw.ncpu)
     sudo make install
     
+    GLPK_INCLUDE_DIR="/usr/local/glpk-x86_64/include"
+    GLPK_LIBRARY_DIR="/usr/local/glpk-x86_64/lib"
+    
     echo "GLPK installed to /usr/local/glpk-x86_64"
-    echo "Setting environment variables for build..."
-    
-    # Export paths for setup.py to use
-    export GLPK_INCLUDE_DIR="/usr/local/glpk-x86_64/include"
-    export GLPK_LIBRARY_DIR="/usr/local/glpk-x86_64/lib"
-    
-    # Save to GITHUB_ENV if available (for GitHub Actions)
-    if [ -n "$GITHUB_ENV" ]; then
-        echo "GLPK_INCLUDE_DIR=/usr/local/glpk-x86_64/include" >> "$GITHUB_ENV"
-        echo "GLPK_LIBRARY_DIR=/usr/local/glpk-x86_64/lib" >> "$GITHUB_ENV"
-    fi
     
 else
     echo "Native compilation detected, using Homebrew GLPK"
     brew install glpk
     
-    # Set environment variables for consistency
+    # Set paths for consistency
     BREW_PREFIX=$(brew --prefix)
-    export GLPK_INCLUDE_DIR="${BREW_PREFIX}/include"
-    export GLPK_LIBRARY_DIR="${BREW_PREFIX}/lib"
-    
-    if [ -n "$GITHUB_ENV" ]; then
-        echo "GLPK_INCLUDE_DIR=${BREW_PREFIX}/include" >> "$GITHUB_ENV"
-        echo "GLPK_LIBRARY_DIR=${BREW_PREFIX}/lib" >> "$GITHUB_ENV"
-    fi
+    GLPK_INCLUDE_DIR="${BREW_PREFIX}/include"
+    GLPK_LIBRARY_DIR="${BREW_PREFIX}/lib"
 fi
+
+# Write config to file for setup.py to read
+echo "GLPK_INCLUDE_DIR=${GLPK_INCLUDE_DIR}" > "$CONFIG_FILE"
+echo "GLPK_LIBRARY_DIR=${GLPK_LIBRARY_DIR}" >> "$CONFIG_FILE"
 
 echo "GLPK installation complete"
 echo "GLPK_INCLUDE_DIR: $GLPK_INCLUDE_DIR"
 echo "GLPK_LIBRARY_DIR: $GLPK_LIBRARY_DIR"
+echo "Config written to: $CONFIG_FILE"
+cat "$CONFIG_FILE"
