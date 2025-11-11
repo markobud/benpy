@@ -11,9 +11,13 @@ permissions:
   contents: read
 
 jobs:
-  ubuntu-py312:
-    name: Ubuntu Latest - Python 3.12
+  ubuntu:
+    name: Ubuntu Latest - Python ${{ matrix.python-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
     
     steps:
       - name: Checkout code
@@ -24,10 +28,10 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y libglpk-dev glpk-utils
       
-      - name: Setup Python 3.12
+      - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ matrix.python-version }}
           cache: 'pip'
       
       - name: Install Python dependencies
@@ -52,7 +56,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-ubuntu-py312
+          name: test-results-ubuntu-py${{ matrix.python-version }}
           path: |
             pytest-results.xml
             pytest.log
@@ -60,9 +64,13 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
   
-  macos-py312:
-    name: macOS Latest - Python 3.12
+  macos:
+    name: macOS Latest - Python ${{ matrix.python-version }}
     runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
     
     steps:
       - name: Checkout code
@@ -79,10 +87,10 @@ jobs:
           echo "CFLAGS=-I$(brew --prefix)/include" >> $GITHUB_ENV
           echo "LDFLAGS=-L$(brew --prefix)/lib" >> $GITHUB_ENV
       
-      - name: Setup Python 3.12
+      - name: Setup Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: ${{ matrix.python-version }}
           cache: 'pip'
       
       - name: Install Python dependencies
@@ -102,7 +110,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-macos-py312
+          name: test-results-macos-py${{ matrix.python-version }}
           path: |
             pytest-results.xml
             pytest.log
@@ -110,9 +118,13 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
   
-  windows-py312:
-    name: Windows Latest - Python 3.12
+  windows:
+    name: Windows Latest - Python ${{ matrix.python-version }}
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
     
     steps:
       - name: Checkout code
@@ -161,7 +173,7 @@ jobs:
         if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results-windows-py312
+          name: test-results-windows-py${{ matrix.python-version }}
           path: |
             pytest-results.xml
             pytest.log
