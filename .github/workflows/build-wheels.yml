@@ -50,6 +50,34 @@ jobs:
         with:
           platforms: arm64
       
+      # Windows-specific: Cache pacman packages to reduce network dependence and speed up builds
+      - name: Cache MSYS2 pacman packages
+        if: runner.os == 'Windows'
+        uses: actions/cache@v4
+        with:
+          path: C:/msys64/var/cache/pacman/pkg
+          key: msys2-pacman-${{ runner.os }}-v1
+      
+      # Windows-specific: Prepare MSYS2 mirrors and pacman configuration for reliability
+      - name: Prepare MSYS2 mirrors and pacman
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          # Use the msys2 mirror aggregator (more reliable than a single ftp mirror)
+          sed -i 's@^Server = .*@Server = https://mirror.msys2.org/$repo/$arch@' /etc/pacman.d/mirrorlist.mingw32 || true
+          sed -i 's@^Server = .*@Server = https://mirror.msys2.org/$repo/$arch@' /etc/pacman.d/mirrorlist.mingw64 || true
+          sed -i 's@^Server = .*@Server = https://mirror.msys2.org/$repo/$arch@' /etc/pacman.d/mirrorlist.ucrt64 || true
+          sed -i 's@^Server = .*@Server = https://mirror.msys2.org/$repo/$arch@' /etc/pacman.d/mirrorlist.clang64 || true
+          
+          # Clean pacman cache of partial downloads
+          pacman -Scc --noconfirm || true
+          
+          # Use curl for downloads with retries and resume support
+          # Append XferCommand only if not present to avoid duplicating
+          if ! grep -q '^XferCommand' /etc/pacman.conf; then
+            echo 'XferCommand = /usr/bin/curl -L --fail --retry 5 --retry-delay 5 -C - -o %o %u' >> /etc/pacman.conf
+          fi
+      
       - name: Build wheels
         uses: pypa/cibuildwheel@v2.21.3
         env:
