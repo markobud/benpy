@@ -25,13 +25,12 @@ jobs:
             cibw_archs: "x86_64 aarch64"
           
           # macOS builds - Re-enabled for status check
-          # macOS x86_64 builds on Intel runner
+          # Both macOS-15 and macOS-14 are Apple Silicon (arm64) runners
+          # Build arm64 wheels natively on both runners
           - os: macos-15
-            cibw_archs: "x86_64"
-            macos_target: "13.0"
+            cibw_archs: "arm64"
+            macos_target: "15.0"
           
-          # macOS ARM64 builds on Apple Silicon runner
-          # Note: GLPK on macos-14 requires macOS 14.0+
           - os: macos-14
             cibw_archs: "arm64"
             macos_target: "14.0"

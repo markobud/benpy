@@ -51,15 +51,12 @@ manylinux-x86_64-image = "manylinux2014"
 manylinux-aarch64-image = "manylinux2014"
 
 # macOS-specific configuration
-# Note: With macos-13 deprecated, we now handle cross-compilation on ARM64 runners
-#   - macos-15 (arm64 runner) builds x86_64 wheels using cross-compilation
-#   - macos-14 (arm64 runner) builds arm64 wheels natively
-# The install_glpk_macos.sh script handles architecture-specific GLPK installation
+# Both macos-15 and macos-14 are Apple Silicon (arm64) runners
+# They build arm64 wheels natively using Homebrew GLPK
+# Intel Mac users can run arm64 wheels via Rosetta 2
 [tool.cibuildwheel.macos]
 before-all = [
-    # Install GLPK with architecture-specific handling
-    # For x86_64 builds on ARM64 runners, builds GLPK from source with correct arch
-    # For native builds, uses Homebrew
+    # Install GLPK using Homebrew (native arm64 on Apple Silicon runners)
     "bash {project}/tools/install_glpk_macos.sh",
     "pip install delocate",
 ]
