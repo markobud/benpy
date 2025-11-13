@@ -1,0 +1,47 @@
+name: Push Release Candidate Tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name to push'
+        required: true
+        default: 'release-candidate'
+
+jobs:
+  push-tag:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: development
+          fetch-depth: 0
+      
+      - name: Configure git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+      
+      - name: Create and push tag
+        env:
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+        run: |
+          # Check if tag exists locally
+          if git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME already exists locally"
+            git show "$TAG_NAME" --no-patch
+          else
+            echo "Tag $TAG_NAME does not exist. Please create it first."
+            exit 1
+          fi
+          
+          # Push the tag
+          echo "Pushing tag $TAG_NAME to remote..."
+          git push origin "$TAG_NAME"
+          
+          echo "Tag pushed successfully!"
+          echo "View tag at: https://github.com/${{ github.repository }}/releases/tag/$TAG_NAME"
