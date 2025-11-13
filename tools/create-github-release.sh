@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Script to create a GitHub Release from the release-candidate tag
 # Requires: gh (GitHub CLI) to be installed and authenticated
 
@@ -8,6 +8,7 @@ TAG_NAME="release-candidate"
 REPO="markobud/benpy"
 RELEASE_TITLE="Release Candidate: benpy 2.1.0"
 PRERELEASE="true"  # Mark as pre-release
+MAX_TAG_MESSAGE_LINES=999  # Maximum lines to read from tag annotation
 
 echo "=========================================="
 echo "Create GitHub Release from Tag"
@@ -53,12 +54,12 @@ echo ""
 
 # Get tag annotation for release notes
 echo "Fetching tag annotation..."
-TAG_MESSAGE=$(git tag -l -n999 "$TAG_NAME" 2>/dev/null || echo "")
+TAG_MESSAGE=$(git tag -l -n${MAX_TAG_MESSAGE_LINES} "$TAG_NAME" 2>/dev/null || echo "")
 
 if [ -z "$TAG_MESSAGE" ]; then
     # Tag might not be fetched locally, fetch it
     git fetch --tags
-    TAG_MESSAGE=$(git tag -l -n999 "$TAG_NAME")
+    TAG_MESSAGE=$(git tag -l -n${MAX_TAG_MESSAGE_LINES} "$TAG_NAME")
 fi
 
 # Extract just the message part (remove first line with tag name)
@@ -67,12 +68,18 @@ RELEASE_NOTES=$(echo "$TAG_MESSAGE" | tail -n +2)
 echo "Creating GitHub release..."
 echo ""
 
+# Build the gh release create command based on PRERELEASE flag
+GH_CMD="gh release create \"$TAG_NAME\" \
+    --repo \"$REPO\" \
+    --title \"$RELEASE_TITLE\" \
+    --notes \"$RELEASE_NOTES\""
+
+if [ "$PRERELEASE" = "true" ]; then
+    GH_CMD="$GH_CMD --prerelease"
+fi
+
 # Create the release
-gh release create "$TAG_NAME" \
-    --repo "$REPO" \
-    --title "$RELEASE_TITLE" \
-    --notes "$RELEASE_NOTES" \
-    --prerelease=$PRERELEASE
+eval "$GH_CMD"
 
 echo ""
 echo "✅ GitHub release created successfully!"

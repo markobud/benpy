@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Script to push the release-candidate tag to the remote repository
 # This script should be run with appropriate GitHub credentials
 
@@ -31,7 +31,7 @@ echo "----------------------------------------"
 echo ""
 
 # Confirm before pushing
-read -p "Do you want to push this tag to the remote repository? (y/N) " -n 1 -r
+read -p "Do you want to push this tag to the remote repository? (y/N) " -r
 echo
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     echo "Push cancelled."
