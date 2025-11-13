@@ -1,0 +1,143 @@
+name: Push Release Candidate Tag
+
+# This workflow pushes the release-candidate tag to the remote repository
+# The tag should already exist locally before running this workflow
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Tag name to push'
+        required: true
+        default: 'release-candidate'
+      dry_run:
+        description: 'Dry run (show what would be pushed without actually pushing)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  push-tag:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+        with:
+          ref: development
+          fetch-depth: 0  # Full history needed to fetch tags
+      
+      - name: Configure git
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
+      
+      - name: Fetch all tags
+        run: |
+          git fetch --tags
+          echo "Available tags:"
+          git tag -l
+      
+      - name: Verify tag exists
+        env:
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+        run: |
+          if ! git rev-parse "$TAG_NAME" >/dev/null 2>&1; then
+            echo "❌ ERROR: Tag '$TAG_NAME' does not exist in the repository"
+            echo ""
+            echo "Available tags:"
+            git tag -l
+            echo ""
+            echo "To create the tag, run from your local repository:"
+            echo "  git fetch origin development"
+            echo "  git tag -a $TAG_NAME development -F <annotation-file>"
+            echo "  git push origin $TAG_NAME"
+            exit 1
+          fi
+          
+          echo "✓ Tag '$TAG_NAME' exists"
+          echo ""
+          echo "Tag details:"
+          git show "$TAG_NAME" --no-patch
+      
+      - name: Check if tag exists on remote
+        env:
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+        run: |
+          if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME"; then
+            echo "⚠️  WARNING: Tag '$TAG_NAME' already exists on remote"
+            echo ""
+            echo "Remote tag info:"
+            git ls-remote --tags origin | grep "$TAG_NAME"
+            echo ""
+            echo "This workflow will attempt to push anyway (may fail if tag is identical)"
+          else
+            echo "✓ Tag does not exist on remote (ready to push)"
+          fi
+      
+      - name: Push tag (Dry Run)
+        if: ${{ github.event.inputs.dry_run == 'true' }}
+        env:
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+        run: |
+          echo "🔍 DRY RUN MODE - No changes will be made"
+          echo ""
+          echo "Would push tag: $TAG_NAME"
+          echo "Tag points to commit:"
+          git rev-parse "$TAG_NAME"
+          echo ""
+          echo "Command that would be executed:"
+          echo "  git push origin $TAG_NAME"
+      
+      - name: Push tag (Real)
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+        run: |
+          echo "🚀 Pushing tag '$TAG_NAME' to remote..."
+          git push origin "$TAG_NAME"
+          
+          echo ""
+          echo "✅ Tag pushed successfully!"
+          echo ""
+          echo "📌 View tag at:"
+          echo "   https://github.com/${{ github.repository }}/releases/tag/$TAG_NAME"
+          echo ""
+          echo "📝 To create a GitHub release from this tag, visit:"
+          echo "   https://github.com/${{ github.repository }}/releases/new?tag=$TAG_NAME"
+      
+      - name: Verify push
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        env:
+          TAG_NAME: ${{ github.event.inputs.tag_name }}
+        run: |
+          echo "Verifying tag was pushed..."
+          
+          # Retry logic with exponential backoff
+          max_attempts=5
+          attempt=1
+          wait_time=2
+          
+          while [ $attempt -le $max_attempts ]; do
+            echo "Verification attempt $attempt/$max_attempts..."
+            
+            if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME"; then
+              echo "✅ Verification successful: Tag is now on remote"
+              git ls-remote --tags origin | grep "$TAG_NAME"
+              exit 0
+            fi
+            
+            if [ $attempt -lt $max_attempts ]; then
+              echo "Tag not found yet, waiting ${wait_time}s before retry..."
+              sleep $wait_time
+              wait_time=$((wait_time * 2))  # Exponential backoff
+            fi
+            
+            attempt=$((attempt + 1))
+          done
+          
+          echo "❌ Verification failed: Tag not found on remote after $max_attempts attempts"
+          exit 1
