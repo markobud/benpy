@@ -68,18 +68,20 @@ RELEASE_NOTES=$(echo "$TAG_MESSAGE" | tail -n +2)
 echo "Creating GitHub release..."
 echo ""
 
-# Build the gh release create command based on PRERELEASE flag
-GH_CMD="gh release create \"$TAG_NAME\" \
-    --repo \"$REPO\" \
-    --title \"$RELEASE_TITLE\" \
-    --notes \"$RELEASE_NOTES\""
+# Build the gh release create command as an array for safer execution
+gh_args=(
+    "release" "create" "$TAG_NAME"
+    "--repo" "$REPO"
+    "--title" "$RELEASE_TITLE"
+    "--notes" "$RELEASE_NOTES"
+)
 
 if [ "$PRERELEASE" = "true" ]; then
-    GH_CMD="$GH_CMD --prerelease"
+    gh_args+=("--prerelease")
 fi
 
 # Create the release
-eval "$GH_CMD"
+gh "${gh_args[@]}"
 
 echo ""
 echo "✅ GitHub release created successfully!"

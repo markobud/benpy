@@ -115,12 +115,29 @@ jobs:
           TAG_NAME: ${{ github.event.inputs.tag_name }}
         run: |
           echo "Verifying tag was pushed..."
-          sleep 2  # Give GitHub a moment to update
           
-          if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME"; then
-            echo "✅ Verification successful: Tag is now on remote"
-            git ls-remote --tags origin | grep "$TAG_NAME"
-          else
-            echo "❌ Verification failed: Tag not found on remote"
-            exit 1
-          fi
+          # Retry logic with exponential backoff
+          max_attempts=5
+          attempt=1
+          wait_time=2
+          
+          while [ $attempt -le $max_attempts ]; do
+            echo "Verification attempt $attempt/$max_attempts..."
+            
+            if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME"; then
+              echo "✅ Verification successful: Tag is now on remote"
+              git ls-remote --tags origin | grep "$TAG_NAME"
+              exit 0
+            fi
+            
+            if [ $attempt -lt $max_attempts ]; then
+              echo "Tag not found yet, waiting ${wait_time}s before retry..."
+              sleep $wait_time
+              wait_time=$((wait_time * 2))  # Exponential backoff
+            fi
+            
+            attempt=$((attempt + 1))
+          done
+          
+          echo "❌ Verification failed: Tag not found on remote after $max_attempts attempts"
+          exit 1
