@@ -20,6 +20,19 @@ description ='A Python wrapper around bensolve, for Vector Linear Programs (VLP)
 license = {text = 'GPL-3.0'}
 #license-files = ["LICENSE.md"]
 
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+benpy = [
+    "bensolve-2.1.0/ex/*.vlp",
+    "bensolve-2.1.0/ex/*.m",
+    "bensolve-2.1.0/ex/*.mat",
+    "bensolve-2.1.0/ex/*.txt",
+    "bensolve-2.1.0/doc/*",
+    "examples/*.py"
+]
+
 [project.urls]
 Repository = 'https://github.com/markobud/benpy'
 

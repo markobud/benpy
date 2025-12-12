@@ -1,9 +1,8 @@
 include src/benpy.pyx
-include src/bensolve-2.1.0/*.c
-include src/bensolve-2.1.0/*.h
-recursive-include src/examples *.py
-include pyproject.toml
-include setup.py
-include README.md
-include LICENSE.md
-include requirements.txt
+include src/bensolve-mod/*.c
+include src/bensolve-mod/*.h
+include src/examples
+recursive-include src/bensolve-2.1.0/ex *.vlp *.m *.mat *.txt
+recursive-include src/bensolve-2.1.0/doc *
+include src/bensolve-2.1.0/LICENSE.md
+include src/bensolve-2.1.0/README.md
