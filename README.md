@@ -28,7 +28,7 @@ A high-performance Python wrapper for [Bensolve](http://www.bensolve.org/) **v2.
 - [Contributing](#-contributing)
 - [Citation](#-citation)
 - [Built With](#-built-with)
-- [Issues](#-issues)
+- [Issues & Support](#-issues--support)
 - [Versioning](#-versioning)
 - [Authors](#-authors)
 - [License](#-license)
@@ -380,7 +380,7 @@ If you use benpy in academic research, please cite:
 @software{benpy,
   author = {Budinich, Marko and Vintache, Damien},
   title = {benpy: A Python wrapper for Bensolve},
-  year = {2025},
+  year = {2024},
   url = {https://github.com/markobud/benpy},
   version = {2.1.0}
 }
