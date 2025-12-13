@@ -1,0 +1,4 @@
+03-09-2014 version 2.0.0.alpha: pre-release version, only primal algorithm
+18-02-2015 version 2.0.0: 
+19-02-2015 version 2.0.1: bug fixed in bslv_algs.c line 983 (effects: unbounded problems, primal algorithm, phase 2)
+25-07-2017 version 2.1.0: incorrect output of dual solutions fixed, single objective case improved, several minor changes
