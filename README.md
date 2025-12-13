@@ -86,10 +86,10 @@ import benpy
 
 B = np.array([[2.0, 1.0],    # Constraint matrix (m × n)
               [1.0, 2.0]])
-P = np.array([[1.0, 0.0],    # Objective matrix (q × n)
+P = np.array([[1.0, 0.0],    # Objective matrix (q × n)  
               [0.0, 1.0]])
-b = np.array([4.0, 4.0])     # Upper bounds on constraints
-l = np.array([0.0, 0.0])     # Lower bounds on variables
+b = np.array([4.0, 4.0])     # Upper bounds (b) on constraints Bx <= b
+l = np.array([0.0, 0.0])     # Lower bounds (l) on variables x >= l
 
 # Solve directly from arrays (fast!)
 sol = benpy.solve(B, P, b=b, l=l, opt_dir=1)
