@@ -1,0 +1,93 @@
+name: Dependency Security Scan
+
+on:
+  push:
+    branches: [ master, development ]
+  pull_request:
+    branches: [ master, development ]
+  schedule:
+    - cron: '0 6 * * *'  # Run daily at 6 AM UTC
+  workflow_dispatch:
+
+# Allow Copilot agents to access dependency scanning results
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+  pull-requests: write
+
+jobs:
+  dependency-review:
+    name: Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v4
+      with:
+        fail-on-severity: moderate
+        comment-summary-in-pr: always
+
+  pip-audit:
+    name: Python Dependency Audit
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install pip-audit
+      run: |
+        pip install pip-audit
+    
+    - name: Run pip-audit
+      continue-on-error: true
+      run: |
+        pip-audit -r requirements.txt --format json --output pip-audit-results.json
+        pip-audit -r requirements.txt --format markdown >> $GITHUB_STEP_SUMMARY
+    
+    - name: Upload pip-audit results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: pip-audit-results
+        path: pip-audit-results.json
+        retention-days: 30
+
+  dependency-update-check:
+    name: Check for Dependency Updates
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Check outdated packages
+      continue-on-error: true
+      run: |
+        pip install -r requirements.txt
+        pip list --outdated --format=json > outdated-packages.json
+        echo "## Outdated Python Packages" >> $GITHUB_STEP_SUMMARY
+        pip list --outdated --format=columns >> $GITHUB_STEP_SUMMARY || echo "No outdated packages found" >> $GITHUB_STEP_SUMMARY
+    
+    - name: Upload outdated packages list
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: outdated-packages
+        path: outdated-packages.json
+        retention-days: 7

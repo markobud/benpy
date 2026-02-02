@@ -1,0 +1,78 @@
+name: "CodeQL Security Analysis"
+
+on:
+  push:
+    branches: [ master, development ]
+  pull_request:
+    branches: [ master, development ]
+  schedule:
+    - cron: '0 0 * * 1'  # Run weekly on Monday
+  workflow_dispatch:
+
+# Allow Copilot agents to access security scanning results
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+  pull-requests: read
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - language: python
+          build-mode: none
+        - language: c-cpp
+          build-mode: manual
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+    
+    - name: Install GLPK (for C/C++ analysis)
+      if: matrix.language == 'c-cpp'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y glpk-utils libglpk-dev
+    
+    - name: Set up Python (for C/C++ analysis)
+      if: matrix.language == 'c-cpp'
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Build for CodeQL (C/C++)
+      if: matrix.language == 'c-cpp'
+      run: |
+        export CFLAGS="-I/usr/include"
+        export LDFLAGS="-L/usr/lib"
+        python -m pip install --upgrade pip setuptools wheel
+        pip install -r requirements.txt
+        pip install -v .
+    
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{ matrix.language }}"
+        upload: true
+        output: sarif-results
+    
+    - name: Upload CodeQL results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: codeql-results-${{ matrix.language }}
+        path: sarif-results
+        retention-days: 30
