@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Old file-based `solve()` renamed to `solve_legacy()` with deprecation warning
   - This makes the faster method the default, improving user experience
   - Backward compatibility maintained: `solve_legacy()` works with `vlpProblem` objects
+- **SciPy compatibility**: Updated to support SciPy 1.17.0
+  - Removed upper bound constraint on SciPy version (was `scipy>=1.14,<1.17`)
+  - Now allows `scipy>=1.14` to support SciPy 1.17.0 and future versions
+  - All tests pass with SciPy 1.17.0, including sparse matrix operations
+  - No breaking changes detected in SciPy 1.17.0 for benpy's use of `lil_matrix` and `find`
 
 ### Deprecated
 - `solve_legacy()`: Use `solve()` with arrays instead for 2-3x better performance
