@@ -34,6 +34,6 @@ SecretStorage==3.3.3
 setuptools==69.0.3
 smmap==5.0.1
 twine==6.1.0
-urllib3==2.3.0
+urllib3>=2.6.3
 wcwidth==0.2.13
-wheel==0.45.1
+wheel==0.46.2
