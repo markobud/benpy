@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "benpy"
 version = "2.1.0"
-dependencies = ["prettytable","numpy","scipy"]
+dependencies = ["prettytable","numpy","scipy>=1.14,<1.17"]
 authors = [
     {name = 'Marko Budinich', email = "marko.budinich@gmail.com"},
     {name = "Damien Vintache"}
@@ -62,6 +62,8 @@ before-all = [
 repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
 manylinux-x86_64-image = "manylinux2014"
 manylinux-aarch64-image = "manylinux2014"
+# Prefer binary wheels for scipy to avoid build issues in manylinux containers
+environment = { PIP_PREFER_BINARY="1" }
 
 # macOS-specific configuration
 # Both macos-15 and macos-14 are Apple Silicon (arm64) runners
@@ -76,6 +78,8 @@ before-all = [
 # Note: MACOSX_DEPLOYMENT_TARGET is set in the workflow file per runner
 # Delocate will bundle GLPK dylibs into the wheel
 repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+# Prefer binary wheels for scipy to avoid build issues
+environment = { PIP_PREFER_BINARY="1" }
 
 # Windows-specific configuration
 [tool.cibuildwheel.windows]
@@ -90,6 +94,6 @@ before-build = [
     "python -c \"import os; content='[build]\\ncompiler=mingw32\\n\\n[build_ext]\\ncompiler=mingw32\\n'; os.makedirs(os.path.expanduser('~'), exist_ok=True); open(os.path.join(os.path.expanduser('~'), 'pydistutils.cfg'), 'w').write(content); print('Created pydistutils.cfg with MinGW compiler')\"",
 ]
 # Force use of MinGW GCC instead of MSVC
-environment = { CC="gcc", CXX="g++", CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH" }
+environment = { CC="gcc", CXX="g++", CFLAGS="-IC:/msys64/mingw64/include", LDFLAGS="-LC:/msys64/mingw64/lib", PATH="C:\\msys64\\mingw64\\bin;$PATH", PIP_PREFER_BINARY="1" }
 # Add MSYS2 MinGW64 bin directory to delvewheel search path for finding libglpk-40.dll
 repair-wheel-command = "delvewheel repair --add-path C:\\msys64\\mingw64\\bin -w {dest_dir} {wheel}"
