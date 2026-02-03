@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "benpy"
 version = "2.1.0"
-dependencies = ["prettytable","numpy","scipy>=1.14,<1.17"]
+dependencies = ["prettytable","numpy","scipy>=1.14"]
 authors = [
     {name = 'Marko Budinich', email = "marko.budinich@gmail.com"},
     {name = "Damien Vintache"}
