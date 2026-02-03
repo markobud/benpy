@@ -1016,8 +1016,6 @@ class vlpProblem:
     @property
     def default_options(self):
             return {
-            'write_files':False,
-            'log_file':False,
             'bounded': False,
             'solution':False,
             'message_level':3,
