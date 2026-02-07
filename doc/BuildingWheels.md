@@ -51,7 +51,7 @@ export LDFLAGS="-L/usr/lib/x86_64-linux-gnu"  # or /usr/lib64 on RHEL
 **Recommended Versions:**
 - GCC: 7.3+ (manylinux2014 provides GCC 10)
 - GLPK: 4.48+ (usually 4.65+ in modern repos)
-- Python: 3.10, 3.11, 3.12 (3.9 has NumPy compatibility issues)
+- Python: 3.10, 3.11, 3.12, 3.13, 3.14 (3.9 has NumPy compatibility issues)
 
 **Docker Images:**
 - x86_64: `quay.io/pypa/manylinux2014_x86_64`
@@ -89,7 +89,7 @@ export LDFLAGS="-L$(brew --prefix)/lib"
 **Recommended Versions:**
 - Xcode CLT: 14.0+ (for macOS 13), 15.0+ (for macOS 14)
 - GLPK: 5.0+ (Homebrew provides latest)
-- Python: 3.10, 3.11, 3.12
+- Python: 3.10, 3.11, 3.12, 3.13, 3.14
 
 **Architecture Handling:**
 - **Intel Macs (x86_64)**: Use `macos-15` GitHub Actions runner
@@ -153,7 +153,7 @@ export LDFLAGS="-L$(brew --prefix)/lib"
 **Recommended Versions:**
 - MinGW-w64 GCC: 12.0+
 - GLPK: 5.0+ (via MSYS2 repos)
-- Python: 3.10, 3.11, 3.12
+- Python: 3.10, 3.11, 3.12, 3.13, 3.14
 
 **Important Notes:**
 - Use MinGW-w64 (not MSVC) for compatibility with GLPK
@@ -165,7 +165,9 @@ export LDFLAGS="-L$(brew --prefix)/lib"
 **Supported Python Versions:**
 - **Python 3.10** (recommended minimum)
 - **Python 3.11**
-- **Python 3.12** (recommended for new projects)
+- **Python 3.12**
+- **Python 3.13**
+- **Python 3.14** (recommended for new projects)
 - Python 3.9 has NumPy compatibility issues and is not supported
 
 **Build Dependencies:**
@@ -322,19 +324,19 @@ strategy:
 
 **What Gets Built:**
 - **Linux**: x86_64 and ARM64 (manylinux2014)
-  - Python 3.10, 3.11, 3.12
+  - Python 3.10, 3.11, 3.12, 3.13, 3.14
   - Built in Docker on `ubuntu-latest`
   
 - **macOS**: x86_64 and ARM64 (architecture-specific)
-  - Python 3.10, 3.11, 3.12
+  - Python 3.10, 3.11, 3.12, 3.13, 3.14
   - x86_64: Built on `macos-15` (Intel runner)
   - ARM64: Built on `macos-14` (Apple Silicon runner)
   
 - **Windows**: AMD64/x64
-  - Python 3.10, 3.11, 3.12
+  - Python 3.10, 3.11, 3.12, 3.13, 3.14
   - Built on `windows-latest` using MinGW-w64
 
-**Total Output:** 20 wheels + 1 source distribution
+**Total Output:** 30 wheels + 1 source distribution
 
 **Triggers:**
 - Push to `main` or `development` branches
@@ -871,18 +873,18 @@ chmod +x build-custom.sh
 
 ## Build Matrix
 
-Current build configuration produces **15 wheel variants** (Python 3.10, 3.11, 3.12 only):
+Current build configuration produces **30 wheel variants** (Python 3.10, 3.11, 3.12, 3.13, 3.14):
 
-| Platform | Architecture | Py 3.10 | Py 3.11 | Py 3.12 | Runner | Base Image |
-|----------|--------------|---------|---------|---------|--------|------------|
-| Linux    | x86_64       | ✓       | ✓       | ✓       | ubuntu-latest | manylinux2014 |
-| Linux    | ARM64/aarch64| ✓       | ✓       | ✓       | ubuntu-latest | manylinux2014 |
-| macOS    | x86_64 (Intel)| ✓      | ✓       | ✓       | macos-15 | macOS 13.0+ |
-| macOS    | ARM64 (Apple Silicon)| ✓ | ✓    | ✓       | macos-14 | macOS 14.0+ |
-| Windows  | AMD64 (x64)  | ✓       | ✓       | ✓       | windows-latest | MinGW-w64 |
+| Platform | Architecture | Py 3.10 | Py 3.11 | Py 3.12 | Py 3.13 | Py 3.14 | Runner | Base Image |
+|----------|--------------|---------|---------|---------|---------|---------|--------|------------|
+| Linux    | x86_64       | ✓       | ✓       | ✓       | ✓       | ✓       | ubuntu-latest | manylinux2014 |
+| Linux    | ARM64/aarch64| ✓       | ✓       | ✓       | ✓       | ✓       | ubuntu-latest | manylinux2014 |
+| macOS    | x86_64 (Intel)| ✓      | ✓       | ✓       | ✓       | ✓       | macos-15 | macOS 13.0+ |
+| macOS    | ARM64 (Apple Silicon)| ✓ | ✓    | ✓       | ✓       | ✓       | macos-14 | macOS 14.0+ |
+| Windows  | AMD64 (x64)  | ✓       | ✓       | ✓       | ✓       | ✓       | windows-latest | MinGW-w64 |
 
 **Total Build Outputs:**
-- 15 binary wheels (.whl files)
+- 30 binary wheels (.whl files)
 - 1 source distribution (.tar.gz file)
 
 ### Wheel Naming Convention
@@ -901,6 +903,8 @@ benpy-2.1.0-cp310-cp310-win_amd64.whl
 
 **Tag Breakdown:**
 - `cp312`: CPython 3.12
+- `cp313`: CPython 3.13
+- `cp314`: CPython 3.14
 - `cp312`: ABI tag (CPython 3.12 stable ABI)
 - `manylinux_2_17_x86_64`: Compatible with glibc 2.17+ on x86_64
 - `macosx_13_0_x86_64`: macOS 13.0+ on Intel
