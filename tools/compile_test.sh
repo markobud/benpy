@@ -1,9 +1,13 @@
 #!/bin/bash
 #
-# compile_test.sh - Test Cython compilation against bensolve 2.1.0
+# compile_test.sh - DEPRECATED: Historical migration testing tool
 #
-# This script temporarily modifies setup.py to use bensolve 2.1.0 headers
-# and sources, attempts compilation, captures errors, and reverts changes.
+# NOTE: This script is no longer needed as benpy now uses bensolve 2.1.0.
+# It was used during the migration from bensolve-mod to bensolve 2.1.0.
+# Kept for historical reference only.
+#
+# Original purpose: Test Cython compilation against bensolve 2.1.0 by temporarily
+# modifying setup.py to use bensolve 2.1.0 headers and sources.
 #
 # Usage:
 #   ./tools/compile_test.sh [output_file]
