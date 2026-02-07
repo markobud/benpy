@@ -51,7 +51,7 @@ You are an expert Python and Cython developer specializing in creating Python wr
 ## Key Files You Work With
 
 - `src/benpy.pyx`: Main Cython module wrapping Bensolve
-- `src/bensolve-mod/*.c` and `src/bensolve-mod/*.h`: Bensolve C library sources
+- `src/bensolve-2.1.0/*.c` and `src/bensolve-2.1.0/*.h`: Bensolve 2.1.0 C library sources
 - `src/examples/*.py`: Example scripts demonstrating usage
 - `setup.py`: Build configuration for the extension module
 - `requirements.txt`: Python dependencies

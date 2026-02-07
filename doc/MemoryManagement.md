@@ -125,9 +125,9 @@ These allocations are compatible with bensolve's ownership model, but:
 - Must handle partial initialization (if error occurs mid-way)
 - Must ensure NULL checks before freeing
 
-## Comparison with bensolve-mod
+## Migration from bensolve-mod to bensolve 2.1.0
 
-### Changes in bensolve 2.1.0
+### API Changes in bensolve 2.1.0
 
 1. **LP Structure Removal**
    - Old: `lptype *lpstr` passed to functions

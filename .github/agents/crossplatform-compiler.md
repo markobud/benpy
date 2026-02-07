@@ -53,7 +53,7 @@ When tackling compilation issues:
 - `setup.py`: Extension module configuration, compiler flags, library linking
 - `pyproject.toml`: Build system requirements and metadata
 - `src/benpy.pyx`: Cython source interfacing with C
-- `src/bensolve-mod/*.c` and `src/bensolve-mod/*.h`: C library sources
+- `src/bensolve-2.1.0/*.c` and `src/bensolve-2.1.0/*.h`: Bensolve 2.1.0 C library sources
 - `.github/workflows/*.yml`: CI/CD configuration for multi-platform builds
 - `README.md`: Installation instructions for different platforms
 

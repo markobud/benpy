@@ -1,9 +1,9 @@
 #!/bin/bash
 #
-# diff_headers.sh - Compare bensolve headers between two versions
+# diff_headers.sh - Compare bensolve headers between two versions (historical comparison tool)
 #
-# This script compares the header files (.h) between the current vendored
-# bensolve-mod and the official bensolve 2.1.0 version.
+# This script compares the header files (.h) between the legacy bensolve-mod fork
+# and the official bensolve 2.1.0 version for migration analysis.
 #
 # Usage:
 #   ./tools/diff_headers.sh [output_file]
