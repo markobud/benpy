@@ -139,9 +139,9 @@ def __dealloc__(self):
 
 ### LP Structures
 
-#### bensolve 2.1.0 API Change
+#### bensolve 2.1.0 API Migration
 
-**Old (bensolve-mod):**
+**Old API (bensolve-mod fork):**
 ```c
 typedef struct { ... } lptype;
 void lp_solve(lptype *lpstr);

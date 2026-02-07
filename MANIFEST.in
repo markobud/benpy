@@ -1,6 +1,6 @@
 include src/benpy.pyx
-include src/bensolve-mod/*.c
-include src/bensolve-mod/*.h
+include src/bensolve-2.1.0/*.c
+include src/bensolve-2.1.0/*.h
 include src/examples
 recursive-include src/bensolve-2.1.0/ex *.vlp *.m *.mat *.txt
 recursive-include src/bensolve-2.1.0/doc *

@@ -50,9 +50,9 @@ On **Windows**: The undefined behavior manifested as:
 
 This was a **timing bomb** - the bug existed on all platforms but only crashed on Windows.
 
-### Original bensolve Behavior
+### Original bensolve Behavior (Historical Context)
 
-In `src/bensolve-mod/bslv_main.c` (lines 286-300), the original bensolve implementation correctly exits when these conditions are detected:
+In the original `src/bensolve-mod/bslv_main.c` implementation (lines 286-300), bensolve correctly exits when these conditions are detected:
 
 ```c
 if (sol->status == VLP_UNBOUNDED) {

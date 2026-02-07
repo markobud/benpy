@@ -8,7 +8,7 @@ A comprehensive script to compare bensolve header files between different versio
 
 ### Purpose
 
-This tool automates the analysis of API changes between the current vendored bensolve-mod version and bensolve 2.1.0. It generates a detailed report showing:
+This tool automates the analysis of API changes between the legacy bensolve-mod fork and bensolve 2.1.0. It generates a detailed report showing:
 
 - Full unified diffs for each header file
 - Version string changes
@@ -32,7 +32,7 @@ This tool automates the analysis of API changes between the current vendored ben
 
 - Bash shell
 - Standard Unix tools: `diff`, `grep`, `sed`
-- Access to both `src/bensolve-mod` and `src/bensolve-2.1.0` directories
+- Access to both `src/bensolve-mod` (historical) and `src/bensolve-2.1.0` directories
 
 ### Output
 
