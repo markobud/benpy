@@ -905,7 +905,7 @@ benpy-2.1.0-cp310-cp310-win_amd64.whl
 - `cp312`: CPython 3.12
 - `cp313`: CPython 3.13
 - `cp314`: CPython 3.14
-- `cp312`: ABI tag (CPython 3.12 stable ABI)
+- Second tag: ABI tag (e.g., `cp312` for CPython 3.12 stable ABI)
 - `manylinux_2_17_x86_64`: Compatible with glibc 2.17+ on x86_64
 - `macosx_13_0_x86_64`: macOS 13.0+ on Intel
 - `win_amd64`: Windows 64-bit
