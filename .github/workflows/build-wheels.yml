@@ -78,7 +78,7 @@ jobs:
           fi
       
       - name: Build wheels
-        uses: pypa/cibuildwheel@v2.21.3
+        uses: pypa/cibuildwheel@v3.3.1
         env:
           CIBW_BUILD_VERBOSITY: 1
           # Set macOS deployment target based on runner (13.0 for macos-15, 14.0 for macos-14)
