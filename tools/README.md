@@ -4,11 +4,11 @@ This directory contains utility scripts for the benpy project.
 
 ## diff_headers.sh
 
-A comprehensive script to compare bensolve header files between different versions.
+A comprehensive script to compare bensolve header files between different versions (historical migration tool).
 
 ### Purpose
 
-This tool automates the analysis of API changes between the current vendored bensolve-mod version and bensolve 2.1.0. It generates a detailed report showing:
+This tool automates the analysis of API changes between the legacy bensolve-mod fork and bensolve 2.1.0. It generates a detailed report showing:
 
 - Full unified diffs for each header file
 - Version string changes
@@ -32,7 +32,7 @@ This tool automates the analysis of API changes between the current vendored ben
 
 - Bash shell
 - Standard Unix tools: `diff`, `grep`, `sed`
-- Access to both `src/bensolve-mod` and `src/bensolve-2.1.0` directories
+- Access to both `src/bensolve-mod` (historical) and `src/bensolve-2.1.0` directories
 
 ### Output
 
@@ -65,3 +65,9 @@ less doc/HeaderDiffReport.txt
 - Running the script multiple times will overwrite the previous report
 - The script exits with code 0 on success, non-zero on error
 - Changes are categorized to help understand the upgrade impact
+
+## compile_test.sh
+
+**DEPRECATED**: This script was used during the migration from bensolve-mod to bensolve 2.1.0 and is no longer needed. Kept for historical reference only.
+
+The script was designed to temporarily modify setup.py to test compilation against bensolve 2.1.0. Since benpy now uses bensolve 2.1.0 by default, this tool is obsolete.

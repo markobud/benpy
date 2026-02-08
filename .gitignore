@@ -1,6 +1,8 @@
-*.vlp
-*.cone
-*.sol
+# Ignore generated VLP files in root and notebooks, but not example files
+/*.vlp
+/*.cone
+/notebooks/*.vlp
+/notebooks/*.cone
 
 build/
 dist/

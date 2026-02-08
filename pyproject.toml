@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "benpy"
 version = "2.1.0"
-dependencies = ["prettytable","numpy","scipy>=1.14,<1.17"]
+dependencies = ["prettytable","numpy","scipy>=1.14"]
 authors = [
     {name = 'Marko Budinich', email = "marko.budinich@gmail.com"},
     {name = "Damien Vintache"}
@@ -20,14 +20,27 @@ description ='A Python wrapper around bensolve, for Vector Linear Programs (VLP)
 license = {text = 'GPL-3.0'}
 #license-files = ["LICENSE.md"]
 
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+benpy = [
+    "bensolve-2.1.0/ex/*.vlp",
+    "bensolve-2.1.0/ex/*.m",
+    "bensolve-2.1.0/ex/*.mat",
+    "bensolve-2.1.0/ex/*.txt",
+    "bensolve-2.1.0/doc/*",
+    "examples/*.py"
+]
+
 [project.urls]
 Repository = 'https://github.com/markobud/benpy'
 
 #long_description = 'A Python wrapper around bensolve'
 
 [tool.cibuildwheel]
-# Build for CPython 3.10-3.12 (3.9 has numpy incompatibility)
-build = "cp310-* cp311-* cp312-*"
+# Build for CPython 3.10-3.14 (3.9 has numpy incompatibility)
+build = "cp310-* cp311-* cp312-* cp313-* cp314-*"
 
 # Skip PyPy, musllinux, and 32-bit builds
 skip = "pp* *-musllinux* *-win32 *-manylinux_i686"

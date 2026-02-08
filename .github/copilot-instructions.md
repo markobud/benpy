@@ -1,11 +1,11 @@
 # Copilot Instructions for benpy
 
 ## Project Overview
-benpy is a Python wrapper for Bensolve v2.0.1, a software for solving Vector Linear Programs (VLP) and Multi-Objective Linear Programs (MOLP). The project uses Cython to interface with a modified version of the Bensolve C library.
+benpy is a Python wrapper for Bensolve v2.1.0, a software for solving Vector Linear Programs (VLP) and Multi-Objective Linear Programs (MOLP). The project uses Cython to interface with the Bensolve C library.
 
 ## Project Structure
 - `src/benpy.pyx` - Main Cython module that wraps the C library
-- `src/bensolve-mod/` - Modified Bensolve C library sources
+- `src/bensolve-2.1.0/` - Bensolve 2.1.0 C library sources (vendored)
 - `src/examples/` - Example scripts demonstrating usage
 - `.devcontainer/` - Development container configuration
 - `setup.py` - Build configuration using setuptools and Cython
@@ -63,7 +63,7 @@ A devcontainer is configured with:
 ### C Code Integration
 - The Bensolve C library uses C99 standard (`-std=c99`)
 - Optimization level O3 is used for performance
-- C headers are in `src/bensolve-mod/bslv_main.h`
+- C headers are in `src/bensolve-2.1.0/bslv_main.h`
 
 ### Working with Cython
 - Use `cimport` for C-level imports (e.g., `cimport numpy as np`)
@@ -75,7 +75,7 @@ A devcontainer is configured with:
 ## Common Development Tasks
 
 ### Adding New VLP Functionality
-1. Check the Bensolve C API in `bensolve-mod/bslv_main.h`
+1. Check the Bensolve C API in `src/bensolve-2.1.0/bslv_main.h`
 2. Add C function declarations in Cython `cdef extern` block
 3. Create Python-facing wrapper functions
 4. Use NumPy arrays for input/output
@@ -94,8 +94,8 @@ A devcontainer is configured with:
 ## Important Notes
 
 ### Working with the Bensolve Library
-- The wrapped library is a modified version from https://gitlab.univ-nantes.fr/mbudinich/bensolve-mod
-- Original Bensolve: http://www.bensolve.org/
+- The wrapped library is bensolve 2.1.0 from http://www.bensolve.org/
+- The library sources are vendored in `src/bensolve-2.1.0/`
 - Any bugs in Bensolve will affect benpy
 
 ### File I/O
@@ -113,7 +113,7 @@ A devcontainer is configured with:
 - Avoid Python-level loops in performance-critical sections
 
 ## Versioning
-- Current version: 1.0.3
+- Current version: 2.1.0
 - Uses Semantic Versioning (SemVer)
 - Version is defined in `pyproject.toml`
 

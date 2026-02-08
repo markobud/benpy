@@ -177,7 +177,7 @@ def solve_vlp(A, b):
 ## Key Files You Work With
 
 - `src/benpy.pyx`: Main Cython code to audit
-- `src/bensolve-mod/*.c`: C library code to check
+- `src/bensolve-2.1.0/*.c`: Bensolve 2.1.0 C library code to check
 - `setup.py`: Build configuration security
 - `requirements.txt`: Dependency versions
 - `.github/workflows/*.yml`: CI security checks
