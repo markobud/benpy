@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/markobud/benpy/actions/workflows/ci.yml/badge.svg)](https://github.com/markobud/benpy/actions/workflows/ci.yml)
 [![PyPI version](https://badge.fury.io/py/benpy.svg)](https://badge.fury.io/py/benpy)
-[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)](https://www.python.org/)
+[![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue)](https://www.python.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![CodeQL](https://github.com/markobud/benpy/actions/workflows/codeql.yml/badge.svg)](https://github.com/markobud/benpy/actions/workflows/codeql.yml)
 
