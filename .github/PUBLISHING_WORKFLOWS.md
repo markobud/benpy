@@ -10,9 +10,17 @@ This document describes the publishing workflows for the benpy package to PyPI a
 
 **Purpose**: Test the publication process using TestPyPI before publishing to production PyPI.
 
-**Trigger**: Manual workflow dispatch with confirmation input
+**Triggers**:
+- Automatically when a GitHub release is published
+- Manual workflow dispatch with confirmation input
 
-**Usage**:
+**Usage (Automatic)**:
+1. Create a new release in GitHub
+2. Tag the release (e.g., `v2.1.0`)
+3. Publish the release
+4. The workflow will automatically trigger and publish to TestPyPI
+
+**Usage (Manual)**:
 1. Go to Actions tab in GitHub
 2. Select "Publish to TestPyPI" workflow
 3. Click "Run workflow"
@@ -21,7 +29,7 @@ This document describes the publishing workflows for the benpy package to PyPI a
 
 **What it does**:
 - Builds the source distribution (sdist)
-- Publishes to TestPyPI
+- Publishes to TestPyPI for testing
 - Attempts to verify installation from TestPyPI
 
 **Requirements**:
@@ -30,30 +38,23 @@ This document describes the publishing workflows for the benpy package to PyPI a
 
 ### 2. publish_pypi.yml - Production PyPI Publishing
 
-**Purpose**: Publish the package to production PyPI.
+**Purpose**: Publish the package to production PyPI after successful testing.
 
-**Triggers**:
-- Automatically when a GitHub release is published
-- Manual workflow dispatch with confirmation input
+**Trigger**: Manual workflow dispatch only (after confirming TestPyPI works)
 
-**Usage (Manual)**:
-1. Go to Actions tab in GitHub
-2. Select "Publish to PyPI" workflow
-3. Click "Run workflow"
-4. Type `publish` in the confirmation field
-5. Click "Run workflow"
-
-**Usage (Automatic)**:
-1. Create a new release in GitHub
-2. Tag the release (e.g., `v2.1.0`)
-3. Publish the release
-4. The workflow will automatically trigger
+**Usage**:
+1. First, verify the package works on TestPyPI (published automatically on release)
+2. Go to Actions tab in GitHub
+3. Select "Publish to PyPI" workflow
+4. Click "Run workflow"
+5. Type `publish` in the confirmation field
+6. Click "Run workflow"
 
 **What it does**:
-- Verifies release conditions
+- Verifies manual confirmation
 - Builds the source distribution (sdist)
 - Optionally downloads pre-built wheels (if available from build-wheels.yml)
-- Publishes to PyPI
+- Publishes to production PyPI
 - Verifies the publication by installing from PyPI
 
 **Requirements**:
@@ -144,7 +145,26 @@ Both workflows use GitHub Environments for additional protection:
 
 ## Testing the Workflows
 
-### Test with TestPyPI:
+### Recommended Release Process:
+
+1. **Create a GitHub release** (e.g., tag `v2.1.0`)
+   - This automatically triggers `test_publish.yml`
+   - Package is published to TestPyPI
+
+2. **Test the TestPyPI package**:
+   ```bash
+   pip install --index-url https://test.pypi.org/simple/ benpy
+   ```
+   Note: Dependencies might not be available on TestPyPI, which is expected.
+
+3. **If testing is successful, publish to PyPI**:
+   - Go to Actions → "Publish to PyPI"
+   - Click "Run workflow"
+   - Type `publish` and run
+
+### Manual TestPyPI Publishing:
+
+If you need to test without creating a release:
 
 ```bash
 # Trigger the test workflow manually
@@ -153,14 +173,6 @@ gh workflow run test_publish.yml -f confirm=test-publish
 # Check the workflow run
 gh run list --workflow=test_publish.yml
 ```
-
-### Verify TestPyPI Installation:
-
-```bash
-pip install --index-url https://test.pypi.org/simple/ benpy
-```
-
-Note: Dependencies might not be available on TestPyPI, which is expected.
 
 ## Building with Wheels
 

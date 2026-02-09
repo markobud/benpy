@@ -2,18 +2,17 @@ name: Publish to PyPI
 
 # Workflow for publishing to production PyPI
 # This workflow:
-# 1. Builds the source distribution (sdist)
-# 2. Optionally downloads wheels from a previous build-wheels workflow run
-# 3. Publishes to PyPI
+# 1. Manually triggered only (after testing with TestPyPI)
+# 2. Builds the source distribution (sdist)
+# 3. Optionally downloads wheels from a previous build-wheels workflow run
+# 4. Publishes to production PyPI
 #
 # Note: For trusted publishing, configure it in PyPI project settings
 # Otherwise, set the PYPI_API_TOKEN secret
 # 
-# For testing, use test_publish.yml which publishes to TestPyPI
+# For testing, use test_publish.yml which publishes to TestPyPI automatically on release
 
 on:
-  release:
-    types: [published]
   workflow_dispatch:
     inputs:
       confirm:
@@ -36,11 +35,9 @@ jobs:
       - name: Check release conditions
         id: check
         run: |
-          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
-            if [[ "${{ github.event.inputs.confirm }}" != "publish" ]]; then
-              echo "Manual trigger requires 'publish' confirmation"
-              exit 1
-            fi
+          if [[ "${{ github.event.inputs.confirm }}" != "publish" ]]; then
+            echo "Manual trigger requires 'publish' confirmation"
+            exit 1
           fi
           echo "should_publish=true" >> $GITHUB_OUTPUT
   

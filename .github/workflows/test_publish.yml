@@ -2,12 +2,15 @@ name: Publish to TestPyPI
 
 # Workflow for testing publication to TestPyPI
 # This workflow:
-# 1. Builds the source distribution (sdist)
-# 2. Publishes to TestPyPI for testing
+# 1. Automatically triggers when a release is published
+# 2. Builds the source distribution (sdist)
+# 3. Publishes to TestPyPI for testing before production
 #
 # Note: Configure TestPyPI trusted publishing or set TESTPYPI_API_TOKEN secret
 
 on:
+  release:
+    types: [published]
   workflow_dispatch:
     inputs:
       confirm:
@@ -30,9 +33,11 @@ jobs:
       - name: Check test conditions
         id: check
         run: |
-          if [[ "${{ github.event.inputs.confirm }}" != "test-publish" ]]; then
-            echo "Manual trigger requires 'test-publish' confirmation"
-            exit 1
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            if [[ "${{ github.event.inputs.confirm }}" != "test-publish" ]]; then
+              echo "Manual trigger requires 'test-publish' confirmation"
+              exit 1
+            fi
           fi
           echo "should_publish=true" >> $GITHUB_OUTPUT
   
