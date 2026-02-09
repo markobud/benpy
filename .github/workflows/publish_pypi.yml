@@ -135,13 +135,14 @@ jobs:
           echo "Verifying artifacts before publication..."
           ls -lh dist/
           
-          # Check we have wheels and sdist
-          if [ ! -f dist/*.tar.gz ]; then
+          # Check we have source distribution
+          if ! ls dist/*.tar.gz >/dev/null 2>&1; then
             echo "ERROR: No source distribution found"
             exit 1
           fi
           
-          if [ -z "$(ls dist/*.whl 2>/dev/null)" ]; then
+          # Check for wheels (optional)
+          if ! ls dist/*.whl >/dev/null 2>&1; then
             echo "WARNING: No wheels found, publishing source only"
           fi
           
